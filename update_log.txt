@@ -12,3 +12,17 @@
 [2026-08-19 23:11:51] ==========================================
 [2026-08-19 23:11:51] SUCCESS: All update tasks completed flawlessly!
 [2026-08-19 23:11:51] ==========================================
+[2026-08-20 03:38:03] ==========================================
+[2026-08-20 03:38:03] Starting Full Automatic Update Pipeline...
+[2026-08-20 03:38:03] ==========================================
+[2026-08-20 03:38:03] Executing: /opt/hostedtoolcache/Python/3.11.15/x64/bin/python fetch_optcg_data.py
+[2026-08-20 03:38:12] SUCCESS: /opt/hostedtoolcache/Python/3.11.15/x64/bin/python fetch_optcg_data.py
+[2026-08-20 03:38:12] Executing: /opt/hostedtoolcache/Python/3.11.15/x64/bin/python scrape_meta.py --set OP17
+[2026-08-20 03:39:03] SUCCESS: /opt/hostedtoolcache/Python/3.11.15/x64/bin/python scrape_meta.py --set OP17
+[2026-08-20 03:39:03] Recalculating decks_tracked for all meta JSON files...
+[2026-08-20 03:39:03] Updated decks_tracked in 13 files.
+[2026-08-20 03:39:03] Executing: /opt/hostedtoolcache/Python/3.11.15/x64/bin/python -m unittest test_deck_analyzer.py
+[2026-08-20 03:39:03] SUCCESS: /opt/hostedtoolcache/Python/3.11.15/x64/bin/python -m unittest test_deck_analyzer.py
+[2026-08-20 03:39:03] ==========================================
+[2026-08-20 03:39:03] SUCCESS: All update tasks completed flawlessly!
+[2026-08-20 03:39:03] ==========================================
