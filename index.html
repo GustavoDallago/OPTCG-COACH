@@ -1633,7 +1633,7 @@
                     const detected = [];
                     for (const code of candidateCodes) {
                         try {
-                            const res = await fetch(`/optcg_data/meta_${code}.json`, { method: 'HEAD' });
+                            const res = await fetch(`./optcg_data/meta_${code}.json`, { method: 'HEAD' });
                             if (res.ok) {
                                 const name = setTitles[code] || setTitles[code.replace(/^OP/, 'OP-')] || '';
                                 const label = name ? `${code} (${name})` : `${code}`;
@@ -1667,12 +1667,12 @@
                     loading.value = true;
                     try {
                         const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes] = await Promise.all([
-                            fetch('/optcg_data/sets.json').then(r => r.json()).catch(() => []),
-                            fetch('/optcg_data/set_cards.json').then(r => r.json()).catch(() => []),
-                            fetch('/optcg_data/decks.json').then(r => r.json()).catch(() => []),
-                            fetch('/optcg_data/starter_cards.json').then(r => r.json()).catch(() => []),
-                            fetch('/optcg_data/promo_cards.json').then(r => r.json()).catch(() => []),
-                            fetch('/optcg_data/don_cards.json').then(r => r.json()).catch(() => [])
+                            fetch('./optcg_data/sets.json').then(r => r.json()).catch(() => []),
+                            fetch('./optcg_data/set_cards.json').then(r => r.json()).catch(() => []),
+                            fetch('./optcg_data/decks.json').then(r => r.json()).catch(() => []),
+                            fetch('./optcg_data/starter_cards.json').then(r => r.json()).catch(() => []),
+                            fetch('./optcg_data/promo_cards.json').then(r => r.json()).catch(() => []),
+                            fetch('./optcg_data/don_cards.json').then(r => r.json()).catch(() => [])
                         ]);
 
                         sets.value = setsRes;
@@ -1694,7 +1694,7 @@
                     metaLoading.value = true;
                     metaError.value = false;
                     try {
-                        const res = await fetch(`/optcg_data/meta_${metaSet.value}.json`);
+                        const res = await fetch(`./optcg_data/meta_${metaSet.value}.json`);
                         if (!res.ok) {
                             throw new Error("Meta file not found");
                         }
