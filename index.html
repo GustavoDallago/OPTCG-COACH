@@ -1693,47 +1693,11 @@
                 const exportModalTitle = ref('');
                 const copiedToast = ref(false);
 
-                const checkAvailableMetaSets = async () => {
-                    const setTitles = {};
-                    if (sets.value && sets.value.length > 0) {
-                        sets.value.forEach(s => {
-                            const cleanCode = (s.set_id || '').replace(/[^A-Z0-9]/gi, '').toUpperCase();
-                            if (cleanCode) {
-                                setTitles[cleanCode] = s.set_name;
-                            }
-                        });
-                    }
-
-                    const candidateCodes = [];
-                    for (let i = 1; i <= 25; i++) {
-                        candidateCodes.push(`OP${i.toString().padStart(2, '0')}`);
-                    }
-                    for (let i = 1; i <= 5; i++) {
-                        candidateCodes.push(`EB${i.toString().padStart(2, '0')}`);
-                    }
-                    for (let i = 1; i <= 3; i++) {
-                        candidateCodes.push(`PRB${i.toString().padStart(2, '0')}`);
-                    }
-
-                    const detected = [];
-                    for (const code of candidateCodes) {
-                        try {
-                            const res = await fetch(`./optcg_data/meta_${code}.json`, { method: 'HEAD' });
-                            if (res.ok) {
-                                const name = setTitles[code] || setTitles[code.replace(/^OP/, 'OP-')] || '';
-                                const label = name ? `${code} (${name})` : `${code}`;
-                                detected.push({ value: code, label: label });
-                            }
-                        } catch (e) {}
-                    }
-
-                    if (detected.length > 0) {
-                        availableMetaSets.value = detected;
-                        const opSets = detected.filter(d => d.value.startsWith('OP'));
-                        const mostRecent = opSets.length > 0 ? opSets[opSets.length - 1] : detected[detected.length - 1];
-                        metaSet.value = mostRecent.value;
-                    }
-                };
+                const metaSearchQuery = ref('');
+                const showExportModal = ref(false);
+                const exportModalText = ref('');
+                const exportModalTitle = ref('');
+                const copiedToast = ref(false);
 
                 // --- Deck Builder State ---
                 const selectedBuilderLeader = ref(null);
@@ -1747,18 +1711,18 @@
                 const showImportModal = ref(false);
                 const importText = ref('');
 
-                // Fetch database files
                 // Fetch database files & Dynamically integrate Limitless Meta cards
                 const loadData = async () => {
                     loading.value = true;
                     try {
+                        const fetchOpts = { cache: 'no-cache' };
                         const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes] = await Promise.all([
-                            fetch('./optcg_data/sets.json').then(r => r.json()).catch(() => []),
-                            fetch('./optcg_data/set_cards.json').then(r => r.json()).catch(() => []),
-                            fetch('./optcg_data/decks.json').then(r => r.json()).catch(() => []),
-                            fetch('./optcg_data/starter_cards.json').then(r => r.json()).catch(() => []),
-                            fetch('./optcg_data/promo_cards.json').then(r => r.json()).catch(() => []),
-                            fetch('./optcg_data/don_cards.json').then(r => r.json()).catch(() => [])
+                            fetch('./optcg_data/sets.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
+                            fetch('./optcg_data/set_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
+                            fetch('./optcg_data/decks.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
+                            fetch('./optcg_data/starter_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
+                            fetch('./optcg_data/promo_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
+                            fetch('./optcg_data/don_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => [])
                         ]);
 
                         sets.value = setsRes;
@@ -1779,6 +1743,9 @@
                         for (let i = 1; i <= 5; i++) {
                             metaFilesToScan.push(`EB${i.toString().padStart(2, '0')}`);
                         }
+                        for (let i = 1; i <= 3; i++) {
+                            metaFilesToScan.push(`PRB${i.toString().padStart(2, '0')}`);
+                        }
 
                         const existingCardIds = new Set([
                             ...setCards.value.map(c => (c.card_set_id || c.card_id || '').toUpperCase()),
@@ -1791,15 +1758,21 @@
 
                         const metaResponses = await Promise.allSettled(
                             metaFilesToScan.map(code => 
-                                fetch(`./optcg_data/meta_${code}.json`)
+                                fetch(`./optcg_data/meta_${code}.json`, fetchOpts)
                                     .then(r => r.ok ? r.json() : null)
                                     .catch(() => null)
                             )
                         );
 
-                        for (const res of metaResponses) {
-                            if (!res.value || !res.value.leaders) continue;
+                        const detectedSets = [];
+
+                        for (let idx = 0; idx < metaFilesToScan.length; idx++) {
+                            const code = metaFilesToScan[idx];
+                            const res = metaResponses[idx];
+                            if (!res || !res.value || !res.value.leaders || res.value.leaders.length === 0) continue;
                             const mData = res.value;
+
+                            detectedSets.push({ value: code, label: `${code} (Limitless Meta)`, data: mData });
                             
                             for (const leader of mData.leaders) {
                                 const lid = (leader.leader_card_id || '').toUpperCase().trim();
@@ -1891,6 +1864,20 @@
                             }
                         }
 
+                        // Atualiza lista de sets disponíveis para a aba Meta
+                        if (detectedSets.length > 0) {
+                            availableMetaSets.value = detectedSets.map(d => ({ value: d.value, label: d.label }));
+                            if (!metaSet.value || !detectedSets.some(d => d.value === metaSet.value)) {
+                                const opSets = detectedSets.filter(d => d.value.startsWith('OP'));
+                                const mostRecent = opSets.length > 0 ? opSets[opSets.length - 1] : detectedSets[detectedSets.length - 1];
+                                metaSet.value = mostRecent.value;
+                            }
+                            const activeMeta = detectedSets.find(d => d.value === metaSet.value);
+                            if (activeMeta) {
+                                metaData.value = activeMeta.data;
+                            }
+                        }
+
                     } catch (error) {
                         console.error("Erro ao carregar arquivos locais:", error);
                     } finally {
@@ -1898,12 +1885,12 @@
                     }
                 };
 
-                // Load Meta File
+                // Load Meta File on demand when user changes dropdown
                 const loadMeta = async () => {
                     metaLoading.value = true;
                     metaError.value = false;
                     try {
-                        const res = await fetch(`./optcg_data/meta_${metaSet.value}.json`);
+                        const res = await fetch(`./optcg_data/meta_${metaSet.value}.json`, { cache: 'no-cache' });
                         if (!res.ok) {
                             throw new Error("Meta file not found");
                         }
@@ -3497,8 +3484,6 @@
 
                 onMounted(async () => {
                     await loadData();
-                    await checkAvailableMetaSets();
-                    await loadMeta();
                 });
 
                 return {
