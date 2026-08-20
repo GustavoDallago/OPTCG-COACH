@@ -114,5 +114,29 @@
     {
         "structure_deck_name": "Starter Deck EX: Luffy & Ace",
         "structure_deck_id": "ST-30"
+    },
+    {
+        "structure_deck_name": "Starter Deck 31: RED Monkey.D.Luffy",
+        "structure_deck_id": "ST-31"
+    },
+    {
+        "structure_deck_name": "Starter Deck 32: GREEN Roronoa Zoro",
+        "structure_deck_id": "ST-32"
+    },
+    {
+        "structure_deck_name": "Starter Deck 33: BLUE Kuzan",
+        "structure_deck_id": "ST-33"
+    },
+    {
+        "structure_deck_name": "Starter Deck 34: PURPLE Charlotte Katakuri",
+        "structure_deck_id": "ST-34"
+    },
+    {
+        "structure_deck_name": "Starter Deck 35: RED/BLACK Sabo",
+        "structure_deck_id": "ST-35"
+    },
+    {
+        "structure_deck_name": "Starter Deck 36: YELLOW Eustass\"Captain\"Kid",
+        "structure_deck_id": "ST-36"
     }
 ]

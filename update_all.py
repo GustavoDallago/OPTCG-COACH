@@ -57,8 +57,11 @@ def main():
     # 1. Fetch latest card and set data
     s1 = run_cmd(f"{sys.executable} fetch_optcg_data.py")
     
-    # 2. Scrape OP17 Meta Game data
-    s2 = run_cmd(f"{sys.executable} scrape_meta.py --set OP17")
+    # 2. Scrape OP17 Meta Game data from Limitless TCG (Past 7 Days tournaments, pairings, and 50-card lists)
+    s2 = run_cmd(f"{sys.executable} scrape_limitless.py --set OP17 --min-players 16")
+    if not s2:
+        log("Limitless scraper finished with warning, attempting fallback to Egman scraper...")
+        s2 = run_cmd(f"{sys.executable} scrape_meta.py --set OP17")
     
     # 3. Recalculate decks_tracked for all meta files
     fix_meta_decks_tracked()

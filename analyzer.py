@@ -103,21 +103,92 @@ KNOWN_LEADER_BASE_WINRATES = {
     "OP06-022": 49.0,  # Yamato (Green/Yellow)
 }
 
-def evaluate_matchup(opponent_leader: dict, user_stats: dict, meta_alignment: float) -> dict:
+def get_real_matchup_winrate(opponent_leader_id: str, leader_matchups_data: dict) -> Optional[dict]:
+    """
+    Retrieves real tournament matchup statistics between user's leader and opponent leader.
+    """
+    if not leader_matchups_data or not opponent_leader_id:
+        return None
+    matchup = leader_matchups_data.get(opponent_leader_id.upper())
+    if matchup and matchup.get("total_matches", 0) > 0:
+        return matchup
+    return None
+
+def find_smart_replacements(user_deck_cards: list, leader_meta_cards: list) -> list:
+    """
+    Recommends smart card replacements: replaces cards in user deck with lowest meta inclusion %
+    with missing core/staple cards with highest meta inclusion %.
+    """
+    if not leader_meta_cards or not user_deck_cards:
+        return []
+    
+    meta_pct_map = {c.get("card_id", "").upper(): float(c.get("inclusion_percentage", 0.0)) for c in leader_meta_cards}
+    user_deck_ids = {c.get("card_set_id", "").upper() for c in user_deck_cards}
+    
+    # Missing high-inclusion staples (>= 50%)
+    missing_staples = [c for c in leader_meta_cards if c.get("card_id", "").upper() not in user_deck_ids and float(c.get("inclusion_percentage", 0.0)) >= 50.0]
+    missing_staples.sort(key=lambda x: float(x.get("inclusion_percentage", 0.0)), reverse=True)
+    
+    # User cards with lowest meta inclusion
+    scored_user_cards = []
+    for c in user_deck_cards:
+        cid = c.get("card_set_id", "").upper()
+        pct = meta_pct_map.get(cid, 0.0)
+        scored_user_cards.append({"card": c, "inclusion_percentage": pct})
+    scored_user_cards.sort(key=lambda x: x["inclusion_percentage"])
+    
+    replacements = []
+    for i in range(min(len(missing_staples), len(scored_user_cards))):
+        if scored_user_cards[i]["inclusion_percentage"] < float(missing_staples[i].get("inclusion_percentage", 0.0)):
+            replacements.append({
+                "cut_card": scored_user_cards[i]["card"],
+                "cut_inclusion": scored_user_cards[i]["inclusion_percentage"],
+                "add_card": missing_staples[i],
+                "add_inclusion": float(missing_staples[i].get("inclusion_percentage", 0.0))
+            })
+    return replacements
+
+def evaluate_matchup(opponent_leader: dict, user_stats: dict, meta_alignment: float, leader_matchups_data: dict = None) -> dict:
     """
     Evaluates estimated win rate against a meta opponent leader.
+    Uses real Limitless tournament match records if available, otherwise falls back to heuristics.
     """
     opp_name = opponent_leader.get("name", "").lower()
     opp_id = opponent_leader.get("leader_card_id", "").strip().upper()
     
-    # 1. Base Matchup Lookup by card_set_id (Item 6)
+    # 1. Check Real Limitless Matchup Data first
+    real_match = get_real_matchup_winrate(opp_id, leader_matchups_data)
+    if real_match:
+        real_winrate = float(real_match.get("winrate", 50.0))
+        tot = real_match.get("total_matches", 0)
+        w = real_match.get("wins", 0)
+        l = real_match.get("losses", 0)
+        
+        status = "Equilibrado"
+        if real_winrate >= 55.0:
+            status = "Vantajoso"
+        elif real_winrate < 45.0:
+            status = "Desfavorável"
+            
+        recomends = [
+            f"Taxa real de {real_winrate}% em {tot} partidas de torneio ({w} vitórias, {l} derrotas)."
+        ]
+        return {
+            "winrate": real_winrate,
+            "status": status,
+            "recommendations": recomends,
+            "is_real_data": True,
+            "total_matches": tot
+        }
+    
+    # 2. Heuristic Base Matchup Lookup
     base_winrate = KNOWN_LEADER_BASE_WINRATES.get(opp_id, 50.0)
         
-    # 2. Meta Alignment Impact
+    # 3. Meta Alignment Impact
     meta_modifier = (meta_alignment - 70.0) / 6.0
     estimated_winrate = base_winrate + meta_modifier
     
-    # 3. Strategy Type Classification
+    # 4. Strategy Type Classification
     is_aggro = "shanks" in opp_name or "zoro" in opp_name or "betty" in opp_name
     is_big_character = "luffy" in opp_name or "teach" in opp_name or "enel" in opp_name
     
@@ -157,5 +228,114 @@ def evaluate_matchup(opponent_leader: dict, user_stats: dict, meta_alignment: fl
     return {
         "winrate": round(estimated_winrate, 1),
         "status": status,
-        "recommendations": recomends
+        "recommendations": recomends,
+        "is_real_data": False,
+        "total_matches": 0
     }
+
+def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict) -> dict:
+    """
+    Generates a 100% dynamic combat guide tailored to the user's specific deck cards
+    and the opponent's archetype (Aggro, Control, Tempo).
+    """
+    opp_name = opponent_leader.get("name", "").lower()
+    is_aggro = any(k in opp_name for k in ["shanks", "zoro", "betty", "law", "ace", "kid"])
+    is_big = any(k in opp_name for k in ["teach", "kaido", "enel", "linlin", "luffy", "sabo", "sakazuki", "kuzan"])
+    opp_type = 'aggro' if is_aggro else ('control' if is_big else 'tempo')
+    
+    # Categorize user cards
+    searchers = []
+    blockers = []
+    bosses = []
+    counters_2k = []
+    removals = []
+    early_drops = []
+    mid_drops = []
+    odd_count = 0
+    even_count = 0
+    
+    for c in user_deck_cards:
+        txt = (c.get("card_text") or "").lower()
+        cost = int(c.get("card_cost") or 0)
+        counter = int(c.get("counter_amount") or 0)
+        ctype = (c.get("card_type") or "").lower()
+        
+        if cost % 2 == 1:
+            odd_count += 1
+        elif cost > 0:
+            even_count += 1
+            
+        if cost <= 2 and any(k in txt for k in ["look", "search", "reveal", "add"]):
+            searchers.append(c)
+        if "[blocker]" in txt or "blocker" in txt:
+            blockers.append(c)
+        if cost >= 7 and ctype == "character":
+            bosses.append(c)
+        if counter == 2000:
+            counters_2k.append(c)
+        if any(k in txt for k in ["k.o.", "trash", "bottom of", "rest up to"]):
+            removals.append(c)
+        if 1 <= cost <= 3 and ctype == "character":
+            early_drops.append(c)
+        if 4 <= cost <= 6 and ctype == "character":
+            mid_drops.append(c)
+            
+    searchers.sort(key=lambda x: int(x.get("card_cost") or 0))
+    blockers.sort(key=lambda x: int(x.get("card_cost") or 0))
+    early_drops.sort(key=lambda x: int(x.get("card_power") or 0), reverse=True)
+    mid_drops.sort(key=lambda x: int(x.get("card_power") or 0), reverse=True)
+    bosses.sort(key=lambda x: int(x.get("card_power") or 0), reverse=True)
+    
+    # Posture
+    if is_aggro:
+        badge = "🚨 Oponente Agressivo (Rush / Swarm)"
+        msg = "Este oponente tentará zerar seus pontos de vida em ritmo acelerado desde os primeiros turnos. Postura recomendada: CONTROLE DE MESA E DEFESA. Não dispute corrida de vida; use seus personagens para limpar os atacantes virados (rested) dele e mantenha sua mão cheia de Counters (+2000)."
+    elif is_big:
+        badge = "🛡️ Oponente de Controle (Late Game / Chefes)"
+        msg = "Este oponente quer arrastar o jogo para os turnos 8 a 10 e dominar o campo com personagens gigantes. Postura recomendada: PRESSÃO E AGRESSIVIDADE INICIAL. Ataque a vida do oponente nos turnos 2 a 4 para forçá-lo a queimar cartas da mão se defendendo."
+    else:
+        badge = "🔄 Oponente de Ritmo (Manipulação & Recursos)"
+        msg = "Este líder manipula a mesa virando ou retornando peças. Postura recomendada: JOGO CADENCIADO E VALOR. Faça trocas vantajosas e evite deixar personagens virados sem proteção."
+
+    # Turn Preference
+    top_searcher = searchers[0] if searchers else None
+    top_blocker = blockers[0] if blockers else None
+    top_2k = counters_2k[0] if counters_2k else None
+    top_mid = mid_drops[0] if mid_drops else None
+    top_boss = bosses[0] if bosses else None
+    top_removal = removals[0] if removals else None
+    
+    if odd_count >= even_count:
+        pref_title = "Primeiro (Ímpar - 1, 3, 5, 7, 9 Don!!)"
+        pref_desc = f"Seu deck possui predominância de custos ímpares ({odd_count} cartas). Ir primeiro encaixa com perfeição sua curva ideal sem deixar Don ocioso."
+    else:
+        pref_title = "Segundo (Par - 2, 4, 6, 8, 10 Don!!)"
+        pref_desc = f"Seu deck possui predominância de custos pares ({even_count} cartas). Ir segundo garante +1 carta comprada e curva de Don sincronizada."
+
+    # Mulligan
+    if is_aggro:
+        mulligan = f"🚨 Prioridade contra Agressividade: Mantenha defesas e cartas de custo baixo (ex: {top_searcher.get('card_name') if top_searcher else 'Buscador'} e {top_2k.get('card_name') if top_2k else '+2000 Counter'}). Se a mão vier pesada, faça Mulligan imediatamente."
+    elif is_big:
+        mulligan = f"🛡️ Prioridade contra Controle: Garanta peças de ataque proativo (ex: {top_mid.get('card_name') if top_mid else 'Atacante Mid'} e {top_searcher.get('card_name') if top_searcher else 'Buscador'}) para pressionar antes do turno 10."
+    else:
+        mulligan = "🔄 Prioridade para Ritmo: Busque curva balanceada de custo baixo e médio para trocas de recursos eficientes."
+
+    # Don Curve
+    early = f"Early Game (1-4 Don): Baixar {top_searcher.get('card_name') if top_searcher else 'buscador/drop inicial'} para estruturar o campo."
+    mid = f"Mid Game (5-8 Don): Estabelecer {top_mid.get('card_name') if top_mid else 'atacante de custo médio'} para controlar a mesa."
+    late = f"Late Game (9-10 Don): Descer {top_boss.get('card_name') if top_boss else 'Boss principal'} para finalizar com alta força."
+
+    return {
+        "tactical_badge": badge,
+        "tactical_type": opp_type,
+        "tactical_message": msg,
+        "turn_preference": f"{pref_title} - {pref_desc}",
+        "mulligan_tips": mulligan,
+        "don_strategy": {
+            "early": early,
+            "mid": mid,
+            "late": late
+        },
+        "matchup_explanation": msg
+    }
+

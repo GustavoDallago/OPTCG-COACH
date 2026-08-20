@@ -1,0 +1,548 @@
+import os
+import re
+import sys
+import json
+import time
+import argparse
+import urllib.request
+import urllib.parse
+from typing import Dict, Any, List, Optional
+
+# Ensure UTF-8 output on Windows consoles
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+if sys.stderr and hasattr(sys.stderr, "reconfigure"):
+    try:
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
+DATA_DIR = "optcg_data"
+BASE_URL = "https://play.limitlesstcg.com"
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.5",
+}
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Scraper de Meta Game do Limitless TCG (Últimos 7 dias)")
+    parser.add_argument("--set", type=str, default="OP17", help="Coleção a ser buscada (ex: OP17, OP16, OP09)")
+    parser.add_argument("--min-players", type=int, default=16, help="Número mínimo de jogadores no torneio (padrão: 16)")
+    parser.add_argument("--days", type=int, default=7, help="Dias de histórico para analisar (padrão: 7)")
+    return parser.parse_args()
+
+def fetch_url(url: str, retries: int = 3, delay: float = 0.5) -> Optional[str]:
+    """Faz requisições HTTP seguras com headers e tratamento de erros."""
+    req = urllib.request.Request(url, headers=HEADERS)
+    for attempt in range(1, retries + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=25) as response:
+                if response.status == 200:
+                    time.sleep(delay)
+                    return response.read().decode("utf-8", errors="replace")
+        except Exception as e:
+            print(f"  [Aviso] Falha ao acessar {url} (Tentativa {attempt}/{retries}): {e}")
+            if attempt < retries:
+                time.sleep(attempt * 1.5)
+    return None
+
+def is_base_version(card: Dict[str, Any]) -> bool:
+    name = (card.get("card_name") or "").lower()
+    img = (card.get("card_image") or "").lower()
+    
+    # Strictly reject Japanese versions if English is available
+    if "japanese" in name or "_jp" in img:
+        return False
+        
+    alt_keywords = [
+        "(parallel", "(alternate", "(special", "(extra grand", 
+        "(store", "(premium", "(winner", "(judge", "(manga", "(championship", 
+        "(treasure", "(event", "(prb", "_p1", "_p2", "_p3", "_p4", "_parallel", "_img.jpg"
+    ]
+    for kw in alt_keywords:
+        if kw in name or kw in img:
+            return False
+    return True
+
+def clean_card_name(name: str) -> str:
+    cleaned = re.sub(r'\s*-\s*[A-Z0-9]+-\d+', '', name)
+    cleaned = re.sub(r'\s*\([A-Z0-9]+-\d+\)', '', cleaned)
+    cleaned = re.sub(r'\s*\((?:Parallel|Alternate Art|Japanese Version|Special|Extra Grand Battle|Store|Premium|Winner Pack|Judge|Manga|Championship|Treasure|Event).*?\)', '', cleaned, flags=re.IGNORECASE)
+    return cleaned.strip() or name
+
+def load_card_database() -> Dict[str, Dict[str, Any]]:
+    """Carrega o banco de cartas local priorizando SEMPRE as versões base das cartas."""
+    cards_map = {}
+    for filename in ["promo_cards.json", "don_cards.json", "starter_cards.json", "set_cards.json"]:
+        filepath = os.path.join(DATA_DIR, filename)
+        if os.path.exists(filepath):
+            try:
+                with open(filepath, "r", encoding="utf-8") as f:
+                    cards = json.load(f)
+                    for c in cards:
+                        cid = (c.get("card_set_id") or c.get("card_id") or "").upper()
+                        if not cid:
+                            continue
+                        
+                        is_base = is_base_version(c)
+                        if cid not in cards_map:
+                            cards_map[cid] = c
+                        else:
+                            existing_is_base = is_base_version(cards_map[cid])
+                            if is_base and not existing_is_base:
+                                cards_map[cid] = c
+            except Exception:
+                pass
+    return cards_map
+
+def find_tournaments(set_code: str, min_players: int = 16) -> List[Dict[str, Any]]:
+    """Busca a lista de torneios da seção 'Past 7 days' que correspondam ao Set e ao mínimo de jogadores."""
+    url = f"{BASE_URL}/tournaments/?game=OP"
+    print(f"--> Buscando torneios recentes em: {url}")
+    html = fetch_url(url)
+    if not html:
+        print("❌ Erro: Não foi possível carregar a lista de torneios do Limitless.")
+        return []
+
+    tournaments = []
+    row_pattern = re.compile(r'<tr\s+([^>]*?)>(.*?)</tr>', re.DOTALL | re.IGNORECASE)
+    
+    table_match = re.search(r'<table[^>]*class="[^"]*completed-tournaments[^"]*"[^>]*>(.*?)</table>', html, re.DOTALL | re.IGNORECASE)
+    table_content = table_match.group(1) if table_match else html
+
+    set_upper = set_code.upper()
+    
+    for row_match in row_pattern.finditer(table_content):
+        attrs = row_match.group(1)
+        content = row_match.group(2)
+        
+        data_name = re.search(r'data-name="([^"]+)"', attrs)
+        data_players = re.search(r'data-players="(\d+)"', attrs)
+        data_date = re.search(r'data-date="([^"]+)"', attrs)
+        data_winner = re.search(r'data-winner="([^"]+)"', attrs)
+        
+        link_match = re.search(r'href="\/tournament\/([a-f0-9]+)\/standings"', content)
+        if not link_match:
+            continue
+            
+        t_id = link_match.group(1)
+        name = data_name.group(1) if data_name else ""
+        players = int(data_players.group(1)) if data_players else 0
+        date_str = data_date.group(1) if data_date else ""
+        winner = data_winner.group(1) if data_winner else ""
+
+        name_clean = name.upper()
+        is_matching_set = (set_upper in name_clean) or (set_upper.replace("OP", "OP-") in name_clean)
+        
+        if is_matching_set and players >= min_players:
+            tournaments.append({
+                "id": t_id,
+                "name": name,
+                "players": players,
+                "date": date_str,
+                "winner": winner
+            })
+            print(f"  [+] Torneio Elegível Encontrado: {name} | Jogadores: {players} | ID: {t_id}")
+
+    return tournaments
+
+def parse_standings(t_id: str) -> List[Dict[str, Any]]:
+    """Raspa os Standings de um torneio específico."""
+    url = f"{BASE_URL}/tournament/{t_id}/standings"
+    html = fetch_url(url)
+    if not html:
+        return []
+
+    players_list = []
+    row_pattern = re.compile(r'<tr\s+([^>]*?)>(.*?)</tr>', re.DOTALL | re.IGNORECASE)
+    
+    for row in row_pattern.finditer(html):
+        attrs = row.group(1)
+        content = row.group(2)
+        
+        data_placing = re.search(r'data-placing="(\d+)"', attrs)
+        data_name = re.search(r'data-name="([^"]+)"', attrs)
+        data_country = re.search(r'data-country="([^"]+)"', attrs)
+        
+        player_id_match = re.search(r'href="\/tournament\/[a-f0-9]+\/player\/([a-z0-9_\-]+)"', content, re.IGNORECASE)
+        leader_id_match = re.search(r'href="\/tournament\/[a-f0-9]+\/metagame\/([A-Z0-9\-]+)"', content)
+        decklist_link_match = re.search(r'href="(\/tournament\/[a-f0-9]+\/player\/[a-z0-9_\-]+\/decklist)"', content, re.IGNORECASE)
+        
+        if not player_id_match or not leader_id_match:
+            continue
+            
+        p_id = player_id_match.group(1).lower()
+        placing = int(data_placing.group(1)) if data_placing else len(players_list) + 1
+        name = data_name.group(1) if data_name else p_id
+        country = data_country.group(1) if data_country else ""
+        leader_id = leader_id_match.group(1).upper()
+        
+        deck_name_match = re.search(rf'href="\/tournament\/[a-f0-9]+\/metagame\/{re.escape(leader_id)}">([^<]+)<', content)
+        deck_name = deck_name_match.group(1).strip() if deck_name_match else leader_id
+        
+        players_list.append({
+            "player_id": p_id,
+            "player_name": name,
+            "placing": placing,
+            "country": country,
+            "leader_id": leader_id,
+            "deck_name": deck_name,
+            "has_decklist": bool(decklist_link_match),
+            "decklist_url": f"{BASE_URL}{decklist_link_match.group(1)}" if decklist_link_match else None
+        })
+
+    return players_list
+
+def parse_decklist(decklist_url: str) -> List[Dict[str, Any]]:
+    """Raspa a lista exata de 50 cartas do jogador."""
+    html = fetch_url(decklist_url, delay=0.05)
+    if not html:
+        return []
+
+    cards_found = []
+    
+    js_match = re.search(r'const\s+decklist\s*=\s*`([^`]+)`', html)
+    raw_lines = []
+    if js_match:
+        raw_lines = js_match.group(1).strip().splitlines()
+    else:
+        input_match = re.search(r'<input[^>]*name="input"[^>]*value="([^"]+)"', html)
+        if input_match:
+            raw_lines = input_match.group(1).strip().splitlines()
+
+    for line in raw_lines:
+        line = line.strip()
+        if not line or line.startswith("//") or line.startswith("#"):
+            continue
+            
+        match = re.search(r'^\s*(\d+)\s+(.*?)\s*\(([A-Za-z0-9\-]+)\)\s*$', line)
+        if match:
+            qty = int(match.group(1))
+            c_name = match.group(2).strip()
+            c_id = match.group(3).strip().upper()
+            cards_found.append({
+                "card_id": c_id,
+                "card_name": c_name,
+                "quantity": qty
+            })
+        else:
+            simple_match = re.search(r'^\s*(\d+)\s*x?\s*([A-Za-z0-9\-]+)', line)
+            if simple_match:
+                qty = int(simple_match.group(1))
+                c_id = simple_match.group(2).strip().upper()
+                cards_found.append({
+                    "card_id": c_id,
+                    "card_name": c_id,
+                    "quantity": qty
+                })
+
+    return cards_found
+
+def parse_pairings(t_id: str) -> List[Dict[str, Any]]:
+    """Raspa todas as rodadas de partidas (Pairings) do torneio para descobrir quem enfrentou quem."""
+    initial_url = f"{BASE_URL}/tournament/{t_id}/pairings"
+    html = fetch_url(initial_url)
+    if not html:
+        return []
+
+    rounds = [1]
+    round_matches = re.findall(r'href="\/tournament\/[a-f0-9]+\/pairings\?round=(\d+)"', html)
+    if round_matches:
+        rounds = sorted(list(set(int(r) for r in round_matches)))
+
+    all_matches = []
+    
+    for r in rounds:
+        round_url = f"{BASE_URL}/tournament/{t_id}/pairings?round={r}"
+        r_html = html if (r == rounds[-1] and "data-round" in html) else fetch_url(round_url, delay=0.2)
+        if not r_html:
+            continue
+            
+        row_pattern = re.compile(r'<tr\s+([^>]*?)>(.*?)</tr>', re.DOTALL | re.IGNORECASE)
+        for row in row_pattern.finditer(r_html):
+            attrs = row.group(1)
+            content = row.group(2)
+            
+            data_winner = re.search(r'data-winner="([^"]+)"', attrs)
+            winner_id = data_winner.group(1).lower() if data_winner else ""
+            
+            players = re.findall(r'class="player[^"]*"\s+data-id="([a-z0-9_\-]+)"', content, re.IGNORECASE)
+            if len(players) >= 2:
+                p1_id = players[0].lower()
+                p2_id = players[1].lower()
+                
+                all_matches.append({
+                    "round": r,
+                    "p1": p1_id,
+                    "p2": p2_id,
+                    "winner": winner_id
+                })
+
+    return all_matches
+
+def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 7):
+    print("=" * 60)
+    print(f"🏴‍☠️ INICIANDO SCRAPER LIMITLESS TCG: META {set_code.upper()} (ÚLTIMOS {days} DIAS)")
+    print(f"   Filtro Mínimo de Jogadores: {min_players}")
+    print("=" * 60)
+
+    card_db = load_card_database()
+    tournaments = find_tournaments(set_code, min_players)
+    
+    if not tournaments:
+        print(f"Nenhum torneio recente encontrado para o Set {set_code} com >= {min_players} jogadores.")
+        return False
+
+    print(f"\n--> Processando {len(tournaments)} torneios encontrados...")
+    
+    all_player_records = {}
+    all_leader_decks = {}
+    leader_info_map = {}
+    matchup_matrix = {}
+    leader_sample_builds = {}
+
+    total_decks_tracked = 0
+
+    for t_idx, t in enumerate(tournaments):
+        t_id = t["id"]
+        t_name = t["name"]
+        print(f"\n[{t_idx+1}/{len(tournaments)}] Coletando dados do Torneio: {t_name}...", flush=True)
+        
+        # 1. Standings
+        standings = parse_standings(t_id)
+        print(f"    Standings: {len(standings)} jogadores listados.", flush=True)
+        
+        tournament_players = {}
+        for p in standings:
+            p_id = p["player_id"]
+            leader_id = p["leader_id"]
+            deck_name = p["deck_name"]
+            
+            tournament_players[p_id] = p
+            all_player_records[(t_id, p_id)] = p
+            total_decks_tracked += 1
+            
+            if leader_id not in leader_info_map:
+                c_info = card_db.get(leader_id, {})
+                l_set = leader_id.split("-")[0] if "-" in leader_id else set_code
+                img = c_info.get("card_image") or f"https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/{l_set}/{leader_id}_EN.webp"
+                color = c_info.get("card_color") or "Multi"
+                name_display = f"{deck_name} ({color})" if color != "Multi" and "(" not in deck_name else deck_name
+                
+                leader_info_map[leader_id] = {
+                    "name": name_display,
+                    "leader_card_id": leader_id,
+                    "deck_count": 0,
+                    "image": img,
+                    "archetype_code": f"{leader_id}||{color}"
+                }
+            leader_info_map[leader_id]["deck_count"] += 1
+            
+            # 2. Decklists completas (Top 32 de cada torneio para máxima precisão e velocidade)
+            if p["has_decklist"] and p["decklist_url"] and p["placing"] <= 32:
+                cards = parse_decklist(p["decklist_url"])
+                if cards:
+                    if leader_id not in all_leader_decks:
+                        all_leader_decks[leader_id] = []
+                    
+                    deck_dict = {c["card_id"]: c["quantity"] for c in cards}
+                    all_leader_decks[leader_id].append({
+                        "player_name": p["player_name"],
+                        "placing": p["placing"],
+                        "cards": cards,
+                        "deck_dict": deck_dict
+                    })
+                    
+                    if p["placing"] <= 8:
+                        if leader_id not in leader_sample_builds:
+                            leader_sample_builds[leader_id] = []
+                        
+                        txt_lines = [f"1x{leader_id}"]
+                        for c in cards:
+                            if c["card_id"] != leader_id:
+                                txt_lines.append(f"{c['quantity']}x{c['card_id']}")
+                        
+                        leader_sample_builds[leader_id].append({
+                            "player_name": p["player_name"],
+                            "country": p["country"],
+                            "placing": p["placing"],
+                            "tournament_name": t_name,
+                            "deck_txt": "\n".join(txt_lines)
+                        })
+
+        # 3. Pairings
+        pairings = parse_pairings(t_id)
+        print(f"    Pairings: {len(pairings)} partidas registradas.", flush=True)
+        
+        for m in pairings:
+            p1_id = m["p1"]
+            p2_id = m["p2"]
+            winner = m["winner"]
+            
+            p1_info = tournament_players.get(p1_id)
+            p2_info = tournament_players.get(p2_id)
+            
+            if not p1_info or not p2_info:
+                continue
+                
+            l1 = p1_info["leader_id"]
+            l2 = p2_info["leader_id"]
+            
+            if l1 not in matchup_matrix: matchup_matrix[l1] = {}
+            if l2 not in matchup_matrix: matchup_matrix[l2] = {}
+            if l2 not in matchup_matrix[l1]: matchup_matrix[l1][l2] = {"wins": 0, "losses": 0, "ties": 0, "total": 0}
+            if l1 not in matchup_matrix[l2]: matchup_matrix[l2][l1] = {"wins": 0, "losses": 0, "ties": 0, "total": 0}
+            
+            matchup_matrix[l1][l2]["total"] += 1
+            matchup_matrix[l2][l1]["total"] += 1
+            
+            if winner == p1_id:
+                matchup_matrix[l1][l2]["wins"] += 1
+                matchup_matrix[l2][l1]["losses"] += 1
+            elif winner == p2_id:
+                matchup_matrix[l1][l2]["losses"] += 1
+                matchup_matrix[l2][l1]["wins"] += 1
+            else:
+                matchup_matrix[l1][l2]["ties"] += 1
+                matchup_matrix[l2][l1]["ties"] += 1
+
+    # --- Consolidação Estatística ---
+    print("\n--> Consolidando porcentagens de inclusão de cartas e matriz de confrontos...")
+    
+    leaders_output = []
+    
+    for leader_id, l_data in leader_info_map.items():
+        deck_count = l_data["deck_count"]
+        share_pct = round((deck_count / max(1, total_decks_tracked)) * 100.0, 1)
+        
+        submitted_lists = all_leader_decks.get(leader_id, [])
+        num_lists = len(submitted_lists)
+        
+        card_stats = {}
+        
+        for s in submitted_lists:
+            for c in s["cards"]:
+                cid = c["card_id"]
+                if cid == leader_id:
+                    continue
+                qty = c["quantity"]
+                cname = c["card_name"]
+                
+                if cid not in card_stats:
+                    c_info = card_db.get(cid, {})
+                    c_set = cid.split("-")[0] if "-" in cid else set_code
+                    c_img = c_info.get("card_image") or f"https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/{c_set}/{cid}_EN.webp"
+                    c_raw_name = c_info.get("card_name") or cname
+                    card_stats[cid] = {
+                        "card_name": clean_card_name(c_raw_name),
+                        "card_id": cid,
+                        "deck_appearances": 0,
+                        "total_copies": 0,
+                        "image": c_img
+                    }
+                card_stats[cid]["deck_appearances"] += 1
+                card_stats[cid]["total_copies"] += qty
+                
+        cards_list = []
+        for cid, c_data in card_stats.items():
+            inclusion_pct = round((c_data["deck_appearances"] / max(1, num_lists)) * 100.0, 1) if num_lists > 0 else 0.0
+            avg_copies = round(c_data["total_copies"] / max(1, c_data["deck_appearances"]), 1)
+            recommended_copies = f"usually {int(round(avg_copies))}x" if avg_copies > 0 else "1x"
+            
+            if inclusion_pct >= 70.0:
+                category = "core"
+            elif inclusion_pct >= 30.0:
+                category = "suggested"
+            else:
+                category = "tech"
+                
+            cards_list.append({
+                "card_name": c_data["card_name"],
+                "card_id": cid,
+                "inclusion_percentage": inclusion_pct,
+                "copies_recommendation": recommended_copies,
+                "avg_copies": avg_copies,
+                "category": category,
+                "decks_count_text": f"{c_data['deck_appearances']}/{num_lists} decks",
+                "image": c_data["image"]
+            })
+            
+        cards_list.sort(key=lambda x: x["inclusion_percentage"], reverse=True)
+        
+        leader_matchups = {}
+        h2h = matchup_matrix.get(leader_id, {})
+        total_wins = 0
+        total_games = 0
+        
+        for opp_id, m_stat in h2h.items():
+            opp_name = leader_info_map.get(opp_id, {}).get("name", opp_id)
+            w = m_stat["wins"]
+            l = m_stat["losses"]
+            t = m_stat["ties"]
+            tot = m_stat["total"]
+            
+            total_wins += w
+            total_games += tot
+            
+            winrate = round((w / max(1, tot)) * 100.0, 1) if tot > 0 else 50.0
+            leader_matchups[opp_id] = {
+                "opponent_id": opp_id,
+                "opponent_name": opp_name,
+                "wins": w,
+                "losses": l,
+                "ties": t,
+                "total_matches": tot,
+                "winrate": winrate
+            }
+            
+        overall_winrate = round((total_wins / max(1, total_games)) * 100.0, 1) if total_games > 0 else 50.0
+        
+        sample_builds = leader_sample_builds.get(leader_id, [])
+        sample_builds.sort(key=lambda x: x["placing"])
+        
+        leaders_output.append({
+            "name": l_data["name"],
+            "leader_card_id": leader_id,
+            "deck_count": deck_count,
+            "share_percentage": share_pct,
+            "overall_winrate": overall_winrate,
+            "total_games_recorded": total_games,
+            "archetype_code": l_data["archetype_code"],
+            "image": l_data["image"],
+            "cards": cards_list,
+            "matchups": leader_matchups,
+            "sample_builds": sample_builds[:4]
+        })
+
+    leaders_output.sort(key=lambda x: x["deck_count"], reverse=True)
+    
+    final_data = {
+        "set_code": set_code.upper(),
+        "source": "Limitless TCG (Past 7 Days - Western Meta)",
+        "tournaments_tracked": len(tournaments),
+        "decks_tracked": total_decks_tracked,
+        "scraped_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "leaders": leaders_output
+    }
+    
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR)
+        
+    out_file = os.path.join(DATA_DIR, f"meta_{set_code.upper()}.json")
+    with open(out_file, "w", encoding="utf-8") as f:
+        json.dump(final_data, f, indent=4, ensure_ascii=False)
+        
+    print("\n" + "=" * 60)
+    print(f"✅ SUCESSO! Metagame do Set {set_code.upper()} consolidado.")
+    print(f"   Arquivo Gerado: {out_file}")
+    print(f"   Torneios: {len(tournaments)} | Decks: {total_decks_tracked} | Líderes: {len(leaders_output)}")
+    print("=" * 60)
+    return True
+
+if __name__ == "__main__":
+    args = parse_args()
+    scrape_limitless(set_code=args.set, min_players=args.min_players, days=args.days)

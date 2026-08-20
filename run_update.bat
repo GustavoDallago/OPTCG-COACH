@@ -1,3 +1,3 @@
 @echo off
-cd /d "c:\Users\User\Documents\projeto\OPTCG COUCH"
+cd /d "%~dp0"
 python update_all.py

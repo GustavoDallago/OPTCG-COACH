@@ -74,7 +74,7 @@
                     </svg>
                     <div>
                         <h1 class="text-xl font-black tracking-wider text-amber-500 font-mono">OPTCG DATABASE</h1>
-                        <p class="text-xs text-slate-400">Visualizador de Cartas, Meta Game e Deck Builder</p>
+                        <p class="text-xs text-slate-400">Visualizador de Cartas, Decks populares e Deck Builder</p>
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@
                         @click="switchTab('meta')"
                         :class="currentTab === 'meta' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-slate-200'"
                         class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all duration-200">
-                        Meta Game
+                        Popular Decks
                     </button>
                     <button 
                         @click="switchTab('builder')"
@@ -448,7 +448,7 @@
                 <!-- Meta Data View -->
                 <div v-if="metaLoading" class="flex flex-col items-center justify-center py-20 bg-slate-900/50 border border-slate-800 rounded-2xl">
                     <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500 mb-4"></div>
-                    <p class="text-slate-400 text-sm font-mono">Buscando dados de meta locais para {{ metaSet }}...</p>
+                    <p class="text-slate-400 text-sm font-mono">Buscando dados de decks populares para {{ metaSet }}...</p>
                 </div>
 
                 <!-- Meta Error State -->
@@ -456,9 +456,9 @@
                     <svg class="w-16 h-16 text-red-500/80 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                     </svg>
-                    <h3 class="text-lg font-bold text-slate-300 mb-2">Meta não carregado para {{ metaSet }}</h3>
+                    <h3 class="text-lg font-bold text-slate-300 mb-2">Decks populares não carregados para {{ metaSet }}</h3>
                     <p class="text-sm text-slate-500 max-w-md mb-6">
-                        Os dados do meta game para esta coleção não foram encontrados localmente ou ainda não foram coletados.
+                        Os dados dos decks populares para esta coleção não foram encontrados localmente ou ainda não foram coletados.
                     </p>
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-left font-mono text-xs max-w-lg mb-6 leading-relaxed select-all">
                         python scrape_meta.py --set {{ metaSet }}
@@ -478,7 +478,7 @@
                                 <input 
                                     v-model="metaSearchQuery"
                                     type="text" 
-                                    placeholder="Buscar líder no meta (ex: Enel, Bonney, Luffy)..." 
+                                    placeholder="Buscar líder nos decks populares (ex: Enel, Bonney, Luffy)..." 
                                     class="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 text-xs text-slate-200 placeholder-slate-500 rounded-xl px-3 py-2.5 pl-9 focus:outline-none transition-colors">
                                 <svg class="w-4 h-4 text-slate-500 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -498,12 +498,13 @@
                                     <img :src="topMetaLeader.image" :alt="topMetaLeader.name" class="w-full h-full object-cover object-center">
                                 </div>
                                 <div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="bg-amber-500 text-slate-950 font-black text-[10px] uppercase px-2 py-0.5 rounded shadow">O MELHOR DECK DO META {{ metaSet }}</span>
-                                        <span class="text-xs text-amber-400 font-mono font-bold">{{ topMetaLeader.share_percentage }}% do Meta</span>
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <span class="bg-amber-500 text-slate-950 font-black text-[10px] uppercase px-2 py-0.5 rounded shadow">#1 MAIOR PRESENÇA NO META</span>
+                                        <span class="text-xs text-amber-400 font-mono font-bold">{{ topMetaLeader.deck_count }} Decks ({{ topMetaLeader.share_percentage }}%)</span>
+                                        <span v-if="topMetaLeader.overall_winrate" class="text-xs text-emerald-400 font-mono font-bold">• {{ topMetaLeader.overall_winrate }}% WR</span>
                                     </div>
                                     <h3 class="text-lg font-black text-slate-100 mt-1">{{ topMetaLeader.name }}</h3>
-                                    <p class="text-xs text-slate-400">Líder com maior número de vitórias e presenças em torneios neste formato ({{ topMetaLeader.deck_count }} decks mapeados).</p>
+                                    <p class="text-xs text-slate-400">Líder com maior volume de listas e presenças em torneios neste formato ({{ topMetaLeader.deck_count }} decks mapeados).</p>
                                 </div>
                             </div>
                             <div class="flex gap-2 flex-shrink-0">
@@ -531,31 +532,27 @@
                                 <div class="relative w-full aspect-[2.5/2.6] bg-slate-950 overflow-hidden flex items-center justify-center border-b border-slate-800 p-2">
                                     <div class="w-full h-full rounded-xl overflow-hidden relative shadow-inner">
                                         <img 
-                                            :src="leader.image" 
+                                            :src="getCardImage(leader)" 
                                             :alt="leader.name" 
+                                            @error="handleCardImgError($event, getLeaderCardId(leader))"
                                             class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
                                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
                                     </div>
                                     
-                                    <!-- Rank Badge -->
-                                    <div v-if="idx === 0" class="absolute top-2.5 left-2.5 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded shadow border border-amber-300">
-                                        #1 O MELHOR DECK
-                                    </div>
-                                    <div v-else-if="idx === 1" class="absolute top-2.5 left-2.5 bg-gradient-to-r from-slate-300 to-slate-400 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded shadow border border-slate-200">
-                                        #2 TIER 1
-                                    </div>
-                                    <div v-else-if="idx === 2" class="absolute top-2.5 left-2.5 bg-gradient-to-r from-amber-700 to-amber-800 text-amber-100 text-[10px] font-black uppercase px-2 py-0.5 rounded shadow border border-amber-600">
-                                        #3 TIER 1
-                                    </div>
-                                    <div v-else class="absolute top-2.5 left-2.5 bg-slate-900/90 text-slate-400 text-[10px] font-mono font-bold px-2 py-0.5 rounded border border-slate-800">
-                                        #{{ idx + 1 }} TIER {{ idx < 8 ? '1.5' : '2' }}
-                                    </div>
-
-                                    <div class="absolute bottom-2.5 right-2.5 bg-amber-500 text-slate-950 text-xs font-mono font-black px-2 py-0.5 rounded shadow-lg border border-amber-400/20">
-                                        {{ leader.share_percentage }}%
+                                    <!-- Rank & Metrics Header Badge (Top-Left: #Rank, % WR, % Uso) -->
+                                    <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-lg px-2.5 py-1 shadow-lg">
+                                        <span :class="idx === 0 ? 'text-amber-400 font-black' : (idx === 1 ? 'text-slate-200 font-black' : (idx === 2 ? 'text-amber-600 font-black' : 'text-slate-400 font-bold'))" class="font-mono text-xs">
+                                            #{{ idx + 1 }}
+                                        </span>
+                                        <span v-if="leader.overall_winrate" :class="leader.overall_winrate >= 55 ? 'text-emerald-400' : (leader.overall_winrate < 48 ? 'text-rose-400' : 'text-amber-400')" class="text-xs font-mono font-bold">
+                                            {{ leader.overall_winrate }}% WR
+                                        </span>
+                                        <span class="text-[11px] font-mono font-bold text-amber-500">
+                                            {{ leader.share_percentage }}% Uso
+                                        </span>
                                     </div>
 
-                                    <div class="absolute bottom-2.5 left-2.5 bg-slate-950/80 border border-slate-800 text-[10px] font-mono px-2 py-0.5 rounded text-slate-300">
+                                    <div class="absolute bottom-2.5 left-2.5 bg-slate-950/85 border border-slate-800 text-[10px] font-mono px-2 py-0.5 rounded text-slate-300">
                                         {{ leader.deck_count }} decks
                                     </div>
                                 </div>
@@ -596,8 +593,9 @@
                             <div class="p-6 bg-slate-950/80 flex items-center justify-center relative border-b md:border-b-0 md:border-r border-slate-800 shrink-0">
                                 <div class="relative w-36 sm:w-44 aspect-[2.5/3.5] rounded-2xl overflow-hidden shadow-2xl border border-slate-700/60 group">
                                     <img 
-                                        :src="selectedMetaLeader.image" 
+                                        :src="getCardImage(selectedMetaLeader)" 
                                         :alt="selectedMetaLeader.name" 
+                                        @error="handleCardImgError($event, getLeaderCardId(selectedMetaLeader))"
                                         class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
                                     <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl"></div>
                                 </div>
@@ -634,18 +632,24 @@
                                 </div>
 
                                 <div class="flex flex-col items-end gap-3">
-                                    <div class="flex gap-3">
-                                        <div class="bg-slate-950/60 border border-slate-800 px-4 py-3 rounded-xl flex flex-col items-center min-w-[90px]">
+                                    <div class="flex flex-wrap gap-3">
+                                        <div class="bg-slate-950/60 border border-slate-800 px-4 py-3 rounded-xl flex flex-col items-center min-w-[80px]">
                                             <span class="text-[9px] uppercase tracking-wider font-bold text-slate-500">Decks</span>
                                             <span class="text-lg font-mono font-black text-amber-500">{{ selectedMetaLeader.deck_count }}</span>
                                         </div>
-                                        <div class="bg-slate-950/60 border border-slate-800 px-4 py-3 rounded-xl flex flex-col items-center min-w-[90px]">
-                                            <span class="text-[9px] uppercase tracking-wider font-bold text-slate-500">Representação</span>
+                                        <div class="bg-slate-950/60 border border-slate-800 px-4 py-3 rounded-xl flex flex-col items-center min-w-[80px]">
+                                            <span class="text-[9px] uppercase tracking-wider font-bold text-slate-500">Meta Share</span>
                                             <span class="text-lg font-mono font-black text-amber-500">{{ selectedMetaLeader.share_percentage }}%</span>
                                         </div>
+                                        <div v-if="selectedMetaLeader.overall_winrate" class="bg-slate-950/60 border border-slate-800 px-4 py-3 rounded-xl flex flex-col items-center min-w-[80px]">
+                                            <span class="text-[9px] uppercase tracking-wider font-bold text-slate-500">Win Rate</span>
+                                            <span :class="selectedMetaLeader.overall_winrate >= 55 ? 'text-emerald-400' : (selectedMetaLeader.overall_winrate < 45 ? 'text-rose-400' : 'text-amber-400')" class="text-lg font-mono font-black">{{ selectedMetaLeader.overall_winrate }}%</span>
+                                        </div>
+                                        <div v-if="selectedMetaLeader.total_games_recorded" class="bg-slate-950/60 border border-slate-800 px-4 py-3 rounded-xl flex flex-col items-center min-w-[80px]">
+                                            <span class="text-[9px] uppercase tracking-wider font-bold text-slate-500">Partidas</span>
+                                            <span class="text-lg font-mono font-black text-slate-300">{{ selectedMetaLeader.total_games_recorded }}</span>
+                                        </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -668,7 +672,7 @@
                                         class="bg-slate-900 border border-slate-800/80 hover:border-emerald-500/50 rounded-xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group shadow-sm flex flex-col">
                                         
                                         <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 flex items-center justify-center overflow-hidden">
-                                            <img :src="metaCard.image" :alt="metaCard.card_name" class="w-full h-full object-cover">
+                                            <img :src="getCardImage(metaCard)" :alt="metaCard.card_name" @error="handleCardImgError($event, getMetaCardId(metaCard))" class="w-full h-full object-cover">
                                             <div class="absolute top-2 left-2 bg-emerald-500 text-slate-950 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded shadow">
                                                 {{ metaCard.inclusion_percentage }}%
                                             </div>
@@ -705,7 +709,7 @@
                                         class="bg-slate-900 border border-slate-800/80 hover:border-amber-500/50 rounded-xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group shadow-sm flex flex-col">
                                         
                                         <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 flex items-center justify-center overflow-hidden">
-                                            <img :src="metaCard.image" :alt="metaCard.card_name" class="w-full h-full object-cover">
+                                            <img :src="getCardImage(metaCard)" :alt="metaCard.card_name" @error="handleCardImgError($event, getMetaCardId(metaCard))" class="w-full h-full object-cover">
                                             <div class="absolute top-2 left-2 bg-amber-500 text-slate-950 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded shadow">
                                                 {{ metaCard.inclusion_percentage }}%
                                             </div>
@@ -736,7 +740,7 @@
                             <div class="flex flex-col gap-4">
                                 <div class="border-l-4 border-slate-500 pl-3">
                                     <h3 class="text-lg font-bold text-slate-200">Tech Choices & Cartas Alternativas (Uso Inferior a 30%)</h3>
-                                    <p class="text-xs text-slate-500">Opções pontuais de meta e variações customizadas para surpreender oponentes</p>
+                                    <p class="text-xs text-slate-500">Opções pontuais de decks populares e variações customizadas para surpreender oponentes</p>
                                 </div>
                                 
                                 <div v-if="getMetaCardsByCategory('tech').length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
@@ -747,7 +751,7 @@
                                         class="bg-slate-900 border border-slate-800/80 hover:border-slate-500/50 rounded-xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group shadow-sm flex flex-col opacity-80 hover:opacity-100">
                                         
                                         <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 flex items-center justify-center overflow-hidden">
-                                            <img :src="metaCard.image" :alt="metaCard.card_name" class="w-full h-full object-cover">
+                                            <img :src="getCardImage(metaCard)" :alt="metaCard.card_name" @error="handleCardImgError($event, getMetaCardId(metaCard))" class="w-full h-full object-cover">
                                             <div class="absolute top-2 left-2 bg-slate-800 text-slate-300 text-[10px] font-mono px-1.5 py-0.5 rounded shadow">
                                                 {{ metaCard.inclusion_percentage }}%
                                             </div>
@@ -766,6 +770,48 @@
                                 </div>
                                 <div v-else class="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center text-sm text-slate-500">
                                     Nenhuma carta alternativa listada.
+                                </div>
+                            </div>
+
+                            <!-- Decks Campeões e Listas do Top 8 (Limitless TCG) -->
+                            <div v-if="selectedMetaLeader.sample_builds && selectedMetaLeader.sample_builds.length > 0" class="flex flex-col gap-4">
+                                <div class="border-l-4 border-amber-500 pl-3">
+                                    <h3 class="text-lg font-bold text-slate-200">Decks Campeões & Top Placements (Limitless TCG)</h3>
+                                    <p class="text-xs text-slate-500">Listas reais de 50 cartas utilizadas por jogadores que alcançaram o Top nos torneios recentes</p>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                    <div 
+                                        v-for="(build, bIdx) in selectedMetaLeader.sample_builds" 
+                                        :key="bIdx"
+                                        class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between gap-3 hover:border-amber-500/50 transition-colors shadow">
+                                        
+                                        <div>
+                                            <div class="flex items-center justify-between gap-2">
+                                                <span 
+                                                    :class="build.placing === 1 ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-800 text-slate-300 font-bold'"
+                                                    class="text-[10px] uppercase px-2 py-0.5 rounded shadow">
+                                                    {{ build.placing === 1 ? '🥇 1º Lugar (Campeão)' : `#${build.placing} Lugar` }}
+                                                </span>
+                                                <span v-if="build.country" class="text-[10px] font-mono text-slate-400">[{{ build.country }}]</span>
+                                            </div>
+                                            <h4 class="font-bold text-sm text-slate-100 mt-2">{{ build.player_name }}</h4>
+                                            <p class="text-[11px] text-slate-400 line-clamp-1 mt-0.5" :title="build.tournament_name">{{ build.tournament_name }}</p>
+                                        </div>
+
+                                        <div class="flex gap-2 pt-2 border-t border-slate-800/80">
+                                            <button 
+                                                @click="loadSampleBuildToBuilder(build, selectedMetaLeader)"
+                                                class="flex-1 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-[11px] transition-colors flex items-center justify-center gap-1 shadow">
+                                                <span>Testar no Builder</span>
+                                            </button>
+                                            <button 
+                                                @click="copyBuildTxt(build.deck_txt)"
+                                                class="px-2.5 py-1.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 text-amber-400 font-bold rounded-lg text-[11px] transition-colors flex items-center justify-center gap-1">
+                                                <span>TXT</span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -901,16 +947,11 @@
                                 
                                 <div class="w-full aspect-[2.5/3.5] bg-slate-900 flex items-center justify-center overflow-hidden">
                                     <img 
-                                        v-if="card.card_image" 
-                                        :src="card.card_image" 
+                                        :src="getCardImage(card)" 
                                         :alt="card.card_name" 
+                                        @error="handleCardImgError($event, card.card_set_id)"
                                         loading="lazy"
                                         class="w-full h-full object-cover">
-                                    <div v-else class="w-full h-full p-2 flex flex-col justify-between items-center text-center text-slate-400">
-                                        <span class="text-[9px] font-mono">{{ card.card_set_id }}</span>
-                                        <span class="text-[10px] font-bold line-clamp-2 leading-tight">{{ card.card_name }}</span>
-                                        <span class="text-[8px] text-slate-500">{{ card.card_type }}</span>
-                                    </div>
                                 </div>
                                 
                                 <!-- Floating count in deck -->
@@ -939,7 +980,7 @@
                             <div class="flex justify-between items-center pb-4 border-b border-slate-800/80">
                                 <div class="flex items-center gap-3">
                                     <div class="w-12 h-12 rounded-lg overflow-hidden bg-slate-950 flex items-center justify-center border border-slate-800 shrink-0">
-                                        <img :src="selectedBuilderLeader.card_image" :alt="selectedBuilderLeader.card_name" class="w-full h-full object-cover object-top scale-[1.3]">
+                                        <img :src="getCardImage(selectedBuilderLeader)" :alt="selectedBuilderLeader.card_name" @error="handleCardImgError($event, getLeaderCardId(selectedBuilderLeader))" class="w-full h-full object-cover object-top scale-[1.3]">
                                     </div>
                                     <div>
                                         <h3 class="font-bold text-sm text-slate-100 line-clamp-1">{{ selectedBuilderLeader.card_name }}</h3>
@@ -986,7 +1027,7 @@
                                     
                                     <div class="flex items-center gap-2 min-w-0">
                                         <div class="w-8 h-10 bg-slate-900 border border-slate-800 rounded overflow-hidden flex items-center justify-center shrink-0">
-                                            <img :src="item.card.card_image" :alt="item.card.card_name" class="w-full h-full object-cover">
+                                            <img :src="getCardImage(item.card)" :alt="item.card.card_name" @error="handleCardImgError($event, item.card.card_set_id)" class="w-full h-full object-cover">
                                         </div>
                                         <div class="min-w-0">
                                             <h4 class="text-xs font-bold text-slate-200 line-clamp-1 group-hover:text-amber-500 transition-colors" :title="item.card.card_name">
@@ -1024,7 +1065,7 @@
                                 </div>
 
                                 <div class="flex flex-col gap-1.5">
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Set Meta de Referência:</label>
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Set de Decks Populares:</label>
                                     <select 
                                         v-model="metaSet"
                                         @change="loadMeta"
@@ -1072,91 +1113,88 @@
         </footer>
 
         <!-- Detail Modal (Integrated for database cards and meta lookup) -->
-        <div v-if="selectedCard" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4 overflow-y-auto">
+        <div v-if="selectedCard" @click="closeDetails" class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-[60] flex items-start sm:items-center justify-center p-3 sm:p-6 overflow-y-auto">
             
-            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative my-auto max-h-[92vh] md:max-h-[90vh]">
                 
+                <!-- Close Button (Always visible on mobile & desktop) -->
                 <button 
                     @click="closeDetails"
-                    class="absolute top-4 right-4 z-10 p-2 bg-slate-950/50 hover:bg-slate-950 text-slate-400 hover:text-slate-200 rounded-full border border-slate-800 transition-all">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    class="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 p-2 bg-slate-950/80 hover:bg-slate-950 text-slate-400 hover:text-white rounded-full border border-slate-700/80 backdrop-blur-sm transition-all shadow-lg">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
 
-                <div class="md:w-1/2 bg-slate-950 p-6 flex items-center justify-center border-r border-slate-800/80">
-                    <div class="relative w-full max-w-xs aspect-[2.5/3.5] rounded-xl overflow-hidden shadow-lg bg-slate-900 flex items-center justify-center">
+                <!-- Left Column: Card Image -->
+                <div class="md:w-1/2 bg-slate-950 p-4 sm:p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-800/80 shrink-0">
+                    <div class="relative w-44 sm:w-56 md:w-full md:max-w-xs aspect-[2.5/3.5] rounded-xl overflow-hidden shadow-2xl bg-slate-900 flex items-center justify-center border border-slate-800">
                         <img 
-                            v-if="selectedCard.card_image && !selectedCard.imageError" 
-                            :src="selectedCard.card_image" 
+                            :src="getCardImage(selectedCard)" 
                             :alt="selectedCard.card_name" 
+                            @error="handleCardImgError($event, selectedCard.card_set_id || selectedCard.card_id)"
                             class="w-full h-full object-cover">
-                        <div v-else class="w-full h-full p-6 flex flex-col justify-between items-center text-center select-none bg-gradient-to-br from-slate-900 to-slate-950">
-                            <span class="text-xs font-mono text-slate-500">{{ selectedCard.card_set_id || 'DON!!' }}</span>
-                            <div class="flex flex-col items-center">
-                                <svg class="w-16 h-16 text-slate-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span class="text-sm font-bold text-slate-400 px-4">{{ selectedCard.card_name }}</span>
-                            </div>
-                            <span class="text-xs font-mono text-amber-600/70 border border-amber-600/20 px-3 py-1 rounded-full bg-amber-500/5">Sem Imagem</span>
-                        </div>
                     </div>
                 </div>
 
-                <div class="md:w-1/2 p-6 md:p-8 flex flex-col gap-6 max-h-[90vh] md:max-h-none overflow-y-auto">
+                <!-- Right Column: Card Details & Stats -->
+                <div class="md:w-1/2 p-5 sm:p-6 md:p-8 flex flex-col gap-4 sm:gap-6 overflow-y-auto">
                     
-                    <div class="flex flex-col gap-1.5">
-                        <span class="text-xs font-mono font-semibold text-amber-500 uppercase tracking-widest">{{ selectedCard.set_name || 'One Piece Promotion' }}</span>
-                        <h2 class="text-2xl font-black text-slate-100">{{ selectedCard.card_name }}</h2>
-                        <div class="flex items-center gap-2 mt-1">
-                            <span class="text-xs font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-extrabold">ID: {{ selectedCard.card_set_id || selectedCard.don_id || 'PROMO' }}</span>
-                            <span v-if="selectedCard.rarity" class="text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-extrabold">Raridade: {{ selectedCard.rarity }}</span>
+                    <div class="flex flex-col gap-1.5 pr-8 md:pr-0">
+                        <span class="text-[10px] sm:text-xs font-mono font-semibold text-amber-500 uppercase tracking-widest">{{ selectedCard.set_name || 'One Piece Promotion' }}</span>
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-100">{{ selectedCard.card_name }}</h2>
+                        <div class="flex flex-wrap items-center gap-2 mt-1">
+                            <span class="text-[10px] sm:text-xs font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-extrabold">ID: {{ selectedCard.card_set_id || selectedCard.don_id || 'PROMO' }}</span>
+                            <span v-if="selectedCard.rarity" class="text-[10px] sm:text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-extrabold">Raridade: {{ selectedCard.rarity }}</span>
                         </div>
                     </div>
 
-                    <div v-if="selectedCard.card_type !== 'DON!!'" class="grid grid-cols-2 gap-4 bg-slate-950/50 p-4 rounded-2xl border border-slate-800">
+                    <div v-if="selectedCard.card_type !== 'DON!!'" class="grid grid-cols-2 gap-3 sm:gap-4 bg-slate-950/50 p-3.5 sm:p-4 rounded-2xl border border-slate-800 text-xs sm:text-sm">
                         <div class="flex flex-col">
-                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Custo / Custo Vida</span>
-                            <span class="text-sm font-bold text-slate-200">
+                            <span class="text-[9px] sm:text-[10px] text-slate-500 uppercase font-semibold">Custo / Custo Vida</span>
+                            <span class="font-bold text-slate-200">
                                 {{ selectedCard.card_cost !== 'NULL' && selectedCard.card_cost ? selectedCard.card_cost : 'N/A' }} 
-                                <span class="text-xs text-slate-500 font-normal" v-if="selectedCard.life && selectedCard.life !== 'NULL'">(Leader Life: {{ selectedCard.life }})</span>
+                                <span class="text-[10px] text-slate-500 font-normal" v-if="selectedCard.life && selectedCard.life !== 'NULL'">(Leader Life: {{ selectedCard.life }})</span>
                             </span>
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Poder (Power)</span>
-                            <span class="text-sm font-bold text-slate-200">{{ selectedCard.card_power !== 'NULL' && selectedCard.card_power ? selectedCard.card_power : 'N/A' }}</span>
+                            <span class="text-[9px] sm:text-[10px] text-slate-500 uppercase font-semibold">Poder (Power)</span>
+                            <span class="font-bold text-slate-200">{{ selectedCard.card_power !== 'NULL' && selectedCard.card_power ? selectedCard.card_power : 'N/A' }}</span>
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Counter</span>
-                            <span class="text-sm font-bold text-slate-200">{{ selectedCard.counter_amount !== 'NULL' && selectedCard.counter_amount ? `+${selectedCard.counter_amount}` : 'Sem Counter' }}</span>
+                            <span class="text-[9px] sm:text-[10px] text-slate-500 uppercase font-semibold">Counter</span>
+                            <span class="font-bold text-slate-200">{{ selectedCard.counter_amount !== 'NULL' && selectedCard.counter_amount ? `+${selectedCard.counter_amount}` : 'Sem Counter' }}</span>
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Atributo</span>
-                            <span class="text-sm font-bold text-slate-200">{{ selectedCard.attribute !== 'NULL' && selectedCard.attribute ? selectedCard.attribute : 'N/A' }}</span>
+                            <span class="text-[9px] sm:text-[10px] text-slate-500 uppercase font-semibold">Atributo</span>
+                            <span class="font-bold text-slate-200">{{ selectedCard.attribute !== 'NULL' && selectedCard.attribute ? selectedCard.attribute : 'N/A' }}</span>
                         </div>
-                        <div class="flex flex-col col-span-2 border-t border-slate-900 pt-3 mt-1">
-                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Sub-Tipos (Família/Afiliação)</span>
-                            <span class="text-xs text-slate-300 font-medium">{{ selectedCard.sub_types !== 'NULL' && selectedCard.sub_types ? selectedCard.sub_types : 'N/A' }}</span>
+                        <div class="flex flex-col col-span-2 border-t border-slate-900 pt-2.5 mt-1">
+                            <span class="text-[9px] sm:text-[10px] text-slate-500 uppercase font-semibold">Sub-Tipos (Família/Afiliação)</span>
+                            <span class="text-[11px] sm:text-xs text-slate-300 font-medium">{{ selectedCard.sub_types !== 'NULL' && selectedCard.sub_types ? selectedCard.sub_types : 'N/A' }}</span>
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-2">
-                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Texto da Carta / Efeito</span>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed font-mono whitespace-pre-wrap">
+                    <div class="flex flex-col gap-1.5">
+                        <span class="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Texto da Carta / Efeito</span>
+                        <div class="bg-slate-950 p-3.5 sm:p-4 rounded-xl border border-slate-800 text-[11px] sm:text-xs text-slate-300 leading-relaxed font-mono whitespace-pre-wrap">
                             {{ selectedCard.card_text && selectedCard.card_text !== 'NULL' ? selectedCard.card_text : 'Carta sem efeito/texto descritivo.' }}
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-3 border-t border-slate-800/80 pt-4 mt-1">
-                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Cotação & Marketplace (Brasil)</span>
+                    <div class="flex flex-col sm:flex-row gap-2.5 border-t border-slate-800/80 pt-4 mt-auto">
                         <a :href="getLigaOnePieceUrl(selectedCard)" target="_blank" rel="noopener noreferrer" 
-                           class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-amber-500/10">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           class="flex-1 flex items-center justify-center gap-2 py-2.5 sm:py-3 px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-amber-500/10 text-center">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                             </svg>
-                            <span>Ver Preços e Estoque na Liga One Piece</span>
+                            <span>Ver na Liga One Piece</span>
                         </a>
+                        <button 
+                            @click="closeDetails"
+                            class="sm:hidden w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition-colors">
+                            Fechar
+                        </button>
                     </div>
 
                 </div>
@@ -1166,9 +1204,9 @@
         </div>
 
         <!-- DECK ANALYSIS REPORT MODAL -->
-        <div v-if="showDeckAnalysis" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div v-if="showDeckAnalysis" @click="showDeckAnalysis = false" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-start sm:items-center justify-center p-3 sm:p-4 overflow-y-auto">
             
-            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col relative max-h-[90vh]">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col relative max-h-[92vh] md:max-h-[90vh] my-auto">
                 
                 <!-- Close Button -->
                 <button 
@@ -1188,12 +1226,12 @@
                         <h2 class="text-2xl font-black text-slate-100 flex items-center gap-2 mt-1">
                             Análise do Deck: {{ selectedBuilderLeader.card_name }}
                         </h2>
-                        <p class="text-xs text-slate-400 mt-1">Simulado com base nas estatísticas reais do Meta Game (Set: {{ metaSet }}).</p>
+                        <p class="text-xs text-slate-400 mt-1">Simulado com base nas estatísticas reais dos Decks Populares (Set: {{ metaSet }}).</p>
                     </div>
 
                     <!-- Meta Data Warning (if meta was not scraped) -->
                     <div v-if="metaError" class="bg-red-500/5 border border-red-500/20 p-4 rounded-xl text-center text-xs text-red-400">
-                        ⚠️ **Aviso**: O arquivo de dados do meta `meta_{{ metaSet }}.json` não foi localizado. Os matchups simulados abaixo usarão uma estimativa matemática básica. 
+                        ⚠️ **Aviso**: O arquivo de dados dos decks populares `meta_{{ metaSet }}.json` não foi localizado. Os matchups simulados abaixo usarão uma estimativa matemática básica. 
                         Rode `python scrape_meta.py --set {{ metaSet }}` no terminal para carregar dados reais dos arquétipos inimigos.
                     </div>
 
@@ -1203,7 +1241,7 @@
                         <!-- Meta Alignment -->
                         <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
                             <div>
-                                <span class="text-[10px] uppercase font-bold text-slate-500">Alinhamento com o Meta</span>
+                                <span class="text-[10px] uppercase font-bold text-slate-500">Alinhamento com os Decks Populares</span>
                                 <h3 class="text-3xl font-black font-mono text-amber-500 mt-2">{{ analysisResults.alignment.toFixed(1) }}%</h3>
                                 <p class="text-xs text-slate-400 mt-2">O quanto as cartas do seu deck combinam com as listas populares do meta.</p>
                             </div>
@@ -1340,11 +1378,10 @@
                                         @click="openDetails(sug.replacementCard)"
                                         :title="'Ver detalhes de ' + sug.replacementCard.card_name">
                                         <img 
-                                            v-if="sug.replacementCard.card_image" 
-                                            :src="sug.replacementCard.card_image" 
-                                            :alt="sug.replacementCard.card_name"
+                                            :src="getCardImage(sug.replacementCard)" 
+                                            :alt="sug.replacementCard.card_name" 
+                                            @error="handleCardImgError($event, sug.replacementCard.card_set_id)"
                                             class="w-full h-full object-cover">
-                                        <div v-else class="w-full h-full bg-slate-950 flex items-center justify-center text-[7px] text-slate-600 font-mono">{{ sug.replacementCard.card_set_id }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -1353,7 +1390,7 @@
 
                     <!-- Row 3: Meta Matchups Table/List -->
                     <div class="flex flex-col gap-4">
-                        <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Simulador de Combates contra o Meta Inimigo</span>
+                        <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Simulador de Combates contra os Decks Populares</span>
                         
                         <div class="flex flex-col gap-3">
                             <div 
@@ -1365,7 +1402,7 @@
                                     <!-- Opponent Details -->
                                     <div class="flex items-center gap-3">
                                         <div class="w-10 h-10 rounded-full overflow-hidden bg-slate-900 flex items-center justify-center border border-slate-800 shrink-0">
-                                            <img :src="opp.image" :alt="opp.opponent_name" class="w-full h-full object-cover object-top scale-[1.3]">
+                                            <img :src="getCardImage({image: opp.image, card_set_id: opp.opponent_id})" :alt="opp.opponent_name" @error="handleCardImgError($event, opp.opponent_id)" class="w-full h-full object-cover object-top scale-[1.3]">
                                         </div>
                                         <div>
                                             <h4 class="font-bold text-sm text-slate-200">{{ opp.opponent_name }}</h4>
@@ -1422,38 +1459,52 @@
                                     v-if="opp.showGuide" 
                                     class="bg-slate-950/80 border border-slate-800/60 rounded-xl p-4 flex flex-col gap-4 text-xs mt-1 animate-fade-in">
                                     
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <!-- Turn Preference -->
-                                        <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/60">
-                                            <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Preferência de Turno</span>
-                                            <p class="font-bold text-slate-200 mt-1 flex items-center gap-1.5">
-                                                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                                                {{ opp.guide.turn_preference }}
-                                            </p>
+                                    <div class="grid grid-cols-1 gap-3">
+                                        <!-- Tactical Posture Banner -->
+                                        <div v-if="opp.guide.tactical_badge" class="bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 p-3.5 rounded-xl border border-slate-800 flex flex-col gap-1.5 shadow-sm">
+                                            <div class="flex items-center gap-2">
+                                                <span 
+                                                    :class="opp.guide.tactical_type === 'aggro' ? 'bg-rose-500 text-slate-950 font-black' : (opp.guide.tactical_type === 'control' ? 'bg-amber-500 text-slate-950 font-black' : 'bg-blue-500 text-white font-bold')"
+                                                    class="text-[10px] uppercase px-2 py-0.5 rounded shadow">
+                                                    {{ opp.guide.tactical_badge }}
+                                                </span>
+                                                <span class="text-xs font-bold text-slate-200">Postura de Combate Recomendada</span>
+                                            </div>
+                                            <p class="text-slate-300 text-xs leading-relaxed font-medium mt-0.5">{{ opp.guide.tactical_message }}</p>
                                         </div>
 
-                                        <!-- Starting Hand & Mulligan -->
-                                        <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/60">
-                                            <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Mão Inicial & Mulligan</span>
-                                            <p class="text-slate-300 mt-1 font-medium leading-relaxed">{{ opp.guide.mulligan_tips }}</p>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <!-- Turn Preference -->
+                                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60">
+                                                <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Preferência de Turno (Curva de Don)</span>
+                                                <p class="font-bold text-slate-200 mt-1.5 leading-relaxed text-xs">
+                                                    {{ opp.guide.turn_preference }}
+                                                </p>
+                                            </div>
+
+                                            <!-- Starting Hand & Mulligan -->
+                                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60">
+                                                <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Mão Inicial & Guia de Mulligan</span>
+                                                <p class="text-slate-300 mt-1.5 font-medium leading-relaxed text-xs">{{ opp.guide.mulligan_tips }}</p>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <!-- Don Strategy -->
-                                    <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/60 flex flex-col gap-2">
-                                        <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Estratégia por Curva de Don</span>
+                                    <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-2">
+                                        <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Melhores Cartas por Fase de Jogo (Curva de Don)</span>
                                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-1 text-[11px] leading-relaxed">
-                                            <div>
-                                                <span class="font-bold text-amber-500/90 font-mono">Early Game (1-4 Don)</span>
-                                                <p class="text-slate-400 mt-0.5">{{ opp.guide.don_strategy.early }}</p>
+                                            <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
+                                                <span class="font-bold text-emerald-400 font-mono text-xs">🌱 Early Game (1-4 Don)</span>
+                                                <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.early }}</p>
                                             </div>
-                                            <div class="border-t md:border-t-0 md:border-l border-slate-800/60 pt-2 md:pt-0 md:pl-3">
-                                                <span class="font-bold text-amber-500/90 font-mono">Mid Game (5-8 Don)</span>
-                                                <p class="text-slate-400 mt-0.5">{{ opp.guide.don_strategy.mid }}</p>
+                                            <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
+                                                <span class="font-bold text-amber-400 font-mono text-xs">⚔️ Mid Game (5-8 Don)</span>
+                                                <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.mid }}</p>
                                             </div>
-                                            <div class="border-t md:border-t-0 md:border-l border-slate-800/60 pt-2 md:pt-0 md:pl-3">
-                                                <span class="font-bold text-amber-500/90 font-mono">Late Game (9-10 Don)</span>
-                                                <p class="text-slate-400 mt-0.5">{{ opp.guide.don_strategy.late }}</p>
+                                            <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
+                                                <span class="font-bold text-purple-400 font-mono text-xs">👑 Late Game (9-10 Don)</span>
+                                                <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.late }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -1476,14 +1527,14 @@
         </div>
 
         <!-- DECK IMPORT FROM TXT MODAL -->
-        <div v-if="showImportModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col relative">
+        <div v-if="showImportModal" @click="showImportModal = false" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-start sm:items-center justify-center p-3 sm:p-4 overflow-y-auto">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col relative my-auto">
                 
                 <!-- Close Button -->
                 <button 
                     @click="showImportModal = false"
                     class="absolute top-4 right-4 z-10 p-2 bg-slate-950/50 hover:bg-slate-950 text-slate-400 hover:text-slate-200 rounded-full border border-slate-800 transition-all">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
@@ -1514,48 +1565,80 @@
                         <button 
                             @click="importDeck"
                             :disabled="!importText.trim()"
-                                        <span>Lista copiada para a área de transferência!</span>
-                                    </div>
+                            class="px-4 py-2 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold rounded-lg transition-colors">
+                            Carregar Deck
+                        </button>
+                    </div>
+                </div>
 
-                                    <div class="flex flex-col gap-1.5">
-                                        <label class="text-xs font-semibold text-slate-400">Lista TXT Formatada:</label>
-                                        <textarea 
-                                            v-model="exportModalText"
-                                            readonly
-                                            rows="10"
-                                            class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-amber-400 font-mono focus:outline-none select-all resize-none"></textarea>
-                                    </div>
+            </div>
+        </div>
 
-                                    <div class="flex flex-wrap gap-2 justify-end border-t border-slate-800/80 pt-4">
-                                        <button 
-                                            @click="copyExportText"
-                                            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5">
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                                            </svg>
-                                            <span>Copiar Texto</span>
-                                        </button>
+        <!-- EXPORT MODAL -->
+        <div v-if="showExportModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-start sm:items-center justify-center p-3 sm:p-4 overflow-y-auto" @click="showExportModal = false">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col relative my-auto">
+                
+                <!-- Close Button -->
+                <button 
+                    @click="showExportModal = false"
+                    class="absolute top-4 right-4 z-10 p-2 bg-slate-950/50 hover:bg-slate-950 text-slate-400 hover:text-slate-200 rounded-full border border-slate-800 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
 
-                                        <button 
-                                            @click="downloadExportTxtFile"
-                                            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5">
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                                            </svg>
-                                            <span>Baixar .TXT</span>
-                                        </button>
+                <div class="p-5 sm:p-6 flex flex-col gap-4">
+                    <div>
+                        <span class="text-[10px] sm:text-xs font-mono font-bold text-amber-500 uppercase tracking-widest">Decklist Exportada</span>
+                        <h2 class="text-lg sm:text-xl font-black text-slate-100 mt-1">{{ exportModalTitle }}</h2>
+                    </div>
 
-                                        <button 
-                                            v-if="selectedMetaLeader"
-                                            @click="showExportModal = false; importMetaBuildToBuilder(selectedMetaLeader)"
-                                            class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-lg transition-all shadow-md flex items-center gap-1.5">
-                                            <span>Testar no Montar Deck</span>
-                                        </button>
-                                    </div>
-                                </div>
+                    <div v-if="copiedToast" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs py-2 px-3 rounded-lg flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Lista copiada para a área de transferência!</span>
+                    </div>
 
-                            </div>
-                        </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-xs font-semibold text-slate-400">Lista TXT Formatada:</label>
+                        <textarea 
+                            v-model="exportModalText"
+                            readonly
+                            rows="10"
+                            class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-amber-400 font-mono focus:outline-none select-all resize-none"></textarea>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 justify-end border-t border-slate-800/80 pt-4">
+                        <button 
+                            @click="copyExportText"
+                            class="px-3 sm:px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                            <span>Copiar Texto</span>
+                        </button>
+
+                        <button 
+                            @click="downloadExportTxtFile"
+                            class="px-3 sm:px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            <span>Baixar .TXT</span>
+                        </button>
+
+                        <button 
+                            v-if="selectedMetaLeader"
+                            @click="showExportModal = false; importMetaBuildToBuilder(selectedMetaLeader)"
+                            class="px-3 sm:px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-lg transition-all shadow-md flex items-center gap-1.5">
+                            <span>Testar no Montar Deck</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
     </div>
 
@@ -1665,6 +1748,7 @@
                 const importText = ref('');
 
                 // Fetch database files
+                // Fetch database files & Dynamically integrate Limitless Meta cards
                 const loadData = async () => {
                     loading.value = true;
                     try {
@@ -1683,6 +1767,129 @@
                         starterCards.value = starterCardsRes.map(c => ({ ...c, imageError: false }));
                         promoCards.value = promoCardsRes.map(c => ({ ...c, imageError: false }));
                         donCards.value = donCardsRes.map(c => ({ ...c, imageError: false }));
+
+                        // --- UNIFICAÇÃO DINÂMICA DE CARTAS E SETS DO LIMITLESS (Abordagem 2) ---
+                        const metaFilesToScan = [];
+                        for (let i = 1; i <= 25; i++) {
+                            metaFilesToScan.push(`OP${i.toString().padStart(2, '0')}`);
+                        }
+                        for (let i = 1; i <= 36; i++) {
+                            metaFilesToScan.push(`ST${i.toString().padStart(2, '0')}`);
+                        }
+                        for (let i = 1; i <= 5; i++) {
+                            metaFilesToScan.push(`EB${i.toString().padStart(2, '0')}`);
+                        }
+
+                        const existingCardIds = new Set([
+                            ...setCards.value.map(c => (c.card_set_id || c.card_id || '').toUpperCase()),
+                            ...starterCards.value.map(c => (c.card_set_id || c.card_id || '').toUpperCase()),
+                            ...promoCards.value.map(c => (c.card_set_id || c.card_id || '').toUpperCase())
+                        ]);
+
+                        const existingSetCodes = new Set(sets.value.map(s => (s.set_id || '').replace(/[^A-Z0-9]/gi, '').toUpperCase()));
+                        const existingDeckCodes = new Set(decks.value.map(d => (d.structure_deck_id || d.deck_id || '').replace(/[^A-Z0-9]/gi, '').toUpperCase()));
+
+                        const metaResponses = await Promise.allSettled(
+                            metaFilesToScan.map(code => 
+                                fetch(`./optcg_data/meta_${code}.json`)
+                                    .then(r => r.ok ? r.json() : null)
+                                    .catch(() => null)
+                            )
+                        );
+
+                        for (const res of metaResponses) {
+                            if (!res.value || !res.value.leaders) continue;
+                            const mData = res.value;
+                            
+                            for (const leader of mData.leaders) {
+                                const lid = (leader.leader_card_id || '').toUpperCase().trim();
+                                if (lid && !existingCardIds.has(lid)) {
+                                    const lSet = lid.split('-')[0];
+                                    const lColor = leader.archetype_code && leader.archetype_code.includes('||') ? leader.archetype_code.split('||')[1] : 'Multi';
+                                    const leaderCardObj = {
+                                        card_name: leader.name.split('(')[0].trim(),
+                                        card_set_id: lid,
+                                        card_type: 'Leader',
+                                        card_color: lColor,
+                                        card_cost: '5',
+                                        card_power: '5000',
+                                        card_image: leader.image || `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${lSet}/${lid}_EN.webp`,
+                                        rarity: 'L',
+                                        set_id: lSet.startsWith('ST') ? lSet : `OP-${lSet.replace(/^OP/, '')}`,
+                                        set_name: `${lSet} (Limitless Meta)`,
+                                        imageError: false
+                                    };
+                                    existingCardIds.add(lid);
+                                    if (lSet.startsWith('ST')) {
+                                        starterCards.value.push(leaderCardObj);
+                                    } else {
+                                        setCards.value.push(leaderCardObj);
+                                    }
+
+                                    const cleanSet = lSet.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                                    if (lSet.startsWith('OP') && !existingSetCodes.has(cleanSet)) {
+                                        existingSetCodes.add(cleanSet);
+                                        sets.value.push({
+                                            set_id: `OP-${lSet.replace(/^OP/, '')}`,
+                                            set_name: `${lSet} (Limitless Meta)`,
+                                            set_image: leaderCardObj.card_image
+                                        });
+                                    } else if (lSet.startsWith('ST') && !existingDeckCodes.has(cleanSet)) {
+                                        existingDeckCodes.add(cleanSet);
+                                        decks.value.push({
+                                            structure_deck_id: lSet,
+                                            structure_deck_name: `Starter Deck ${lSet} (Limitless Meta)`,
+                                            structure_deck_image: leaderCardObj.card_image
+                                        });
+                                    }
+                                }
+
+                                for (const c of (leader.cards || [])) {
+                                    const cid = (c.card_id || '').toUpperCase().trim();
+                                    if (cid && !existingCardIds.has(cid)) {
+                                        const cSet = cid.split('-')[0];
+                                        const cardObj = {
+                                            card_name: c.card_name || cid,
+                                            card_set_id: cid,
+                                            card_type: 'Character',
+                                            card_color: leader.archetype_code && leader.archetype_code.includes('||') ? leader.archetype_code.split('||')[1] : 'Multi',
+                                            card_cost: '3',
+                                            card_power: '4000',
+                                            card_image: c.image || `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${cSet}/${cid}_EN.webp`,
+                                            rarity: 'R',
+                                            set_id: cSet.startsWith('ST') ? cSet : `OP-${cSet.replace(/^OP/, '')}`,
+                                            set_name: `${cSet} (Limitless Meta)`,
+                                            imageError: false
+                                        };
+                                        existingCardIds.add(cid);
+                                        if (cSet.startsWith('ST')) {
+                                            starterCards.value.push(cardObj);
+                                        } else if (cSet === 'P') {
+                                            promoCards.value.push(cardObj);
+                                        } else {
+                                            setCards.value.push(cardObj);
+                                        }
+
+                                        const cleanSet = cSet.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                                        if (cSet.startsWith('OP') && !existingSetCodes.has(cleanSet)) {
+                                            existingSetCodes.add(cleanSet);
+                                            sets.value.push({
+                                                set_id: `OP-${cSet.replace(/^OP/, '')}`,
+                                                set_name: `${cSet} (Limitless Meta)`,
+                                                set_image: cardObj.card_image
+                                            });
+                                        } else if (cSet.startsWith('ST') && !existingDeckCodes.has(cleanSet)) {
+                                            existingDeckCodes.add(cleanSet);
+                                            decks.value.push({
+                                                structure_deck_id: cSet,
+                                                structure_deck_name: `Starter Deck ${cSet} (Limitless Meta)`,
+                                                structure_deck_image: cardObj.card_image
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                     } catch (error) {
                         console.error("Erro ao carregar arquivos locais:", error);
@@ -1769,12 +1976,22 @@
 
                     // Apply specific collection/set filter
                     if (currentTab.value === 'sets' && filters.value.setId) {
-                        list = list.filter(card => card.set_id === filters.value.setId);
+                        const filterClean = filters.value.setId.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                        list = list.filter(card => {
+                            const cardSet = card.set_id || (card.card_set_id ? card.card_set_id.split('-')[0] : '');
+                            const cardSetClean = cardSet.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                            return cardSetClean === filterClean || card.set_id === filters.value.setId;
+                        });
                     }
 
                     // Apply specific starter deck filter
                     if (currentTab.value === 'sets' && filters.value.deckId) {
-                        list = list.filter(card => card.set_id === filters.value.deckId);
+                        const filterClean = filters.value.deckId.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                        list = list.filter(card => {
+                            const cardSet = card.set_id || (card.card_set_id ? card.card_set_id.split('-')[0] : '');
+                            const cardSetClean = cardSet.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                            return cardSetClean === filterClean || card.set_id === filters.value.deckId;
+                        });
                     }
 
                     // Apply color filter
@@ -1881,7 +2098,7 @@
                                 card_set_id: metaCard.card_id,
                                 card_image: metaCard.image,
                                 card_type: 'Unknown',
-                                card_text: `Carta de Meta Game. Inclusão de ${metaCard.inclusion_percentage}% com recomendação de ${metaCard.copies_recommendation}.`,
+                                card_text: `Carta de Decks Populares. Inclusão de ${metaCard.inclusion_percentage}% com recomendação de ${metaCard.copies_recommendation}.`,
                                 rarity: 'Unknown',
                                 set_name: 'Meta Deck List'
                             });
@@ -1948,7 +2165,24 @@
 
                 const sortedMetaLeaders = computed(() => {
                     if (!metaData.value || !metaData.value.leaders) return [];
-                    return [...metaData.value.leaders].sort((a, b) => (b.share_percentage || 0) - (a.share_percentage || 0));
+                    return [...metaData.value.leaders].sort((a, b) => {
+                        // 1º Critério: Quantidade de Decks Mapeados
+                        const countA = a.deck_count || 0;
+                        const countB = b.deck_count || 0;
+                        if (countB !== countA) {
+                            return countB - countA;
+                        }
+                        // 2º Critério: Win Rate (% de Vitória)
+                        const wrA = (a.overall_winrate !== undefined && a.overall_winrate !== null) ? Number(a.overall_winrate) : 0;
+                        const wrB = (b.overall_winrate !== undefined && b.overall_winrate !== null) ? Number(b.overall_winrate) : 0;
+                        if (wrB !== wrA) {
+                            return wrB - wrA;
+                        }
+                        // 3º Critério: Meta Share (% de Uso)
+                        const shareA = (a.share_percentage !== undefined && a.share_percentage !== null) ? Number(a.share_percentage) : 0;
+                        const shareB = (b.share_percentage !== undefined && b.share_percentage !== null) ? Number(b.share_percentage) : 0;
+                        return shareB - shareA;
+                    });
                 });
 
                 const topMetaLeader = computed(() => {
@@ -2001,7 +2235,7 @@
                 const exportMetaDeckTxt = (leader) => {
                     if (!leader) return;
                     const txt = generateLeaderTxt(leader);
-                    exportModalTitle.value = `Deck Meta TXT - ${leader.name} (${metaSet.value})`;
+                    exportModalTitle.value = `Deck Popular TXT - ${leader.name} (${metaSet.value})`;
                     exportModalText.value = txt;
                     showExportModal.value = true;
 
@@ -2112,6 +2346,165 @@
 
                     currentTab.value = 'builder';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+
+                const loadSampleBuildToBuilder = (build, leader) => {
+                    if (!build || !build.deck_txt) {
+                        importMetaBuildToBuilder(leader);
+                        return;
+                    }
+
+                    const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
+                    const leaderCardId = getLeaderCardId(leader);
+                    
+                    let leaderObj = allCards.find(c => c.card_type === 'Leader' && (
+                        (c.card_set_id && c.card_set_id.toUpperCase() === leaderCardId) ||
+                        (c.card_name && c.card_name.toLowerCase().includes(leader.name.split('(')[0].trim().toLowerCase()))
+                    ));
+
+                    if (!leaderObj) {
+                        leaderObj = {
+                            card_name: leader.name,
+                            card_set_id: leaderCardId,
+                            card_type: 'Leader',
+                            card_color: leader.archetype_code && leader.archetype_code.includes('||') ? leader.archetype_code.split('||')[1] : 'Multi',
+                            card_image: leader.image,
+                            rarity: 'L'
+                        };
+                    }
+
+                    selectedBuilderLeader.value = leaderObj;
+                    userDeck.value = [];
+
+                    const lines = build.deck_txt.split('\n');
+                    for (const l of lines) {
+                        const trimmed = l.trim();
+                        if (!trimmed) continue;
+                        const match = trimmed.match(/^(\d+)\s*x?\s*([A-Za-z0-9\-]+)/);
+                        if (match) {
+                            const qty = parseInt(match[1]);
+                            const cid = match[2].toUpperCase();
+                            if (cid === leaderCardId) {
+                                continue;
+                            }
+                            let foundCard = allCards.find(c => c.card_set_id && c.card_set_id.toUpperCase() === cid);
+                            if (!foundCard) {
+                                foundCard = {
+                                    card_name: cid,
+                                    card_set_id: cid,
+                                    card_type: 'Character',
+                                    card_color: leaderObj.card_color,
+                                    card_image: `https://onepiece.limitlesstcg.com/cards/${cid}.png`,
+                                    card_cost: "3",
+                                    rarity: 'UC'
+                                };
+                            }
+                            userDeck.value.push({ card: foundCard, quantity: qty });
+                        }
+                    }
+
+                    currentTab.value = 'builder';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+
+                const copyBuildTxt = (txt) => {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(txt).then(() => {
+                            copiedToast.value = true;
+                            setTimeout(() => { copiedToast.value = false; }, 2500);
+                        });
+                    }
+                };
+
+                // Image Fallback and Resolver System (Strictly Prioritizes English Base Card Artwork)
+                const getCardImage = (card) => {
+                    if (!card) return 'https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/placeholder.png';
+                    
+                    let cid = (card.card_set_id || card.card_id || card.id || '').toUpperCase().trim();
+                    
+                    // 1. If we have a valid card ID (e.g. OP07-022), lookup in database to find the BASE English version image
+                    if (cid && cid !== 'UNKNOWN' && cid.includes('-')) {
+                        const all = [...(setCards.value || []), ...(starterCards.value || []), ...(promoCards.value || [])];
+                        const matches = all.filter(c => (c.card_set_id || c.card_id || '').toUpperCase() === cid);
+                        
+                        if (matches.length > 0) {
+                            // Find the base English version (not parallel, not alternate art, not Japanese promo)
+                            const baseMatch = matches.find(c => {
+                                const n = (c.card_name || '').toLowerCase();
+                                const img = (c.card_image || '').toLowerCase();
+                                return !n.includes('(parallel') && !n.includes('(alternate') && !n.includes('(japanese') && 
+                                       !n.includes('(special') && !n.includes('(extra grand') && !n.includes('(store') && 
+                                       !n.includes('(premium') && !img.includes('_p1') && !img.includes('_p2') && 
+                                       !img.includes('_parallel') && !img.includes('_jp') && !img.includes('_img.jpg');
+                            });
+                            
+                            if (baseMatch && baseMatch.card_image) {
+                                return baseMatch.card_image;
+                            }
+                            
+                            // Find any English match (even if promo/parallel) before resorting to Japanese
+                            const englishMatch = matches.find(c => {
+                                const n = (c.card_name || '').toLowerCase();
+                                const img = (c.card_image || '').toLowerCase();
+                                return !n.includes('(japanese') && !img.includes('_jp') && c.card_image;
+                            });
+                            if (englishMatch && englishMatch.card_image) {
+                                return englishMatch.card_image;
+                            }
+                        }
+                        
+                        // Default to standard base English card image on Limitless CDN
+                        const setCode = cid.split('-')[0];
+                        return `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_EN.webp`;
+                    }
+                    
+                    let directImg = card.image || card.card_image;
+                    if (directImg && !directImg.includes('placeholder')) {
+                        return directImg;
+                    }
+                    
+                    return 'https://www.optcgapi.com/media/static/Card_Images/placeholder.jpg';
+                };
+
+                const handleCardImgError = (event, cardId) => {
+                    if (!event || !event.target) return;
+                    const imgEl = event.target;
+                    const currentSrc = imgEl.src || '';
+                    const cid = (cardId || '').toUpperCase().trim();
+                    
+                    if (!cid || cid === 'UNKNOWN' || !cid.includes('-')) {
+                        imgEl.style.opacity = '0.3';
+                        return;
+                    }
+                    
+                    const setCode = cid.split('-')[0];
+                    const cdnEn = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_EN.webp`;
+                    const optcgApi = `https://www.optcgapi.com/media/static/Card_Images/${cid}.jpg`;
+                    const optcgApiAlt = `https://www.optcgapi.com/media/static/Card_Images/${cid}_p1.jpg`;
+                    const officialEn = `https://en.onepiece-cardgame.com/images/cardlist/card/${cid}.png`;
+                    const asiaEn = `https://asia-en.onepiece-cardgame.com/images/cardlist/card/${cid}.png`;
+                    const cdnJp = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_JP.webp`;
+                    const cdnRaw = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}.webp`;
+
+                    // Hierarchy: English 1st -> English 2nd -> English 3rd -> English 4th -> Japanese only if unreleased in English
+                    if (!currentSrc.includes(cdnEn) && !currentSrc.includes('_EN.webp') && !currentSrc.includes('optcgapi.com') && !currentSrc.includes('onepiece-cardgame.com') && !currentSrc.includes('_JP.webp')) {
+                        imgEl.src = cdnEn;
+                    } else if (currentSrc.includes('_EN.webp')) {
+                        imgEl.src = optcgApi;
+                    } else if (currentSrc.includes(optcgApi) && !currentSrc.includes('_p1')) {
+                        imgEl.src = optcgApiAlt;
+                    } else if (currentSrc.includes('_p1') || (currentSrc.includes('optcgapi.com') && !currentSrc.includes('onepiece-cardgame.com'))) {
+                        imgEl.src = officialEn;
+                    } else if (currentSrc.includes('en.onepiece-cardgame.com')) {
+                        imgEl.src = asiaEn;
+                    } else if (currentSrc.includes('asia-en.onepiece-cardgame.com')) {
+                        // All English sources exhausted -> fallback to Japanese if card is JP-exclusive/unreleased
+                        imgEl.src = cdnJp;
+                    } else if (currentSrc.includes('_JP.webp')) {
+                        imgEl.src = cdnRaw;
+                    } else {
+                        imgEl.style.opacity = '0.4';
+                    }
                 };
 
                 // Get list of colors for rendering tags
@@ -2492,17 +2885,26 @@
                         alignment = 60.0; // Padrão
                     }
 
-                    // Escaneia o deck real do usuário para identificar buscadores, blockers, bosses e counters +2000
+                    // Escaneia o deck real do usuário para identificar buscadores, blockers, bosses, remoções, atacantes e curva de Don
                     const userSearchers = [];
                     const userBlockers = [];
                     const userBosses = [];
                     const user2kCounters = [];
+                    const userRemovals = [];
+                    const userEarlyDrops = []; // Personagens de Custo 1-3
+                    const userMidDrops = [];   // Personagens de Custo 4-6
+                    let oddCostCount = 0;
+                    let evenCostCount = 0;
 
                     for (const item of userDeck.value) {
                         const card = item.card;
                         const text = (card.card_text || '').toLowerCase();
                         const cost = parseInt(card.card_cost || 0);
                         const counter = parseInt(card.counter_amount || 0);
+                        const type = (card.card_type || '').toLowerCase();
+
+                        if (cost % 2 === 1) oddCostCount += item.quantity;
+                        else if (cost > 0) evenCostCount += item.quantity;
 
                         // Busca buscadores (Custo 1-2 que buscam/olham topo do deck)
                         if (cost <= 2 && (text.includes("look") || text.includes("reveal") || text.includes("search") || text.includes("add"))) {
@@ -2515,7 +2917,7 @@
                         }
 
                         // Busca Bosses (Custo 7+)
-                        if (cost >= 7) {
+                        if (cost >= 7 && type === 'character') {
                             userBosses.push(card);
                         }
 
@@ -2523,7 +2925,31 @@
                         if (counter === 2000) {
                             user2kCounters.push(card);
                         }
+
+                        // Busca remoções (Eventos ou Personagens de K.O./Trash/Bottom deck/Rest)
+                        if (text.includes("k.o.") || text.includes("trash") || text.includes("bottom of") || text.includes("rest up to")) {
+                            userRemovals.push(card);
+                        }
+
+                        // Early Drops (Personagens Custo 1-3)
+                        if (cost >= 1 && cost <= 3 && type === 'character') {
+                            userEarlyDrops.push(card);
+                        }
+
+                        // Mid Drops (Personagens Custo 4-6)
+                        if (cost >= 4 && cost <= 6 && type === 'character') {
+                            userMidDrops.push(card);
+                        }
                     }
+
+                    // Ordena listas por relevância (menor custo para buscas/blockers, maior poder para atacantes/bosses)
+                    userSearchers.sort((a, b) => parseInt(a.card_cost || 0) - parseInt(b.card_cost || 0));
+                    userBlockers.sort((a, b) => parseInt(a.card_cost || 0) - parseInt(b.card_cost || 0));
+                    userEarlyDrops.sort((a, b) => parseInt(b.card_power || 0) - parseInt(a.card_power || 0));
+                    userMidDrops.sort((a, b) => parseInt(b.card_power || 0) - parseInt(a.card_power || 0));
+                    userBosses.sort((a, b) => parseInt(b.card_power || 0) - parseInt(a.card_power || 0));
+                    user2kCounters.sort((a, b) => parseInt(a.card_cost || 0) - parseInt(b.card_cost || 0));
+                    userRemovals.sort((a, b) => parseInt(a.card_cost || 0) - parseInt(b.card_cost || 0));
 
                     // 2. Calcula matchups contra os oponentes do Meta
                     const matchups = [];
@@ -2539,30 +2965,55 @@
                     
                     for (const opp of metaLeaders) {
                         const oppName = opp.name.toLowerCase();
+                        const oppId = (opp.leader_card_id || '').toUpperCase();
                         let baseWinrate = 50.0;
+                        let isRealMatchup = false;
+                        let totalMatchesRecorded = 0;
+                        let realWins = 0;
+                        let realLosses = 0;
 
-                        // Determina força do oponente base
-                        if (oppName.includes("luffy")) baseWinrate = 48.0;
-                        else if (oppName.includes("shanks")) baseWinrate = 50.0;
-                        else if (oppName.includes("teach")) baseWinrate = 47.0;
-                        else if (oppName.includes("nami")) baseWinrate = 52.0;
+                        // 1. Verifica se temos registro real de partidas entre os dois líderes no Limitless
+                        if (matchedLeader && matchedLeader.matchups && matchedLeader.matchups[oppId]) {
+                            const realMatch = matchedLeader.matchups[oppId];
+                            if (realMatch.total_matches > 0) {
+                                isRealMatchup = true;
+                                baseWinrate = parseFloat(realMatch.winrate || 50.0);
+                                totalMatchesRecorded = realMatch.total_matches;
+                                realWins = realMatch.wins;
+                                realLosses = realMatch.losses;
+                            }
+                        }
 
-                        // Modificador por alinhamento de meta
-                        const metaModifier = (alignment - 70.0) / 6.0;
-                        let winrate = baseWinrate + metaModifier;
+                        let winrate = baseWinrate;
 
-                        const isAggro = oppName.includes("shanks") || oppName.includes("zoro") || oppName.includes("betty") || oppName.includes("law");
-                        const isBigChar = oppName.includes("luffy") || oppName.includes("teach") || oppName.includes("enel") || oppName.includes("kaido") || oppName.includes("linlin");
+                        // Se não for matchup real registrado, aplica heurística baseada no arquétipo
+                        if (!isRealMatchup) {
+                            if (oppName.includes("luffy")) baseWinrate = 48.0;
+                            else if (oppName.includes("shanks")) baseWinrate = 50.0;
+                            else if (oppName.includes("teach")) baseWinrate = 47.0;
+                            else if (oppName.includes("nami")) baseWinrate = 52.0;
+
+                            const metaModifier = (alignment - 70.0) / 6.0;
+                            winrate = baseWinrate + metaModifier;
+                        }
+
+                        const isAggro = oppName.includes("shanks") || oppName.includes("zoro") || oppName.includes("betty") || oppName.includes("law") || oppName.includes("ace") || oppName.includes("kid");
+                        const isBigChar = oppName.includes("luffy") || oppName.includes("teach") || oppName.includes("enel") || oppName.includes("kaido") || oppName.includes("linlin") || oppName.includes("sabo") || oppName.includes("sakazuki") || oppName.includes("kuzan") || oppName.includes("moria");
+                        const oppType = isAggro ? 'aggro' : (isBigChar ? 'control' : 'tempo');
 
                         const tips = [];
+
+                        if (isRealMatchup) {
+                            tips.push(`Taxa real de ${winrate}% em ${totalMatchesRecorded} partidas de torneio (${realWins} vitórias, ${realLosses} derrotas no Limitless).`);
+                        }
 
                         if (isAggro) {
                             const defense = stats.counter_2000_count + stats.blockers_count;
                             if (defense >= 12) {
-                                winrate += 5.0;
+                                if (!isRealMatchup) winrate += 5.0;
                                 tips.push("Sua alta quantidade de defesas (+2000 counters/blockers) é ideal contra a velocidade deste líder.");
                             } else if (defense < 6) {
-                                winrate -= 10.0;
+                                if (!isRealMatchup) winrate -= 10.0;
                                 tips.push("Cuidado: Seu deck tem poucas defesas contra a agressividade rápida deste líder. Adicione blockers ou counters +2000.");
                             } else {
                                 tips.push("Defesa equilibrada para conter a agressividade inicial.");
@@ -2572,10 +3023,10 @@
                         if (isBigChar) {
                             const removals = stats.removal_count;
                             if (removals >= 6) {
-                                winrate += 4.0;
+                                if (!isRealMatchup) winrate += 4.0;
                                 tips.push("Suas cartas de remoção ajudam a controlar os personagens grandes deste oponente.");
                             } else if (removals < 3) {
-                                winrate -= 7.0;
+                                if (!isRealMatchup) winrate -= 7.0;
                                 tips.push("Atenção: Este oponente joga personagens grandes e você tem poucas remoções eficientes.");
                             } else {
                                 tips.push("Remoções moderadas para responder a ameaças pontuais.");
@@ -2583,127 +3034,131 @@
                         }
 
                         // Teto de segurança para taxa de vitória
-                        winrate = Math.max(30.0, Math.min(70.0, winrate));
+                        winrate = Math.max(20.0, Math.min(85.0, winrate));
 
                         let status = "Equilibrado";
                         if (winrate >= 55.0) status = "Vantajoso";
                         else if (winrate < 45.0) status = "Desfavorável";
 
-                        // Geração dinâmica do Guia Passo a Passo baseada no Líder do Jogador e no Oponente
-                        let guide = {
-                            turn_preference: "",
-                            mulligan_tips: "",
-                            don_strategy: { early: "", mid: "", late: "" },
-                            matchup_explanation: ""
-                        };
-
-                        const playerLeaderName = selectedBuilderLeader.value.card_name.toLowerCase();
-                        const playerLeaderColor = selectedBuilderLeader.value.card_color.toLowerCase();
-
-                        // 1. Preferência de Turno
-                        if (isAggro) {
-                            guide.turn_preference = "Primeiro (Ímpar) - Importante para negar a curva ideal do oponente, estabelecer blockers antes dos primeiros grandes ataques e pressionar primeiro.";
-                        } else {
-                            guide.turn_preference = "Segundo (Par) - Ideal para ditar o ritmo de compras e encaixar seus personagens chefes de custo par exatamente nas curvas corretas.";
-                        }
-
-                        // 2. Explicação da Matchup Geral
-                        if (isAggro) {
-                            guide.matchup_explanation = "Guerra de Mesa e Vida. O adversário jogará de forma extremamente agressiva atacando seus pontos de vida. A chave da vitória é manter a mesa dele limpa atacando os atacantes dele e usar seus blockers e counters com precisão matemática.";
-                        } else if (isBigChar) {
-                            guide.matchup_explanation = "Jogo de Atrito e Controle Absoluto. Esse oponente tentará arrastar a partida e vencer jogando ameaças gigantescas. Jogue com paciência, foque em gerar valor a longo prazo e guarde suas cartas de remoção.";
-                        } else {
-                            guide.matchup_explanation = "Jogo de Ritmo e Vantagem de Recursos. Mantenha a mesa equilibrada e ataque a vida do oponente de forma cadenciada. Não se exponha demais a remoções em massa e mantenha a contagem de cartas da mão alta.";
-                        }
-
-                        // 3. Mulligan baseado nas cartas REAIS do deck do jogador
-                        let mulliganAdvice = "";
+                        // --- 2. GERAÇÃO 100% DINÂMICA DO GUIA DE COMBATE ---
                         
-                        if (userSearchers.length > 0) {
-                            const searcherNames = userSearchers.slice(0, 2).map(c => `${c.card_name} (${c.card_set_id})`).join(' ou ');
-                            mulliganAdvice += `Busque começar com seus buscadores: ${searcherNames}. `;
+                        // A) Postura Tática Dinâmica
+                        let tacticalBadge = "";
+                        let tacticalType = oppType;
+                        let tacticalMessage = "";
+
+                        if (isAggro) {
+                            tacticalBadge = "🚨 Oponente Agressivo (Rush / Swarm)";
+                            tacticalMessage = "Este oponente tentará zerar seus pontos de vida em ritmo acelerado desde os primeiros turnos. Postura recomendada: CONTROLE DE MESA E DEFESA. Não dispute corrida de vida (face race); use seus personagens para limpar os atacantes virados (rested) dele, mantenha sua mão cheia de Counters (+2000) e preserve sua vida para os turnos decisivos.";
+                        } else if (isBigChar) {
+                            tacticalBadge = "🛡️ Oponente de Controle (Late Game / Chefes)";
+                            tacticalMessage = "Este oponente quer arrastar o jogo para os turnos 8 a 10 e dominar o campo com personagens gigantes de alto custo. Postura recomendada: PRESSÃO E AGRESSIVIDADE INICIAL. Ataque a vida do oponente nos turnos 2 a 4 forçando-o a queimar cartas da mão se defendendo, guardando suas remoções para responder aos Bosses que ele descer.";
                         } else {
-                            mulliganAdvice += `Seu deck não parece conter buscadores de custo baixo (Custo 1-2). `;
+                            tacticalBadge = "🔄 Oponente de Ritmo (Manipulação & Recursos)";
+                            tacticalMessage = "Este líder manipula a mesa virando ou retornando peças. Postura recomendada: JOGO CADENCIADO E VALOR. Faça trocas vantajosas, evite deixar personagens de suporte virados (rested) sem proteção e mantenha Don ativo no turno dele para eventos defensivos.";
                         }
 
-                        if (userBlockers.length > 0) {
-                            const blockerNames = userBlockers.slice(0, 2).map(c => `${c.card_name} (${c.card_set_id})`).join(' ou ');
-                            mulliganAdvice += `Tente garantir pelo menos um blocker inicial como ${blockerNames}. `;
-                        }
+                        // B) Preferência de Turno Dinâmica (Curva de Don do Deck vs Oponente)
+                        let turnPrefTitle = "";
+                        let turnPrefReason = "";
+                        const isOddFavored = oddCostCount >= evenCostCount;
 
-                        if (userBosses.length > 0) {
-                            const bossNames = userBosses.slice(0, 2).map(c => `${c.card_name} (${c.card_set_id})`).join(' ou ');
-                            mulliganAdvice += `Foque em comprar seus finalizadores de custo alto para o late game: ${bossNames}. `;
+                        const topSearcher = userSearchers[0];
+                        const topBlocker = userBlockers[0];
+                        const top2k = user2kCounters[0];
+                        const topMid = userMidDrops[0];
+                        const topBoss = userBosses[0];
+                        const topRemoval = userRemovals[0];
+
+                        if (isOddFavored) {
+                            const drop1 = topSearcher || userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 1);
+                            const drop3 = userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 3) || userEarlyDrops[0];
+                            const bossOdd = userBosses.find(c => parseInt(c.card_cost || 0) % 2 === 1) || topBoss;
+
+                            turnPrefTitle = "Primeiro (Ímpar - 1, 3, 5, 7, 9 Don!!)";
+                            let curveDrops = [];
+                            if (drop1) curveDrops.push(`T1: ${drop1.card_name}`);
+                            if (drop3) curveDrops.push(`T2: ${drop3.card_name}`);
+                            if (bossOdd) curveDrops.push(`Late: ${bossOdd.card_name}`);
+
+                            turnPrefReason = `Seu deck possui predominância de custos ímpares (${oddCostCount} cartas). Ir primeiro encaixa com perfeição sua curva ideal (${curveDrops.join(' ➔ ')}) sem deixar Don ocioso${isAggro ? ' e quebra a curva agressiva do oponente' : ''}.`;
                         } else {
-                            mulliganAdvice += `Como você não joga com Bosses gigantes, priorize uma curva de custo progressiva. `;
+                            const drop2 = userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 2) || topSearcher || topBlocker;
+                            const drop4 = userMidDrops.find(c => parseInt(c.card_cost || 0) === 4) || topMid;
+                            const bossEven = userBosses.find(c => parseInt(c.card_cost || 0) % 2 === 0) || topBoss;
+
+                            turnPrefTitle = "Segundo (Par - 2, 4, 6, 8, 10 Don!!)";
+                            let curveDrops = [];
+                            if (drop2) curveDrops.push(`T1: ${drop2.card_name}`);
+                            if (drop4) curveDrops.push(`T2: ${drop4.card_name}`);
+                            if (bossEven) curveDrops.push(`Late: ${bossEven.card_name}`);
+
+                            turnPrefReason = `Seu deck possui predominância de custos pares (${evenCostCount} cartas). Ir segundo garante +1 carta comprada e curva de Don sincronizada (${curveDrops.join(' ➔ ')})${isAggro ? ', garantindo 2 Don imediatos para defesas' : ''}.`;
                         }
 
-                        if (user2kCounters.length > 0) {
-                            const counterNames = user2kCounters.slice(0, 2).map(c => c.card_name).join(' / ');
-                            mulliganAdvice += `Mantenha pelo menos um counter +2000 na mão inicial para se defender (ex: ${counterNames}).`;
-                        }
+                        // C) Mão Inicial & Mulligan Específico contra este Oponente
+                        let mulliganAdvice = "";
 
-                        guide.mulligan_tips = mulliganAdvice;
+                        if (isAggro) {
+                            let keepList = [];
+                            if (topSearcher) keepList.push(`Buscador (${topSearcher.card_name})`);
+                            if (topBlocker) keepList.push(`Blocker (${topBlocker.card_name})`);
+                            if (top2k) keepList.push(`Counter +2000 (${top2k.card_name})`);
 
-                        // 4. Estratégia de Curva de Don (Adaptada com as cartas reais do deck)
-                        const searcherNames = userSearchers.length > 0 
-                            ? userSearchers.slice(0, 2).map(c => c.card_name).join('/') 
-                            : "buscadores";
-                        const blockerNames = userBlockers.length > 0 
-                            ? userBlockers.slice(0, 2).map(c => c.card_name).join('/') 
-                            : "seus blockers";
-                        const bossNames = userBosses.length > 0 
-                            ? userBosses.slice(0, 2).map(c => c.card_name).join('/') 
-                            : "seus Bosses";
+                            mulliganAdvice = `🚨 Prioridade contra Agressividade: Mantenha ${keepList.length > 0 ? keepList.join(' e ') : 'suas cartas de custo 1-2 e defesas'}. Se a mão vier pesada com apenas cartas de custo 5+, faça Mulligan imediatamente para não sofrer pressão letal rápida.`;
+                        } else if (isBigChar) {
+                            let keepList = [];
+                            if (topSearcher) keepList.push(`Buscador (${topSearcher.card_name})`);
+                            if (topMid) keepList.push(`Atacante de curva (${topMid.card_name})`);
+                            if (topRemoval) keepList.push(`Remoção (${topRemoval.card_name})`);
 
-                        if (playerLeaderColor.includes("purple")) {
-                            guide.don_strategy = {
-                                early: `1-4 Don: Foque em acelerar seu Don!! (rampa) usando efeitos de rampa. Se necessário, jogue ${searcherNames} para filtrar a mão.`,
-                                mid: `5-8 Don: Aproveite a vantagem de Don para descer blockers como ${blockerNames} e personagens de custo médio.`,
-                                late: `9-10 Don: Jogue seus Bosses pesados como ${bossNames} para pressionar a mesa adversária.`
-                            };
-                        } else if (playerLeaderColor.includes("red")) {
-                            guide.don_strategy = {
-                                early: `1-4 Don: Encha a mesa com personagens pequenos como ${searcherNames} e comece a atacar a vida do oponente.`,
-                                mid: `5-8 Don: Use atacantes rápidos com Rush e blockers como ${blockerNames} para manter a pressão.`,
-                                late: `9-10 Don: Finalize a partida com ataques múltiplos de alta força e use seus counters para proteção.`
-                            };
-                        } else if (playerLeaderName.includes("yamato") && (playerLeaderColor.includes("yellow") || playerLeaderColor.includes("green"))) {
-                            // Yamato Verde/Amarelo
-                            guide.don_strategy = {
-                                early: `1-4 Don: Jogue seu buscador ${searcherNames} (como Momo) e comece a preparar blockers menores.`,
-                                mid: `5-8 Don: Desça personagens de custo médio e manipule suas vidas para ativar Triggers de cartas no seu deck.`,
-                                late: `9-10 Don: Jogue seus finalizadores como ${bossNames} e abuse do Double Strike do líder.`
-                            };
-                        } else if (playerLeaderColor.includes("black")) {
-                            // Preto Geral
-                            guide.don_strategy = {
-                                early: `1-4 Don: Prepare blockers pequenos e compre cartas buscando estruturar sua mão com ${searcherNames}.`,
-                                mid: `5-8 Don: Use combinações de redução de custo com remoções de mesa (K.O.) para limpar os atacantes inimigos.`,
-                                late: `9-10 Don: Jogue seus finalizadores pretos de alto custo como ${bossNames} e recicle cartas do lixo.`
-                            };
-                        } else if (playerLeaderColor.includes("yellow")) {
-                            // Amarelo Geral
-                            guide.don_strategy = {
-                                early: `1-4 Don: Jogue buscadores (${searcherNames}) e configure seus Triggers manipulando a pilha de vidas.`,
-                                mid: `5-8 Don: Remova ameaças de custo médio ou desça atacantes robustos que afetam a vida.`,
-                                late: `9-10 Don: Jogue seus finalizadores de custo alto como ${bossNames} para se curar/remover cartas inimigas.`
-                            };
-                        } else if (playerLeaderColor.includes("blue")) {
-                            // Azul Geral
-                            guide.don_strategy = {
-                                early: `1-4 Don: Use seus buscadores (${searcherNames}) para filtrar sua mão e remover personagens fracos do oponente.`,
-                                mid: `5-8 Don: Controle o campo do oponente devolvendo os personagens dele para a mão ou fundo do deck.`,
-                                late: `9-10 Don: Coloque seu Boss Character azul como ${bossNames} na mesa e mantenha Don aberto para eventos defensivos.`
-                            };
+                            mulliganAdvice = `🛡️ Prioridade contra Controle: Garanta peças de ataque proativo (${keepList.length > 0 ? keepList.join(' + ') : 'buscadores e atacantes de custo médio'}) para pressionar a vida do oponente antes do turno 10. Mãos puramente defensivas devem levar Mulligan.`;
                         } else {
-                            // Outros / Padrão
-                            guide.don_strategy = {
-                                early: `1-4 Don: Use seus buscadores (${searcherNames}) e configure seus blockers (${blockerNames}) iniciais.`,
-                                mid: `5-8 Don: Jogue de forma equilibrada desenvolvendo personagens de custo médio para manter a mesa.`,
-                                late: `9-10 Don: Coloque seus finalizadores de custo alto como ${bossNames} em campo para ditar o fim do jogo.`
-                            };
+                            let keepList = [];
+                            if (topSearcher || userEarlyDrops[0]) keepList.push(`Drop inicial (${(topSearcher || userEarlyDrops[0]).card_name})`);
+                            if (topMid) keepList.push(`Peça de meio de jogo (${topMid.card_name})`);
+
+                            mulliganAdvice = `🔄 Prioridade para Jogo de Ritmo: Busque ${keepList.length > 0 ? keepList.join(' e ') : 'uma curva equilibrada de custos baixos e médios'} para garantir trocas eficientes de recursos desde o início.`;
                         }
+
+                        // D) Estratégia de Curva de Don (Cartas Exatas do Deck)
+                        let earlyStr = "";
+                        if (topSearcher && topBlocker) {
+                            earlyStr = `Baixar seu buscador ${topSearcher.card_name} (${topSearcher.card_set_id}) para estruturar a mão e posicionar seu blocker ${topBlocker.card_name} (${topBlocker.card_set_id}).`;
+                        } else if (topSearcher) {
+                            earlyStr = `Baixar ${topSearcher.card_name} (${topSearcher.card_set_id}) para filtrar seu deck e buscar atacantes e defesas.`;
+                        } else if (userEarlyDrops[0]) {
+                            earlyStr = `Baixar ${userEarlyDrops[0].card_name} (${userEarlyDrops[0].card_set_id}) para estabelecer presença de campo inicial.`;
+                        } else {
+                            earlyStr = `Acoplar Don no Líder para ataques eficientes e segurar Don para eventos defensivos.`;
+                        }
+                        if (isAggro) earlyStr += " Evite ataques fracos na vida do oponente que apenas entreguem cartas de Trigger na mão dele.";
+
+                        let midStr = "";
+                        if (topMid && topRemoval) {
+                            midStr = `Desenvolver ${topMid.card_name} (${topMid.card_set_id}) na mesa e utilizar ${topRemoval.card_name} (${topRemoval.card_set_id}) para controlar atacantes inimigos virados.`;
+                        } else if (topMid) {
+                            midStr = `Estabelecer ${topMid.card_name} (${topMid.card_set_id}) para ditar o ritmo de mesa e pressionar personagens adversários virados.`;
+                        } else {
+                            midStr = `Use seus personagens intermediários para limpar a mesa adversária e manter defesas em prontidão.`;
+                        }
+
+                        let lateStr = "";
+                        if (topBoss) {
+                            lateStr = `Descer seu Boss ${topBoss.card_name} (${topBoss.card_set_id}) para desferir ataques pesados (8000+ poder) e usar o Don restante no Líder para fechar a partida.`;
+                        } else {
+                            lateStr = `Distribuir Don nos seus atacantes estabelecidos e no Líder para ataques em massa difíceis de defender com a mão.`;
+                        }
+
+                        let guide = {
+                            tactical_badge: tacticalBadge,
+                            tactical_type: tacticalType,
+                            tactical_message: tacticalMessage,
+                            turn_preference: `${turnPrefTitle} - ${turnPrefReason}`,
+                            mulligan_tips: mulliganAdvice,
+                            don_strategy: { early: earlyStr, mid: midStr, late: lateStr },
+                            matchup_explanation: tacticalMessage
+                        };
 
                         matchups.push({
                             opponent_name: opp.name,
@@ -2916,6 +3371,56 @@
                         });
                     }
 
+                    // g) Otimização Inteligente com Decks Campeões (Limitless TCG - Menor % vs Maior %)
+                    if (matchedLeader && matchedLeader.cards && matchedLeader.cards.length > 0) {
+                        const userDeckSetIds = new Set(userDeck.value.map(item => (item.card.card_set_id || '').toUpperCase()));
+                        
+                        // Missing staples (>= 50% inclusion in tournaments)
+                        const missingMetaStaples = matchedLeader.cards
+                            .filter(c => !userDeckSetIds.has((c.card_id || '').toUpperCase()) && parseFloat(c.inclusion_percentage || 0) >= 50.0)
+                            .sort((a, b) => parseFloat(b.inclusion_percentage || 0) - parseFloat(a.inclusion_percentage || 0));
+                            
+                        // User deck cards with lowest tournament presence
+                        const scoredUserCards = userDeck.value.map(item => {
+                            const cid = (item.card.card_set_id || '').toUpperCase();
+                            const pct = metaInclusionMap[cid] || 0.0;
+                            return { card: item.card, inclusion: pct };
+                        }).sort((a, b) => a.inclusion - b.inclusion);
+                        
+                        if (missingMetaStaples.length > 0 && scoredUserCards.length > 0) {
+                            const topMissing = missingMetaStaples.slice(0, 3);
+                            const worstCards = scoredUserCards.slice(0, 3);
+                            
+                            const cardPoolMap = [...setCards.value, ...starterCards.value, ...promoCards.value];
+                            const stapleObjs = topMissing.map(m => {
+                                const found = cardPoolMap.find(c => c.card_set_id && c.card_set_id.toUpperCase() === m.card_id.toUpperCase());
+                                return found || {
+                                    card_name: m.card_name,
+                                    card_set_id: m.card_id,
+                                    card_image: m.image,
+                                    card_cost: "3",
+                                    card_type: "Character"
+                                };
+                            });
+                            
+                            const swapLines = topMissing.map((m, idx) => {
+                                const worst = worstCards[idx];
+                                if (worst && worst.inclusion < parseFloat(m.inclusion_percentage || 0)) {
+                                    return `• Sugestão: Trocar **${worst.card.card_name}** (${worst.inclusion}% no meta) por **${m.card_name}** (${m.inclusion_percentage}% de uso nos campeões).`;
+                                }
+                                return `• Sugestão: Adicionar **${m.card_name}** (${m.inclusion_percentage}% de presença no meta).`;
+                            }).join(' ');
+
+                            structuralSuggestions.unshift({
+                                icon: '🔥',
+                                title: 'Otimização com Decks Populares (Limitless TCG)',
+                                text: `Identificamos cartas Staples com alta presença nos decks populares ausentes no seu deck. ${swapLines}`,
+                                cards: stapleObjs,
+                                replacementCard: worstCards[0] ? worstCards[0].card : null
+                            });
+                        }
+                    }
+
                     analysisResults.value = {
                         stats,
                         alignment,
@@ -3022,6 +3527,8 @@
                     getLigaOnePieceUrl,
                     getLeaderCardId,
                     getMetaCardId,
+                    getCardImage,
+                    handleCardImgError,
                     getColors,
                     getColorClass,
                     translateColor,
