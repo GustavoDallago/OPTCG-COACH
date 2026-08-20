@@ -132,5 +132,97 @@ class TestDeckAnalyzer(unittest.TestCase):
         self.assertIn("🛡️ Oponente de Controle", guide_control["tactical_badge"])
         self.assertIn("Zoro", guide_control["mulligan_tips"])
 
+    def test_txt_import_parser_formats(self):
+        """Tests that various TXT import formats are all parsed correctly."""
+        import re
+        
+        def parse_txt_line(line):
+            """Mirror the TXT import logic from index.html's importFromText function."""
+            line = line.strip()
+            if not line:
+                return None
+            # Various formats: 4xOP01-001, 4 x OP01-001, 4 OP01-001, OP01-001 (qty=1)
+            patterns = [
+                r'^(\d+)\s*[xX]\s*([A-Z0-9]+-\d+[A-Z]?)$',     # 4xOP01-001 or 4 x OP01-001
+                r'^(\d+)\s+([A-Z0-9]+-\d+[A-Z]?)$',              # 4 OP01-001
+                r'^([A-Z0-9]+-\d+[A-Z]?)\s*[xX]\s*(\d+)$',      # OP01-001x4
+                r'^([A-Z0-9]+-\d+[A-Z]?)$',                        # OP01-001 (qty=1)
+            ]
+            for i, p in enumerate(patterns):
+                m = re.match(p, line, re.IGNORECASE)
+                if m:
+                    if i < 2:
+                        return {'qty': int(m.group(1)), 'id': m.group(2).upper()}
+                    elif i == 2:
+                        return {'qty': int(m.group(2)), 'id': m.group(1).upper()}
+                    else:
+                        return {'qty': 1, 'id': m.group(1).upper()}
+            return None
+        
+        self.assertEqual(parse_txt_line('4xOP01-001'), {'qty': 4, 'id': 'OP01-001'})
+        self.assertEqual(parse_txt_line('4 x OP01-001'), {'qty': 4, 'id': 'OP01-001'})
+        self.assertEqual(parse_txt_line('4 OP01-001'), {'qty': 4, 'id': 'OP01-001'})
+        self.assertEqual(parse_txt_line('OP01-001x4'), {'qty': 4, 'id': 'OP01-001'})
+        self.assertEqual(parse_txt_line('OP01-001'), {'qty': 1, 'id': 'OP01-001'})
+        self.assertIsNone(parse_txt_line(''))
+        self.assertIsNone(parse_txt_line('# comment line'))
+
+    def test_meta_json_integrity(self):
+        """Tests that no meta JSON file contains Japanese card names or JP image URLs."""
+        import glob
+        import json
+        import re
+        
+        JP_PATTERNS = [
+            re.compile(r'_JP\.webp', re.IGNORECASE),
+            re.compile(r'_jp\.webp', re.IGNORECASE),
+            re.compile(r'japanese', re.IGNORECASE),
+        ]
+        
+        meta_files = glob.glob('optcg_data/meta_*.json')
+        self.assertTrue(len(meta_files) > 0, 'No meta JSON files found in optcg_data/')
+        
+        violations = []
+        for filepath in meta_files:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                try:
+                    data = json.load(f)
+                except Exception:
+                    continue
+            for leader in data.get('leaders', []):
+                for card in leader.get('cards', []):
+                    image = card.get('image', '')
+                    name = card.get('card_name', '')
+                    for pat in JP_PATTERNS:
+                        if pat.search(image) or pat.search(name):
+                            violations.append(f"{filepath}: card {card.get('card_id','')} - {image or name}")
+        
+        self.assertEqual(violations, [], f"JP cards found:\n" + "\n".join(violations[:5]))
+
+    def test_manifest_generation(self):
+        """Tests that manifest.json exists and lists available sets correctly."""
+        import json
+        import glob
+        import os
+        
+        manifest_path = 'optcg_data/manifest.json'
+        self.assertTrue(os.path.exists(manifest_path), 'manifest.json not found. Run update_all.py to generate it.')
+        
+        with open(manifest_path, 'r', encoding='utf-8') as f:
+            manifest = json.load(f)
+        
+        self.assertIn('available_meta_sets', manifest)
+        self.assertIn('generated_at', manifest)
+        self.assertIn('total_sets', manifest)
+        self.assertIsInstance(manifest['available_meta_sets'], list)
+        self.assertEqual(manifest['total_sets'], len(manifest['available_meta_sets']))
+        
+        # Verify each entry in manifest corresponds to a real file
+        for entry in manifest['available_meta_sets']:
+            self.assertIn('code', entry)
+            code = entry['code']
+            expected_file = f'optcg_data/meta_{code}.json'
+            self.assertTrue(glob.glob(expected_file), f'Manifest references {code} but file not found')
+
 if __name__ == "__main__":
     unittest.main()

@@ -50,6 +50,51 @@ def fetch_url(url: str, retries: int = 3, delay: float = 0.5) -> Optional[str]:
                 time.sleep(attempt * 1.5)
     return None
 
+_card_details_cache = {}
+import html
+
+def fetch_card_details(card_id: str) -> dict:
+    """Fetches real card attributes (cost, power, type, attribute) from Limitless card page."""
+    global _card_details_cache
+    if card_id in _card_details_cache:
+        return _card_details_cache[card_id]
+    
+    url = f"{BASE_URL}/cards/{card_id}"
+    html_content = fetch_url(url, retries=2, delay=0.3)
+    if not html_content:
+        _card_details_cache[card_id] = {}
+        return {}
+    
+    details = {}
+    
+    # Extract cost
+    cost_m = re.search(r'Cost[^<]*</[^>]+>\s*<[^>]+>\s*(\d+)', html_content)
+    if cost_m:
+        details['cost'] = cost_m.group(1)
+    
+    # Extract power
+    power_m = re.search(r'Power[^<]*</[^>]+>\s*<[^>]+>\s*([0-9,]+)', html_content)
+    if power_m:
+        details['power'] = power_m.group(1).replace(',', '')
+    
+    # Extract card type
+    type_m = re.search(r'(?:Type|Category)[^<]*</[^>]+>\s*<[^>]+>\s*(Leader|Character|Event|Stage)', html_content, re.IGNORECASE)
+    if type_m:
+        details['card_type'] = type_m.group(1)
+    
+    # Extract attribute
+    attr_m = re.search(r'Attribute[^<]*</[^>]+>\s*<[^>]+>\s*(Slash|Strike|Ranged|Special|Wisdom)', html_content, re.IGNORECASE)
+    if attr_m:
+        details['attribute'] = attr_m.group(1)
+    
+    # Extract counter
+    counter_m = re.search(r'Counter[^<]*</[^>]+>\s*<[^>]+>\s*([+][0-9,]+)', html_content)
+    if counter_m:
+        details['counter'] = counter_m.group(1)
+    
+    _card_details_cache[card_id] = details
+    return details
+
 def is_base_version(card: Dict[str, Any]) -> bool:
     name = (card.get("card_name") or "").lower()
     img = (card.get("card_image") or "").lower()
@@ -460,7 +505,7 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
             else:
                 category = "tech"
                 
-            cards_list.append({
+            card_entry = {
                 "card_name": c_data["card_name"],
                 "card_id": cid,
                 "inclusion_percentage": inclusion_pct,
@@ -469,7 +514,22 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
                 "category": category,
                 "decks_count_text": f"{c_data['deck_appearances']}/{num_lists} decks",
                 "image": c_data["image"]
-            })
+            }
+            
+            # Fetch real card attributes from Limitless
+            card_details = fetch_card_details(cid)
+            if card_details.get('cost'):
+                card_entry['cost'] = card_details['cost']
+            if card_details.get('power'):
+                card_entry['power'] = card_details['power']
+            if card_details.get('card_type'):
+                card_entry['card_type'] = card_details['card_type']
+            if card_details.get('attribute'):
+                card_entry['attribute'] = card_details['attribute']
+            if card_details.get('counter'):
+                card_entry['counter'] = card_details['counter']
+                
+            cards_list.append(card_entry)
             
         cards_list.sort(key=lambda x: x["inclusion_percentage"], reverse=True)
         

@@ -10,6 +10,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Vue.js 3 -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- OPTCG Utility Functions Module -->
+    <script src="./js/optcg-utils.js"></script>
     <style>
         [v-cloak] { display: none; }
         /* Custom scrollbar for slate theme */
@@ -26,6 +28,15 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #475569;
+        }
+        .card-skeleton {
+            background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+            background-size: 200% 100%;
+            animation: skeleton-shimmer 1.5s infinite;
+        }
+        @keyframes skeleton-shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
     </style>
 </head>
@@ -291,13 +302,16 @@
                         
                         <!-- Image Container with lazy loading fallback -->
                         <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 overflow-hidden flex items-center justify-center">
-                            <img 
-                                v-if="card.card_image && !card.imageError" 
-                                :src="card.card_image" 
-                                :alt="card.card_name" 
-                                @error="card.imageError = true"
-                                loading="lazy"
-                                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
+                            <div v-if="card.card_image && !card.imageError" class="relative w-full h-full">
+                                <div v-if="!card.imageLoaded" class="absolute inset-0 card-skeleton rounded-xl"></div>
+                                <img 
+                                    :src="card.card_image" 
+                                    :alt="card.card_name" 
+                                    @load="card.imageLoaded = true"
+                                    @error="card.imageError = true; card.imageLoaded = true"
+                                    loading="lazy"
+                                    class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
+                            </div>
                             
                             <!-- Fallback design for cards without image -->
                             <div v-else class="w-full h-full p-4 flex flex-col justify-between items-center text-center bg-gradient-to-br from-slate-900 to-slate-950 select-none">
@@ -531,11 +545,16 @@
                                 
                                 <div class="relative w-full aspect-[2.5/2.6] bg-slate-950 overflow-hidden flex items-center justify-center border-b border-slate-800 p-2">
                                     <div class="w-full h-full rounded-xl overflow-hidden relative shadow-inner">
-                                        <img 
-                                            :src="getCardImage(leader)" 
-                                            :alt="leader.name" 
-                                            @error="handleCardImgError($event, getLeaderCardId(leader))"
-                                            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
+                                        <div class="relative w-full h-full">
+                                            <div v-if="!leader.imageLoaded && !leader.imageError" class="absolute inset-0 card-skeleton rounded-xl"></div>
+                                            <img 
+                                                :src="getCardImage(leader)" 
+                                                :alt="leader.name" 
+                                                @load="leader.imageLoaded = true"
+                                                @error="handleCardImgError($event, getLeaderCardId(leader)); leader.imageError = true; leader.imageLoaded = true"
+                                                loading="lazy"
+                                                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
+                                        </div>
                                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
                                     </div>
                                     
@@ -826,6 +845,51 @@
             <!-- Deck Builder Tab Layout -->
             <div v-else class="flex flex-col gap-6">
                 
+                <!-- Saved Decks Panel Toggle -->
+                <div class="flex justify-between items-center">
+                    <button 
+                        @click="showSavedDecksPanel = !showSavedDecksPanel"
+                        class="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-semibold text-slate-300 hover:text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                        Meus Decks Salvos <span v-if="savedDecks.length > 0" class="bg-amber-500 text-slate-950 font-black rounded-full w-4 h-4 flex items-center justify-center text-[10px]">{{ savedDecks.length }}</span>
+                    </button>
+                </div>
+
+                <!-- Saved Decks Panel -->
+                <div v-if="showSavedDecksPanel" class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col gap-4">
+                    <h3 class="text-sm font-bold text-slate-200">💾 Decks Salvos</h3>
+                    
+                    <!-- Save current deck -->
+                    <div v-if="selectedBuilderLeader && userDeck.length > 0" class="flex gap-2">
+                        <input 
+                            v-model="savedDeckNameInput"
+                            type="text"
+                            :placeholder="`Nome do deck (ex: ${selectedBuilderLeader?.card_name?.split(' ')[0]} Aggro)`"
+                            class="flex-1 bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-lg px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none"
+                            @keydown.enter="saveDeckToStorage"
+                        >
+                        <button @click="saveDeckToStorage" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition-colors">Salvar</button>
+                    </div>
+                    
+                    <!-- List of saved decks -->
+                    <div v-if="savedDecks.length > 0" class="flex flex-col gap-2">
+                        <div 
+                            v-for="deck in savedDecks" 
+                            :key="deck.id"
+                            class="flex items-center gap-3 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5">
+                            <img v-if="deck.leaderImage" :src="deck.leaderImage" class="w-8 h-10 object-cover rounded" :alt="deck.leaderName">
+                            <div class="flex-1 min-w-0">
+                                <p class="text-xs font-bold text-slate-200 truncate">{{ deck.name }}</p>
+                                <p class="text-[10px] text-slate-500">{{ deck.leaderName }} · {{ deck.totalCards }} cartas · {{ new Date(deck.savedAt).toLocaleDateString('pt-BR') }}</p>
+                            </div>
+                            <button @click="loadDeckFromStorage(deck)" class="px-3 py-1 bg-amber-500 hover:bg-amber-400 text-slate-950 text-[11px] font-bold rounded-lg transition-colors flex-shrink-0">Carregar</button>
+                            <button @click="deleteSavedDeck(deck.id)" class="px-2 py-1 bg-slate-800 hover:bg-red-900 text-slate-400 hover:text-red-400 text-[11px] rounded-lg transition-colors flex-shrink-0">✕</button>
+                        </div>
+                    </div>
+                    <p v-else class="text-xs text-slate-500 text-center py-4">Nenhum deck salvo ainda. Monte um deck e clique em "Salvar".</p>
+                    <p class="text-[10px] text-slate-600">Máximo de {{ 5 }} decks salvos localmente.</p>
+                </div>
+
                 <!-- 1. Leader Selection (If no leader selected) -->
                 <div v-if="!selectedBuilderLeader" class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-md flex flex-col gap-6">
                     <div>
@@ -1705,6 +1769,11 @@
                 const showImportModal = ref(false);
                 const importText = ref('');
 
+                // --- Saved Decks (LocalStorage) ---
+                const savedDecks = ref([]);  // Array of { id, name, leaderId, leaderName, cards: [{id, qty}], savedAt }
+                const showSavedDecksPanel = ref(false);
+                const savedDeckNameInput = ref('');
+
                 // Fetch database files & Dynamically integrate Limitless Meta cards
                 const loadData = async () => {
                     loading.value = true;
@@ -1720,11 +1789,19 @@
                         ]);
 
                         sets.value = setsRes;
-                        setCards.value = setCardsRes.map(c => ({ ...c, imageError: false }));
+                        
+                        // Build setTitles from the fetched sets data
+                        const setTitles = {};
+                        setsRes.forEach(s => {
+                            const cleanCode = (s.set_id || '').replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                            if (cleanCode) setTitles[cleanCode] = s.set_name;
+                        });
+
+                        setCards.value = setCardsRes.map(c => ({ ...c, imageError: false, imageLoaded: false }));
                         decks.value = decksRes;
-                        starterCards.value = starterCardsRes.map(c => ({ ...c, imageError: false }));
-                        promoCards.value = promoCardsRes.map(c => ({ ...c, imageError: false }));
-                        donCards.value = donCardsRes.map(c => ({ ...c, imageError: false }));
+                        starterCards.value = starterCardsRes.map(c => ({ ...c, imageError: false, imageLoaded: false }));
+                        promoCards.value = promoCardsRes.map(c => ({ ...c, imageError: false, imageLoaded: false }));
+                        donCards.value = donCardsRes.map(c => ({ ...c, imageError: false, imageLoaded: false }));
 
                         // --- UNIFICAÇÃO DINÂMICA DE CARTAS E SETS DO LIMITLESS (Abordagem 2) ---
                         const metaFilesToScan = [];
@@ -1766,7 +1843,9 @@
                             if (!res || !res.value || !res.value.leaders || res.value.leaders.length === 0) continue;
                             const mData = res.value;
 
-                            detectedSets.push({ value: code, label: `${code} (Limitless Meta)`, data: mData });
+                            const realName = setTitles[code] || setTitles[code.replace(/^OP/, 'OP-')] || '';
+                            const label = realName ? `${code} - ${realName}` : code;
+                            detectedSets.push({ value: code, label, data: mData });
                             
                             for (const leader of mData.leaders) {
                                 const lid = (leader.leader_card_id || '').toUpperCase().trim();
@@ -2087,50 +2166,16 @@
                     }
                 };
 
-                // Price formatter
-                const formatPrice = (price) => {
-                    if (price === undefined || price === null || price === 'NULL' || price === 0) return 'Indisponível';
-                    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
-                };
-
-                // Liga One Piece URL generator
-                const getLigaOnePieceUrl = (card) => {
-                    if (!card) return 'https://www.ligaonepiece.com.br/';
-                    let query = '';
-                    if (card.card_set_id && card.card_set_id !== 'NULL' && card.card_set_id !== 'DON!!') {
-                        query = card.card_set_id;
-                    } else if (card.card_id && card.card_id !== 'UNKNOWN' && card.card_id !== 'NULL') {
-                        query = card.card_id;
-                    } else if (card.card_name) {
-                        query = card.card_name;
-                    }
-                    query = query.trim();
-                    if (!query) return 'https://www.ligaonepiece.com.br/';
-                    return `https://www.ligaonepiece.com.br/?view=cards/search&card=${encodeURIComponent(query)}`;
-                };
-
-                const getLeaderCardId = (leader) => {
-                    if (!leader) return 'UNKNOWN';
-                    if (leader.leader_card_id && leader.leader_card_id !== 'UNKNOWN') return leader.leader_card_id;
-                    if (leader.archetype_code && leader.archetype_code.includes('||')) {
-                        return leader.archetype_code.split('||')[0].trim().toUpperCase();
-                    }
-                    if (leader.image) {
-                        const match = leader.image.match(/\/([A-Z0-9\-]+)\.(png|jpg|jpeg|webp)/i);
-                        if (match) return match[1].split('-r17')[0].toUpperCase();
-                    }
-                    return 'UNKNOWN';
-                };
-
-                const getMetaCardId = (metaCard) => {
-                    if (!metaCard) return 'UNKNOWN';
-                    if (metaCard.card_id && metaCard.card_id !== 'UNKNOWN') return metaCard.card_id;
-                    if (metaCard.image) {
-                        const match = metaCard.image.match(/\/([A-Z0-9\-]+)\.(png|jpg|jpeg|webp)/i);
-                        if (match) return match[1].split('-r17')[0].toUpperCase();
-                    }
-                    return 'UNKNOWN';
-                };
+                // ── Utility Functions (delegated to js/optcg-utils.js module) ──
+                const U = window.OPTCG_UTILS || {};
+                const formatPrice       = U.formatPrice       || (() => 'N/A');
+                const getLigaOnePieceUrl = U.getLigaOnePieceUrl || (() => 'https://www.ligaonepiece.com.br/');
+                const getLeaderCardId   = U.getLeaderCardId   || (() => 'UNKNOWN');
+                const getMetaCardId     = U.getMetaCardId     || (() => 'UNKNOWN');
+                const getColors         = U.getColors         || ((s) => s ? s.split('/') : []);
+                const getColorClass     = U.getColorClass     || (() => 'bg-slate-900 text-slate-100');
+                const translateColor    = U.translateColor    || ((c) => c);
+                const isColorCompatible = U.isColorCompatible || (() => false);
 
                 // --- Meta Leader Ranking & Filtering ---
                 const totalDecksTracked = computed(() => {
@@ -2488,53 +2533,11 @@
                     }
                 };
 
-                // Get list of colors for rendering tags
-                const getColors = (colorStr) => {
-                    if (!colorStr || colorStr === 'NULL') return [];
-                    return colorStr.split('/');
-                };
-
-                // Get color badges theme class
-                const getColorClass = (color) => {
-                    const base = "bg-slate-900 text-slate-100";
-                    switch(color.toLowerCase().trim()) {
-                        case 'red': return 'bg-red-600 text-white border-red-500';
-                        case 'green': return 'bg-emerald-600 text-white border-emerald-500';
-                        case 'blue': return 'bg-blue-600 text-white border-blue-500';
-                        case 'purple': return 'bg-purple-600 text-white border-purple-500';
-                        case 'black': return 'bg-zinc-800 text-slate-200 border-zinc-700';
-                        case 'yellow': return 'bg-amber-400 text-slate-950 border-amber-300 font-extrabold';
-                        default: return base;
-                    }
-                };
-
-                const translateColor = (color) => {
-                    const dic = {
-                        'red': 'Vermelho',
-                        'green': 'Verde',
-                        'blue': 'Azul',
-                        'purple': 'Roxo',
-                        'black': 'Preto',
-                        'yellow': 'Amarelo'
-                    };
-                    return dic[color.toLowerCase().trim()] || color;
-                };
-
                 // --- Deck Builder Functions ---
 
                 const openImportModal = () => {
                     importText.value = '';
                     showImportModal.value = true;
-                };
-
-                const isColorCompatible = (leader, card) => {
-                    if (!leader || !card) return false;
-                    if (card.card_color === 'DON!!') return true;
-                    
-                    const leaderColors = getColors(leader.card_color).map(c => c.toLowerCase().trim());
-                    const cardColors = getColors(card.card_color).map(c => c.toLowerCase().trim());
-                    
-                    return cardColors.some(c => leaderColors.includes(c));
                 };
 
                 const importDeck = () => {
@@ -2666,6 +2669,86 @@
                     } else {
                         alert("Erro: A lista importada precisa conter pelo menos uma carta de Líder válida (ex: 1xOP14-020) ou você deve selecionar um Líder na tela antes de importar.");
                     }
+                };
+                
+                // --- LocalStorage Deck Persistence ---
+                const LS_KEY = 'optcg_saved_decks';
+                const MAX_SAVED_DECKS = 5;
+
+                const loadSavedDecks = () => {
+                    try {
+                        const raw = localStorage.getItem(LS_KEY);
+                        savedDecks.value = raw ? JSON.parse(raw) : [];
+                    } catch (e) {
+                        savedDecks.value = [];
+                    }
+                };
+
+                const saveDeckToStorage = () => {
+                    if (!selectedBuilderLeader.value || userDeck.value.length === 0) {
+                        alert('Monte um deck antes de salvar!');
+                        return;
+                    }
+                    const name = savedDeckNameInput.value.trim() || `Deck ${selectedBuilderLeader.value.card_name.split(' ')[0]} ${new Date().toLocaleDateString('pt-BR')}`;
+                    
+                    const deckData = {
+                        id: Date.now().toString(),
+                        name,
+                        leaderId: selectedBuilderLeader.value.card_set_id,
+                        leaderName: selectedBuilderLeader.value.card_name,
+                        leaderColor: selectedBuilderLeader.value.card_color,
+                        leaderImage: selectedBuilderLeader.value.card_image,
+                        cards: userDeck.value.map(item => ({ id: item.card.card_set_id, qty: item.quantity })),
+                        totalCards: userDeck.value.reduce((s, i) => s + i.quantity, 0),
+                        savedAt: new Date().toISOString()
+                    };
+                    
+                    const existing = savedDecks.value.filter(d => d.id !== deckData.id);
+                    if (existing.length >= MAX_SAVED_DECKS) {
+                        existing.shift(); // Remove oldest if at limit
+                    }
+                    savedDecks.value = [...existing, deckData];
+                    
+                    try {
+                        localStorage.setItem(LS_KEY, JSON.stringify(savedDecks.value));
+                        savedDeckNameInput.value = '';
+                        alert(`Deck '${name}' salvo com sucesso!`);
+                    } catch (e) {
+                        alert('Erro ao salvar deck. Tente limpar o armazenamento do navegador.');
+                    }
+                };
+
+                const loadDeckFromStorage = (deck) => {
+                    const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
+                    
+                    // Find leader
+                    const leaderObj = allCards.find(c => c.card_type === 'Leader' && c.card_set_id === deck.leaderId) || {
+                        card_name: deck.leaderName,
+                        card_set_id: deck.leaderId,
+                        card_type: 'Leader',
+                        card_color: deck.leaderColor || 'Multi',
+                        card_image: deck.leaderImage || '',
+                        rarity: 'L'
+                    };
+                    selectedBuilderLeader.value = leaderObj;
+                    
+                    // Restore cards
+                    userDeck.value = deck.cards.map(saved => {
+                        const found = allCards.find(c => c.card_set_id === saved.id);
+                        const cardObj = found || { card_name: saved.id, card_set_id: saved.id, card_type: 'Character', card_color: leaderObj.card_color, card_image: '', rarity: 'UC' };
+                        return { card: cardObj, quantity: saved.qty };
+                    }).filter(item => item.quantity > 0);
+                    
+                    showSavedDecksPanel.value = false;
+                    currentTab.value = 'builder';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+
+                const deleteSavedDeck = (deckId) => {
+                    savedDecks.value = savedDecks.value.filter(d => d.id !== deckId);
+                    try {
+                        localStorage.setItem(LS_KEY, JSON.stringify(savedDecks.value));
+                    } catch (e) {}
                 };
                 
                 // Get all leaders in the general database
@@ -3478,6 +3561,46 @@
 
                 onMounted(async () => {
                     await loadData();
+                    loadSavedDecks();
+                    
+                    // Keyboard shortcuts
+                    document.addEventListener('keydown', (e) => {
+                        const tag = (document.activeElement?.tagName || '').toLowerCase();
+                        const isTyping = tag === 'input' || tag === 'textarea' || tag === 'select';
+                        
+                        // Esc: close any open modal
+                        if (e.key === 'Escape') {
+                            if (selectedCard.value) { selectedCard.value = null; return; }
+                            if (selectedMetaLeader.value) { selectedMetaLeader.value = null; return; }
+                            if (showImportModal.value) { showImportModal.value = false; return; }
+                            if (showExportModal.value) { showExportModal.value = false; return; }
+                            if (showDeckAnalysis.value) { showDeckAnalysis.value = false; return; }
+                        }
+                        
+                        // '/': focus search bar of active tab
+                        if (e.key === '/' && !isTyping) {
+                            e.preventDefault();
+                            if (currentTab.value === 'sets') {
+                                document.querySelector('input[placeholder*="Ex: Zoro"]')?.focus();
+                            } else if (currentTab.value === 'builder') {
+                                document.querySelector('input[placeholder*="Filtrar por nome"]')?.focus();
+                            } else if (currentTab.value === 'meta') {
+                                document.querySelector('input[placeholder*="Buscar l"]')?.focus();
+                            }
+                            return;
+                        }
+                        
+                        // Arrow keys: paginate in sets tab
+                        if (!isTyping && currentTab.value === 'sets') {
+                            if (e.key === 'ArrowRight' && currentPage.value < totalPages.value) {
+                                e.preventDefault();
+                                currentPage.value++;
+                            } else if (e.key === 'ArrowLeft' && currentPage.value > 1) {
+                                e.preventDefault();
+                                currentPage.value--;
+                            }
+                        }
+                    });
                 });
 
                 return {
@@ -3563,6 +3686,14 @@
                     openImportModal,
                     importDeck,
                     isColorCompatible,
+
+                    savedDecks,
+                    showSavedDecksPanel,
+                    savedDeckNameInput,
+                    saveDeckToStorage,
+                    loadDeckFromStorage,
+                    deleteSavedDeck,
+                    loadSavedDecks,
 
                     // Report helpers
                     getDefenseLabel,

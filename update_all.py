@@ -49,6 +49,42 @@ def fix_meta_decks_tracked():
             log(f"Error processing {filepath}: {e}")
     log(f"Updated decks_tracked in {updated_count} files.")
 
+def generate_manifest():
+    """Generates optcg_data/manifest.json with the list of available meta sets."""
+    import re
+    log("Generating optcg_data/manifest.json...")
+    available = []
+    pattern = re.compile(r'meta_([A-Z0-9]+)\.json$', re.IGNORECASE)
+    for filepath in sorted(glob.glob("optcg_data/meta_*.json")):
+        m = pattern.search(filepath)
+        if not m:
+            continue
+        code = m.group(1).upper()
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            leaders = data.get("leaders", [])
+            if leaders:  # Only include sets that actually have leader data
+                available.append({
+                    "code": code,
+                    "deck_count": data.get("decks_tracked", 0),
+                    "scraped_at": data.get("scraped_at", "")
+                })
+        except Exception as e:
+            log(f"[manifest] Error reading {filepath}: {e}")
+    
+    manifest = {
+        "generated_at": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "available_meta_sets": available,
+        "total_sets": len(available)
+    }
+    try:
+        with open("optcg_data/manifest.json", "w", encoding="utf-8") as f:
+            json.dump(manifest, f, indent=2, ensure_ascii=False)
+        log(f"manifest.json generated: {len(available)} sets available.")
+    except Exception as e:
+        log(f"Error writing manifest.json: {e}")
+
 def main():
     log("==========================================")
     log("Starting Full Automatic Update Pipeline...")
@@ -66,7 +102,10 @@ def main():
     # 3. Recalculate decks_tracked for all meta files
     fix_meta_decks_tracked()
     
-    # 4. Run automated test suite
+    # 4. Generate manifest.json
+    generate_manifest()
+    
+    # 5. Run automated test suite
     s3 = run_cmd(f"{sys.executable} -m unittest test_deck_analyzer.py")
     
     if s1 and s2 and s3:
