@@ -1,0 +1,36 @@
+name: Daily OPTCG Auto Update
+
+on:
+  schedule:
+    # Rodar todos os dias às 03:00 AM UTC (00:00 Horário de Brasília)
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Permite rodar manualmente no painel do GitHub a qualquer momento
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests selenium
+
+      - name: Run Full Update Pipeline
+        run: |
+          python update_all.py
+
+      - name: Commit and Push Updated Data
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add optcg_data/ update_log.txt
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update OPTCG database & meta data [skip ci]" && git push)

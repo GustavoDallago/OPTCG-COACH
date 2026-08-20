@@ -1,0 +1,2663 @@
+{
+    "set_code": "OP15",
+    "decks_tracked": 455,
+    "scraped_at": "2026-08-19 21:18:30",
+    "leaders": [
+        {
+            "name": "Enel (Purple)",
+            "leader_card_id": "OP15-058",
+            "deck_count": 159,
+            "share_percentage": 33.5,
+            "archetype_code": "OP15-058||Purple",
+            "image": "https://img.egmanevents.com/optcg/OP15-058.webp",
+            "cards": [
+                {
+                    "card_name": "Ohm",
+                    "card_id": "OP15-061",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-061.webp"
+                },
+                {
+                    "card_name": "Lightning Beast Kiten",
+                    "card_id": "OP15-076",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-076.webp"
+                },
+                {
+                    "card_name": "Lightning Dragon",
+                    "card_id": "OP15-077",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-077.webp"
+                },
+                {
+                    "card_name": "Mamaragan",
+                    "card_id": "OP15-078",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-078.webp"
+                },
+                {
+                    "card_name": "Enel",
+                    "card_id": "OP15-118",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-118.webp"
+                },
+                {
+                    "card_name": "El Thor",
+                    "card_id": "OP15-075",
+                    "inclusion_percentage": 98.7,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-075.webp"
+                },
+                {
+                    "card_name": "Charlotte Pudding",
+                    "card_id": "OP12-071",
+                    "inclusion_percentage": 95.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-071.webp"
+                },
+                {
+                    "card_name": "Divine Departure",
+                    "card_id": "OP13-076",
+                    "inclusion_percentage": 95.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-076.webp"
+                },
+                {
+                    "card_name": "Gamma Knife",
+                    "card_id": "OP05-077",
+                    "inclusion_percentage": 91.2,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-077.webp"
+                },
+                {
+                    "card_name": "Shura",
+                    "card_id": "OP15-067",
+                    "inclusion_percentage": 88.1,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-067.webp"
+                },
+                {
+                    "card_name": "Vinsmoke Reiju",
+                    "card_id": "OP12-063",
+                    "inclusion_percentage": 87.4,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-063.webp"
+                },
+                {
+                    "card_name": "Varie",
+                    "card_id": "OP15-074",
+                    "inclusion_percentage": 87.4,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-074.webp"
+                },
+                {
+                    "card_name": "Senor Pink",
+                    "card_id": "OP10-067",
+                    "inclusion_percentage": 81.8,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-067.webp"
+                },
+                {
+                    "card_name": "Franky",
+                    "card_id": "OP09-072",
+                    "inclusion_percentage": 73.6,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP09-072.webp"
+                },
+                {
+                    "card_name": "Satori",
+                    "card_id": "OP15-066",
+                    "inclusion_percentage": 65.4,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-066.webp"
+                },
+                {
+                    "card_name": "Trafalgar Law",
+                    "card_id": "ST10-010",
+                    "inclusion_percentage": 59.1,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST10-010.webp"
+                },
+                {
+                    "card_name": "Holly",
+                    "card_id": "OP15-071",
+                    "inclusion_percentage": 47.2,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-071.webp"
+                },
+                {
+                    "card_name": "Enel",
+                    "card_id": "OP15-060",
+                    "inclusion_percentage": 42.1,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-060.webp"
+                },
+                {
+                    "card_name": "Sanji",
+                    "card_id": "OP07-064",
+                    "inclusion_percentage": 36.5,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-064.webp"
+                },
+                {
+                    "card_name": "Gum",
+                    "card_id": "OP09-077",
+                    "inclusion_percentage": 10.1,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP09-077.webp"
+                },
+                {
+                    "card_name": "Porche",
+                    "card_id": "OP07-072",
+                    "inclusion_percentage": 3.8,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-072.webp"
+                },
+                {
+                    "card_name": "Foxy",
+                    "card_id": "OP10-075",
+                    "inclusion_percentage": 3.1,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-075.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "OP07-073",
+                    "inclusion_percentage": 2.5,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-073.webp"
+                },
+                {
+                    "card_name": "Gedatsu",
+                    "card_id": "OP15-063",
+                    "inclusion_percentage": 1.3,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-063.webp"
+                },
+                {
+                    "card_name": "Heat",
+                    "card_id": "ST10-011",
+                    "inclusion_percentage": 1.3,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST10-011.webp"
+                },
+                {
+                    "card_name": "Slow",
+                    "card_id": "OP07-076",
+                    "inclusion_percentage": 1.3,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-076.webp"
+                },
+                {
+                    "card_name": "Vinsmoke Reiju",
+                    "card_id": "OP06-069",
+                    "inclusion_percentage": 1.3,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-069.webp"
+                },
+                {
+                    "card_name": "Rosinante & Law",
+                    "card_id": "EB04-038",
+                    "inclusion_percentage": 1.3,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-038.webp"
+                },
+                {
+                    "card_name": "Sanji",
+                    "card_id": "OP12-070",
+                    "inclusion_percentage": 0.6,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-070.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "P-045",
+                    "inclusion_percentage": 0.6,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/P-045.webp"
+                },
+                {
+                    "card_name": "Tony Tony.Chopper",
+                    "card_id": "OP07-066",
+                    "inclusion_percentage": 0.6,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-066.webp"
+                }
+            ]
+        },
+        {
+            "name": "Nami (Blue/Yellow)",
+            "leader_card_id": "OP11-041",
+            "deck_count": 121,
+            "share_percentage": 25.5,
+            "archetype_code": "OP11-041||Blue,Yellow",
+            "image": "https://img.egmanevents.com/optcg/OP11-041.webp",
+            "cards": [
+                {
+                    "card_name": "Nami",
+                    "card_id": "EB03-053",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB03-053.webp"
+                },
+                {
+                    "card_name": "Nico Robin",
+                    "card_id": "EB03-055",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB03-055.webp"
+                },
+                {
+                    "card_name": "Borsalino",
+                    "card_id": "EB04-058",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-058.webp"
+                },
+                {
+                    "card_name": "Edward.Newgate",
+                    "card_id": "OP13-042",
+                    "inclusion_percentage": 98.3,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-042.webp"
+                },
+                {
+                    "card_name": "Zeus",
+                    "card_id": "OP11-106",
+                    "inclusion_percentage": 97.5,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP11-106.webp"
+                },
+                {
+                    "card_name": "Girl",
+                    "card_id": "P-096",
+                    "inclusion_percentage": 95.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/P-096.webp"
+                },
+                {
+                    "card_name": "Kumacy",
+                    "card_id": "OP14-102",
+                    "inclusion_percentage": 88.4,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-102.webp"
+                },
+                {
+                    "card_name": "Perona",
+                    "card_id": "OP14-111",
+                    "inclusion_percentage": 88.4,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-111.webp"
+                },
+                {
+                    "card_name": "Dr. Hogback",
+                    "card_id": "OP14-110",
+                    "inclusion_percentage": 88.4,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-110.webp"
+                },
+                {
+                    "card_name": "Gecko Moria",
+                    "card_id": "OP14-104",
+                    "inclusion_percentage": 88.4,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-104.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "OP15-113",
+                    "inclusion_percentage": 83.5,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-113.webp"
+                },
+                {
+                    "card_name": "Kikunojo",
+                    "card_id": "OP06-104",
+                    "inclusion_percentage": 82.6,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-104.webp"
+                },
+                {
+                    "card_name": "Baby 5",
+                    "card_id": "OP12-112",
+                    "inclusion_percentage": 80.2,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-112.webp"
+                },
+                {
+                    "card_name": "Sanji",
+                    "card_id": "OP15-047",
+                    "inclusion_percentage": 70.2,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-047.webp"
+                },
+                {
+                    "card_name": "Marco",
+                    "card_id": "PRB02-008",
+                    "inclusion_percentage": 63.6,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/PRB02-008.webp"
+                },
+                {
+                    "card_name": "Silvers Rayleigh",
+                    "card_id": "OP14-108",
+                    "inclusion_percentage": 59.5,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-108.webp"
+                },
+                {
+                    "card_name": "Will You Be My Servant?",
+                    "card_id": "EB03-060",
+                    "inclusion_percentage": 31.4,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB03-060.webp"
+                },
+                {
+                    "card_name": "Kouzuki Hiyori",
+                    "card_id": "OP06-106",
+                    "inclusion_percentage": 28.1,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-106.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "OP15-119",
+                    "inclusion_percentage": 28.1,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-119.webp"
+                },
+                {
+                    "card_name": "Eustass\"Captain\"Kid",
+                    "card_id": "OP10-112",
+                    "inclusion_percentage": 12.4,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-112.webp"
+                },
+                {
+                    "card_name": "Leo",
+                    "card_id": "OP15-052",
+                    "inclusion_percentage": 9.1,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-052.webp"
+                },
+                {
+                    "card_name": "Gum",
+                    "card_id": "OP15-116",
+                    "inclusion_percentage": 9.1,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-116.webp"
+                },
+                {
+                    "card_name": "Nico Robin",
+                    "card_id": "OP15-109",
+                    "inclusion_percentage": 6.6,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-109.webp"
+                },
+                {
+                    "card_name": "Wyper",
+                    "card_id": "OP15-114",
+                    "inclusion_percentage": 5.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-114.webp"
+                },
+                {
+                    "card_name": "Gravity Blade Raging Tiger",
+                    "card_id": "OP06-058",
+                    "inclusion_percentage": 4.1,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-058.webp"
+                },
+                {
+                    "card_name": "Slave Arrow",
+                    "card_id": "OP07-056",
+                    "inclusion_percentage": 4.1,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-056.webp"
+                },
+                {
+                    "card_name": "Nojiko",
+                    "card_id": "OP03-048",
+                    "inclusion_percentage": 3.3,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP03-048.webp"
+                },
+                {
+                    "card_name": "Nefeltari Vivi",
+                    "card_id": "EB03-024",
+                    "inclusion_percentage": 3.3,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB03-024.webp"
+                },
+                {
+                    "card_name": "I Re",
+                    "card_id": "OP07-115",
+                    "inclusion_percentage": 2.5,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-115.webp"
+                },
+                {
+                    "card_name": "Bartholomew Kuma",
+                    "card_id": "OP12-119",
+                    "inclusion_percentage": 1.7,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-119.webp"
+                },
+                {
+                    "card_name": "Kingdom Come",
+                    "card_id": "EB01-059",
+                    "inclusion_percentage": 1.7,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB01-059.webp"
+                },
+                {
+                    "card_name": "Jewelry Bonney",
+                    "card_id": "OP15-105",
+                    "inclusion_percentage": 1.7,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-105.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "EB04-061",
+                    "inclusion_percentage": 1.7,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-061.webp"
+                },
+                {
+                    "card_name": "Boa Hancock",
+                    "card_id": "OP07-051",
+                    "inclusion_percentage": 1.7,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-051.webp"
+                },
+                {
+                    "card_name": "Sabo",
+                    "card_id": "OP10-049",
+                    "inclusion_percentage": 0.8,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-049.webp"
+                },
+                {
+                    "card_name": "Gan.Fall",
+                    "card_id": "OP15-102",
+                    "inclusion_percentage": 0.8,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-102.webp"
+                },
+                {
+                    "card_name": "Burn Blade",
+                    "card_id": "OP08-117",
+                    "inclusion_percentage": 0.8,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-117.webp"
+                },
+                {
+                    "card_name": "Kouzuki Hiyori",
+                    "card_id": "OP13-104",
+                    "inclusion_percentage": 0.8,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-104.webp"
+                },
+                {
+                    "card_name": "Gum",
+                    "card_id": "OP13-117",
+                    "inclusion_percentage": 0.8,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-117.webp"
+                },
+                {
+                    "card_name": "Nico Robin",
+                    "card_id": "OP09-107",
+                    "inclusion_percentage": 0.8,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP09-107.webp"
+                }
+            ]
+        },
+        {
+            "name": "Lucy (Blue/Red)",
+            "leader_card_id": "OP15-002",
+            "deck_count": 55,
+            "share_percentage": 11.6,
+            "archetype_code": "OP15-002||Blue,Red",
+            "image": "https://img.egmanevents.com/optcg/OP15-002.webp",
+            "cards": [
+                {
+                    "card_name": "Viola",
+                    "card_id": "OP15-040",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-040.webp"
+                },
+                {
+                    "card_name": "Rebecca",
+                    "card_id": "OP15-053",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-053.webp"
+                },
+                {
+                    "card_name": "Sabo",
+                    "card_id": "OP15-046",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-046.webp"
+                },
+                {
+                    "card_name": "And No One Else Can Have It! It's Our Memento of Him",
+                    "card_id": "OP15-054",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-054.webp"
+                },
+                {
+                    "card_name": "Leo",
+                    "card_id": "OP15-052",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-052.webp"
+                },
+                {
+                    "card_name": "Fire Fist",
+                    "card_id": "OP15-020",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-020.webp"
+                },
+                {
+                    "card_name": "Fire Fist",
+                    "card_id": "OP05-019",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-019.webp"
+                },
+                {
+                    "card_name": "Barrier",
+                    "card_id": "OP10-060",
+                    "inclusion_percentage": 98.2,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-060.webp"
+                },
+                {
+                    "card_name": "Just Watch Me, Ace!!!",
+                    "card_id": "OP15-021",
+                    "inclusion_percentage": 98.2,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-021.webp"
+                },
+                {
+                    "card_name": "Would You Let Me Eat the Flame",
+                    "card_id": "OP15-056",
+                    "inclusion_percentage": 96.4,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-056.webp"
+                },
+                {
+                    "card_name": "Gol.D.Roger",
+                    "card_id": "OP09-118",
+                    "inclusion_percentage": 96.4,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP09-118.webp"
+                },
+                {
+                    "card_name": "Cavendish",
+                    "card_id": "OP10-045",
+                    "inclusion_percentage": 92.7,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-045.webp"
+                },
+                {
+                    "card_name": "Dressrosa Kingdom",
+                    "card_id": "OP15-057",
+                    "inclusion_percentage": 90.9,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-057.webp"
+                },
+                {
+                    "card_name": "Fo...llow...Me...and...I...Will...Gui...de...You",
+                    "card_id": "OP10-059",
+                    "inclusion_percentage": 58.2,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-059.webp"
+                },
+                {
+                    "card_name": "Belo Betty",
+                    "card_id": "OP05-015",
+                    "inclusion_percentage": 50.9,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-015.webp"
+                },
+                {
+                    "card_name": "Go Ahead and Use 'Em, Mr. Luffy!!!",
+                    "card_id": "OP15-055",
+                    "inclusion_percentage": 41.8,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-055.webp"
+                },
+                {
+                    "card_name": "Bartolomeo",
+                    "card_id": "OP15-014",
+                    "inclusion_percentage": 40.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-014.webp"
+                },
+                {
+                    "card_name": "Edward.Newgate",
+                    "card_id": "OP13-042",
+                    "inclusion_percentage": 36.4,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-042.webp"
+                },
+                {
+                    "card_name": "Sabo",
+                    "card_id": "OP10-049",
+                    "inclusion_percentage": 25.5,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-049.webp"
+                },
+                {
+                    "card_name": "Barrier Bulls",
+                    "card_id": "OP15-019",
+                    "inclusion_percentage": 23.6,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-019.webp"
+                },
+                {
+                    "card_name": "Cavendish",
+                    "card_id": "OP15-006",
+                    "inclusion_percentage": 14.5,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-006.webp"
+                },
+                {
+                    "card_name": "Boa Hancock",
+                    "card_id": "OP07-051",
+                    "inclusion_percentage": 7.3,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-051.webp"
+                },
+                {
+                    "card_name": "Koala",
+                    "card_id": "OP05-006",
+                    "inclusion_percentage": 5.5,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-006.webp"
+                },
+                {
+                    "card_name": "Boeuf Burst",
+                    "card_id": "OP12-060",
+                    "inclusion_percentage": 5.5,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-060.webp"
+                },
+                {
+                    "card_name": "Chinjao",
+                    "card_id": "OP15-048",
+                    "inclusion_percentage": 3.6,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-048.webp"
+                },
+                {
+                    "card_name": "Gravity Blade Raging Tiger",
+                    "card_id": "OP06-058",
+                    "inclusion_percentage": 3.6,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-058.webp"
+                },
+                {
+                    "card_name": "Distorted Future",
+                    "card_id": "EB04-008",
+                    "inclusion_percentage": 1.8,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-008.webp"
+                },
+                {
+                    "card_name": "Gum",
+                    "card_id": "ST10-015",
+                    "inclusion_percentage": 1.8,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST10-015.webp"
+                },
+                {
+                    "card_name": "If I Bowed Down to Power, What's the Point in Living?",
+                    "card_id": "OP13-057",
+                    "inclusion_percentage": 1.8,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-057.webp"
+                },
+                {
+                    "card_name": "Meteor",
+                    "card_id": "OP06-017",
+                    "inclusion_percentage": 1.8,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-017.webp"
+                },
+                {
+                    "card_name": "Brook",
+                    "card_id": "OP11-056",
+                    "inclusion_percentage": 1.8,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP11-056.webp"
+                },
+                {
+                    "card_name": "Dragon Breath",
+                    "card_id": "OP07-017",
+                    "inclusion_percentage": 1.8,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-017.webp"
+                }
+            ]
+        },
+        {
+            "name": "Portgas.D.Ace (Blue/Red)",
+            "leader_card_id": "OP13-002",
+            "deck_count": 27,
+            "share_percentage": 5.7,
+            "archetype_code": "OP13-002||Blue,Red",
+            "image": "https://img.egmanevents.com/optcg/OP13-002.webp",
+            "cards": [
+                {
+                    "card_name": "Gol.D.Roger",
+                    "card_id": "OP09-118",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP09-118.webp"
+                },
+                {
+                    "card_name": "Edward.Newgate",
+                    "card_id": "OP13-042",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-042.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "EB04-007",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-007.webp"
+                },
+                {
+                    "card_name": "Jozu",
+                    "card_id": "OP08-047",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-047.webp"
+                },
+                {
+                    "card_name": "Yamato",
+                    "card_id": "OP13-054",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-054.webp"
+                },
+                {
+                    "card_name": "Marco",
+                    "card_id": "PRB02-008",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/PRB02-008.webp"
+                },
+                {
+                    "card_name": "Izo",
+                    "card_id": "ST22-002",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST22-002.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Garp",
+                    "card_id": "OP13-016",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-016.webp"
+                },
+                {
+                    "card_name": "Uta",
+                    "card_id": "ST23-001",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST23-001.webp"
+                },
+                {
+                    "card_name": "I Am Whitebeard!!",
+                    "card_id": "ST22-015",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST22-015.webp"
+                },
+                {
+                    "card_name": "Boa Hancock",
+                    "card_id": "OP07-051",
+                    "inclusion_percentage": 96.3,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-051.webp"
+                },
+                {
+                    "card_name": "Otama",
+                    "card_id": "OP13-043",
+                    "inclusion_percentage": 96.3,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-043.webp"
+                },
+                {
+                    "card_name": "Atmos",
+                    "card_id": "OP08-040",
+                    "inclusion_percentage": 92.6,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-040.webp"
+                },
+                {
+                    "card_name": "Thatch",
+                    "card_id": "ST15-004",
+                    "inclusion_percentage": 63.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST15-004.webp"
+                },
+                {
+                    "card_name": "Edward.Newgate",
+                    "card_id": "OP08-043",
+                    "inclusion_percentage": 51.9,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-043.webp"
+                },
+                {
+                    "card_name": "Kingdew",
+                    "card_id": "OP08-044",
+                    "inclusion_percentage": 40.7,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-044.webp"
+                },
+                {
+                    "card_name": "Distorted Future",
+                    "card_id": "EB04-008",
+                    "inclusion_percentage": 37.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-008.webp"
+                },
+                {
+                    "card_name": "Cavendish",
+                    "card_id": "OP10-045",
+                    "inclusion_percentage": 33.3,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-045.webp"
+                },
+                {
+                    "card_name": "Shanks",
+                    "card_id": "P-097",
+                    "inclusion_percentage": 18.5,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/P-097.webp"
+                },
+                {
+                    "card_name": "Portgas.D.Ace",
+                    "card_id": "ST22-010",
+                    "inclusion_percentage": 14.8,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST22-010.webp"
+                },
+                {
+                    "card_name": "Ace & Sabo & Luffy",
+                    "card_id": "OP13-007",
+                    "inclusion_percentage": 11.1,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-007.webp"
+                },
+                {
+                    "card_name": "Honesty Impact",
+                    "card_id": "OP11-018",
+                    "inclusion_percentage": 11.1,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP11-018.webp"
+                },
+                {
+                    "card_name": "Vista",
+                    "card_id": "OP13-046",
+                    "inclusion_percentage": 7.4,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-046.webp"
+                },
+                {
+                    "card_name": "If I Bowed Down to Power, What's the Point in Living?",
+                    "card_id": "OP13-057",
+                    "inclusion_percentage": 7.4,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-057.webp"
+                },
+                {
+                    "card_name": "Time for the Counterattack",
+                    "card_id": "OP14-018",
+                    "inclusion_percentage": 3.7,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-018.webp"
+                },
+                {
+                    "card_name": "Ain",
+                    "card_id": "OP07-002",
+                    "inclusion_percentage": 3.7,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-002.webp"
+                },
+                {
+                    "card_name": "Edward.Newgate",
+                    "card_id": "OP12-002",
+                    "inclusion_percentage": 3.7,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-002.webp"
+                },
+                {
+                    "card_name": "Portgas.D.Ace",
+                    "card_id": "OP02-013",
+                    "inclusion_percentage": 3.7,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP02-013.webp"
+                },
+                {
+                    "card_name": "Fire Fist",
+                    "card_id": "OP05-019",
+                    "inclusion_percentage": 3.7,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-019.webp"
+                },
+                {
+                    "card_name": "Sanji",
+                    "card_id": "OP15-047",
+                    "inclusion_percentage": 3.7,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-047.webp"
+                }
+            ]
+        },
+        {
+            "name": "Dracule Mihawk (Green)",
+            "leader_card_id": "OP14-020",
+            "deck_count": 27,
+            "share_percentage": 5.7,
+            "archetype_code": "OP14-020||Green",
+            "image": "https://img.egmanevents.com/optcg/OP14-020.webp",
+            "cards": [
+                {
+                    "card_name": "I Know You're Strong... So I'll Go All Out from the Very Start!!!",
+                    "card_id": "OP13-040",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-040.webp"
+                },
+                {
+                    "card_name": "Perona",
+                    "card_id": "OP12-034",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-034.webp"
+                },
+                {
+                    "card_name": "Demon Aura Nine Sword Style Asura Blades Drawn Dead Man's Game",
+                    "card_id": "OP12-037",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-037.webp"
+                },
+                {
+                    "card_name": "Law & Bepo",
+                    "card_id": "ST24-004",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST24-004.webp"
+                },
+                {
+                    "card_name": "Trafalgar Law",
+                    "card_id": "OP13-031",
+                    "inclusion_percentage": 96.3,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-031.webp"
+                },
+                {
+                    "card_name": "The Billion",
+                    "card_id": "OP06-038",
+                    "inclusion_percentage": 96.3,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-038.webp"
+                },
+                {
+                    "card_name": "Kid & Killer",
+                    "card_id": "ST24-002",
+                    "inclusion_percentage": 96.3,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST24-002.webp"
+                },
+                {
+                    "card_name": "Dracule Mihawk",
+                    "card_id": "OP14-119",
+                    "inclusion_percentage": 96.3,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-119.webp"
+                },
+                {
+                    "card_name": "Jewelry Bonney",
+                    "card_id": "OP12-118",
+                    "inclusion_percentage": 96.3,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-118.webp"
+                },
+                {
+                    "card_name": "Scratchmen Apoo",
+                    "card_id": "EB01-015",
+                    "inclusion_percentage": 92.6,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB01-015.webp"
+                },
+                {
+                    "card_name": "Jewelry Bonney",
+                    "card_id": "OP07-026",
+                    "inclusion_percentage": 88.9,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-026.webp"
+                },
+                {
+                    "card_name": "Coffin Boat",
+                    "card_id": "OP14-039",
+                    "inclusion_percentage": 85.2,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-039.webp"
+                },
+                {
+                    "card_name": "Laboon",
+                    "card_id": "OP15-035",
+                    "inclusion_percentage": 85.2,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-035.webp"
+                },
+                {
+                    "card_name": "Electrical Luna",
+                    "card_id": "OP08-036",
+                    "inclusion_percentage": 85.2,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-036.webp"
+                },
+                {
+                    "card_name": "Jewelry Bonney",
+                    "card_id": "ST02-007",
+                    "inclusion_percentage": 74.1,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST02-007.webp"
+                },
+                {
+                    "card_name": "Perona",
+                    "card_id": "OP14-033",
+                    "inclusion_percentage": 63.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-033.webp"
+                },
+                {
+                    "card_name": "Tashigi",
+                    "card_id": "OP12-031",
+                    "inclusion_percentage": 59.3,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-031.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "PRB02-006",
+                    "inclusion_percentage": 48.1,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/PRB02-006.webp"
+                },
+                {
+                    "card_name": "Smoker",
+                    "card_id": "OP10-030",
+                    "inclusion_percentage": 44.4,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-030.webp"
+                },
+                {
+                    "card_name": "Two",
+                    "card_id": "OP12-038",
+                    "inclusion_percentage": 22.2,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-038.webp"
+                },
+                {
+                    "card_name": "Shanks",
+                    "card_id": "OP14-027",
+                    "inclusion_percentage": 18.5,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-027.webp"
+                },
+                {
+                    "card_name": "Karmic Punishment",
+                    "card_id": "OP07-035",
+                    "inclusion_percentage": 18.5,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-035.webp"
+                },
+                {
+                    "card_name": "Carrot",
+                    "card_id": "OP08-023",
+                    "inclusion_percentage": 14.8,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-023.webp"
+                },
+                {
+                    "card_name": "Kikunojo",
+                    "card_id": "OP14-023",
+                    "inclusion_percentage": 11.1,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-023.webp"
+                },
+                {
+                    "card_name": "Tashigi",
+                    "card_id": "OP14-029",
+                    "inclusion_percentage": 11.1,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-029.webp"
+                },
+                {
+                    "card_name": "Gum",
+                    "card_id": "OP13-039",
+                    "inclusion_percentage": 7.4,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-039.webp"
+                },
+                {
+                    "card_name": "Killer",
+                    "card_id": "OP01-039",
+                    "inclusion_percentage": 7.4,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP01-039.webp"
+                },
+                {
+                    "card_name": "Shanks",
+                    "card_id": "ST16-004",
+                    "inclusion_percentage": 3.7,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST16-004.webp"
+                }
+            ]
+        },
+        {
+            "name": "Monkey.D.Luffy (Green/Red)",
+            "leader_card_id": "OP13-001",
+            "deck_count": 21,
+            "share_percentage": 4.4,
+            "archetype_code": "OP13-001||Green,Red",
+            "image": "https://img.egmanevents.com/optcg/OP13-001.webp",
+            "cards": [
+                {
+                    "card_name": "Monkey.D.Garp",
+                    "card_id": "OP13-016",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-016.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "OP13-118",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-118.webp"
+                },
+                {
+                    "card_name": "Sanji",
+                    "card_id": "OP13-027",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-027.webp"
+                },
+                {
+                    "card_name": "Usopp",
+                    "card_id": "OP14-022",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-022.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "EB04-007",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-007.webp"
+                },
+                {
+                    "card_name": "Jewelry Bonney",
+                    "card_id": "EB04-002",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-002.webp"
+                },
+                {
+                    "card_name": "Electrical Luna",
+                    "card_id": "OP08-036",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-036.webp"
+                },
+                {
+                    "card_name": "Charlestone",
+                    "card_id": "OP05-038",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-038.webp"
+                },
+                {
+                    "card_name": "Brook",
+                    "card_id": "OP15-032",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-032.webp"
+                },
+                {
+                    "card_name": "Nami",
+                    "card_id": "OP14-031",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-031.webp"
+                },
+                {
+                    "card_name": "Laboon",
+                    "card_id": "OP15-035",
+                    "inclusion_percentage": 95.2,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-035.webp"
+                },
+                {
+                    "card_name": "Sanji",
+                    "card_id": "ST21-003",
+                    "inclusion_percentage": 95.2,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST21-003.webp"
+                },
+                {
+                    "card_name": "I Know You're Strong... So I'll Go All Out from the Very Start!!!",
+                    "card_id": "OP13-040",
+                    "inclusion_percentage": 66.7,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-040.webp"
+                },
+                {
+                    "card_name": "Nami",
+                    "card_id": "OP01-016",
+                    "inclusion_percentage": 47.6,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP01-016.webp"
+                },
+                {
+                    "card_name": "Demon Aura Nine Sword Style Asura Blades Drawn Dead Man's Game",
+                    "card_id": "OP12-037",
+                    "inclusion_percentage": 38.1,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-037.webp"
+                },
+                {
+                    "card_name": "Shanks",
+                    "card_id": "OP13-028",
+                    "inclusion_percentage": 38.1,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-028.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "OP13-037",
+                    "inclusion_percentage": 28.6,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-037.webp"
+                },
+                {
+                    "card_name": "Nami",
+                    "card_id": "EB02-017",
+                    "inclusion_percentage": 28.6,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB02-017.webp"
+                },
+                {
+                    "card_name": "Gum",
+                    "card_id": "EB02-021",
+                    "inclusion_percentage": 14.3,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB02-021.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "OP06-118",
+                    "inclusion_percentage": 14.3,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-118.webp"
+                },
+                {
+                    "card_name": "Tony Tony.Chopper",
+                    "card_id": "OP10-011",
+                    "inclusion_percentage": 9.5,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-011.webp"
+                },
+                {
+                    "card_name": "Jewelry Bonney",
+                    "card_id": "OP07-026",
+                    "inclusion_percentage": 4.8,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-026.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "OP14-034",
+                    "inclusion_percentage": 4.8,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-034.webp"
+                },
+                {
+                    "card_name": "Nico Robin",
+                    "card_id": "P-111",
+                    "inclusion_percentage": 4.8,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/P-111.webp"
+                }
+            ]
+        },
+        {
+            "name": "Monkey.D.Luffy (Yellow)",
+            "leader_card_id": "OP15-098",
+            "deck_count": 19,
+            "share_percentage": 4.0,
+            "archetype_code": "OP15-098||Yellow",
+            "image": "https://img.egmanevents.com/optcg/OP15-098.webp",
+            "cards": [
+                {
+                    "card_name": "Zeus",
+                    "card_id": "OP11-106",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP11-106.webp"
+                },
+                {
+                    "card_name": "Gum",
+                    "card_id": "OP15-116",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-116.webp"
+                },
+                {
+                    "card_name": "Wyper",
+                    "card_id": "OP15-114",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-114.webp"
+                },
+                {
+                    "card_name": "Nico Robin",
+                    "card_id": "OP15-109",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-109.webp"
+                },
+                {
+                    "card_name": "Borsalino",
+                    "card_id": "EB04-058",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-058.webp"
+                },
+                {
+                    "card_name": "Shura",
+                    "card_id": "OP05-106",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-106.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "OP15-113",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-113.webp"
+                },
+                {
+                    "card_name": "Nami",
+                    "card_id": "OP15-108",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-108.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "OP15-119",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-119.webp"
+                },
+                {
+                    "card_name": "Enel",
+                    "card_id": "EB02-052",
+                    "inclusion_percentage": 94.7,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB02-052.webp"
+                },
+                {
+                    "card_name": "Kalgara",
+                    "card_id": "OP12-099",
+                    "inclusion_percentage": 89.5,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-099.webp"
+                },
+                {
+                    "card_name": "Nico Robin",
+                    "card_id": "ST29-009",
+                    "inclusion_percentage": 89.5,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST29-009.webp"
+                },
+                {
+                    "card_name": "Tony Tony.Chopper",
+                    "card_id": "OP15-107",
+                    "inclusion_percentage": 63.2,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-107.webp"
+                },
+                {
+                    "card_name": "Gan.Fall",
+                    "card_id": "OP15-102",
+                    "inclusion_percentage": 57.9,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-102.webp"
+                },
+                {
+                    "card_name": "Belo Betty",
+                    "card_id": "EB03-056",
+                    "inclusion_percentage": 36.8,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB03-056.webp"
+                },
+                {
+                    "card_name": "Gedatsu",
+                    "card_id": "OP05-102",
+                    "inclusion_percentage": 31.6,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-102.webp"
+                },
+                {
+                    "card_name": "Seto",
+                    "card_id": "OP12-103",
+                    "inclusion_percentage": 10.5,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-103.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "EB04-061",
+                    "inclusion_percentage": 10.5,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-061.webp"
+                },
+                {
+                    "card_name": "Sanji",
+                    "card_id": "ST29-004",
+                    "inclusion_percentage": 10.5,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST29-004.webp"
+                },
+                {
+                    "card_name": "Nico Robin",
+                    "card_id": "EB03-055",
+                    "inclusion_percentage": 5.3,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB03-055.webp"
+                },
+                {
+                    "card_name": "Conis",
+                    "card_id": "OP15-104",
+                    "inclusion_percentage": 5.3,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-104.webp"
+                },
+                {
+                    "card_name": "El Thor",
+                    "card_id": "OP05-114",
+                    "inclusion_percentage": 5.3,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-114.webp"
+                },
+                {
+                    "card_name": "Kizaru!! Compared to Two Years Ago We're a Hundred Times Stronger Now!!",
+                    "card_id": "ST29-016",
+                    "inclusion_percentage": 5.3,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST29-016.webp"
+                },
+                {
+                    "card_name": "Satori",
+                    "card_id": "OP05-105",
+                    "inclusion_percentage": 5.3,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-105.webp"
+                },
+                {
+                    "card_name": "Upper Yard",
+                    "card_id": "OP05-117",
+                    "inclusion_percentage": 5.3,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-117.webp"
+                }
+            ]
+        },
+        {
+            "name": "Crocodile (Black)",
+            "leader_card_id": "OP14-079",
+            "deck_count": 9,
+            "share_percentage": 1.9,
+            "archetype_code": "OP14-079||Black",
+            "image": "https://img.egmanevents.com/optcg/OP14-079.webp",
+            "cards": [
+                {
+                    "card_name": "Ms. Wednesday",
+                    "card_id": "OP14-083",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-083.webp"
+                },
+                {
+                    "card_name": "Miss.Valentine(Mikita)",
+                    "card_id": "OP14-087",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-087.webp"
+                },
+                {
+                    "card_name": "Ms. All Sunday",
+                    "card_id": "OP14-084",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-084.webp"
+                },
+                {
+                    "card_name": "Ground Death",
+                    "card_id": "OP14-096",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-096.webp"
+                },
+                {
+                    "card_name": "Disappointed?",
+                    "card_id": "OP14-099",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-099.webp"
+                },
+                {
+                    "card_name": "Miss.Goldenweek(Marianne)",
+                    "card_id": "OP14-085",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-085.webp"
+                },
+                {
+                    "card_name": "Miss.MerryChristmas(Drophy)",
+                    "card_id": "OP14-088",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-088.webp"
+                },
+                {
+                    "card_name": "Mr.2.Bon.Kurei(Bentham)",
+                    "card_id": "OP14-091",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-091.webp"
+                },
+                {
+                    "card_name": "Mr.1(Daz.Bonez)",
+                    "card_id": "OP14-090",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-090.webp"
+                },
+                {
+                    "card_name": "Mr.5(Gem)",
+                    "card_id": "OP14-094",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-094.webp"
+                },
+                {
+                    "card_name": "Crocodile",
+                    "card_id": "OP14-120",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-120.webp"
+                },
+                {
+                    "card_name": "Mr.4(Babe)",
+                    "card_id": "OP14-093",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-093.webp"
+                },
+                {
+                    "card_name": "Haute Couture Patch★Work",
+                    "card_id": "OP05-094",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-094.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "OP15-092",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-092.webp"
+                },
+                {
+                    "card_name": "Miss Doublefinger(Zala)",
+                    "card_id": "OP14-086",
+                    "inclusion_percentage": 55.6,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-086.webp"
+                }
+            ]
+        },
+        {
+            "name": "Kalgara (Yellow)",
+            "leader_card_id": "OP08-098",
+            "deck_count": 5,
+            "share_percentage": 1.1,
+            "archetype_code": "OP08-098||Yellow",
+            "image": "https://img.egmanevents.com/optcg/OP08-098.webp",
+            "cards": [
+                {
+                    "card_name": "Kalgara",
+                    "card_id": "OP15-101",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-101.webp"
+                },
+                {
+                    "card_name": "Kalgara",
+                    "card_id": "OP12-099",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-099.webp"
+                },
+                {
+                    "card_name": "Kalgara",
+                    "card_id": "OP08-099",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-099.webp"
+                },
+                {
+                    "card_name": "Nami",
+                    "card_id": "OP15-108",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-108.webp"
+                },
+                {
+                    "card_name": "Wyper",
+                    "card_id": "OP15-114",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-114.webp"
+                },
+                {
+                    "card_name": "Wyper",
+                    "card_id": "OP12-114",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-114.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "OP15-113",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-113.webp"
+                },
+                {
+                    "card_name": "Borsalino",
+                    "card_id": "EB04-058",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-058.webp"
+                },
+                {
+                    "card_name": "Kingdom Come",
+                    "card_id": "EB01-059",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB01-059.webp"
+                },
+                {
+                    "card_name": "Upper Yard",
+                    "card_id": "OP05-117",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-117.webp"
+                },
+                {
+                    "card_name": "Mont Blanc Noland",
+                    "card_id": "OP08-109",
+                    "inclusion_percentage": 80.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-109.webp"
+                },
+                {
+                    "card_name": "Wyper",
+                    "card_id": "OP08-110",
+                    "inclusion_percentage": 60.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-110.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "OP15-119",
+                    "inclusion_percentage": 60.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-119.webp"
+                },
+                {
+                    "card_name": "The Earth Will Not Lose!",
+                    "card_id": "OP08-115",
+                    "inclusion_percentage": 60.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-115.webp"
+                },
+                {
+                    "card_name": "Shura",
+                    "card_id": "OP05-106",
+                    "inclusion_percentage": 60.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-106.webp"
+                },
+                {
+                    "card_name": "Enel",
+                    "card_id": "EB02-052",
+                    "inclusion_percentage": 40.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB02-052.webp"
+                },
+                {
+                    "card_name": "Nami",
+                    "card_id": "EB03-053",
+                    "inclusion_percentage": 40.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB03-053.webp"
+                },
+                {
+                    "card_name": "You're the One Who Should Disappear.",
+                    "card_id": "OP06-115",
+                    "inclusion_percentage": 40.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-115.webp"
+                },
+                {
+                    "card_name": "Mont Blanc Noland",
+                    "card_id": "OP15-111",
+                    "inclusion_percentage": 40.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-111.webp"
+                },
+                {
+                    "card_name": "Wyper",
+                    "card_id": "OP06-114",
+                    "inclusion_percentage": 40.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-114.webp"
+                },
+                {
+                    "card_name": "El Thor",
+                    "card_id": "OP05-114",
+                    "inclusion_percentage": 40.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-114.webp"
+                },
+                {
+                    "card_name": "Zeus",
+                    "card_id": "OP11-106",
+                    "inclusion_percentage": 20.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP11-106.webp"
+                },
+                {
+                    "card_name": "ROOM",
+                    "card_id": "OP10-117",
+                    "inclusion_percentage": 20.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-117.webp"
+                },
+                {
+                    "card_name": "Jewelry Bonney",
+                    "card_id": "OP15-105",
+                    "inclusion_percentage": 20.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-105.webp"
+                },
+                {
+                    "card_name": "Two",
+                    "card_id": "OP05-115",
+                    "inclusion_percentage": 20.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-115.webp"
+                }
+            ]
+        },
+        {
+            "name": "Monkey.D.Luffy (Green/Purple)",
+            "leader_card_id": "EB02-010",
+            "deck_count": 5,
+            "share_percentage": 1.1,
+            "archetype_code": "EB02-010||Green,Purple",
+            "image": "https://img.egmanevents.com/optcg/EB02-010.webp",
+            "cards": [
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "EB02-061",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB02-061.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "OP13-118",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-118.webp"
+                },
+                {
+                    "card_name": "Zoro",
+                    "card_id": "ST18-004",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST18-004.webp"
+                },
+                {
+                    "card_name": "Uso",
+                    "card_id": "ST18-001",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST18-001.webp"
+                },
+                {
+                    "card_name": "Sanji",
+                    "card_id": "OP07-064",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-064.webp"
+                },
+                {
+                    "card_name": "Sanji & Pudding",
+                    "card_id": "EB02-035",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB02-035.webp"
+                },
+                {
+                    "card_name": "Nami",
+                    "card_id": "OP14-031",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-031.webp"
+                },
+                {
+                    "card_name": "Nami",
+                    "card_id": "PRB02-012",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/PRB02-012.webp"
+                },
+                {
+                    "card_name": "Nami",
+                    "card_id": "EB02-017",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB02-017.webp"
+                },
+                {
+                    "card_name": "Mamaragan",
+                    "card_id": "OP15-078",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-078.webp"
+                },
+                {
+                    "card_name": "Electrical Luna",
+                    "card_id": "OP08-036",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-036.webp"
+                },
+                {
+                    "card_name": "Gum",
+                    "card_id": "OP09-078",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP09-078.webp"
+                },
+                {
+                    "card_name": "Brook",
+                    "card_id": "OP15-032",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-032.webp"
+                },
+                {
+                    "card_name": "I Know You're Strong... So I'll Go All Out from the Very Start!!!",
+                    "card_id": "OP13-040",
+                    "inclusion_percentage": 80.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-040.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "PRB02-005",
+                    "inclusion_percentage": 60.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/PRB02-005.webp"
+                },
+                {
+                    "card_name": "Demon Aura Nine Sword Style Asura Blades Drawn Dead Man's Game",
+                    "card_id": "OP12-037",
+                    "inclusion_percentage": 60.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-037.webp"
+                },
+                {
+                    "card_name": "When You're at Sea You Fight against Pirates!!",
+                    "card_id": "OP05-076",
+                    "inclusion_percentage": 40.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-076.webp"
+                },
+                {
+                    "card_name": "Merry Go",
+                    "card_id": "EB02-041",
+                    "inclusion_percentage": 40.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB02-041.webp"
+                },
+                {
+                    "card_name": "Nico Robin",
+                    "card_id": "P-111",
+                    "inclusion_percentage": 40.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/P-111.webp"
+                },
+                {
+                    "card_name": "Gum",
+                    "card_id": "EB02-021",
+                    "inclusion_percentage": 40.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB02-021.webp"
+                },
+                {
+                    "card_name": "Divine Departure",
+                    "card_id": "OP13-076",
+                    "inclusion_percentage": 20.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-076.webp"
+                }
+            ]
+        },
+        {
+            "name": "Jewelry Bonney (Green)",
+            "leader_card_id": "OP07-019",
+            "deck_count": 4,
+            "share_percentage": 0.8,
+            "archetype_code": "OP07-019||Green",
+            "image": "https://img.egmanevents.com/optcg/OP07-019.webp",
+            "cards": [
+                {
+                    "card_name": "Jewelry Bonney",
+                    "card_id": "ST02-007",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST02-007.webp"
+                },
+                {
+                    "card_name": "Kid & Killer",
+                    "card_id": "ST24-002",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST24-002.webp"
+                },
+                {
+                    "card_name": "Laboon",
+                    "card_id": "OP15-035",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-035.webp"
+                },
+                {
+                    "card_name": "Scratchmen Apoo",
+                    "card_id": "EB01-015",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB01-015.webp"
+                },
+                {
+                    "card_name": "Jewelry Bonney",
+                    "card_id": "OP12-118",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-118.webp"
+                },
+                {
+                    "card_name": "Carrot",
+                    "card_id": "OP08-023",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-023.webp"
+                },
+                {
+                    "card_name": "Cavendish",
+                    "card_id": "EB01-012",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB01-012.webp"
+                },
+                {
+                    "card_name": "Trafalgar Law",
+                    "card_id": "OP13-031",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-031.webp"
+                },
+                {
+                    "card_name": "Hody Jones",
+                    "card_id": "OP06-035",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-035.webp"
+                },
+                {
+                    "card_name": "Dracule Mihawk",
+                    "card_id": "OP12-030",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-030.webp"
+                },
+                {
+                    "card_name": "Shanks",
+                    "card_id": "ST16-004",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST16-004.webp"
+                },
+                {
+                    "card_name": "Electrical Luna",
+                    "card_id": "OP08-036",
+                    "inclusion_percentage": 75.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP08-036.webp"
+                },
+                {
+                    "card_name": "I Know You're Strong... So I'll Go All Out from the Very Start!!!",
+                    "card_id": "OP13-040",
+                    "inclusion_percentage": 75.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP13-040.webp"
+                },
+                {
+                    "card_name": "Jewelry Bonney",
+                    "card_id": "EB03-017",
+                    "inclusion_percentage": 75.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB03-017.webp"
+                },
+                {
+                    "card_name": "Megalo",
+                    "card_id": "EB04-018",
+                    "inclusion_percentage": 50.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-018.webp"
+                },
+                {
+                    "card_name": "Smoker",
+                    "card_id": "OP10-030",
+                    "inclusion_percentage": 50.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-030.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "OP06-118",
+                    "inclusion_percentage": 50.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-118.webp"
+                },
+                {
+                    "card_name": "Tashigi",
+                    "card_id": "OP10-032",
+                    "inclusion_percentage": 50.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP10-032.webp"
+                },
+                {
+                    "card_name": "Jewelry Bonney",
+                    "card_id": "OP07-026",
+                    "inclusion_percentage": 25.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-026.webp"
+                },
+                {
+                    "card_name": "X.Drake",
+                    "card_id": "ST24-005",
+                    "inclusion_percentage": 25.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST24-005.webp"
+                },
+                {
+                    "card_name": "Uta",
+                    "card_id": "EB03-061",
+                    "inclusion_percentage": 25.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB03-061.webp"
+                },
+                {
+                    "card_name": "Shanks",
+                    "card_id": "OP14-027",
+                    "inclusion_percentage": 25.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-027.webp"
+                },
+                {
+                    "card_name": "Donquixote Doflamingo",
+                    "card_id": "OP05-029",
+                    "inclusion_percentage": 25.0,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP05-029.webp"
+                },
+                {
+                    "card_name": "Capone\"Gang\"Bege",
+                    "card_id": "ST24-001",
+                    "inclusion_percentage": 25.0,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/ST24-001.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "PRB02-006",
+                    "inclusion_percentage": 25.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/PRB02-006.webp"
+                }
+            ]
+        },
+        {
+            "name": "Enel (Yellow)",
+            "leader_card_id": "OP05-098",
+            "deck_count": 3,
+            "share_percentage": 0.6,
+            "archetype_code": "OP05-098||Yellow",
+            "image": "https://img.egmanevents.com/optcg/OP05-098.webp",
+            "cards": [
+                {
+                    "card_name": "Zeus",
+                    "card_id": "OP11-106",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP11-106.webp"
+                },
+                {
+                    "card_name": "Enel",
+                    "card_id": "EB02-052",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB02-052.webp"
+                },
+                {
+                    "card_name": "Borsalino",
+                    "card_id": "EB04-058",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-058.webp"
+                },
+                {
+                    "card_name": "Perona",
+                    "card_id": "OP14-111",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-111.webp"
+                },
+                {
+                    "card_name": "Kumacy",
+                    "card_id": "OP14-102",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-102.webp"
+                },
+                {
+                    "card_name": "Gecko Moria",
+                    "card_id": "OP14-104",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-104.webp"
+                },
+                {
+                    "card_name": "Charlotte Flampe",
+                    "card_id": "EB01-056",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB01-056.webp"
+                },
+                {
+                    "card_name": "Roronoa Zoro",
+                    "card_id": "OP15-113",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-113.webp"
+                },
+                {
+                    "card_name": "Kingdom Come",
+                    "card_id": "EB01-059",
+                    "inclusion_percentage": 100.0,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB01-059.webp"
+                },
+                {
+                    "card_name": "Absalom",
+                    "card_id": "OP14-100",
+                    "inclusion_percentage": 66.7,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-100.webp"
+                },
+                {
+                    "card_name": "Dr. Hogback",
+                    "card_id": "OP14-110",
+                    "inclusion_percentage": 66.7,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP14-110.webp"
+                },
+                {
+                    "card_name": "Kikunojo",
+                    "card_id": "OP06-104",
+                    "inclusion_percentage": 66.7,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-104.webp"
+                },
+                {
+                    "card_name": "Nami",
+                    "card_id": "EB03-053",
+                    "inclusion_percentage": 66.7,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB03-053.webp"
+                },
+                {
+                    "card_name": "Monkey.D.Luffy",
+                    "card_id": "EB04-061",
+                    "inclusion_percentage": 66.7,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-061.webp"
+                },
+                {
+                    "card_name": "You're the One Who Should Disappear.",
+                    "card_id": "OP06-115",
+                    "inclusion_percentage": 66.7,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP06-115.webp"
+                },
+                {
+                    "card_name": "Dereshi!",
+                    "card_id": "OP09-117",
+                    "inclusion_percentage": 66.7,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP09-117.webp"
+                },
+                {
+                    "card_name": "Portgas.D.Ace",
+                    "card_id": "OP07-119",
+                    "inclusion_percentage": 33.3,
+                    "copies_recommendation": "usually 1x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP07-119.webp"
+                },
+                {
+                    "card_name": "Sabo",
+                    "card_id": "OP12-100",
+                    "inclusion_percentage": 33.3,
+                    "copies_recommendation": "usually 2x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-100.webp"
+                },
+                {
+                    "card_name": "Heso!!",
+                    "card_id": "OP15-117",
+                    "inclusion_percentage": 33.3,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP15-117.webp"
+                },
+                {
+                    "card_name": "Bartholomew Kuma",
+                    "card_id": "OP12-119",
+                    "inclusion_percentage": 33.3,
+                    "copies_recommendation": "usually 3x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/OP12-119.webp"
+                },
+                {
+                    "card_name": "Sentomaru",
+                    "card_id": "EB04-053",
+                    "inclusion_percentage": 33.3,
+                    "copies_recommendation": "usually 4x",
+                    "decks_count_text": "",
+                    "image": "https://img.egmanevents.com/optcg/EB04-053.webp"
+                }
+            ]
+        }
+    ]
+}

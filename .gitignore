@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env
+
+# IDE / Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Gemini & Agent configs
+.gemini/
+.agents/
+brain/
+scratch/
+task.md
+implementation_plan.md
+walkthrough.md
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini

@@ -1,0 +1,3093 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPTCG Card Database & Deck Builder</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Vue.js 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        [v-cloak] { display: none; }
+        /* Custom scrollbar for slate theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+
+    <div id="app" v-cloak class="flex flex-col min-h-screen">
+        
+        <!-- Header -->
+        <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 px-6 py-4 shadow-lg">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <!-- Luffy's Straw Hat Pirates Jolly Roger SVG -->
+                    <svg class="w-11 h-11 drop-shadow border border-amber-500/20 rounded-full p-0.5 bg-slate-950/60 shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Crossed Bones Behind -->
+                        <path d="M 22 22 L 78 78 M 78 22 L 22 78" stroke="#E2E8F0" stroke-width="7" stroke-linecap="round"/>
+                        <circle cx="18" cy="18" r="5" fill="#E2E8F0"/>
+                        <circle cx="24" cy="16" r="4.5" fill="#E2E8F0"/>
+                        <circle cx="82" cy="18" r="5" fill="#E2E8F0"/>
+                        <circle cx="76" cy="16" r="4.5" fill="#E2E8F0"/>
+                        <circle cx="18" cy="82" r="5" fill="#E2E8F0"/>
+                        <circle cx="24" cy="84" r="4.5" fill="#E2E8F0"/>
+                        <circle cx="82" cy="82" r="5" fill="#E2E8F0"/>
+                        <circle cx="76" cy="84" r="4.5" fill="#E2E8F0"/>
+
+                        <!-- Skull Base -->
+                        <circle cx="50" cy="54" r="21" fill="#FFFFFF"/>
+                        <path d="M 38 67 L 62 67 L 59 80 C 59 82 56 83 50 83 C 44 83 41 82 41 80 Z" fill="#FFFFFF"/>
+                        <!-- Teeth Grid -->
+                        <path d="M 40 73 H 60 M 45 67 V 79 M 50 67 V 79 M 55 67 V 79" stroke="#090D16" stroke-width="2" stroke-linecap="round"/>
+
+                        <!-- Big Eye Sockets -->
+                        <circle cx="41" cy="52" r="7" fill="#090D16"/>
+                        <circle cx="59" cy="52" r="7" fill="#090D16"/>
+
+                        <!-- Nose Socket -->
+                        <polygon points="50,60 46,65 54,65" fill="#090D16"/>
+
+                        <!-- Straw Hat Crown (Yellow/Amber) -->
+                        <path d="M 32 38 C 32 23 68 23 68 38 Z" fill="#F59E0B"/>
+
+                        <!-- Red Ribbon Band -->
+                        <path d="M 30 37 C 40 34 60 34 70 37 L 71 41 C 60 38 40 38 29 41 Z" fill="#EF4444"/>
+
+                        <!-- Straw Hat Wide Brim -->
+                        <path d="M 10 40 C 30 32 70 32 90 40 C 70 47 30 47 10 40 Z" fill="#F59E0B" stroke="#D97706" stroke-width="1.5"/>
+                    </svg>
+                    <div>
+                        <h1 class="text-xl font-black tracking-wider text-amber-500 font-mono">OPTCG DATABASE</h1>
+                        <p class="text-xs text-slate-400">Visualizador de Cartas, Meta Game e Deck Builder</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="flex flex-wrap gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800">
+                    <button 
+                        @click="switchTab('sets')"
+                        :class="currentTab === 'sets' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-slate-200'"
+                        class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all duration-200">
+                        Coleções (Sets)
+                    </button>
+
+                    <button 
+                        @click="switchTab('promos')"
+                        :class="currentTab === 'promos' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-slate-200'"
+                        class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all duration-200">
+                        Promocionais
+                    </button>
+                    <button 
+                        @click="switchTab('don')"
+                        :class="currentTab === 'don' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-slate-200'"
+                        class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all duration-200">
+                        Don!!
+                    </button>
+                    <button 
+                        @click="switchTab('meta')"
+                        :class="currentTab === 'meta' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-slate-200'"
+                        class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all duration-200">
+                        Meta Game
+                    </button>
+                    <button 
+                        @click="switchTab('builder')"
+                        :class="currentTab === 'builder' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-slate-200'"
+                        class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all duration-200">
+                        Montar Deck
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col gap-6">
+            
+            <!-- Loading State -->
+            <div v-if="loading" class="flex-grow flex flex-col items-center justify-center py-20">
+                <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-amber-500 mb-4"></div>
+                <p class="text-slate-400 font-mono">Carregando banco de dados local...</p>
+            </div>
+
+            <!-- Standard Database Layout (when loaded and not meta / builder tab) -->
+            <div v-else-if="currentTab !== 'meta' && currentTab !== 'builder'" class="flex flex-col gap-6">
+                
+                <!-- Filters Bar -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 md:p-6 shadow-md flex flex-col gap-4">
+                    <h2 class="text-lg font-bold text-slate-300 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                        </svg>
+                        Filtros de Busca
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        
+                        <!-- Text Search -->
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Nome ou Código</label>
+                            <div class="relative">
+                                <input 
+                                    v-model="filters.search"
+                                    type="text" 
+                                    placeholder="Ex: Zoro, OP01-001..." 
+                                    class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 pl-3 pr-10 text-sm focus:outline-none focus:border-amber-500 transition-colors">
+                                <button 
+                                    v-if="filters.search" 
+                                    @click="filters.search = ''"
+                                    class="absolute right-3 top-2.5 text-slate-500 hover:text-slate-300">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Collection Select (Sets) - Shown on sets tab -->
+                        <div v-if="currentTab === 'sets'" class="flex flex-col gap-1.5">
+                            <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Coleção (Set)</label>
+                            <select 
+                                v-model="filters.setId"
+                                @change="onSetIdChange"
+                                class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-slate-300">
+                                <option value="">Todas as Coleções (OP/EB/PRB)</option>
+                                <option v-for="set in sets" :key="set.set_id" :value="set.set_id">
+                                    {{ set.set_name }} ({{ set.set_id }})
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Starter Deck Select - Also shown on sets tab -->
+                        <div v-if="currentTab === 'sets'" class="flex flex-col gap-1.5">
+                            <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Starter Deck</label>
+                            <select 
+                                v-model="filters.deckId"
+                                @change="onDeckIdChange"
+                                class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-slate-300">
+                                <option value="">Todos os Starter Decks (ST)</option>
+                                <option v-for="deck in decks" :key="deck.structure_deck_id" :value="deck.structure_deck_id">
+                                    {{ deck.structure_deck_name }} ({{ deck.structure_deck_id }})
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Color Filter (Don tab has no color) -->
+                        <div v-if="currentTab !== 'don'" class="flex flex-col gap-1.5">
+                            <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Cor</label>
+                            <select 
+                                v-model="filters.color"
+                                class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-slate-300">
+                                <option value="">Todas as Cores</option>
+                                <option value="Red">Vermelho (Red)</option>
+                                <option value="Green">Verde (Green)</option>
+                                <option value="Blue">Azul (Blue)</option>
+                                <option value="Purple">Roxo (Purple)</option>
+                                <option value="Black">Preto (Black)</option>
+                                <option value="Yellow">Amarelo (Yellow)</option>
+                                <option value="Multi">Multicolor (Contém "/")</option>
+                            </select>
+                        </div>
+
+                        <!-- Card Type (Don tab has no type) -->
+                        <div v-if="currentTab !== 'don'" class="flex flex-col gap-1.5">
+                            <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Tipo de Carta</label>
+                            <select 
+                                v-model="filters.type"
+                                class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-slate-300">
+                                <option value="">Todos os Tipos</option>
+                                <option value="Leader">Leader</option>
+                                <option value="Character">Character</option>
+                                <option value="Event">Event</option>
+                                <option value="Stage">Stage</option>
+                            </select>
+                        </div>
+
+                        <!-- Rarity (Don tab has no rarity) -->
+                        <div v-if="currentTab !== 'don'" class="flex flex-col gap-1.5">
+                            <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Raridade</label>
+                            <select 
+                                v-model="filters.rarity"
+                                class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-slate-300">
+                                <option value="">Todas as Raridades</option>
+                                <option value="L">L (Leader)</option>
+                                <option value="SEC">SEC (Secret Rare)</option>
+                                <option value="SR">SR (Super Rare)</option>
+                                <option value="R">R (Rare)</option>
+                                <option value="UC">UC (Uncommon)</option>
+                                <option value="C">C (Common)</option>
+                                <option value="PR">PR (Promo)</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <!-- Clean Filters Button -->
+                    <div class="flex justify-end border-t border-slate-800 pt-4">
+                        <button 
+                            @click="clearFilters"
+                            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                            Limpar Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Info and Pagination Head -->
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-900 border border-slate-800 px-6 py-3 rounded-xl">
+                    <span class="text-sm font-mono text-slate-400">
+                        Encontradas <strong class="text-amber-500">{{ filteredCards.length }}</strong> cartas
+                    </span>
+
+                    <!-- Quick Page Controls -->
+                    <div v-if="totalPages > 1" class="flex items-center gap-2">
+                        <button 
+                            @click="prevPage" 
+                            :disabled="currentPage === 1"
+                            class="p-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-700 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <span class="text-xs font-mono text-slate-400">
+                            Página {{ currentPage }} de {{ totalPages }}
+                        </span>
+                        <button 
+                            @click="nextPage" 
+                            :disabled="currentPage === totalPages"
+                            class="p-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-700 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cards Grid -->
+                <div v-if="paginatedCards.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                    
+                    <!-- Card Component -->
+                    <div 
+                        v-for="card in paginatedCards" 
+                        :key="card.card_set_id + card.card_name + (card.card_image_id || '')"
+                        @click="openDetails(card)"
+                        class="bg-slate-900 border border-slate-800 hover:border-amber-500/50 rounded-2xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 cursor-pointer shadow-md group">
+                        
+                        <!-- Image Container with lazy loading fallback -->
+                        <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 overflow-hidden flex items-center justify-center">
+                            <img 
+                                v-if="card.card_image && !card.imageError" 
+                                :src="card.card_image" 
+                                :alt="card.card_name" 
+                                @error="card.imageError = true"
+                                loading="lazy"
+                                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
+                            
+                            <!-- Fallback design for cards without image -->
+                            <div v-else class="w-full h-full p-4 flex flex-col justify-between items-center text-center bg-gradient-to-br from-slate-900 to-slate-950 select-none">
+                                <div class="w-full flex justify-between items-center text-[10px] font-mono text-slate-500">
+                                    <span>OPTCG</span>
+                                    <span>{{ card.card_set_id || card.don_id || 'PROMO' }}</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <svg class="w-12 h-12 text-slate-700 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                    </svg>
+                                    <span class="text-xs font-bold text-slate-400 line-clamp-2 px-2">{{ card.card_name }}</span>
+                                </div>
+                                <span class="text-[9px] font-mono text-amber-600/70 border border-amber-600/20 px-2 py-0.5 rounded-full bg-amber-500/5">Sem Imagem</span>
+                            </div>
+
+                            <!-- Floating badge: Color (Only if exists) -->
+                            <div v-if="card.card_color" class="absolute top-2 left-2 flex gap-1">
+                                <span 
+                                    v-for="color in getColors(card.card_color)"
+                                    :class="getColorClass(color)"
+                                    class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded-md shadow-md border border-white/10">
+                                    {{ translateColor(color) }}
+                                </span>
+                            </div>
+
+                            <!-- Cost/Power Quick Info Overlay -->
+                            <div v-if="card.card_cost && card.card_cost !== 'NULL'" class="absolute bottom-2 right-2 bg-slate-950/80 backdrop-blur-sm border border-slate-800 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold text-slate-300">
+                                Custo: {{ card.card_cost }}
+                            </div>
+                        </div>
+
+                        <!-- Info Footer -->
+                        <div class="p-4 flex flex-col gap-2">
+                            <div class="flex justify-between items-center text-[10px] font-mono text-slate-500">
+                                <span>{{ card.card_set_id || 'DON!!' }}</span>
+                                <span v-if="card.rarity" class="bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded font-extrabold">{{ card.rarity }}</span>
+                            </div>
+
+                            <h3 class="font-bold text-sm text-slate-100 group-hover:text-amber-500 transition-colors line-clamp-1" :title="card.card_name">
+                                {{ card.card_name }}
+                            </h3>
+
+                            <!-- Liga One Piece Link -->
+                            <div class="border-t border-slate-800/80 pt-2 mt-1">
+                                <a :href="getLigaOnePieceUrl(card)" target="_blank" rel="noopener noreferrer" 
+                                   @click.stop
+                                   class="flex items-center justify-center gap-1.5 w-full py-1.5 px-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 hover:border-amber-500/60 rounded-lg text-xs font-semibold transition-all">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                    </svg>
+                                    <span>Liga One Piece</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Empty State (No items matches filters) -->
+                <div v-else class="bg-slate-900 border border-slate-800 rounded-2xl py-20 px-4 text-center">
+                    <svg class="w-16 h-16 text-slate-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h3 class="text-lg font-bold text-slate-300 mb-1">Nenhuma carta encontrada</h3>
+                    <p class="text-sm text-slate-500">Tente ajustar seus termos de busca ou filtros.</p>
+                </div>
+
+                <!-- Bottom Pagination (when loaded and items exist) -->
+                <div v-if="totalPages > 1" class="flex flex-col md:flex-row justify-between items-center gap-4 bg-slate-900 border border-slate-800 px-6 py-4 rounded-xl shadow-md">
+                    <span class="text-sm text-slate-400">
+                        Página <strong class="text-slate-200">{{ currentPage }}</strong> de <strong class="text-slate-200">{{ totalPages }}</strong> (mostrando até {{ itemsPerPage }} itens por página)
+                    </span>
+                    
+                    <div class="flex items-center gap-1.5">
+                        <button 
+                            @click="goToPage(1)" 
+                            :disabled="currentPage === 1"
+                            class="px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-700 text-xs font-semibold transition-colors">
+                            Primeira
+                        </button>
+                        
+                        <button 
+                            @click="prevPage" 
+                            :disabled="currentPage === 1"
+                            class="p-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-700 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+
+                        <div class="flex items-center gap-1">
+                            <button 
+                                v-for="page in getVisiblePages()" 
+                                :key="page"
+                                @click="goToPage(page)"
+                                :class="currentPage === page ? 'bg-amber-600 text-white font-bold' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'"
+                                class="w-8 h-8 rounded-lg text-xs font-semibold transition-colors">
+                                {{ page }}
+                            </button>
+                        </div>
+
+                        <button 
+                            @click="nextPage" 
+                            :disabled="currentPage === totalPages"
+                            class="p-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-700 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+
+                        <button 
+                            @click="goToPage(totalPages)" 
+                            :disabled="currentPage === totalPages"
+                            class="px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-700 text-xs font-semibold transition-colors">
+                            Última
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Meta Game Tab Layout -->
+            <div v-else-if="currentTab === 'meta'" class="flex flex-col gap-6">
+                
+                <!-- Format / Set Selector Bar -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 md:p-6 shadow-md flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-200">
+                            Meta Game Analysis
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Estatísticas das coleções e cartas mais usadas em torneios</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-2">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Set Ativo:</label>
+                        <select 
+                            v-model="metaSet"
+                            @change="loadMeta"
+                            class="bg-slate-950 border border-slate-800 rounded-lg py-2 px-4 text-sm font-semibold focus:outline-none focus:border-amber-500 text-amber-500">
+                            <option v-for="setOpt in availableMetaSets" :key="setOpt.value" :value="setOpt.value">
+                                {{ setOpt.label }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Meta Data View -->
+                <div v-if="metaLoading" class="flex flex-col items-center justify-center py-20 bg-slate-900/50 border border-slate-800 rounded-2xl">
+                    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500 mb-4"></div>
+                    <p class="text-slate-400 text-sm font-mono">Buscando dados de meta locais para {{ metaSet }}...</p>
+                </div>
+
+                <!-- Meta Error State -->
+                <div v-else-if="metaError" class="bg-slate-900 border border-slate-800 rounded-2xl py-12 px-6 text-center flex flex-col items-center">
+                    <svg class="w-16 h-16 text-red-500/80 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                    <h3 class="text-lg font-bold text-slate-300 mb-2">Meta não carregado para {{ metaSet }}</h3>
+                    <p class="text-sm text-slate-500 max-w-md mb-6">
+                        Os dados do meta game para esta coleção não foram encontrados localmente ou ainda não foram coletados.
+                    </p>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-left font-mono text-xs max-w-lg mb-6 leading-relaxed select-all">
+                        python scrape_meta.py --set {{ metaSet }}
+                    </div>
+                    <p class="text-xs text-slate-400">Rode o comando de raspagem acima no seu terminal para gerar o arquivo de dados.</p>
+                </div>
+
+                <!-- Meta Game Active View (when loaded) -->
+                <div v-else class="flex flex-col gap-6">
+                    
+                    <!-- 1. List of leaders -->
+                    <div v-if="!selectedMetaLeader" class="flex flex-col gap-6">
+                        
+                        <!-- Top Meta Header & Search Bar -->
+                        <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-slate-900/60 border border-slate-800/80 p-4 rounded-2xl shadow-sm">
+                            <div class="relative w-full md:w-80">
+                                <input 
+                                    v-model="metaSearchQuery"
+                                    type="text" 
+                                    placeholder="Buscar líder no meta (ex: Enel, Bonney, Luffy)..." 
+                                    class="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 text-xs text-slate-200 placeholder-slate-500 rounded-xl px-3 py-2.5 pl-9 focus:outline-none transition-colors">
+                                <svg class="w-4 h-4 text-slate-500 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                            </div>
+
+                            <div class="flex items-center gap-4 text-xs font-mono text-slate-400">
+                                <span v-if="totalDecksTracked > 0">Decks Mapeados: <strong class="text-amber-500 text-sm">{{ totalDecksTracked }}</strong></span>
+                                <span class="text-[10px] text-slate-500">Scraped: {{ metaData.scraped_at }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Top #1 Dominant Leader Banner -->
+                        <div v-if="topMetaLeader && !metaSearchQuery" class="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-slate-900 border border-amber-500/30 rounded-2xl p-5 flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 sm:w-16 aspect-[2.5/3.5] rounded-xl overflow-hidden bg-slate-950 border border-amber-500/40 flex-shrink-0 relative shadow-md">
+                                    <img :src="topMetaLeader.image" :alt="topMetaLeader.name" class="w-full h-full object-cover object-center">
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-amber-500 text-slate-950 font-black text-[10px] uppercase px-2 py-0.5 rounded shadow">O MELHOR DECK DO META {{ metaSet }}</span>
+                                        <span class="text-xs text-amber-400 font-mono font-bold">{{ topMetaLeader.share_percentage }}% do Meta</span>
+                                    </div>
+                                    <h3 class="text-lg font-black text-slate-100 mt-1">{{ topMetaLeader.name }}</h3>
+                                    <p class="text-xs text-slate-400">Líder com maior número de vitórias e presenças em torneios neste formato ({{ topMetaLeader.deck_count }} decks mapeados).</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 flex-shrink-0">
+                                <button 
+                                    @click="selectLeader(topMetaLeader)" 
+                                    class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs transition-all shadow-md">
+                                    Ver Build & Ratios
+                                </button>
+                                <button 
+                                    @click="importMetaBuildToBuilder(topMetaLeader)" 
+                                    class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs transition-all shadow-md">
+                                    Montar Deck
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Leaders Grid -->
+                        <div v-if="filteredMetaLeaders.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                            <div 
+                                v-for="(leader, idx) in filteredMetaLeaders" 
+                                :key="leader.leader_card_id + idx"
+                                @click="selectLeader(leader)"
+                                class="bg-slate-900 border border-slate-800 hover:border-amber-500/50 rounded-2xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 cursor-pointer shadow-md group flex flex-col h-full">
+                                
+                                <div class="relative w-full aspect-[2.5/2.6] bg-slate-950 overflow-hidden flex items-center justify-center border-b border-slate-800 p-2">
+                                    <div class="w-full h-full rounded-xl overflow-hidden relative shadow-inner">
+                                        <img 
+                                            :src="leader.image" 
+                                            :alt="leader.name" 
+                                            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+                                    </div>
+                                    
+                                    <!-- Rank Badge -->
+                                    <div v-if="idx === 0" class="absolute top-2.5 left-2.5 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded shadow border border-amber-300">
+                                        #1 O MELHOR DECK
+                                    </div>
+                                    <div v-else-if="idx === 1" class="absolute top-2.5 left-2.5 bg-gradient-to-r from-slate-300 to-slate-400 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded shadow border border-slate-200">
+                                        #2 TIER 1
+                                    </div>
+                                    <div v-else-if="idx === 2" class="absolute top-2.5 left-2.5 bg-gradient-to-r from-amber-700 to-amber-800 text-amber-100 text-[10px] font-black uppercase px-2 py-0.5 rounded shadow border border-amber-600">
+                                        #3 TIER 1
+                                    </div>
+                                    <div v-else class="absolute top-2.5 left-2.5 bg-slate-900/90 text-slate-400 text-[10px] font-mono font-bold px-2 py-0.5 rounded border border-slate-800">
+                                        #{{ idx + 1 }} TIER {{ idx < 8 ? '1.5' : '2' }}
+                                    </div>
+
+                                    <div class="absolute bottom-2.5 right-2.5 bg-amber-500 text-slate-950 text-xs font-mono font-black px-2 py-0.5 rounded shadow-lg border border-amber-400/20">
+                                        {{ leader.share_percentage }}%
+                                    </div>
+
+                                    <div class="absolute bottom-2.5 left-2.5 bg-slate-950/80 border border-slate-800 text-[10px] font-mono px-2 py-0.5 rounded text-slate-300">
+                                        {{ leader.deck_count }} decks
+                                    </div>
+                                </div>
+
+                                <div class="p-4 flex flex-col justify-between flex-grow gap-3">
+                                    <div>
+                                        <h3 class="font-bold text-sm text-slate-100 group-hover:text-amber-500 transition-colors line-clamp-2" :title="leader.name">
+                                            {{ leader.name }}
+                                        </h3>
+                                        <span class="text-[10px] font-mono text-slate-500 block mt-1">Líder: {{ getLeaderCardId(leader) }}</span>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-800/80">
+                                        <button 
+                                            @click.stop="selectLeader(leader)"
+                                            class="bg-slate-800 hover:bg-amber-600 text-slate-300 hover:text-white text-[11px] font-semibold py-1.5 px-2 rounded-lg transition-colors text-center">
+                                            Ver Build
+                                        </button>
+                                        <button 
+                                            @click.stop="exportMetaDeckTxt(leader)"
+                                            class="bg-slate-950 hover:bg-slate-800 border border-slate-800 text-amber-400 hover:text-amber-300 text-[11px] font-semibold py-1.5 px-2 rounded-lg transition-colors text-center flex items-center justify-center gap-1">
+                                            <span>TXT</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else class="bg-slate-900 border border-slate-800 rounded-2xl py-12 text-center text-slate-400 text-sm">
+                            Nenhum líder encontrado com os termos "{{ metaSearchQuery }}".
+                        </div>
+                    </div>
+
+                    <!-- 2. Detailed Card Ratios for Selected Leader -->
+                    <div v-else class="flex flex-col gap-6">
+                        
+                        <!-- Header Banner -->
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-lg">
+                            <div class="p-6 bg-slate-950/80 flex items-center justify-center relative border-b md:border-b-0 md:border-r border-slate-800 shrink-0">
+                                <div class="relative w-36 sm:w-44 aspect-[2.5/3.5] rounded-2xl overflow-hidden shadow-2xl border border-slate-700/60 group">
+                                    <img 
+                                        :src="selectedMetaLeader.image" 
+                                        :alt="selectedMetaLeader.name" 
+                                        class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
+                                    <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-6 md:p-8 flex-grow flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                                <div>
+                                    <button 
+                                        @click="selectedMetaLeader = null"
+                                        class="text-xs font-semibold text-amber-500 hover:text-amber-400 mb-2 flex items-center gap-1 transition-colors uppercase tracking-wider">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                                        </svg>
+                                        Voltar à Lista de Líderes
+                                    </button>
+                                    <h2 class="text-2xl font-black text-slate-100 mt-1">{{ selectedMetaLeader.name }}</h2>
+                                    <span class="text-xs font-mono bg-slate-950 text-slate-400 px-2 py-0.5 rounded border border-slate-800/80 mt-1.5 inline-block">
+                                        ID do Líder: {{ getLeaderCardId(selectedMetaLeader) }}
+                                    </span>
+
+                                    <!-- Quick Action Buttons -->
+                                    <div class="flex flex-wrap items-center gap-2.5 mt-4">
+                                        <button 
+                                            @click="importMetaBuildToBuilder(selectedMetaLeader)"
+                                            class="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold rounded-xl text-xs transition-all shadow-md">
+                                            <span>Carregar no Deck Builder</span>
+                                        </button>
+                                        <button 
+                                            @click="exportMetaDeckTxt(selectedMetaLeader)"
+                                            class="flex items-center gap-1.5 px-3.5 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 text-amber-400 font-bold rounded-xl text-xs transition-all shadow-md">
+                                            <span>Exportar Decklist (TXT)</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col items-end gap-3">
+                                    <div class="flex gap-3">
+                                        <div class="bg-slate-950/60 border border-slate-800 px-4 py-3 rounded-xl flex flex-col items-center min-w-[90px]">
+                                            <span class="text-[9px] uppercase tracking-wider font-bold text-slate-500">Decks</span>
+                                            <span class="text-lg font-mono font-black text-amber-500">{{ selectedMetaLeader.deck_count }}</span>
+                                        </div>
+                                        <div class="bg-slate-950/60 border border-slate-800 px-4 py-3 rounded-xl flex flex-col items-center min-w-[90px]">
+                                            <span class="text-[9px] uppercase tracking-wider font-bold text-slate-500">Representação</span>
+                                            <span class="text-lg font-mono font-black text-amber-500">{{ selectedMetaLeader.share_percentage }}%</span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Ratios Sections -->
+                        <div class="flex flex-col gap-8">
+                            
+                            <!-- Staples -->
+                            <div class="flex flex-col gap-4">
+                                <div class="border-l-4 border-emerald-500 pl-3">
+                                    <h3 class="text-lg font-bold text-slate-200">Cartas Staples & Core (Uso Superior a 70%)</h3>
+                                    <p class="text-xs text-slate-500">Cartas que formam a estrutura essencial do deck</p>
+                                </div>
+                                
+                                <div v-if="getMetaCardsByCategory('core').length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                                    <div 
+                                        v-for="metaCard in getMetaCardsByCategory('core')" 
+                                        :key="metaCard.card_id"
+                                        @click="openMetaCardDetails(metaCard.card_id)"
+                                        class="bg-slate-900 border border-slate-800/80 hover:border-emerald-500/50 rounded-xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group shadow-sm flex flex-col">
+                                        
+                                        <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 flex items-center justify-center overflow-hidden">
+                                            <img :src="metaCard.image" :alt="metaCard.card_name" class="w-full h-full object-cover">
+                                            <div class="absolute top-2 left-2 bg-emerald-500 text-slate-950 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded shadow">
+                                                {{ metaCard.inclusion_percentage }}%
+                                            </div>
+                                            <div class="absolute bottom-2 right-2 bg-slate-950/90 border border-slate-800 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded text-emerald-400">
+                                                {{ metaCard.copies_recommendation }}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="p-3 flex flex-col flex-grow justify-between gap-1 bg-gradient-to-b from-slate-900 to-slate-950">
+                                            <h4 class="text-xs font-bold text-slate-200 group-hover:text-emerald-400 transition-colors line-clamp-1">
+                                                {{ metaCard.card_name }}
+                                            </h4>
+                                            <span class="text-[9px] font-mono text-slate-500">{{ getMetaCardId(metaCard) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else class="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center text-sm text-slate-500">
+                                    Nenhuma carta com mais de 70% de inclusão registrada.
+                                </div>
+                            </div>
+
+                            <!-- Suggested (Start Building) -->
+                            <div class="flex flex-col gap-4">
+                                <div class="border-l-4 border-amber-500 pl-3">
+                                    <h3 class="text-lg font-bold text-slate-200">Start Building - Cartas Sugeridas (Inclusão de 30% a 70%)</h3>
+                                    <p class="text-xs text-slate-500">Cartas populares recomendadas para completar a build de acordo com sua preferência</p>
+                                </div>
+                                
+                                <div v-if="getMetaCardsByCategory('suggested').length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                                    <div 
+                                        v-for="metaCard in getMetaCardsByCategory('suggested')" 
+                                        :key="metaCard.card_id"
+                                        @click="openMetaCardDetails(metaCard.card_id)"
+                                        class="bg-slate-900 border border-slate-800/80 hover:border-amber-500/50 rounded-xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group shadow-sm flex flex-col">
+                                        
+                                        <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 flex items-center justify-center overflow-hidden">
+                                            <img :src="metaCard.image" :alt="metaCard.card_name" class="w-full h-full object-cover">
+                                            <div class="absolute top-2 left-2 bg-amber-500 text-slate-950 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded shadow">
+                                                {{ metaCard.inclusion_percentage }}%
+                                            </div>
+                                            <div class="absolute bottom-2 right-2 bg-slate-950/90 border border-slate-800 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded text-amber-400">
+                                                {{ metaCard.copies_recommendation }}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="p-3 flex flex-col flex-grow justify-between gap-1 bg-gradient-to-b from-slate-900 to-slate-950">
+                                            <div>
+                                                <h4 class="text-xs font-bold text-slate-200 group-hover:text-amber-400 transition-colors line-clamp-1">
+                                                    {{ metaCard.card_name }}
+                                                </h4>
+                                                <span class="text-[9px] font-mono text-slate-500 block mt-0.5">{{ getMetaCardId(metaCard) }}</span>
+                                            </div>
+                                            <span class="text-[9px] font-mono text-slate-400 border-t border-slate-800/80 pt-1.5 mt-1 block">
+                                                {{ metaCard.decks_count_text }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else class="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center text-sm text-slate-500">
+                                    Nenhuma sugestão com taxa de inclusão de 30% a 70% foi mapeada.
+                                </div>
+                            </div>
+
+                            <!-- Tech Choices -->
+                            <div class="flex flex-col gap-4">
+                                <div class="border-l-4 border-slate-500 pl-3">
+                                    <h3 class="text-lg font-bold text-slate-200">Tech Choices & Cartas Alternativas (Uso Inferior a 30%)</h3>
+                                    <p class="text-xs text-slate-500">Opções pontuais de meta e variações customizadas para surpreender oponentes</p>
+                                </div>
+                                
+                                <div v-if="getMetaCardsByCategory('tech').length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                                    <div 
+                                        v-for="metaCard in getMetaCardsByCategory('tech')" 
+                                        :key="metaCard.card_id"
+                                        @click="openMetaCardDetails(metaCard.card_id)"
+                                        class="bg-slate-900 border border-slate-800/80 hover:border-slate-500/50 rounded-xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group shadow-sm flex flex-col opacity-80 hover:opacity-100">
+                                        
+                                        <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 flex items-center justify-center overflow-hidden">
+                                            <img :src="metaCard.image" :alt="metaCard.card_name" class="w-full h-full object-cover">
+                                            <div class="absolute top-2 left-2 bg-slate-800 text-slate-300 text-[10px] font-mono px-1.5 py-0.5 rounded shadow">
+                                                {{ metaCard.inclusion_percentage }}%
+                                            </div>
+                                            <div class="absolute bottom-2 right-2 bg-slate-950/90 border border-slate-800 text-[10px] font-mono px-1.5 py-0.5 rounded text-slate-400">
+                                                {{ metaCard.copies_recommendation }}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="p-3 flex flex-col flex-grow justify-between gap-1 bg-gradient-to-b from-slate-900 to-slate-950">
+                                            <h4 class="text-xs font-bold text-slate-200 group-hover:text-amber-500 transition-colors line-clamp-1">
+                                                {{ metaCard.card_name }}
+                                            </h4>
+                                            <span class="text-[9px] font-mono text-slate-500">{{ getMetaCardId(metaCard) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else class="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center text-sm text-slate-500">
+                                    Nenhuma carta alternativa listada.
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Deck Builder Tab Layout -->
+            <div v-else class="flex flex-col gap-6">
+                
+                <!-- 1. Leader Selection (If no leader selected) -->
+                <div v-if="!selectedBuilderLeader" class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-md flex flex-col gap-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-200">
+                            Selecione o Líder do seu Deck
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Escolha um líder para filtrar automaticamente as cores permitidas de cartas no deck.</p>
+                    </div>
+
+                    <!-- Search leader -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+                        <div class="max-w-md w-full relative">
+                            <input 
+                                v-model="leaderSearchQuery"
+                                type="text" 
+                                placeholder="Buscar líder pelo nome ou ID..."
+                                class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 pl-3 pr-10 text-sm focus:outline-none focus:border-amber-500 text-slate-300">
+                        </div>
+                        <button 
+                            @click="openImportModal"
+                            class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow shrink-0">
+                            Importar de Texto (TXT)
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        <div 
+                            v-for="leader in availableLeaders"
+                            :key="leader.card_set_id + leader.card_name"
+                            @click="selectBuilderLeader(leader)"
+                            class="bg-slate-950 border border-slate-800 hover:border-amber-500/50 rounded-2xl overflow-hidden hover:-translate-y-1 transition-all duration-300 cursor-pointer shadow-md flex flex-col h-full group">
+                            
+                            <div class="relative w-full aspect-[2.5/3.5] bg-slate-900 flex items-center justify-center">
+                                <img 
+                                    v-if="leader.card_image" 
+                                    :src="leader.card_image" 
+                                    :alt="leader.card_name" 
+                                    class="w-full h-full object-cover">
+                                <div v-else class="w-full h-full p-4 flex flex-col justify-between items-center text-center bg-slate-950 text-slate-400">
+                                    <span class="text-[10px] font-mono">{{ leader.card_set_id }}</span>
+                                    <span class="text-xs font-bold">{{ leader.card_name }}</span>
+                                    <span class="text-[10px] text-red-500 font-bold">Líder</span>
+                                </div>
+                                <div class="absolute top-2 left-2 flex gap-1">
+                                    <span 
+                                        v-for="color in getColors(leader.card_color)"
+                                        :class="getColorClass(color)"
+                                        class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded shadow">
+                                        {{ translateColor(color) }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-slate-900 flex-grow flex flex-col justify-between">
+                                <h3 class="font-bold text-xs text-slate-200 group-hover:text-amber-500 line-clamp-1">{{ leader.card_name }}</h3>
+                                <span class="text-[9px] font-mono text-slate-500 mt-1 block">ID: {{ leader.card_set_id }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Active Deck Builder Screen -->
+                <div v-else class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    
+                    <!-- LEFT COLUMN (Lg: 7 cols): Card Pool Selector -->
+                    <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-xl p-4 md:p-6 shadow-md flex flex-col gap-4">
+                        
+                        <!-- Header & Selector filters -->
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-800/80">
+                            <div>
+                                <h2 class="text-lg font-bold text-slate-200 flex items-center gap-1.5">
+                                    Adicionar Cartas ao Deck
+                                </h2>
+                                <p class="text-xs text-slate-400">Exibindo apenas cartas compatíveis com a(s) cor(es) do líder.</p>
+                            </div>
+                            
+                            <!-- Filter Type/Cost -->
+                            <div class="flex gap-2 w-full sm:w-auto">
+                                <select 
+                                    v-model="builderCardType"
+                                    class="bg-slate-950 border border-slate-800 rounded-lg py-1.5 px-3 text-xs focus:outline-none focus:border-amber-500 text-slate-300">
+                                    <option value="">Todos Tipos</option>
+                                    <option value="Character">Character</option>
+                                    <option value="Event">Event</option>
+                                    <option value="Stage">Stage</option>
+                                </select>
+                                <select 
+                                    v-model="builderCardCost"
+                                    class="bg-slate-950 border border-slate-800 rounded-lg py-1.5 px-3 text-xs focus:outline-none focus:border-amber-500 text-slate-300">
+                                    <option value="">Todos Custos</option>
+                                    <option v-for="c in 11" :key="c-1" :value="String(c-1)">Custo {{ c-1 }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Card Pool Search -->
+                        <div class="relative">
+                            <input 
+                                v-model="builderSearchQuery"
+                                type="text" 
+                                placeholder="Filtrar por nome ou ID..."
+                                class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 pl-3 pr-10 text-sm focus:outline-none focus:border-amber-500 text-slate-300">
+                            <button 
+                                v-if="builderSearchQuery" 
+                                @click="builderSearchQuery = ''"
+                                class="absolute right-3 top-2.5 text-slate-500 hover:text-slate-300">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Cards Pool Grid -->
+                        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 max-h-[60vh] overflow-y-auto pr-2">
+                            <div 
+                                v-for="card in filteredBuilderPool"
+                                :key="card.card_set_id + card.card_name"
+                                @click="addCardToDeck(card)"
+                                class="bg-slate-950 border border-slate-800 hover:border-amber-500/50 rounded-xl overflow-hidden cursor-pointer hover:scale-[1.03] transition-all relative flex flex-col group">
+                                
+                                <div class="w-full aspect-[2.5/3.5] bg-slate-900 flex items-center justify-center overflow-hidden">
+                                    <img 
+                                        v-if="card.card_image" 
+                                        :src="card.card_image" 
+                                        :alt="card.card_name" 
+                                        loading="lazy"
+                                        class="w-full h-full object-cover">
+                                    <div v-else class="w-full h-full p-2 flex flex-col justify-between items-center text-center text-slate-400">
+                                        <span class="text-[9px] font-mono">{{ card.card_set_id }}</span>
+                                        <span class="text-[10px] font-bold line-clamp-2 leading-tight">{{ card.card_name }}</span>
+                                        <span class="text-[8px] text-slate-500">{{ card.card_type }}</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Floating count in deck -->
+                                <div v-if="getCardCountInDeck(card.card_set_id) > 0" class="absolute top-1 right-1 bg-amber-500 text-slate-950 font-mono font-black text-xs w-5 h-5 rounded-full flex items-center justify-center border border-slate-950 shadow">
+                                    {{ getCardCountInDeck(card.card_set_id) }}
+                                </div>
+                                
+                                <!-- Hover quick add overlay -->
+                                <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                    <span class="text-white text-xs font-bold bg-amber-600 px-2.5 py-1 rounded-lg flex items-center gap-1 shadow">
+                                        + Adicionar
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT COLUMN (Lg: 5 cols): Current Deck List & Analysis Trigger -->
+                    <div class="lg:col-span-5 flex flex-col gap-6">
+                        
+                        <!-- Deck Info & List -->
+                        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 md:p-6 shadow-md flex flex-col gap-4">
+                            
+                            <!-- Deck Builder Summary Header -->
+                            <div class="flex justify-between items-center pb-4 border-b border-slate-800/80">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-lg overflow-hidden bg-slate-950 flex items-center justify-center border border-slate-800 shrink-0">
+                                        <img :src="selectedBuilderLeader.card_image" :alt="selectedBuilderLeader.card_name" class="w-full h-full object-cover object-top scale-[1.3]">
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-sm text-slate-100 line-clamp-1">{{ selectedBuilderLeader.card_name }}</h3>
+                                        <div class="flex gap-2">
+                                            <button 
+                                                @click="changeLeader" 
+                                                class="text-[10px] text-amber-500 hover:text-amber-400 font-semibold uppercase tracking-wider block transition-colors">
+                                                Trocar Líder
+                                            </button>
+                                            <span class="text-[10px] text-slate-700">|</span>
+                                            <button 
+                                                @click="openImportModal" 
+                                                class="text-[10px] text-amber-500 hover:text-amber-400 font-semibold uppercase tracking-wider block transition-colors">
+                                                Importar TXT
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-right">
+                                    <div class="text-sm font-mono">
+                                        Cartas: <strong :class="userDeckCount === 50 ? 'text-emerald-400' : 'text-amber-500'">{{ userDeckCount }}</strong> <span class="text-slate-500">/ 50</span>
+                                    </div>
+                                    <!-- Progress bar of cards -->
+                                    <div class="w-24 bg-slate-950 rounded-full h-1.5 mt-1 border border-slate-800 overflow-hidden">
+                                        <div 
+                                            :class="userDeckCount === 50 ? 'bg-emerald-500' : 'bg-amber-500'"
+                                            :style="{ width: (userDeckCount / 50 * 100) + '%' }" 
+                                            class="h-full rounded-full transition-all">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- List of Cards in User Deck -->
+                            <div class="flex flex-col gap-3 max-h-[35vh] overflow-y-auto pr-1">
+                                <div v-if="userDeck.length === 0" class="text-center py-10 text-xs text-slate-500 font-mono">
+                                    Nenhuma carta adicionada ao deck ainda.<br>Clique nas cartas à esquerda para montar.
+                                </div>
+                                <div 
+                                    v-for="item in userDeck" 
+                                    :key="item.card.card_set_id"
+                                    class="bg-slate-950/50 hover:bg-slate-950 border border-slate-800 rounded-lg p-2 flex items-center justify-between gap-3 group">
+                                    
+                                    <div class="flex items-center gap-2 min-w-0">
+                                        <div class="w-8 h-10 bg-slate-900 border border-slate-800 rounded overflow-hidden flex items-center justify-center shrink-0">
+                                            <img :src="item.card.card_image" :alt="item.card.card_name" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="min-w-0">
+                                            <h4 class="text-xs font-bold text-slate-200 line-clamp-1 group-hover:text-amber-500 transition-colors" :title="item.card.card_name">
+                                                {{ item.card.card_name }}
+                                            </h4>
+                                            <span class="text-[9px] font-mono text-slate-500">{{ item.card.card_set_id }}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Quantity adjust buttons -->
+                                    <div class="flex items-center gap-1">
+                                        <button 
+                                            @click="removeCardFromDeck(item.card.card_set_id)"
+                                            class="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs flex items-center justify-center transition-colors">
+                                            -
+                                        </button>
+                                        <span class="w-6 text-center font-mono font-bold text-xs text-amber-500">
+                                            {{ item.quantity }}
+                                        </span>
+                                        <button 
+                                            @click="addCardToDeck(item.card)"
+                                            class="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs flex items-center justify-center transition-colors">
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Analysis Options & Trigger -->
+                            <div class="border-t border-slate-800/80 pt-4 flex flex-col gap-3">
+                                
+                                <div class="flex items-center justify-between text-xs text-slate-400 font-mono">
+                                    <span>Counters +2000: <strong>{{ builderDeckStats.counter_2000_count }}</strong> cartas</span>
+                                    <span>Blockers: <strong>{{ builderDeckStats.blockers_count }}</strong> cartas</span>
+                                </div>
+
+                                <div class="flex flex-col gap-1.5">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Set Meta de Referência:</label>
+                                    <select 
+                                        v-model="metaSet"
+                                        @change="loadMeta"
+                                        class="bg-slate-950 border border-slate-800 rounded-lg py-1.5 px-3 text-xs focus:outline-none focus:border-amber-500 text-amber-500 font-bold">
+                                        <option v-for="setOpt in availableMetaSets" :key="setOpt.value" :value="setOpt.value">
+                                            {{ setOpt.label }}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button 
+                                        @click="runDeckAnalysis"
+                                        :disabled="userDeck.length === 0"
+                                        class="py-3 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold rounded-xl transition-all shadow-lg flex items-center justify-center gap-1.5">
+                                        <span>Analisar Meta</span>
+                                    </button>
+                                    <button 
+                                        @click="exportUserDeckTxt"
+                                        :disabled="userDeck.length === 0"
+                                        class="py-3 bg-slate-950 hover:bg-slate-800 border border-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-amber-400 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5">
+                                        <span>Exportar TXT</span>
+                                    </button>
+                                </div>
+                                <p v-if="userDeckCount !== 50 && userDeckCount > 0" class="text-[10px] text-amber-500 text-center font-mono">
+                                    Seu deck tem {{ userDeckCount }} cartas. O ideal é analisar um deck completo de 50 cartas para resultados precisos.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-slate-900 border-t border-slate-800 py-6 text-center text-xs text-slate-500 px-6 mt-auto">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p>One Piece e One Piece Card Game são marcas registradas da Eiichiro Oda, Bandai, Shonen Jump e Viz Media.</p>
+                <p class="font-mono text-slate-600">Base de dados local alimentada via OPTCG API & Egman Events</p>
+            </div>
+        </footer>
+
+        <!-- Detail Modal (Integrated for database cards and meta lookup) -->
+        <div v-if="selectedCard" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4 overflow-y-auto">
+            
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative">
+                
+                <button 
+                    @click="closeDetails"
+                    class="absolute top-4 right-4 z-10 p-2 bg-slate-950/50 hover:bg-slate-950 text-slate-400 hover:text-slate-200 rounded-full border border-slate-800 transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+
+                <div class="md:w-1/2 bg-slate-950 p-6 flex items-center justify-center border-r border-slate-800/80">
+                    <div class="relative w-full max-w-xs aspect-[2.5/3.5] rounded-xl overflow-hidden shadow-lg bg-slate-900 flex items-center justify-center">
+                        <img 
+                            v-if="selectedCard.card_image && !selectedCard.imageError" 
+                            :src="selectedCard.card_image" 
+                            :alt="selectedCard.card_name" 
+                            class="w-full h-full object-cover">
+                        <div v-else class="w-full h-full p-6 flex flex-col justify-between items-center text-center select-none bg-gradient-to-br from-slate-900 to-slate-950">
+                            <span class="text-xs font-mono text-slate-500">{{ selectedCard.card_set_id || 'DON!!' }}</span>
+                            <div class="flex flex-col items-center">
+                                <svg class="w-16 h-16 text-slate-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                <span class="text-sm font-bold text-slate-400 px-4">{{ selectedCard.card_name }}</span>
+                            </div>
+                            <span class="text-xs font-mono text-amber-600/70 border border-amber-600/20 px-3 py-1 rounded-full bg-amber-500/5">Sem Imagem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 p-6 md:p-8 flex flex-col gap-6 max-h-[90vh] md:max-h-none overflow-y-auto">
+                    
+                    <div class="flex flex-col gap-1.5">
+                        <span class="text-xs font-mono font-semibold text-amber-500 uppercase tracking-widest">{{ selectedCard.set_name || 'One Piece Promotion' }}</span>
+                        <h2 class="text-2xl font-black text-slate-100">{{ selectedCard.card_name }}</h2>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-xs font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-extrabold">ID: {{ selectedCard.card_set_id || selectedCard.don_id || 'PROMO' }}</span>
+                            <span v-if="selectedCard.rarity" class="text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-extrabold">Raridade: {{ selectedCard.rarity }}</span>
+                        </div>
+                    </div>
+
+                    <div v-if="selectedCard.card_type !== 'DON!!'" class="grid grid-cols-2 gap-4 bg-slate-950/50 p-4 rounded-2xl border border-slate-800">
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Custo / Custo Vida</span>
+                            <span class="text-sm font-bold text-slate-200">
+                                {{ selectedCard.card_cost !== 'NULL' && selectedCard.card_cost ? selectedCard.card_cost : 'N/A' }} 
+                                <span class="text-xs text-slate-500 font-normal" v-if="selectedCard.life && selectedCard.life !== 'NULL'">(Leader Life: {{ selectedCard.life }})</span>
+                            </span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Poder (Power)</span>
+                            <span class="text-sm font-bold text-slate-200">{{ selectedCard.card_power !== 'NULL' && selectedCard.card_power ? selectedCard.card_power : 'N/A' }}</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Counter</span>
+                            <span class="text-sm font-bold text-slate-200">{{ selectedCard.counter_amount !== 'NULL' && selectedCard.counter_amount ? `+${selectedCard.counter_amount}` : 'Sem Counter' }}</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Atributo</span>
+                            <span class="text-sm font-bold text-slate-200">{{ selectedCard.attribute !== 'NULL' && selectedCard.attribute ? selectedCard.attribute : 'N/A' }}</span>
+                        </div>
+                        <div class="flex flex-col col-span-2 border-t border-slate-900 pt-3 mt-1">
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Sub-Tipos (Família/Afiliação)</span>
+                            <span class="text-xs text-slate-300 font-medium">{{ selectedCard.sub_types !== 'NULL' && selectedCard.sub_types ? selectedCard.sub_types : 'N/A' }}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Texto da Carta / Efeito</span>
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed font-mono whitespace-pre-wrap">
+                            {{ selectedCard.card_text && selectedCard.card_text !== 'NULL' ? selectedCard.card_text : 'Carta sem efeito/texto descritivo.' }}
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-3 border-t border-slate-800/80 pt-4 mt-1">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Cotação & Marketplace (Brasil)</span>
+                        <a :href="getLigaOnePieceUrl(selectedCard)" target="_blank" rel="noopener noreferrer" 
+                           class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-amber-500/10">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                            <span>Ver Preços e Estoque na Liga One Piece</span>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DECK ANALYSIS REPORT MODAL -->
+        <div v-if="showDeckAnalysis" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+            
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col relative max-h-[90vh]">
+                
+                <!-- Close Button -->
+                <button 
+                    @click="showDeckAnalysis = false"
+                    class="absolute top-4 right-4 z-10 p-2 bg-slate-950/50 hover:bg-slate-950 text-slate-400 hover:text-slate-200 rounded-full border border-slate-800 transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+
+                <!-- Modal Body -->
+                <div class="p-6 md:p-8 flex flex-col gap-6 overflow-y-auto">
+                    
+                    <!-- Title Banner -->
+                    <div>
+                        <span class="text-xs font-mono font-bold text-amber-500 uppercase tracking-widest">Relatório Analítico de Combate</span>
+                        <h2 class="text-2xl font-black text-slate-100 flex items-center gap-2 mt-1">
+                            Análise do Deck: {{ selectedBuilderLeader.card_name }}
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Simulado com base nas estatísticas reais do Meta Game (Set: {{ metaSet }}).</p>
+                    </div>
+
+                    <!-- Meta Data Warning (if meta was not scraped) -->
+                    <div v-if="metaError" class="bg-red-500/5 border border-red-500/20 p-4 rounded-xl text-center text-xs text-red-400">
+                        ⚠️ **Aviso**: O arquivo de dados do meta `meta_{{ metaSet }}.json` não foi localizado. Os matchups simulados abaixo usarão uma estimativa matemática básica. 
+                        Rode `python scrape_meta.py --set {{ metaSet }}` no terminal para carregar dados reais dos arquétipos inimigos.
+                    </div>
+
+                    <!-- Row 1: Consistency Scores -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        
+                        <!-- Meta Alignment -->
+                        <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-slate-500">Alinhamento com o Meta</span>
+                                <h3 class="text-3xl font-black font-mono text-amber-500 mt-2">{{ analysisResults.alignment.toFixed(1) }}%</h3>
+                                <p class="text-xs text-slate-400 mt-2">O quanto as cartas do seu deck combinam com as listas populares do meta.</p>
+                            </div>
+                            <div class="w-full bg-slate-900 rounded-full h-2 mt-4 border border-slate-800 overflow-hidden">
+                                <div class="bg-amber-500 h-full rounded-full" :style="{ width: analysisResults.alignment + '%' }"></div>
+                            </div>
+                        </div>
+
+                        <!-- Defesa -->
+                        <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-slate-500">Capacidade Defensiva</span>
+                                <div class="flex items-baseline gap-2 mt-2">
+                                    <span class="text-lg font-black" :class="getDefenseStatusClass(analysisResults.stats)">
+                                        {{ getDefenseLabel(analysisResults.stats) }}
+                                    </span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-2">Avalia o total de counters +2000 e blockers para conter decks rápidos.</p>
+                            </div>
+                            <div class="text-xs font-mono text-slate-500 border-t border-slate-800/80 pt-3 mt-4 flex justify-between">
+                                <span>Counters +2K: {{ analysisResults.stats.counter_2000_count }}</span>
+                                <span>Blockers: {{ analysisResults.stats.blockers_count }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Remoções -->
+                        <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-slate-500">Controle de Mesa</span>
+                                <div class="flex items-baseline gap-2 mt-2">
+                                    <span class="text-lg font-black" :class="getRemovalStatusClass(analysisResults.stats)">
+                                        {{ getRemovalLabel(analysisResults.stats) }}
+                                    </span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-2">Capacidade de remover cartas grandes do adversário (eventos e K.O.).</p>
+                            </div>
+                            <div class="text-xs font-mono text-slate-500 border-t border-slate-800/80 pt-3 mt-4 flex justify-between">
+                                <span>Remoções: {{ analysisResults.stats.removal_count }}</span>
+                                <span>Curva Média: {{ calculateAverageCost(analysisResults.stats) }}</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Row 2: Cost Curve Bar Chart -->
+                    <div class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl">
+                        <span class="text-[10px] uppercase font-bold text-slate-500">Curva de Custo (Distribuição)</span>
+                        <div class="flex items-end justify-between gap-2 h-28 mt-4">
+                            <div 
+                                v-for="cost in 11" 
+                                :key="cost-1" 
+                                class="flex-grow flex flex-col items-center gap-2 group h-full justify-end">
+                                <!-- Bar value on hover -->
+                                <span class="opacity-0 group-hover:opacity-100 text-[10px] font-mono text-amber-500 transition-opacity">
+                                    {{ analysisResults.stats.cost_distribution[cost-1] }}
+                                </span>
+                                <!-- Bar -->
+                                <div 
+                                    :style="{ height: getCostBarHeight(analysisResults.stats.cost_distribution[cost-1]) }"
+                                    class="w-full bg-slate-800 group-hover:bg-amber-600 rounded-t transition-all min-h-[4px]">
+                                </div>
+                                <span class="text-[10px] font-mono text-slate-500 font-bold bg-slate-900 border border-slate-800 px-1 rounded">
+                                    {{ cost-1 }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2.5: Structural Improvements (Meta Independent) -->
+                    <div class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl flex flex-col gap-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Fundamentos do Deckbuilding</span>
+                                <h3 class="text-sm font-bold text-amber-500 flex items-center gap-1.5 mt-0.5">
+                                    💡 Sugestões de Melhoria Estrutural (Gerais & Universais)
+                                </h3>
+                            </div>
+                            <span class="text-[10px] text-slate-500 font-mono">Regras de Ouro independentes do Meta</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div 
+                                v-for="sug in analysisResults.structuralSuggestions" 
+                                :key="sug.title"
+                                class="bg-slate-900/60 border border-slate-800/80 p-3.5 rounded-xl flex flex-col gap-2">
+                                <div class="flex items-start gap-3">
+                                    <span class="text-xl shrink-0">{{ sug.icon }}</span>
+                                    <div>
+                                        <h4 class="font-bold text-xs text-slate-200">{{ sug.title }}</h4>
+                                        <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">{{ sug.text }}</p>
+                                    </div>
+                                </div>
+                                <!-- Card Recommendations -->
+                                <div v-if="sug.cards && sug.cards.length > 0" class="flex flex-col gap-1.5 mt-1 border-t border-slate-800/60 pt-2">
+                                    <span class="text-[9px] uppercase font-bold text-amber-500/80 tracking-wider">Cartas Sugeridas:</span>
+                                    <div class="flex gap-2 overflow-x-auto pb-1">
+                                        <div 
+                                            v-for="rc in sug.cards" 
+                                            :key="rc.card_set_id"
+                                            class="shrink-0 w-16 flex flex-col items-center gap-0.5 group cursor-pointer"
+                                            @click="openDetails(rc)"
+                                            :title="'Ver detalhes: ' + rc.card_name">
+                                            <div class="w-16 h-[88px] rounded-lg overflow-hidden border border-slate-700 group-hover:border-amber-500 transition-colors shadow-sm">
+                                                <img 
+                                                    v-if="rc.card_image" 
+                                                    :src="rc.card_image" 
+                                                    :alt="rc.card_name"
+                                                    class="w-full h-full object-cover">
+                                                <div v-else class="w-full h-full bg-slate-950 flex items-center justify-center text-[8px] text-slate-500 font-mono text-center p-1">{{ rc.card_set_id }}</div>
+                                            </div>
+                                            <span class="text-[8px] text-slate-500 font-mono text-center line-clamp-1 w-full group-hover:text-amber-500 transition-colors">{{ rc.card_set_id }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Substitution Suggestion if deck is full -->
+                                <div v-if="sug.replacementCard && userDeckCount >= 50" class="mt-2 bg-slate-950/40 border border-slate-800/60 p-2 rounded-xl flex items-center justify-between gap-3">
+                                    <div class="flex items-start gap-2.5 min-w-0">
+                                        <span class="text-xs shrink-0 mt-0.5">🔄</span>
+                                        <div class="min-w-0">
+                                            <div class="text-[8px] uppercase font-black text-amber-500/80 tracking-wider">Sugestão de Substituição:</div>
+                                            <div class="text-[10px] text-slate-400 mt-0.5 leading-relaxed truncate">
+                                                Para adicionar, sugerimos tirar 1x
+                                                <span 
+                                                    class="text-slate-200 font-bold hover:underline cursor-pointer"
+                                                    @click="openDetails(sug.replacementCard)">
+                                                    {{ sug.replacementCard.card_name }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Thumbnail -->
+                                    <div 
+                                        class="shrink-0 w-7 h-10 rounded border border-slate-700 hover:border-amber-500 cursor-pointer overflow-hidden shadow-sm"
+                                        @click="openDetails(sug.replacementCard)"
+                                        :title="'Ver detalhes de ' + sug.replacementCard.card_name">
+                                        <img 
+                                            v-if="sug.replacementCard.card_image" 
+                                            :src="sug.replacementCard.card_image" 
+                                            :alt="sug.replacementCard.card_name"
+                                            class="w-full h-full object-cover">
+                                        <div v-else class="w-full h-full bg-slate-950 flex items-center justify-center text-[7px] text-slate-600 font-mono">{{ sug.replacementCard.card_set_id }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Meta Matchups Table/List -->
+                    <div class="flex flex-col gap-4">
+                        <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Simulador de Combates contra o Meta Inimigo</span>
+                        
+                        <div class="flex flex-col gap-3">
+                            <div 
+                                v-for="opp in analysisResults.matchups" 
+                                :key="opp.opponent_id"
+                                class="bg-slate-950/30 border border-slate-800 rounded-xl p-4 flex flex-col gap-3 hover:border-slate-700 transition-colors">
+                                
+                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                                    <!-- Opponent Details -->
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full overflow-hidden bg-slate-900 flex items-center justify-center border border-slate-800 shrink-0">
+                                            <img :src="opp.image" :alt="opp.opponent_name" class="w-full h-full object-cover object-top scale-[1.3]">
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-sm text-slate-200">{{ opp.opponent_name }}</h4>
+                                            <span class="text-[10px] font-mono text-slate-500">ID Líder: {{ opp.opponent_id }} | Meta Share: {{ opp.share }}%</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Matchup Rating -->
+                                    <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
+                                        <div class="flex flex-col text-right">
+                                            <span class="text-[10px] text-slate-500 font-semibold uppercase">Win Rate Estimada</span>
+                                            <span class="text-lg font-mono font-black" :class="getWinrateColorClass(opp.winrate)">
+                                                {{ opp.winrate }}%
+                                            </span>
+                                        </div>
+                                        
+                                        <span 
+                                            :class="getStatusBadgeClass(opp.status)"
+                                            class="px-2.5 py-1 text-xs font-bold rounded-lg border">
+                                            {{ opp.status }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Recommendation Tips -->
+                                <div class="text-xs text-slate-300 font-medium border-t border-slate-800/80 pt-2.5 mt-1">
+                                    <div class="flex items-center gap-1 text-amber-500 font-semibold mb-1">
+                                        💡 Dica de Combate:
+                                    </div>
+                                    <ul class="list-disc list-inside text-slate-400 text-[11px] leading-relaxed">
+                                        <li v-for="tip in opp.recommendations" :key="tip">{{ tip }}</li>
+                                    </ul>
+                                </div>
+
+                                <!-- Collapsible Combat Guide Button -->
+                                <div class="border-t border-slate-800/50 pt-2 flex justify-start">
+                                    <button 
+                                        @click="opp.showGuide = !opp.showGuide"
+                                        class="text-[10px] text-amber-500 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors uppercase tracking-wider">
+                                        <span>{{ opp.showGuide ? 'Recolher Guia de Matchup 📖' : 'Ver Guia de Matchup Passo a Passo 📖' }}</span>
+                                        <svg 
+                                            :class="opp.showGuide ? 'rotate-180' : ''" 
+                                            class="w-3.5 h-3.5 transform transition-transform" 
+                                            fill="none" 
+                                            stroke="currentColor" 
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <!-- Collapsible Combat Guide Panel -->
+                                <div 
+                                    v-if="opp.showGuide" 
+                                    class="bg-slate-950/80 border border-slate-800/60 rounded-xl p-4 flex flex-col gap-4 text-xs mt-1 animate-fade-in">
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <!-- Turn Preference -->
+                                        <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/60">
+                                            <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Preferência de Turno</span>
+                                            <p class="font-bold text-slate-200 mt-1 flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                                                {{ opp.guide.turn_preference }}
+                                            </p>
+                                        </div>
+
+                                        <!-- Starting Hand & Mulligan -->
+                                        <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/60">
+                                            <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Mão Inicial & Mulligan</span>
+                                            <p class="text-slate-300 mt-1 font-medium leading-relaxed">{{ opp.guide.mulligan_tips }}</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Don Strategy -->
+                                    <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/60 flex flex-col gap-2">
+                                        <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Estratégia por Curva de Don</span>
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-1 text-[11px] leading-relaxed">
+                                            <div>
+                                                <span class="font-bold text-amber-500/90 font-mono">Early Game (1-4 Don)</span>
+                                                <p class="text-slate-400 mt-0.5">{{ opp.guide.don_strategy.early }}</p>
+                                            </div>
+                                            <div class="border-t md:border-t-0 md:border-l border-slate-800/60 pt-2 md:pt-0 md:pl-3">
+                                                <span class="font-bold text-amber-500/90 font-mono">Mid Game (5-8 Don)</span>
+                                                <p class="text-slate-400 mt-0.5">{{ opp.guide.don_strategy.mid }}</p>
+                                            </div>
+                                            <div class="border-t md:border-t-0 md:border-l border-slate-800/60 pt-2 md:pt-0 md:pl-3">
+                                                <span class="font-bold text-amber-500/90 font-mono">Late Game (9-10 Don)</span>
+                                                <p class="text-slate-400 mt-0.5">{{ opp.guide.don_strategy.late }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- General Strategy -->
+                                    <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/60">
+                                        <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Como funciona o Matchup (Estratégia Geral)</span>
+                                        <p class="text-slate-300 mt-1.5 leading-relaxed font-medium">{{ opp.guide.matchup_explanation }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DECK IMPORT FROM TXT MODAL -->
+        <div v-if="showImportModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col relative">
+                
+                <!-- Close Button -->
+                <button 
+                    @click="showImportModal = false"
+                    class="absolute top-4 right-4 z-10 p-2 bg-slate-950/50 hover:bg-slate-950 text-slate-400 hover:text-slate-200 rounded-full border border-slate-800 transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+
+                <!-- Modal Body -->
+                <div class="p-6 flex flex-col gap-4">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-amber-500 uppercase tracking-widest">Importador TXT</span>
+                        <h2 class="text-xl font-black text-slate-100 mt-1">Importar Lista de Deck</h2>
+                        <p class="text-xs text-slate-400 mt-1 font-sans">Cole sua lista de cartas no campo abaixo. O importador identificará o Líder e adicionará as cartas compatíveis automaticamente.</p>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Lista de Cartas (Ex: 4xOP01-001 ou 4 OP01-001):</label>
+                        <textarea 
+                            v-model="importText"
+                            rows="10"
+                            placeholder="1xOP14-020&#10;4xOP12-034&#10;4xOP14-023&#10;..."
+                            class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-300 font-mono focus:outline-none focus:border-amber-500 resize-none"></textarea>
+                    </div>
+
+                    <div class="flex gap-3 justify-end border-t border-slate-800/80 pt-4">
+                        <button 
+                            @click="showImportModal = false"
+                            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-lg transition-colors">
+                            Cancelar
+                        </button>
+                        <button 
+                            @click="importDeck"
+                            :disabled="!importText.trim()"
+                                        <span>Lista copiada para a área de transferência!</span>
+                                    </div>
+
+                                    <div class="flex flex-col gap-1.5">
+                                        <label class="text-xs font-semibold text-slate-400">Lista TXT Formatada:</label>
+                                        <textarea 
+                                            v-model="exportModalText"
+                                            readonly
+                                            rows="10"
+                                            class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-amber-400 font-mono focus:outline-none select-all resize-none"></textarea>
+                                    </div>
+
+                                    <div class="flex flex-wrap gap-2 justify-end border-t border-slate-800/80 pt-4">
+                                        <button 
+                                            @click="copyExportText"
+                                            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                            </svg>
+                                            <span>Copiar Texto</span>
+                                        </button>
+
+                                        <button 
+                                            @click="downloadExportTxtFile"
+                                            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                            </svg>
+                                            <span>Baixar .TXT</span>
+                                        </button>
+
+                                        <button 
+                                            v-if="selectedMetaLeader"
+                                            @click="showExportModal = false; importMetaBuildToBuilder(selectedMetaLeader)"
+                                            class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-lg transition-all shadow-md flex items-center gap-1.5">
+                                            <span>Testar no Montar Deck</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+    </div>
+
+    <!-- Vue App Script -->
+    <script>
+        const { createApp, ref, computed, onMounted, watch } = Vue;
+
+        createApp({
+            setup() {
+                const currentTab = ref('sets');
+                const loading = ref(true);
+
+                // Datasets
+                const sets = ref([]);
+                const setCards = ref([]);
+                const decks = ref([]);
+                const starterCards = ref([]);
+                const promoCards = ref([]);
+                const donCards = ref([]);
+
+                // Filters
+                const filters = ref({
+                    search: '',
+                    color: '',
+                    type: '',
+                    rarity: '',
+                    setId: '',
+                    deckId: ''
+                });
+
+                // Pagination
+                const currentPage = ref(1);
+                const itemsPerPage = ref(40);
+
+                // Modal
+                const selectedCard = ref(null);
+
+                // --- Meta Game State ---
+                const availableMetaSets = ref([
+                    { value: 'OP09', label: 'OP09 (500 Years Future)' },
+                    { value: 'OP10', label: 'OP10 (Royal Blood)' },
+                    { value: 'OP16', label: 'OP16 (Filtro Personalizado)' }
+                ]);
+                const metaSet = ref(availableMetaSets.value[availableMetaSets.value.length - 1].value);
+                const metaLoading = ref(false);
+                const metaError = ref(false);
+                const metaData = ref({ leaders: [], decks_tracked: 0, scraped_at: '' });
+                const selectedMetaLeader = ref(null);
+                const metaSearchQuery = ref('');
+                const showExportModal = ref(false);
+                const exportModalText = ref('');
+                const exportModalTitle = ref('');
+                const copiedToast = ref(false);
+
+                const checkAvailableMetaSets = async () => {
+                    const setTitles = {};
+                    if (sets.value && sets.value.length > 0) {
+                        sets.value.forEach(s => {
+                            const cleanCode = (s.set_id || '').replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                            if (cleanCode) {
+                                setTitles[cleanCode] = s.set_name;
+                            }
+                        });
+                    }
+
+                    const candidateCodes = [];
+                    for (let i = 1; i <= 25; i++) {
+                        candidateCodes.push(`OP${i.toString().padStart(2, '0')}`);
+                    }
+                    for (let i = 1; i <= 5; i++) {
+                        candidateCodes.push(`EB${i.toString().padStart(2, '0')}`);
+                    }
+                    for (let i = 1; i <= 3; i++) {
+                        candidateCodes.push(`PRB${i.toString().padStart(2, '0')}`);
+                    }
+
+                    const detected = [];
+                    for (const code of candidateCodes) {
+                        try {
+                            const res = await fetch(`/optcg_data/meta_${code}.json`, { method: 'HEAD' });
+                            if (res.ok) {
+                                const name = setTitles[code] || setTitles[code.replace(/^OP/, 'OP-')] || '';
+                                const label = name ? `${code} (${name})` : `${code}`;
+                                detected.push({ value: code, label: label });
+                            }
+                        } catch (e) {}
+                    }
+
+                    if (detected.length > 0) {
+                        availableMetaSets.value = detected;
+                        const opSets = detected.filter(d => d.value.startsWith('OP'));
+                        const mostRecent = opSets.length > 0 ? opSets[opSets.length - 1] : detected[detected.length - 1];
+                        metaSet.value = mostRecent.value;
+                    }
+                };
+
+                // --- Deck Builder State ---
+                const selectedBuilderLeader = ref(null);
+                const leaderSearchQuery = ref('');
+                const builderSearchQuery = ref('');
+                const builderCardType = ref('');
+                const builderCardCost = ref('');
+                const userDeck = ref([]); // array of { card: cardObj, quantity: number }
+                const showDeckAnalysis = ref(false);
+                const analysisResults = ref({ stats: {}, alignment: 0, matchups: [] });
+                const showImportModal = ref(false);
+                const importText = ref('');
+
+                // Fetch database files
+                const loadData = async () => {
+                    loading.value = true;
+                    try {
+                        const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes] = await Promise.all([
+                            fetch('/optcg_data/sets.json').then(r => r.json()).catch(() => []),
+                            fetch('/optcg_data/set_cards.json').then(r => r.json()).catch(() => []),
+                            fetch('/optcg_data/decks.json').then(r => r.json()).catch(() => []),
+                            fetch('/optcg_data/starter_cards.json').then(r => r.json()).catch(() => []),
+                            fetch('/optcg_data/promo_cards.json').then(r => r.json()).catch(() => []),
+                            fetch('/optcg_data/don_cards.json').then(r => r.json()).catch(() => [])
+                        ]);
+
+                        sets.value = setsRes;
+                        setCards.value = setCardsRes.map(c => ({ ...c, imageError: false }));
+                        decks.value = decksRes;
+                        starterCards.value = starterCardsRes.map(c => ({ ...c, imageError: false }));
+                        promoCards.value = promoCardsRes.map(c => ({ ...c, imageError: false }));
+                        donCards.value = donCardsRes.map(c => ({ ...c, imageError: false }));
+
+                    } catch (error) {
+                        console.error("Erro ao carregar arquivos locais:", error);
+                    } finally {
+                        loading.value = false;
+                    }
+                };
+
+                // Load Meta File
+                const loadMeta = async () => {
+                    metaLoading.value = true;
+                    metaError.value = false;
+                    try {
+                        const res = await fetch(`/optcg_data/meta_${metaSet.value}.json`);
+                        if (!res.ok) {
+                            throw new Error("Meta file not found");
+                        }
+                        const data = await res.json();
+                        metaData.value = data;
+                    } catch (e) {
+                        console.warn("Sem arquivo de meta local:", e);
+                        metaError.value = true;
+                        metaData.value = { leaders: [], decks_tracked: 0, scraped_at: '' };
+                    } finally {
+                        metaLoading.value = false;
+                    }
+                };
+
+                // Clear all filters
+                const clearFilters = () => {
+                    filters.value = {
+                        search: '',
+                        color: '',
+                        type: '',
+                        rarity: '',
+                        setId: '',
+                        deckId: ''
+                    };
+                    currentPage.value = 1;
+                };
+
+                const onSetIdChange = () => {
+                    if (filters.value.setId) {
+                        filters.value.deckId = '';
+                    }
+                };
+
+                const onDeckIdChange = () => {
+                    if (filters.value.deckId) {
+                        filters.value.setId = '';
+                    }
+                };
+
+                // Switch Tab and Reset Filters / Init Meta
+                const switchTab = (tab) => {
+                    currentTab.value = tab;
+                    clearFilters();
+                    if (tab === 'meta' || tab === 'builder') {
+                        loadMeta();
+                    }
+                };
+
+                // Filtered cards computed property
+                const filteredCards = computed(() => {
+                    let list = [];
+                    if (currentTab.value === 'sets') {
+                        list = [...setCards.value, ...starterCards.value];
+                    } else if (currentTab.value === 'promos') {
+                        list = promoCards.value;
+                    } else if (currentTab.value === 'don') {
+                        list = donCards.value;
+                    }
+
+                    // Apply text search
+                    if (filters.value.search) {
+                        const searchLower = filters.value.search.toLowerCase().trim();
+                        list = list.filter(card => {
+                            const name = (card.card_name || '').toLowerCase();
+                            const setId = (card.card_set_id || card.don_id || '').toLowerCase();
+                            const text = (card.card_text || '').toLowerCase();
+                            return name.includes(searchLower) || setId.includes(searchLower) || text.includes(searchLower);
+                        });
+                    }
+
+                    // Apply specific collection/set filter
+                    if (currentTab.value === 'sets' && filters.value.setId) {
+                        list = list.filter(card => card.set_id === filters.value.setId);
+                    }
+
+                    // Apply specific starter deck filter
+                    if (currentTab.value === 'sets' && filters.value.deckId) {
+                        list = list.filter(card => card.set_id === filters.value.deckId);
+                    }
+
+                    // Apply color filter
+                    if (filters.value.color) {
+                        if (filters.value.color === 'Multi') {
+                            list = list.filter(card => card.card_color && card.card_color.includes('/'));
+                        } else {
+                            list = list.filter(card => card.card_color && card.card_color.includes(filters.value.color));
+                        }
+                    }
+
+                    // Apply type filter
+                    if (filters.value.type) {
+                        list = list.filter(card => card.card_type === filters.value.type);
+                    }
+
+                    // Apply rarity filter
+                    if (filters.value.rarity) {
+                        list = list.filter(card => card.rarity === filters.value.rarity);
+                    }
+
+                    return list;
+                });
+
+                // Paginated cards computed property
+                const paginatedCards = computed(() => {
+                    const start = (currentPage.value - 1) * itemsPerPage.value;
+                    const end = start + itemsPerPage.value;
+                    return filteredCards.value.slice(start, end);
+                });
+
+                // Total pages computed property
+                const totalPages = computed(() => {
+                    return Math.max(1, Math.ceil(filteredCards.value.length / itemsPerPage.value));
+                });
+
+                watch([filters, currentTab], () => {
+                    currentPage.value = 1;
+                }, { deep: true });
+
+                const nextPage = () => {
+                    if (currentPage.value < totalPages.value) currentPage.value++;
+                };
+                const prevPage = () => {
+                    if (currentPage.value > 1) currentPage.value--;
+                };
+                const goToPage = (page) => {
+                    if (page >= 1 && page <= totalPages.value) currentPage.value = page;
+                };
+
+                const getVisiblePages = () => {
+                    const total = totalPages.value;
+                    const current = currentPage.value;
+                    const delta = 2;
+                    
+                    let range = [];
+                    for (let i = Math.max(1, current - delta); i <= Math.min(total, current + delta); i++) {
+                        range.push(i);
+                    }
+                    return range;
+                };
+
+                // Detail Modal controllers
+                const openDetails = (card) => {
+                    selectedCard.value = card;
+                };
+                const closeDetails = () => {
+                    selectedCard.value = null;
+                };
+
+                // Select Meta Leader
+                const selectLeader = (leader) => {
+                    selectedMetaLeader.value = leader;
+                };
+
+                // Filter Meta cards by category: core (>70%), suggested (30% to 70%), tech (<30%)
+                const getMetaCardsByCategory = (category) => {
+                    if (!selectedMetaLeader.value || !selectedMetaLeader.value.cards) return [];
+                    const cards = selectedMetaLeader.value.cards;
+                    
+                    if (category === 'core') {
+                        return cards.filter(c => c.inclusion_percentage > 70.0);
+                    } else if (category === 'suggested') {
+                        return cards.filter(c => c.inclusion_percentage >= 30.0 && c.inclusion_percentage <= 70.0);
+                    } else if (category === 'tech') {
+                        return cards.filter(c => c.inclusion_percentage < 30.0);
+                    }
+                    return [];
+                };
+
+                const openMetaCardDetails = (cardId) => {
+                    let found = setCards.value.find(c => c.card_set_id === cardId);
+                    if (!found) found = starterCards.value.find(c => c.card_set_id === cardId);
+                    if (!found) found = promoCards.value.find(c => c.card_set_id === cardId);
+
+                    if (found) {
+                        openDetails(found);
+                    } else {
+                        const metaList = selectedMetaLeader.value.cards;
+                        const metaCard = metaList.find(c => c.card_id === cardId);
+                        if (metaCard) {
+                            openDetails({
+                                card_name: metaCard.card_name,
+                                card_set_id: metaCard.card_id,
+                                card_image: metaCard.image,
+                                card_type: 'Unknown',
+                                card_text: `Carta de Meta Game. Inclusão de ${metaCard.inclusion_percentage}% com recomendação de ${metaCard.copies_recommendation}.`,
+                                rarity: 'Unknown',
+                                set_name: 'Meta Deck List'
+                            });
+                        }
+                    }
+                };
+
+                // Price formatter
+                const formatPrice = (price) => {
+                    if (price === undefined || price === null || price === 'NULL' || price === 0) return 'Indisponível';
+                    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+                };
+
+                // Liga One Piece URL generator
+                const getLigaOnePieceUrl = (card) => {
+                    if (!card) return 'https://www.ligaonepiece.com.br/';
+                    let query = '';
+                    if (card.card_set_id && card.card_set_id !== 'NULL' && card.card_set_id !== 'DON!!') {
+                        query = card.card_set_id;
+                    } else if (card.card_id && card.card_id !== 'UNKNOWN' && card.card_id !== 'NULL') {
+                        query = card.card_id;
+                    } else if (card.card_name) {
+                        query = card.card_name;
+                    }
+                    query = query.trim();
+                    if (!query) return 'https://www.ligaonepiece.com.br/';
+                    return `https://www.ligaonepiece.com.br/?view=cards/search&card=${encodeURIComponent(query)}`;
+                };
+
+                const getLeaderCardId = (leader) => {
+                    if (!leader) return 'UNKNOWN';
+                    if (leader.leader_card_id && leader.leader_card_id !== 'UNKNOWN') return leader.leader_card_id;
+                    if (leader.archetype_code && leader.archetype_code.includes('||')) {
+                        return leader.archetype_code.split('||')[0].trim().toUpperCase();
+                    }
+                    if (leader.image) {
+                        const match = leader.image.match(/\/([A-Z0-9\-]+)\.(png|jpg|jpeg|webp)/i);
+                        if (match) return match[1].split('-r17')[0].toUpperCase();
+                    }
+                    return 'UNKNOWN';
+                };
+
+                const getMetaCardId = (metaCard) => {
+                    if (!metaCard) return 'UNKNOWN';
+                    if (metaCard.card_id && metaCard.card_id !== 'UNKNOWN') return metaCard.card_id;
+                    if (metaCard.image) {
+                        const match = metaCard.image.match(/\/([A-Z0-9\-]+)\.(png|jpg|jpeg|webp)/i);
+                        if (match) return match[1].split('-r17')[0].toUpperCase();
+                    }
+                    return 'UNKNOWN';
+                };
+
+                // --- Meta Leader Ranking & Filtering ---
+                const totalDecksTracked = computed(() => {
+                    if (!metaData.value) return 0;
+                    if (metaData.value.decks_tracked && metaData.value.decks_tracked > 0) {
+                        return metaData.value.decks_tracked;
+                    }
+                    if (metaData.value.leaders && metaData.value.leaders.length > 0) {
+                        return metaData.value.leaders.reduce((sum, l) => sum + (l.deck_count || 0), 0);
+                    }
+                    return 0;
+                });
+
+                const sortedMetaLeaders = computed(() => {
+                    if (!metaData.value || !metaData.value.leaders) return [];
+                    return [...metaData.value.leaders].sort((a, b) => (b.share_percentage || 0) - (a.share_percentage || 0));
+                });
+
+                const topMetaLeader = computed(() => {
+                    const list = sortedMetaLeaders.value;
+                    return list.length > 0 ? list[0] : null;
+                });
+
+                const filteredMetaLeaders = computed(() => {
+                    let list = sortedMetaLeaders.value;
+                    if (metaSearchQuery.value.trim()) {
+                        const q = metaSearchQuery.value.toLowerCase().trim();
+                        list = list.filter(l => (l.name || '').toLowerCase().includes(q) || (l.leader_card_id || '').toLowerCase().includes(q));
+                    }
+                    return list;
+                });
+
+                // --- Meta Build Loader & TXT Exporter ---
+                const generateLeaderTxt = (leader) => {
+                    if (!leader) return '';
+                    let txtLines = [];
+                    const leaderId = getLeaderCardId(leader);
+                    if (leaderId && leaderId !== 'UNKNOWN') {
+                        txtLines.push(`1x${leaderId}`);
+                    }
+
+                    if (leader.cards && leader.cards.length > 0) {
+                        const sorted = [...leader.cards].sort((a, b) => (b.inclusion_percentage || 0) - (a.inclusion_percentage || 0));
+                        let totalCards = 0;
+
+                        for (const mc of sorted) {
+                            if (totalCards >= 50) break;
+                            const mcId = getMetaCardId(mc);
+                            if (!mcId || mcId === 'UNKNOWN') continue;
+
+                            let qty = 4;
+                            if (mc.copies_recommendation) {
+                                const match = mc.copies_recommendation.match(/(\d+)\s*x/i);
+                                if (match) qty = parseInt(match[1]);
+                            }
+                            const addQty = Math.min(qty, 50 - totalCards);
+                            if (addQty > 0) {
+                                txtLines.push(`${addQty}x${mcId}`);
+                                totalCards += addQty;
+                            }
+                        }
+                    }
+                    return txtLines.join('\n');
+                };
+
+                const exportMetaDeckTxt = (leader) => {
+                    if (!leader) return;
+                    const txt = generateLeaderTxt(leader);
+                    exportModalTitle.value = `Deck Meta TXT - ${leader.name} (${metaSet.value})`;
+                    exportModalText.value = txt;
+                    showExportModal.value = true;
+
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(txt).then(() => {
+                            copiedToast.value = true;
+                            setTimeout(() => { copiedToast.value = false; }, 2500);
+                        }).catch(() => {});
+                    }
+                };
+
+                const exportUserDeckTxt = () => {
+                    let txtLines = [];
+                    if (selectedBuilderLeader.value) {
+                        const lId = selectedBuilderLeader.value.card_set_id || getLeaderCardId(selectedBuilderLeader.value);
+                        if (lId) txtLines.push(`1x${lId}`);
+                    }
+                    userDeck.value.forEach(item => {
+                        const cId = item.card.card_set_id || item.card.card_id;
+                        if (cId) {
+                            txtLines.push(`${item.quantity}x${cId}`);
+                        }
+                    });
+                    exportModalTitle.value = selectedBuilderLeader.value ? `Deck TXT - ${selectedBuilderLeader.value.card_name}` : 'Deck TXT';
+                    exportModalText.value = txtLines.join('\n');
+                    showExportModal.value = true;
+                };
+
+                const copyExportText = () => {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(exportModalText.value).then(() => {
+                            copiedToast.value = true;
+                            setTimeout(() => { copiedToast.value = false; }, 2500);
+                        });
+                    }
+                };
+
+                const downloadExportTxtFile = () => {
+                    const blob = new Blob([exportModalText.value], { type: 'text/plain;charset=utf-8' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${(exportModalTitle.value || 'Deck').replace(/[^a-z0-9]/gi, '_')}.txt`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                };
+
+                const importMetaBuildToBuilder = (leader) => {
+                    if (!leader) return;
+
+                    const leaderCardId = getLeaderCardId(leader);
+                    const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
+                    
+                    let leaderObj = allCards.find(c => c.card_type === 'Leader' && (
+                        (c.card_set_id && c.card_set_id.toUpperCase() === leaderCardId) ||
+                        (c.card_name && c.card_name.toLowerCase().includes(leader.name.split('(')[0].trim().toLowerCase()))
+                    ));
+
+                    if (!leaderObj) {
+                        leaderObj = {
+                            card_name: leader.name,
+                            card_set_id: leaderCardId,
+                            card_type: 'Leader',
+                            card_color: leader.archetype_code && leader.archetype_code.includes('||') ? leader.archetype_code.split('||')[1] : 'Multi',
+                            card_image: leader.image,
+                            rarity: 'L'
+                        };
+                    }
+
+                    selectedBuilderLeader.value = leaderObj;
+                    userDeck.value = [];
+                    let countInDeck = 0;
+
+                    if (leader.cards && leader.cards.length > 0) {
+                        const sortedCards = [...leader.cards].sort((a, b) => (b.inclusion_percentage || 0) - (a.inclusion_percentage || 0));
+
+                        for (const mc of sortedCards) {
+                            if (countInDeck >= 50) break;
+
+                            const mcId = getMetaCardId(mc);
+                            let foundCard = allCards.find(c => c.card_set_id && c.card_set_id.toUpperCase() === mcId);
+                            
+                            if (!foundCard) {
+                                foundCard = {
+                                    card_name: mc.card_name,
+                                    card_set_id: mcId,
+                                    card_type: 'Character',
+                                    card_color: leaderObj.card_color,
+                                    card_image: mc.image,
+                                    card_cost: "3",
+                                    rarity: 'UC'
+                                };
+                            }
+
+                            let copiesToAdd = 4;
+                            if (mc.copies_recommendation) {
+                                const match = mc.copies_recommendation.match(/(\d+)\s*x/i);
+                                if (match) copiesToAdd = parseInt(match[1]);
+                            }
+                            
+                            const maxAdd = Math.min(copiesToAdd, 50 - countInDeck);
+                            if (maxAdd > 0) {
+                                userDeck.value.push({ card: foundCard, quantity: maxAdd });
+                                countInDeck += maxAdd;
+                            }
+                        }
+                    }
+
+                    currentTab.value = 'builder';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+
+                // Get list of colors for rendering tags
+                const getColors = (colorStr) => {
+                    if (!colorStr || colorStr === 'NULL') return [];
+                    return colorStr.split('/');
+                };
+
+                // Get color badges theme class
+                const getColorClass = (color) => {
+                    const base = "bg-slate-900 text-slate-100";
+                    switch(color.toLowerCase().trim()) {
+                        case 'red': return 'bg-red-600 text-white border-red-500';
+                        case 'green': return 'bg-emerald-600 text-white border-emerald-500';
+                        case 'blue': return 'bg-blue-600 text-white border-blue-500';
+                        case 'purple': return 'bg-purple-600 text-white border-purple-500';
+                        case 'black': return 'bg-zinc-800 text-slate-200 border-zinc-700';
+                        case 'yellow': return 'bg-amber-400 text-slate-950 border-amber-300 font-extrabold';
+                        default: return base;
+                    }
+                };
+
+                const translateColor = (color) => {
+                    const dic = {
+                        'red': 'Vermelho',
+                        'green': 'Verde',
+                        'blue': 'Azul',
+                        'purple': 'Roxo',
+                        'black': 'Preto',
+                        'yellow': 'Amarelo'
+                    };
+                    return dic[color.toLowerCase().trim()] || color;
+                };
+
+                // --- Deck Builder Functions ---
+
+                const openImportModal = () => {
+                    importText.value = '';
+                    showImportModal.value = true;
+                };
+
+                const isColorCompatible = (leader, card) => {
+                    if (!leader || !card) return false;
+                    if (card.card_color === 'DON!!') return true;
+                    
+                    const leaderColors = getColors(leader.card_color).map(c => c.toLowerCase().trim());
+                    const cardColors = getColors(card.card_color).map(c => c.toLowerCase().trim());
+                    
+                    return cardColors.some(c => leaderColors.includes(c));
+                };
+
+                const importDeck = () => {
+                    const lines = importText.value.split(/\r?\n/);
+                    let tempDeck = [];
+                    let tempLeader = null;
+                    let notFound = [];
+                    let colorMismatches = [];
+
+                    const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value, ...donCards.value];
+
+                    if (allCards.length === 0) {
+                        alert("Aguarde o carregamento das cartas antes de importar.");
+                        return;
+                    }
+
+                    // Auxiliar para extrair o objeto Carta do banco de dados a partir da linha
+                    const findCardInDb = (rawLine) => {
+                        let clean = rawLine.trim().replace(/^\s*\d*\s*x\s*/i, '').replace(/^\s*\d+\s+/, '').trim();
+                        if (!clean) return null;
+
+                        // Padrões de ID: OP14-020, OP-14-020, ST32-001, ST-32-001, P-001, EB01-001
+                        const match = clean.match(/([A-Za-z]{1,4}-?\d{1,3}-[A-Za-z0-9]{1,4})/i) || clean.match(/([A-Za-z0-9]+-[A-Za-z0-9]+)/i);
+                        if (!match) return null;
+
+                        const rawCode = match[1].toUpperCase().trim();
+                        
+                        // 1. Busca exata por card_set_id
+                        let card = allCards.find(c => c.card_set_id && c.card_set_id.toUpperCase() === rawCode);
+                        if (card) return card;
+
+                        // 2. Busca com hífen normalizado (ex: OP-14-020 -> OP14-020, ST-32-001 -> ST32-001)
+                        const normalized = rawCode.replace(/^([A-Z]{1,4})-?(\d{1,3})-?([A-Z0-9]{1,4})$/, '$1$2-$3');
+                        card = allCards.find(c => c.card_set_id && c.card_set_id.toUpperCase() === normalized);
+                        if (card) return card;
+
+                        // 3. Busca sem hífens
+                        const noHyphen = rawCode.replace(/-/g, '');
+                        card = allCards.find(c => c.card_set_id && c.card_set_id.replace(/-/g, '').toUpperCase() === noHyphen);
+                        if (card) return card;
+
+                        return null;
+                    };
+
+                    // Extrai a quantidade do deck (ex: 4x, 4, x4)
+                    const parseQty = (rawLine) => {
+                        let m = rawLine.match(/^\s*(\d+)\s*x/i);
+                        if (m) return parseInt(m[1]);
+                        m = rawLine.match(/x\s*(\d+)\s*$/i);
+                        if (m) return parseInt(m[1]);
+                        m = rawLine.match(/^\s*(\d+)\s+/);
+                        if (m) return parseInt(m[1]);
+                        return 1;
+                    };
+
+                    // Passo 1: Identifica o Líder primeiro na lista
+                    for (let rawLine of lines) {
+                        const line = rawLine.trim();
+                        if (!line || line.startsWith('//') || line.startsWith('#')) continue;
+
+                        const card = findCardInDb(line);
+                        if (card && card.card_type === 'Leader') {
+                            tempLeader = card;
+                            break;
+                        }
+                    }
+
+                    // Se não encontrou Líder no texto, usa o líder selecionado previamente na tela
+                    if (!tempLeader && selectedBuilderLeader.value) {
+                        tempLeader = selectedBuilderLeader.value;
+                    }
+
+                    // Passo 2: Processa as demais cartas
+                    for (let rawLine of lines) {
+                        const line = rawLine.trim();
+                        if (!line || line.startsWith('//') || line.startsWith('#')) continue;
+
+                        const card = findCardInDb(line);
+
+                        if (!card) {
+                            const cleanToken = line.replace(/^\s*\d*\s*x\s*/i, '').replace(/^\s*\d+\s+/, '').trim();
+                            if (cleanToken && !notFound.includes(cleanToken)) {
+                                notFound.push(cleanToken);
+                            }
+                            continue;
+                        }
+
+                        // Se for carta de Líder, salva se necessário e não adiciona ao deck principal
+                        if (card.card_type === 'Leader') {
+                            if (!tempLeader) tempLeader = card;
+                            continue;
+                        }
+
+                        const qty = parseQty(line);
+
+                        // Valida cores permitidas pelo Líder
+                        if (tempLeader) {
+                            const compat = isColorCompatible(tempLeader, card);
+                            if (!compat) {
+                                colorMismatches.push(`${card.card_name} (${card.card_set_id})`);
+                                continue;
+                            }
+                        }
+
+                        // Acumula a quantidade (máximo 4 por ID)
+                        const existing = tempDeck.find(item => item.card.card_set_id === card.card_set_id);
+                        if (existing) {
+                            existing.quantity = Math.min(4, existing.quantity + qty);
+                        } else {
+                            tempDeck.push({ card, quantity: Math.min(4, qty) });
+                        }
+                    }
+
+                    // Aplica as alterações se o Líder estiver configurado
+                    if (tempLeader) {
+                        selectedBuilderLeader.value = tempLeader;
+                        userDeck.value = tempDeck;
+                        currentTab.value = 'builder';
+
+                        let msg = `✅ Deck importado com sucesso!\nLíder: ${tempLeader.card_name} (${tempLeader.card_set_id})\nTotal de cartas no deck: ${userDeckCount.value}`;
+                        if (notFound.length > 0) {
+                            msg += `\n\n⚠️ Cartas não encontradas (${notFound.length}): ${notFound.slice(0, 5).join(', ')}`;
+                        }
+                        if (colorMismatches.length > 0) {
+                            msg += `\n\n⚠️ Cartas ignoradas por cor incompatível com o líder (${colorMismatches.length}): ${colorMismatches.slice(0, 5).join(', ')}`;
+                        }
+                        alert(msg);
+                        showImportModal.value = false;
+                    } else {
+                        alert("Erro: A lista importada precisa conter pelo menos uma carta de Líder válida (ex: 1xOP14-020) ou você deve selecionar um Líder na tela antes de importar.");
+                    }
+                };
+                
+                // Get all leaders in the general database
+                const availableLeaders = computed(() => {
+                    const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
+                    const leadersOnly = allCards.filter(c => c.card_type === 'Leader');
+                    
+                    // Remova duplicados de set id
+                    const unique = [];
+                    const seen = new Set();
+                    for (const l of leadersOnly) {
+                        if (!seen.has(l.card_set_id)) {
+                            seen.add(l.card_set_id);
+                            unique.push(l);
+                        }
+                    }
+                    
+                    if (leaderSearchQuery.value) {
+                        const q = leaderSearchQuery.value.toLowerCase().trim();
+                        return unique.filter(l => l.card_name.toLowerCase().includes(q) || l.card_set_id.toLowerCase().includes(q));
+                    }
+                    return unique;
+                });
+
+                const selectBuilderLeader = (leader) => {
+                    selectedBuilderLeader.value = leader;
+                    userDeck.value = [];
+                };
+
+                const changeLeader = () => {
+                    selectedBuilderLeader.value = null;
+                    userDeck.value = [];
+                };
+
+                // Filter card pool based on selected leader colors
+                const filteredBuilderPool = computed(() => {
+                    if (!selectedBuilderLeader.value) return [];
+                    const leaderColors = getColors(selectedBuilderLeader.value.card_color);
+                    
+                    const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
+                    
+                    // Filtra apenas cartas da mesma cor e que NÃO sejam do tipo Leader ou DON!!
+                    let pool = allCards.filter(c => {
+                        if (c.card_type === 'Leader' || c.card_type === 'DON!!') return false;
+                        
+                        const cardColors = getColors(c.card_color);
+                        // Verifica se alguma cor da carta bate com as cores do líder
+                        return cardColors.some(cc => leaderColors.includes(cc));
+                    });
+
+                    // Remove duplicados de card_set_id para não mostrar paralelos redundantes
+                    let unique = [];
+                    const seen = new Set();
+                    for (const c of pool) {
+                        if (!seen.has(c.card_set_id)) {
+                            seen.add(c.card_set_id);
+                            unique.push(c);
+                        }
+                    }
+
+                    // Filtro de Texto
+                    if (builderSearchQuery.value) {
+                        const q = builderSearchQuery.value.toLowerCase().trim();
+                        unique = unique.filter(c => c.card_name.toLowerCase().includes(q) || c.card_set_id.toLowerCase().includes(q));
+                    }
+
+                    // Filtro de Tipo
+                    if (builderCardType.value) {
+                        unique = unique.filter(c => c.card_type === builderCardType.value);
+                    }
+
+                    // Filtro de Custo
+                    if (builderCardCost.value) {
+                        unique = unique.filter(c => c.card_cost === builderCardCost.value);
+                    }
+
+                    return unique;
+                });
+
+                // Count total cards in user deck
+                const userDeckCount = computed(() => {
+                    return userDeck.value.reduce((acc, item) => acc + item.quantity, 0);
+                });
+
+                // Get quantity of a specific card in the deck
+                const getCardCountInDeck = (cardId) => {
+                    const found = userDeck.value.find(item => item.card.card_set_id === cardId);
+                    return found ? found.quantity : 0;
+                };
+
+                const addCardToDeck = (card) => {
+                    if (userDeckCount.value >= 50) {
+                        alert("Seu deck já tem 50 cartas!");
+                        return;
+                    }
+
+                    const found = userDeck.value.find(item => item.card.card_set_id === card.card_set_id);
+                    if (found) {
+                        if (found.quantity >= 4) {
+                            alert("Você já tem 4 cópias desta carta!");
+                            return;
+                        }
+                        found.quantity++;
+                    } else {
+                        userDeck.value.push({ card, quantity: 1 });
+                    }
+                };
+
+                const removeCardFromDeck = (cardId) => {
+                    const foundIdx = userDeck.value.findIndex(item => item.card.card_set_id === cardId);
+                    if (foundIdx !== -1) {
+                        if (userDeck.value[foundIdx].quantity > 1) {
+                            userDeck.value[foundIdx].quantity--;
+                        } else {
+                            userDeck.value.splice(foundIdx, 1);
+                        }
+                    }
+                };
+
+                // Compute stats of the builder deck
+                const builderDeckStats = computed(() => {
+                    const stats = {
+                        total_cards: 0,
+                        counter_2000_count: 0,
+                        counter_1000_count: 0,
+                        blockers_count: 0,
+                        removal_count: 0,
+                        cost_distribution: { 0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0 }
+                    };
+
+                    for (const item of userDeck.value) {
+                        const qty = item.quantity;
+                        stats.total_cards += qty;
+
+                        // Custo
+                        try {
+                            const cost = parseInt(item.card.card_cost || 0);
+                            if (cost >= 0 && cost <= 10) {
+                                stats.cost_distribution[cost] += qty;
+                            }
+                        } catch(e){}
+
+                        // Counters
+                        try {
+                            const counter = parseInt(item.card.counter_amount || 0);
+                            if (counter === 2000) stats.counter_2000_count += qty;
+                            if (counter === 1000) stats.counter_1000_count += qty;
+                        } catch(e){}
+
+                        // Blockers
+                        const text = (item.card.card_text || '').toLowerCase();
+                        if (text.includes('[blocker]')) {
+                            stats.blockers_count += qty;
+                        }
+
+                        // Removals
+                        const isEvent = item.card.card_type.toLowerCase() === 'event';
+                        const hasKO = text.includes('k.o.') || text.includes('trash') || text.includes('place');
+                        if (isEvent && hasKO) {
+                            stats.removal_count += qty;
+                        }
+                    }
+
+                    return stats;
+                });
+
+                // Deck Heuristic Analyzer Algorithm
+                const runDeckAnalysis = () => {
+                    const stats = builderDeckStats.value;
+                    
+                    // 1. Calcula o alinhamento de meta se tivermos dados
+                    let alignment = 50.0;
+                    
+                    // Acha no metaData o líder correspondente
+                    const matchedLeader = metaData.value.leaders.find(l => l.leader_card_id === selectedBuilderLeader.value.card_set_id);
+                    if (matchedLeader && matchedLeader.cards) {
+                        const metaCoreMap = {};
+                        let totalCoreWeight = 0;
+                        for (const c of matchedLeader.cards) {
+                            if (c.inclusion_percentage >= 50.0) {
+                                metaCoreMap[c.card_id] = c.inclusion_percentage;
+                                totalCoreWeight += c.inclusion_percentage;
+                            }
+                        }
+
+                        if (totalCoreWeight > 0) {
+                            let matchedWeight = 0;
+                            const userDeckIds = userDeck.value.map(item => item.card.card_set_id);
+                            for (const id of userDeckIds) {
+                                if (metaCoreMap[id]) {
+                                    matchedWeight += metaCoreMap[id];
+                                }
+                            }
+                            alignment = Math.min(100.0, (matchedWeight / totalCoreWeight) * 100.0);
+                        }
+                    } else {
+                        // Se não encontrou o líder correspondente no meta do arquivo
+                        alignment = 60.0; // Padrão
+                    }
+
+                    // Escaneia o deck real do usuário para identificar buscadores, blockers, bosses e counters +2000
+                    const userSearchers = [];
+                    const userBlockers = [];
+                    const userBosses = [];
+                    const user2kCounters = [];
+
+                    for (const item of userDeck.value) {
+                        const card = item.card;
+                        const text = (card.card_text || '').toLowerCase();
+                        const cost = parseInt(card.card_cost || 0);
+                        const counter = parseInt(card.counter_amount || 0);
+
+                        // Busca buscadores (Custo 1-2 que buscam/olham topo do deck)
+                        if (cost <= 2 && (text.includes("look") || text.includes("reveal") || text.includes("search") || text.includes("add"))) {
+                            userSearchers.push(card);
+                        }
+
+                        // Busca blockers
+                        if (text.includes("[blocker]") || text.includes("blocker")) {
+                            userBlockers.push(card);
+                        }
+
+                        // Busca Bosses (Custo 7+)
+                        if (cost >= 7) {
+                            userBosses.push(card);
+                        }
+
+                        // Busca counters 2k
+                        if (counter === 2000) {
+                            user2kCounters.push(card);
+                        }
+                    }
+
+                    // 2. Calcula matchups contra os oponentes do Meta
+                    const matchups = [];
+                    
+                    // Oponentes (Líderes de meta)
+                    const metaLeaders = metaData.value.leaders.length > 0 
+                        ? metaData.value.leaders 
+                        : [
+                            { name: "Enel (Yellow)", leader_card_id: "OP05-098", share_percentage: 15.0, image: "" },
+                            { name: "Shanks (Red)", leader_card_id: "OP09-001", share_percentage: 20.0, image: "" },
+                            { name: "Monkey.D.Luffy (Purple)", leader_card_id: "OP05-060", share_percentage: 25.0, image: "" }
+                          ];
+                    
+                    for (const opp of metaLeaders) {
+                        const oppName = opp.name.toLowerCase();
+                        let baseWinrate = 50.0;
+
+                        // Determina força do oponente base
+                        if (oppName.includes("luffy")) baseWinrate = 48.0;
+                        else if (oppName.includes("shanks")) baseWinrate = 50.0;
+                        else if (oppName.includes("teach")) baseWinrate = 47.0;
+                        else if (oppName.includes("nami")) baseWinrate = 52.0;
+
+                        // Modificador por alinhamento de meta
+                        const metaModifier = (alignment - 70.0) / 6.0;
+                        let winrate = baseWinrate + metaModifier;
+
+                        const isAggro = oppName.includes("shanks") || oppName.includes("zoro") || oppName.includes("betty") || oppName.includes("law");
+                        const isBigChar = oppName.includes("luffy") || oppName.includes("teach") || oppName.includes("enel") || oppName.includes("kaido") || oppName.includes("linlin");
+
+                        const tips = [];
+
+                        if (isAggro) {
+                            const defense = stats.counter_2000_count + stats.blockers_count;
+                            if (defense >= 12) {
+                                winrate += 5.0;
+                                tips.push("Sua alta quantidade de defesas (+2000 counters/blockers) é ideal contra a velocidade deste líder.");
+                            } else if (defense < 6) {
+                                winrate -= 10.0;
+                                tips.push("Cuidado: Seu deck tem poucas defesas contra a agressividade rápida deste líder. Adicione blockers ou counters +2000.");
+                            } else {
+                                tips.push("Defesa equilibrada para conter a agressividade inicial.");
+                            }
+                        }
+
+                        if (isBigChar) {
+                            const removals = stats.removal_count;
+                            if (removals >= 6) {
+                                winrate += 4.0;
+                                tips.push("Suas cartas de remoção ajudam a controlar os personagens grandes deste oponente.");
+                            } else if (removals < 3) {
+                                winrate -= 7.0;
+                                tips.push("Atenção: Este oponente joga personagens grandes e você tem poucas remoções eficientes.");
+                            } else {
+                                tips.push("Remoções moderadas para responder a ameaças pontuais.");
+                            }
+                        }
+
+                        // Teto de segurança para taxa de vitória
+                        winrate = Math.max(30.0, Math.min(70.0, winrate));
+
+                        let status = "Equilibrado";
+                        if (winrate >= 55.0) status = "Vantajoso";
+                        else if (winrate < 45.0) status = "Desfavorável";
+
+                        // Geração dinâmica do Guia Passo a Passo baseada no Líder do Jogador e no Oponente
+                        let guide = {
+                            turn_preference: "",
+                            mulligan_tips: "",
+                            don_strategy: { early: "", mid: "", late: "" },
+                            matchup_explanation: ""
+                        };
+
+                        const playerLeaderName = selectedBuilderLeader.value.card_name.toLowerCase();
+                        const playerLeaderColor = selectedBuilderLeader.value.card_color.toLowerCase();
+
+                        // 1. Preferência de Turno
+                        if (isAggro) {
+                            guide.turn_preference = "Primeiro (Ímpar) - Importante para negar a curva ideal do oponente, estabelecer blockers antes dos primeiros grandes ataques e pressionar primeiro.";
+                        } else {
+                            guide.turn_preference = "Segundo (Par) - Ideal para ditar o ritmo de compras e encaixar seus personagens chefes de custo par exatamente nas curvas corretas.";
+                        }
+
+                        // 2. Explicação da Matchup Geral
+                        if (isAggro) {
+                            guide.matchup_explanation = "Guerra de Mesa e Vida. O adversário jogará de forma extremamente agressiva atacando seus pontos de vida. A chave da vitória é manter a mesa dele limpa atacando os atacantes dele e usar seus blockers e counters com precisão matemática.";
+                        } else if (isBigChar) {
+                            guide.matchup_explanation = "Jogo de Atrito e Controle Absoluto. Esse oponente tentará arrastar a partida e vencer jogando ameaças gigantescas. Jogue com paciência, foque em gerar valor a longo prazo e guarde suas cartas de remoção.";
+                        } else {
+                            guide.matchup_explanation = "Jogo de Ritmo e Vantagem de Recursos. Mantenha a mesa equilibrada e ataque a vida do oponente de forma cadenciada. Não se exponha demais a remoções em massa e mantenha a contagem de cartas da mão alta.";
+                        }
+
+                        // 3. Mulligan baseado nas cartas REAIS do deck do jogador
+                        let mulliganAdvice = "";
+                        
+                        if (userSearchers.length > 0) {
+                            const searcherNames = userSearchers.slice(0, 2).map(c => `${c.card_name} (${c.card_set_id})`).join(' ou ');
+                            mulliganAdvice += `Busque começar com seus buscadores: ${searcherNames}. `;
+                        } else {
+                            mulliganAdvice += `Seu deck não parece conter buscadores de custo baixo (Custo 1-2). `;
+                        }
+
+                        if (userBlockers.length > 0) {
+                            const blockerNames = userBlockers.slice(0, 2).map(c => `${c.card_name} (${c.card_set_id})`).join(' ou ');
+                            mulliganAdvice += `Tente garantir pelo menos um blocker inicial como ${blockerNames}. `;
+                        }
+
+                        if (userBosses.length > 0) {
+                            const bossNames = userBosses.slice(0, 2).map(c => `${c.card_name} (${c.card_set_id})`).join(' ou ');
+                            mulliganAdvice += `Foque em comprar seus finalizadores de custo alto para o late game: ${bossNames}. `;
+                        } else {
+                            mulliganAdvice += `Como você não joga com Bosses gigantes, priorize uma curva de custo progressiva. `;
+                        }
+
+                        if (user2kCounters.length > 0) {
+                            const counterNames = user2kCounters.slice(0, 2).map(c => c.card_name).join(' / ');
+                            mulliganAdvice += `Mantenha pelo menos um counter +2000 na mão inicial para se defender (ex: ${counterNames}).`;
+                        }
+
+                        guide.mulligan_tips = mulliganAdvice;
+
+                        // 4. Estratégia de Curva de Don (Adaptada com as cartas reais do deck)
+                        const searcherNames = userSearchers.length > 0 
+                            ? userSearchers.slice(0, 2).map(c => c.card_name).join('/') 
+                            : "buscadores";
+                        const blockerNames = userBlockers.length > 0 
+                            ? userBlockers.slice(0, 2).map(c => c.card_name).join('/') 
+                            : "seus blockers";
+                        const bossNames = userBosses.length > 0 
+                            ? userBosses.slice(0, 2).map(c => c.card_name).join('/') 
+                            : "seus Bosses";
+
+                        if (playerLeaderColor.includes("purple")) {
+                            guide.don_strategy = {
+                                early: `1-4 Don: Foque em acelerar seu Don!! (rampa) usando efeitos de rampa. Se necessário, jogue ${searcherNames} para filtrar a mão.`,
+                                mid: `5-8 Don: Aproveite a vantagem de Don para descer blockers como ${blockerNames} e personagens de custo médio.`,
+                                late: `9-10 Don: Jogue seus Bosses pesados como ${bossNames} para pressionar a mesa adversária.`
+                            };
+                        } else if (playerLeaderColor.includes("red")) {
+                            guide.don_strategy = {
+                                early: `1-4 Don: Encha a mesa com personagens pequenos como ${searcherNames} e comece a atacar a vida do oponente.`,
+                                mid: `5-8 Don: Use atacantes rápidos com Rush e blockers como ${blockerNames} para manter a pressão.`,
+                                late: `9-10 Don: Finalize a partida com ataques múltiplos de alta força e use seus counters para proteção.`
+                            };
+                        } else if (playerLeaderName.includes("yamato") && (playerLeaderColor.includes("yellow") || playerLeaderColor.includes("green"))) {
+                            // Yamato Verde/Amarelo
+                            guide.don_strategy = {
+                                early: `1-4 Don: Jogue seu buscador ${searcherNames} (como Momo) e comece a preparar blockers menores.`,
+                                mid: `5-8 Don: Desça personagens de custo médio e manipule suas vidas para ativar Triggers de cartas no seu deck.`,
+                                late: `9-10 Don: Jogue seus finalizadores como ${bossNames} e abuse do Double Strike do líder.`
+                            };
+                        } else if (playerLeaderColor.includes("black")) {
+                            // Preto Geral
+                            guide.don_strategy = {
+                                early: `1-4 Don: Prepare blockers pequenos e compre cartas buscando estruturar sua mão com ${searcherNames}.`,
+                                mid: `5-8 Don: Use combinações de redução de custo com remoções de mesa (K.O.) para limpar os atacantes inimigos.`,
+                                late: `9-10 Don: Jogue seus finalizadores pretos de alto custo como ${bossNames} e recicle cartas do lixo.`
+                            };
+                        } else if (playerLeaderColor.includes("yellow")) {
+                            // Amarelo Geral
+                            guide.don_strategy = {
+                                early: `1-4 Don: Jogue buscadores (${searcherNames}) e configure seus Triggers manipulando a pilha de vidas.`,
+                                mid: `5-8 Don: Remova ameaças de custo médio ou desça atacantes robustos que afetam a vida.`,
+                                late: `9-10 Don: Jogue seus finalizadores de custo alto como ${bossNames} para se curar/remover cartas inimigas.`
+                            };
+                        } else if (playerLeaderColor.includes("blue")) {
+                            // Azul Geral
+                            guide.don_strategy = {
+                                early: `1-4 Don: Use seus buscadores (${searcherNames}) para filtrar sua mão e remover personagens fracos do oponente.`,
+                                mid: `5-8 Don: Controle o campo do oponente devolvendo os personagens dele para a mão ou fundo do deck.`,
+                                late: `9-10 Don: Coloque seu Boss Character azul como ${bossNames} na mesa e mantenha Don aberto para eventos defensivos.`
+                            };
+                        } else {
+                            // Outros / Padrão
+                            guide.don_strategy = {
+                                early: `1-4 Don: Use seus buscadores (${searcherNames}) e configure seus blockers (${blockerNames}) iniciais.`,
+                                mid: `5-8 Don: Jogue de forma equilibrada desenvolvendo personagens de custo médio para manter a mesa.`,
+                                late: `9-10 Don: Coloque seus finalizadores de custo alto como ${bossNames} em campo para ditar o fim do jogo.`
+                            };
+                        }
+
+                        matchups.push({
+                            opponent_name: opp.name,
+                            opponent_id: opp.leader_card_id,
+                            share: opp.share_percentage || 10,
+                            image: opp.image || '/api/images/optcg/placeholder.png',
+                            winrate: parseFloat(winrate.toFixed(1)),
+                            status,
+                            recommendations: tips,
+                            guide,
+                            showGuide: false
+                        });
+                    }
+
+                    // 3. Geração de Sugestões Estruturais Gerais (Independente de Meta)
+                    const structuralSuggestions = [];
+
+                    // Pool de cartas compatíveis com o líder que NÃO estão no deck atual
+                    const leaderColors = getColors(selectedBuilderLeader.value.card_color).map(c => c.toLowerCase().trim());
+                    const userDeckIds = new Set(userDeck.value.map(item => item.card.card_set_id));
+                    const allPool = [...setCards.value, ...starterCards.value, ...promoCards.value]
+                        .filter(c => c.card_type !== 'Leader' && !userDeckIds.has(c.card_set_id))
+                        .filter(c => {
+                            if (c.card_color === 'DON!!') return false;
+                            const cardColors = getColors(c.card_color).map(cl => cl.toLowerCase().trim());
+                            return cardColors.some(cl => leaderColors.includes(cl));
+                        });
+
+                    // Deduplica por card_set_id
+                    const seenPoolIds = new Set();
+                    const uniquePool = allPool.filter(c => {
+                        if (seenPoolIds.has(c.card_set_id)) return false;
+                        seenPoolIds.add(c.card_set_id);
+                        return true;
+                    });
+
+                    // Helpers para encontrar cartas candidatas
+                    const findBlockers = () => uniquePool
+                        .filter(c => (c.card_text || '').toLowerCase().includes('[blocker]'))
+                        .sort((a, b) => parseFloat(b.card_power || 0) - parseFloat(a.card_power || 0))
+                        .slice(0, 6);
+
+                    const find2kCounters = () => uniquePool
+                        .filter(c => parseInt(c.counter_amount || 0) === 2000)
+                        .sort((a, b) => parseFloat(a.card_cost || 0) - parseFloat(b.card_cost || 0))
+                        .slice(0, 6);
+
+                    const findSearchers = () => uniquePool
+                        .filter(c => {
+                            const cost = parseInt(c.card_cost || 99);
+                            const text = (c.card_text || '').toLowerCase();
+                            return cost <= 2 && (text.includes('look') || text.includes('reveal') || text.includes('search') || text.includes('add'));
+                        })
+                        .slice(0, 6);
+
+                    const findBosses = () => uniquePool
+                        .filter(c => parseInt(c.card_cost || 0) >= 7 && c.card_type === 'Character')
+                        .sort((a, b) => parseFloat(b.card_power || 0) - parseFloat(a.card_power || 0))
+                        .slice(0, 6);
+
+                    const findRemovals = () => uniquePool
+                        .filter(c => {
+                            const text = (c.card_text || '').toLowerCase();
+                            const isEvent = c.card_type.toLowerCase() === 'event';
+                            return isEvent && (text.includes('k.o.') || text.includes('trash') || text.includes('place'));
+                        })
+                        .sort((a, b) => parseFloat(a.card_cost || 0) - parseFloat(b.card_cost || 0))
+                        .slice(0, 6);
+
+                    // Mapeamento de inclusão das cartas no Meta
+                    const metaInclusionMap = {};
+                    if (matchedLeader && matchedLeader.cards) {
+                        matchedLeader.cards.forEach(c => {
+                            metaInclusionMap[c.card_id.toUpperCase()] = parseFloat(c.inclusion_percentage || 0);
+                        });
+                    }
+
+                    // Determina a pontuação de dispensabilidade de cada carta no deck
+                    const getExpendabilityScore = (uCard, categoryType) => {
+                        let score = 100;
+                        const metaPct = metaInclusionMap[uCard.card_set_id.toUpperCase()] || 0;
+                        score -= metaPct * 1.5; // Mais popular no meta -> menos dispensável
+
+                        const text = (uCard.card_text || '').toLowerCase();
+                        const isBlocker = text.includes('[blocker]') || text.includes('blocker');
+                        const is2k = parseInt(uCard.counter_amount || 0) === 2000;
+                        const isSearcher = parseInt(uCard.card_cost || 0) <= 2 && (text.includes("look") || text.includes("reveal") || text.includes("search") || text.includes("add"));
+                        const isBoss = parseInt(uCard.card_cost || 0) >= 7;
+
+                        // Proteções específicas de categorias sugeridas
+                        if (isBlocker && categoryType !== 'blocker') score -= 35;
+                        if (is2k && categoryType !== '2k') score -= 35;
+                        if (isSearcher && categoryType !== 'searcher') score -= 45;
+                        if (isBoss && categoryType !== 'boss') score -= 20;
+
+                        // Cartas com counter zero ou vanilla no geral são bons alvos
+                        if (parseInt(uCard.counter_amount || 0) === 0) {
+                            score += 15;
+                        }
+                        return score;
+                    };
+
+                    const getBestReplacementCandidate = (categoryType) => {
+                        if (userDeck.value.length === 0) return null;
+                        const scored = userDeck.value.map(item => {
+                            return {
+                                card: item.card,
+                                score: getExpendabilityScore(item.card, categoryType)
+                            };
+                        });
+                        scored.sort((a, b) => b.score - a.score);
+                        return scored[0] ? scored[0].card : null;
+                    };
+
+                    // a) Tamanho de deck
+                    if (stats.total_cards < 50) {
+                        structuralSuggestions.push({
+                            icon: '⚠️',
+                            title: 'Tamanho de Deck Incompleto',
+                            text: `Seu deck possui ${stats.total_cards}/50 cartas. O tamanho regulamentar é exatamente 50 cartas para manter as probabilidades corretas.`,
+                            cards: [],
+                            replacementCard: null
+                        });
+                    } else if (stats.total_cards > 50) {
+                        structuralSuggestions.push({
+                            icon: '⚠️',
+                            title: 'Excesso de Cartas no Deck',
+                            text: `Seu deck possui ${stats.total_cards} cartas. O ideal é reduzir para 50 cartas para maximizar a chance de comprar suas peças essenciais.`,
+                            cards: [],
+                            replacementCard: null
+                        });
+                    }
+
+                    // b) Counters +2000
+                    if (stats.counter_2000_count < 8) {
+                        structuralSuggestions.push({
+                            icon: '🛡️',
+                            title: 'Reforçar Defesa (+2000 Counters)',
+                            text: `Apenas ${stats.counter_2000_count} cartas com Counter +2000. Recomenda-se de 8 a 12 cartas para sobreviver a turnos agressivos sem perder muitas cartas da mão.`,
+                            cards: find2kCounters(),
+                            replacementCard: getBestReplacementCandidate('2k')
+                        });
+                    } else {
+                        structuralSuggestions.push({
+                            icon: '✅',
+                            title: 'Ótima Cota Defensiva (+2000)',
+                            text: `Você tem ${stats.counter_2000_count} cartas com Counter +2000, garantindo uma sólida margem de sobrevivência.`,
+                            cards: [],
+                            replacementCard: null
+                        });
+                    }
+
+                    // c) Blockers
+                    if (stats.blockers_count < 4) {
+                        structuralSuggestions.push({
+                            icon: '🧱',
+                            title: 'Adicionar Blockers de Proteção',
+                            text: `Apenas ${stats.blockers_count} blockers identificados. Incluir de 4 a 8 blockers reduz drasticamente o dano direto no seu Líder.`,
+                            cards: findBlockers(),
+                            replacementCard: getBestReplacementCandidate('blocker')
+                        });
+                    }
+
+                    // d) Buscadores (Searchers Custo 1-2)
+                    if (userSearchers.length === 0) {
+                        structuralSuggestions.push({
+                            icon: '🔍',
+                            title: 'Incluir Buscadores (Searchers)',
+                            text: 'Nenhuma carta de busca inicial (Custo 1-2) foi encontrada. Adicionar de 4 a 8 buscadores melhora muito a consistência de compra.',
+                            cards: findSearchers(),
+                            replacementCard: getBestReplacementCandidate('searcher')
+                        });
+                    } else {
+                        structuralSuggestions.push({
+                            icon: '✅',
+                            title: 'Consistência Inicial Garantida',
+                            text: `Identificados buscadores de custo baixo para acelerar a estruturação do seu jogo nos primeiros turnos.`,
+                            cards: [],
+                            replacementCard: null
+                        });
+                    }
+
+                    // e) Curva de Custo / Boss Characters (Custo 7+)
+                    if (userBosses.length > 8) {
+                        structuralSuggestions.push({
+                            icon: '⚖️',
+                            title: 'Atenção ao Risco de Mão Tijolada',
+                            text: `Mais de 8 cartas de custo 7+ podem causar mãos pesadas nos primeiros turnos. Considere ajustar para 4-6 finalizadores.`,
+                            cards: [],
+                            replacementCard: null
+                        });
+                    } else if (userBosses.length === 0) {
+                        structuralSuggestions.push({
+                            icon: '👑',
+                            title: 'Falta de Finalizadores (Boss Characters)',
+                            text: 'Seu deck não possui personagens de Custo 7+. Adicionar de 2 a 4 ameaças pesadas ajuda a fechar o jogo no Late Game.',
+                            cards: findBosses(),
+                            replacementCard: getBestReplacementCandidate('boss')
+                        });
+                    }
+
+                    // f) Remoções
+                    if (stats.removal_count < 3) {
+                        structuralSuggestions.push({
+                            icon: '💥',
+                            title: 'Faltam Remoções de Mesa',
+                            text: `Apenas ${stats.removal_count} eventos de remoção (K.O./Trash). Adicionar de 4 a 6 remoções ajuda a conter ameaças grandes do oponente.`,
+                            cards: findRemovals(),
+                            replacementCard: getBestReplacementCandidate('removal')
+                        });
+                    }
+
+                    analysisResults.value = {
+                        stats,
+                        alignment,
+                        matchups,
+                        structuralSuggestions
+                    };
+                    
+                    showDeckAnalysis.value = true;
+                };
+
+                // Styling helpers for report modal
+                const getDefenseLabel = (stats) => {
+                    const sum = (stats.counter_2000_count || 0) + (stats.blockers_count || 0);
+                    if (sum >= 12) return "Excelente";
+                    if (sum >= 6) return "Moderado";
+                    return "Fraco";
+                };
+
+                const getDefenseStatusClass = (stats) => {
+                    const sum = (stats.counter_2000_count || 0) + (stats.blockers_count || 0);
+                    if (sum >= 12) return "text-emerald-400";
+                    if (sum >= 6) return "text-amber-400";
+                    return "text-red-400";
+                };
+
+                const getRemovalLabel = (stats) => {
+                    const rems = stats.removal_count || 0;
+                    if (rems >= 6) return "Excelente";
+                    if (rems >= 3) return "Moderado";
+                    return "Insuficiente";
+                };
+
+                const getRemovalStatusClass = (stats) => {
+                    const rems = stats.removal_count || 0;
+                    if (rems >= 6) return "text-emerald-400";
+                    if (rems >= 3) return "text-amber-400";
+                    return "text-red-400";
+                };
+
+                const calculateAverageCost = (stats) => {
+                    if (!stats || !stats.cost_distribution) return "0.0";
+                    let weightedSum = 0;
+                    let count = 0;
+                    for (const [cost, qty] of Object.entries(stats.cost_distribution)) {
+                        weightedSum += parseInt(cost) * qty;
+                        count += qty;
+                    }
+                    return count > 0 ? (weightedSum / count).toFixed(1) : "0.0";
+                };
+
+                const getCostBarHeight = (count) => {
+                    if (!count) return "0%";
+                    // Encontra o custo mais frequente para escalar o gráfico a 100% de altura
+                    const max = Math.max(1, ...Object.values(analysisResults.value.stats.cost_distribution));
+                    return (count / max * 100) + "%";
+                };
+
+                const getWinrateColorClass = (winrate) => {
+                    if (winrate >= 55.0) return "text-emerald-400";
+                    if (winrate >= 45.0) return "text-amber-400";
+                    return "text-red-400";
+                };
+
+                const getStatusBadgeClass = (status) => {
+                    if (status === "Vantajoso") return "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+                    if (status === "Equilibrado") return "bg-amber-500/10 text-amber-400 border-amber-500/20";
+                    return "bg-red-500/10 text-red-400 border-red-500/20";
+                };
+
+                // Get count of a specific cost in cost curve
+                const getCostCurveCount = (cost) => {
+                    return builderDeckStats.value.cost_distribution[cost] || 0;
+                };
+
+                onMounted(async () => {
+                    await loadData();
+                    await checkAvailableMetaSets();
+                    await loadMeta();
+                });
+
+                return {
+                    currentTab,
+                    loading,
+                    sets,
+                    decks,
+                    filters,
+                    currentPage,
+                    itemsPerPage,
+                    selectedCard,
+                    clearFilters,
+                    onSetIdChange,
+                    onDeckIdChange,
+                    switchTab,
+                    filteredCards,
+                    paginatedCards,
+                    totalPages,
+                    nextPage,
+                    prevPage,
+                    goToPage,
+                    getVisiblePages,
+                    openDetails,
+                    closeDetails,
+                    formatPrice,
+                    getLigaOnePieceUrl,
+                    getLeaderCardId,
+                    getMetaCardId,
+                    getColors,
+                    getColorClass,
+                    translateColor,
+
+                    // Meta Game exports
+                    availableMetaSets,
+                    metaSet,
+                    metaLoading,
+                    metaError,
+                    metaData,
+                    selectedMetaLeader,
+                    totalDecksTracked,
+                    metaSearchQuery,
+                    sortedMetaLeaders,
+                    topMetaLeader,
+                    filteredMetaLeaders,
+                    loadMeta,
+                    selectLeader,
+                    getMetaCardsByCategory,
+                    openMetaCardDetails,
+                    showExportModal,
+                    exportModalText,
+                    exportModalTitle,
+                    copiedToast,
+                    exportMetaDeckTxt,
+                    exportUserDeckTxt,
+                    copyExportText,
+                    downloadExportTxtFile,
+                    importMetaBuildToBuilder,
+
+                    // Deck Builder exports
+                    selectedBuilderLeader,
+                    leaderSearchQuery,
+                    builderSearchQuery,
+                    builderCardType,
+                    builderCardCost,
+                    userDeck,
+                    showDeckAnalysis,
+                    analysisResults,
+                    availableLeaders,
+                    filteredBuilderPool,
+                    userDeckCount,
+                    getCardCountInDeck,
+                    addCardToDeck,
+                    removeCardFromDeck,
+                    builderDeckStats,
+                    selectBuilderLeader,
+                    changeLeader,
+                    runDeckAnalysis,
+                    getCostCurveCount,
+                    showImportModal,
+                    importText,
+                    openImportModal,
+                    importDeck,
+                    isColorCompatible,
+
+                    // Report helpers
+                    getDefenseLabel,
+                    getDefenseStatusClass,
+                    getRemovalLabel,
+                    getRemovalStatusClass,
+                    calculateAverageCost,
+                    getCostBarHeight,
+                    getWinrateColorClass,
+                    getStatusBadgeClass
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
