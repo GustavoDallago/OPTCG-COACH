@@ -6,6 +6,7 @@ import time
 import argparse
 import urllib.request
 import urllib.parse
+import urllib.error
 from typing import Dict, Any, List, Optional
 
 # Ensure UTF-8 output on Windows consoles
@@ -36,7 +37,7 @@ def parse_args():
     return parser.parse_args()
 
 def fetch_url(url: str, retries: int = 3, delay: float = 0.5) -> Optional[str]:
-    """Faz requisições HTTP seguras com headers e tratamento de erros."""
+    """Faz requisições HTTP seguras com headers e tratamento de erros, incluindo rate limit (429)."""
     req = urllib.request.Request(url, headers=HEADERS)
     for attempt in range(1, retries + 1):
         try:
@@ -44,6 +45,15 @@ def fetch_url(url: str, retries: int = 3, delay: float = 0.5) -> Optional[str]:
                 if response.status == 200:
                     time.sleep(delay)
                     return response.read().decode("utf-8", errors="replace")
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                wait = min(30 * attempt, 120)
+                print(f"  [Rate Limit 429] Bloqueio temporário em {url}. Aguardando {wait}s antes de tentar novamente (Tentativa {attempt}/{retries})...")
+                time.sleep(wait)
+            else:
+                print(f"  [Aviso] HTTP {e.code} ao acessar {url} (Tentativa {attempt}/{retries}): {e}")
+                if attempt < retries:
+                    time.sleep(attempt * 1.5)
         except Exception as e:
             print(f"  [Aviso] Falha ao acessar {url} (Tentativa {attempt}/{retries}): {e}")
             if attempt < retries:

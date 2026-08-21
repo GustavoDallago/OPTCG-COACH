@@ -122,51 +122,93 @@ from typing import Optional, List, Dict, Any
 
 BANLIST_CACHE = None
 
-def load_banlist(mode: str = "EN") -> Dict[str, Any]:
+def load_banlist(mode: str = "EN", force_reload: bool = False) -> Dict[str, Any]:
     global BANLIST_CACHE
+    if force_reload:
+        BANLIST_CACHE = None
     if BANLIST_CACHE is None:
         banlist_path = os.path.join("optcg_data", "banlist.json")
+        ban_sets_path = os.path.join("optcg_data", "ban_sets.json")
+        ban_st_path = os.path.join("optcg_data", "ban_st.json")
+        whitelist_path = os.path.join("optcg_data", "whitelist.json")
+
+        data = {
+            "banned_cards": [],
+            "banned_sets": [],
+            "banned_starter_decks": [],
+            "whitelisted_cards": [],
+            "restricted_cards": {},
+            "banned_pairs": []
+        }
+
         if os.path.exists(banlist_path):
             try:
                 with open(banlist_path, "r", encoding="utf-8") as f:
-                    BANLIST_CACHE = json.load(f)
+                    data.update(json.load(f))
             except Exception:
                 pass
-                
-    if not BANLIST_CACHE:
-        BANLIST_CACHE = {
-            "modes": {
-                "EN": {"banned_cards": ["OP06-047", "OP03-040", "OP06-086", "ST10-001", "OP06-116"], "banned_pairs": []},
-                "JP": {"banned_cards": ["OP06-047", "OP03-040", "OP06-086", "ST10-001", "OP06-116"], "banned_pairs": []},
-                "NONE": {"banned_cards": [], "banned_pairs": []}
-            }
-        }
+
+        if os.path.exists(ban_sets_path):
+            try:
+                with open(ban_sets_path, "r", encoding="utf-8") as f:
+                    data["banned_sets"] = json.load(f).get("banned_sets", [])
+            except Exception:
+                pass
+
+        if os.path.exists(ban_st_path):
+            try:
+                with open(ban_st_path, "r", encoding="utf-8") as f:
+                    data["banned_starter_decks"] = json.load(f).get("banned_starter_decks", [])
+            except Exception:
+                pass
+
+        if os.path.exists(whitelist_path):
+            try:
+                with open(whitelist_path, "r", encoding="utf-8") as f:
+                    data["whitelisted_cards"] = json.load(f).get("whitelisted_cards", [])
+            except Exception:
+                pass
+
+        BANLIST_CACHE = data
         
     if mode == "NONE":
         return {"banned_cards": [], "banned_sets": [], "banned_starter_decks": [], "whitelisted_cards": [], "banned_pairs": []}
     modes = BANLIST_CACHE.get("modes", {})
     if mode in modes:
-        return modes[mode]
+        res = dict(modes[mode])
+        for key in ["banned_sets", "banned_starter_decks", "whitelisted_cards"]:
+            if key not in res:
+                res[key] = BANLIST_CACHE.get(key, [])
+        return res
     return BANLIST_CACHE
 
-def validate_deck_legality(user_deck_cards: list, leader_card_id: str = "", mode: str = "EN", banlist_data: dict = None) -> dict:
+def validate_deck_legality(user_deck_cards: list, leader_card_id: str = "", mode: str = "EN", banlist_data: dict = None, check_size: bool = True) -> dict:
     banlist = banlist_data if banlist_data is not None else load_banlist(mode)
     banned_cards = {c.strip().upper() for c in banlist.get("banned_cards", [])}
     banned_sets = {s.strip().upper() for s in banlist.get("banned_sets", [])}
     banned_starter_decks = {s.strip().upper() for s in banlist.get("banned_starter_decks", [])}
     whitelisted_cards = {c.strip().upper() for c in banlist.get("whitelisted_cards", [])}
     banned_pairs = banlist.get("banned_pairs", [])
+    restricted_cards = {k.strip().upper(): int(v) for k, v in banlist.get("restricted_cards", {}).items()}
 
     deck_card_ids = set()
     if leader_card_id:
         deck_card_ids.add(leader_card_id.strip().upper())
 
+    # Contagem de cópias por carta e total de cartas
+    copy_counts: Dict[str, int] = {}
+    total_cards = 0
     found_banned = []
+    overcopy_violations = []
+
     for item in user_deck_cards:
         cid = (item.get("card_set_id") or item.get("card_id") or "").strip().upper()
         if not cid:
             continue
 
+        qty = int(item.get("quantity", 1))
+        total_cards += qty
+        copy_counts[cid] = copy_counts.get(cid, 0) + qty
         deck_card_ids.add(cid)
         c_prefix = cid.split("-")[0] if "-" in cid else cid
 
@@ -176,8 +218,21 @@ def validate_deck_legality(user_deck_cards: list, leader_card_id: str = "", mode
 
         if is_card_banned or is_set_banned:
             cname = item.get("card_name") or cid
-            reason = "Carta banida individualmente" if is_card_banned else f"Coleção/Starter ({c_prefix}) banido"
+            if is_card_banned:
+                reason = "Carta banida individualmente"
+            elif c_prefix in banned_starter_decks:
+                reason = f"Starter Deck ({c_prefix}) banido"
+            else:
+                reason = f"Coleção ({c_prefix}) banida"
             found_banned.append({"card_id": cid, "card_name": cname, "reason": reason})
+
+    # Verifica limite de cópias por carta
+    for cid, total_copies in copy_counts.items():
+        max_allowed = restricted_cards.get(cid, 4)
+        if total_copies > max_allowed:
+            cname = next((i.get("card_name") or cid for i in user_deck_cards if (i.get("card_set_id") or i.get("card_id") or "").upper() == cid), cid)
+            label = f"Restrita (máx. {max_allowed} cópias)" if cid in restricted_cards else f"Limite de 4 cópias excedido ({total_copies}x)"
+            overcopy_violations.append({"card_id": cid, "card_name": cname, "copies": total_copies, "max_allowed": max_allowed, "reason": label})
 
     found_illegal_pairs = []
     for pair in banned_pairs:
@@ -186,10 +241,28 @@ def validate_deck_legality(user_deck_cards: list, leader_card_id: str = "", mode
             if p1 in deck_card_ids and p2 in deck_card_ids:
                 found_illegal_pairs.append([p1, p2])
 
+    # Validação de tamanho do deck (deve ter exatamente 50 cartas)
+    size_violations = []
+    if check_size and total_cards != 50 and total_cards > 0:
+        size_violations.append({
+            "total": total_cards,
+            "reason": f"Deck tem {total_cards} carta(s). O deck principal deve ter exatamente 50 cartas."
+        })
+
+    is_legal = (
+        len(found_banned) == 0 and
+        len(found_illegal_pairs) == 0 and
+        len(overcopy_violations) == 0 and
+        len(size_violations) == 0
+    )
+
     return {
-        "is_legal": len(found_banned) == 0 and len(found_illegal_pairs) == 0,
+        "is_legal": is_legal,
         "banned_cards_found": found_banned,
-        "banned_pairs_found": found_illegal_pairs
+        "banned_pairs_found": found_illegal_pairs,
+        "overcopy_violations": overcopy_violations,
+        "size_violations": size_violations,
+        "total_cards": total_cards
     }
 
 def find_smart_replacements(user_deck_cards: list, leader_meta_cards: list, banlist_data: dict = None) -> list:

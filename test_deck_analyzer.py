@@ -273,28 +273,44 @@ class TestDeckAnalyzer(unittest.TestCase):
         self.assertTrue(len(banlist["banned_cards"]) > 0)
         self.assertIn("OP06-086", banlist["banned_cards"]) # Gecko Moria
 
+        # Verify ban_sets.json, ban_st.json, and whitelist.json integration
+        self.assertIn("banned_sets", banlist)
+        self.assertIn("OP01", banlist["banned_sets"])
+        self.assertIn("banned_starter_decks", banlist)
+        self.assertIn("ST01", banlist["banned_starter_decks"])
+        self.assertIn("whitelisted_cards", banlist)
+        self.assertIn("ST02-007", banlist["whitelisted_cards"])
+
         # Test smart replacement filtering with EN mode
-        mock_user_deck = [{"card_set_id": "OP01-016", "card_name": "Nami"}]
+        mock_user_deck = [
+            {"card_set_id": "OP09-001", "card_name": "Koby"},
+            {"card_set_id": "OP09-002", "card_name": "Helmeppo"}
+        ]
         mock_leader_meta_cards = [
-            {"card_id": "OP06-086", "card_name": "Gecko Moria (Banned)", "inclusion_percentage": 95.0},
+            {"card_id": "OP06-086", "card_name": "Gecko Moria (Banned Individual)", "inclusion_percentage": 95.0},
+            {"card_id": "OP01-025", "card_name": "Roronoa Zoro (Banned Set OP01, Not Whitelisted)", "inclusion_percentage": 90.0},
+            {"card_id": "OP01-016", "card_name": "Nami (Whitelisted)", "inclusion_percentage": 85.0},
             {"card_id": "OP09-025", "card_name": "Roronoa Zoro (Legal)", "inclusion_percentage": 80.0}
         ]
 
         replacements = find_smart_replacements(mock_user_deck, mock_leader_meta_cards, banlist)
         added_ids = [r["add_card"]["card_id"] for r in replacements]
         
-        # Gecko Moria (OP06-086) MUST NOT be suggested because it is banned!
+        # OP06-086 (banned card) and OP01-025 (banned set, not whitelisted) MUST NOT be suggested!
         self.assertNotIn("OP06-086", added_ids)
+        self.assertNotIn("OP01-025", added_ids)
+        # OP01-016 (whitelisted) and OP09-025 (legal) MUST be allowed!
+        self.assertIn("OP01-016", added_ids)
         self.assertIn("OP09-025", added_ids)
 
         # Test deck legality validation (EN mode)
         deck_with_banned = [{"card_set_id": "OP06-086", "card_name": "Gecko Moria"}]
-        val_res = validate_deck_legality(deck_with_banned, mode="EN")
+        val_res = validate_deck_legality(deck_with_banned, mode="EN", check_size=False)
         self.assertFalse(val_res["is_legal"])
         self.assertEqual(len(val_res["banned_cards_found"]), 1)
 
         # Test NONE mode (Histórico / Sem Banlist)
-        val_none = validate_deck_legality(deck_with_banned, mode="NONE")
+        val_none = validate_deck_legality(deck_with_banned, mode="NONE", check_size=False)
         self.assertTrue(val_none["is_legal"])
         self.assertEqual(len(val_none["banned_cards_found"]), 0)
 
@@ -311,7 +327,7 @@ class TestDeckAnalyzer(unittest.TestCase):
             {"card_set_id": "ST01-005", "card_name": "Jinbe"}, # Banned starter
             {"card_set_id": "ST01-001", "card_name": "Luffy Leader"} # Whitelisted (Sobrevida)
         ]
-        val_custom = validate_deck_legality(test_deck, mode="EN", banlist_data=custom_banlist)
+        val_custom = validate_deck_legality(test_deck, mode="EN", banlist_data=custom_banlist, check_size=False)
         # Ensure ST01-001 (Luffy Leader) is whitelisted and OP01-025 / ST01-005 are flagged as banned
         banned_ids = [c["card_id"] for c in val_custom["banned_cards_found"]]
         self.assertIn("OP01-025", banned_ids)

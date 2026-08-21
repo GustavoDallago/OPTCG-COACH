@@ -845,6 +845,18 @@
             <!-- Deck Builder Tab Layout -->
             <div v-else class="flex flex-col gap-6">
                 
+                <!-- 2.1 — Banned Pair Toast Warning -->
+                <transition name="fade">
+                    <div v-if="bannedPairToast.show" class="flex items-start gap-3 bg-rose-950/60 border border-rose-700 text-rose-200 text-xs rounded-xl px-4 py-3 shadow-lg">
+                        <span class="text-lg leading-none shrink-0">⛔</span>
+                        <div>
+                            <p class="font-extrabold text-rose-300">Combinação Proibida Detectada!</p>
+                            <p>Seu deck contém o par banido: <span class="font-mono font-bold text-white">{{ bannedPairToast.pair[0] }}</span> + <span class="font-mono font-bold text-white">{{ bannedPairToast.pair[1] }}</span>. Remova uma das cartas para manter a legalidade.</p>
+                        </div>
+                        <button @click="bannedPairToast.show = false" class="ml-auto text-rose-400 hover:text-white shrink-0">✕</button>
+                    </div>
+                </transition>
+
                 <!-- Saved Decks & Banlist Mode Controls -->
                 <div class="flex flex-wrap justify-between items-center gap-3">
                     <button 
@@ -887,6 +899,19 @@
                         </div>
                     </div>
                     <p v-else class="text-xs text-slate-500 text-center py-4">Nenhum deck salvo ainda. Monte um deck e clique em "Salvar".</p>
+                    
+                    <!-- 2.4 — Export / Import backup buttons -->
+                    <div class="flex gap-2 pt-1 border-t border-slate-800">
+                        <button @click="exportSavedDecks" class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[11px] font-semibold rounded-lg transition-colors">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Exportar Backup (JSON)
+                        </button>
+                        <label class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[11px] font-semibold rounded-lg transition-colors cursor-pointer">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l4-4m0 0l4 4m-4-4v12"/></svg>
+                            Importar Backup (JSON)
+                            <input type="file" accept=".json" class="hidden" @change="importSavedDecks">
+                        </label>
+                    </div>
                     <p class="text-[10px] text-slate-600">Máximo de {{ 5 }} decks salvos localmente.</p>
                 </div>
 
@@ -1210,8 +1235,8 @@
                         <div class="flex flex-wrap items-center gap-2 mt-1">
                             <span class="text-[10px] sm:text-xs font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-extrabold">ID: {{ selectedCard.card_set_id || selectedCard.don_id || 'PROMO' }}</span>
                             <span v-if="selectedCard.rarity" class="text-[10px] sm:text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-extrabold">Raridade: {{ selectedCard.rarity }}</span>
-                            <span v-if="isCardBanned(selectedCard)" class="text-[10px] sm:text-xs font-mono bg-rose-600 text-white font-extrabold px-2 py-0.5 rounded shadow flex items-center gap-1">
-                                ⛔ BANIDA (Meta {{ activeBanlistMode }})
+                            <span v-if="isCardBanned(selectedCard)" class="text-[10px] sm:text-xs font-mono bg-rose-600 text-white font-extrabold px-2 py-0.5 rounded shadow flex items-center gap-1" :title="getBanReasonText(selectedCard)">
+                                ⛔ BANIDA — {{ getBanReasonText(selectedCard) || `Meta ${activeBanlistMode}` }}
                             </span>
                         </div>
                     </div>
@@ -1821,6 +1846,7 @@
                 const exportModalText = ref('');
                 const exportModalTitle = ref('');
                 const copiedToast = ref(false);
+                const bannedPairToast = ref({ show: false, pair: [] });
 
                 // --- Deck Builder State ---
                 const selectedBuilderLeader = ref(null);
@@ -1866,22 +1892,60 @@
                     return false;
                 };
 
+                const getBanReasonText = (cardOrId) => {
+                    if (activeBanlistMode.value === 'NONE' || !cardOrId) return '';
+                    const rawId = typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '');
+                    if (!rawId) return '';
+                    const cid = rawId.toUpperCase().trim();
+
+                    const modes = banlistData.value.modes || {};
+                    const currentMode = modes[activeBanlistMode.value] || banlistData.value;
+
+                    const bannedCards = new Set((currentMode.banned_cards || banlistData.value.banned_cards || []).map(i => i.toUpperCase().trim()));
+                    const bannedSets = new Set((currentMode.banned_sets || banlistData.value.banned_sets || []).map(i => i.toUpperCase().trim()));
+                    const bannedStarters = new Set((currentMode.banned_starter_decks || banlistData.value.banned_starter_decks || []).map(i => i.toUpperCase().trim()));
+                    const whitelisted = new Set((currentMode.whitelisted_cards || banlistData.value.whitelisted_cards || []).map(i => i.toUpperCase().trim()));
+
+                    if (bannedCards.has(cid)) return 'Banida individualmente';
+
+                    const cPrefix = cid.includes('-') ? cid.split('-')[0] : cid;
+                    if (!whitelisted.has(cid)) {
+                        if (bannedStarters.has(cPrefix)) return `Starter Deck ${cPrefix} banido`;
+                        if (bannedSets.has(cPrefix)) return `Coleção ${cPrefix} banida`;
+                    }
+
+                    return '';
+                };
+
                 // Fetch database files & Dynamically integrate Limitless Meta cards
                 const loadData = async () => {
                     loading.value = true;
                     try {
                         const fetchOpts = { cache: 'no-cache' };
-                        const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes, banlistRes] = await Promise.all([
+                        const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes, banlistRes, banSetsRes, banStRes, whitelistRes] = await Promise.all([
                             fetch('./optcg_data/sets.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/set_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/decks.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/starter_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/promo_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/don_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
-                            fetch('./optcg_data/banlist.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null)
+                            fetch('./optcg_data/banlist.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
+                            fetch('./optcg_data/ban_sets.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
+                            fetch('./optcg_data/ban_st.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
+                            fetch('./optcg_data/whitelist.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null)
                         ]);
 
-                        if (banlistRes) banlistData.value = banlistRes;
+                        const mergedBanlist = banlistRes || {};
+                        if (banSetsRes && banSetsRes.banned_sets) {
+                            mergedBanlist.banned_sets = banSetsRes.banned_sets;
+                        }
+                        if (banStRes && banStRes.banned_starter_decks) {
+                            mergedBanlist.banned_starter_decks = banStRes.banned_starter_decks;
+                        }
+                        if (whitelistRes && whitelistRes.whitelisted_cards) {
+                            mergedBanlist.whitelisted_cards = whitelistRes.whitelisted_cards;
+                        }
+                        banlistData.value = mergedBanlist;
 
                         sets.value = setsRes;
                         
@@ -2712,7 +2776,9 @@
                     } else if (currentSrc.includes('_JP.webp')) {
                         imgEl.src = cdnRaw;
                     } else {
-                        imgEl.style.opacity = '0.4';
+                        // 3.1 — Fallback: verso da carta OPTCG como imagem padrão
+                        imgEl.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='280' viewBox='0 0 200 280'%3E%3Crect width='200' height='280' rx='12' fill='%230f172a'/%3E%3Crect x='6' y='6' width='188' height='268' rx='9' fill='none' stroke='%23334155' stroke-width='2'/%3E%3Ccircle cx='100' cy='130' r='54' fill='none' stroke='%23f59e0b' stroke-width='2.5'/%3E%3Cpath d='M100 90 L100 170 M68 110 L132 150 M68 150 L132 110' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='100' cy='130' r='10' fill='%23f59e0b'/%3E%3Ctext x='100' y='230' text-anchor='middle' fill='%23475569' font-size='11' font-family='monospace' font-weight='bold'%3EONE PIECE%3C/text%3E%3Ctext x='100' y='248' text-anchor='middle' fill='%23334155' font-size='9' font-family='monospace'%3ECARD GAME%3C/text%3E%3C/svg%3E";
+                        imgEl.style.opacity = '0.6';
                     }
                 };
 
@@ -2933,6 +2999,54 @@
                         localStorage.setItem(LS_KEY, JSON.stringify(savedDecks.value));
                     } catch (e) {}
                 };
+
+                // 2.4 — Export all saved decks as a JSON backup file
+                const exportSavedDecks = () => {
+                    if (savedDecks.value.length === 0) {
+                        alert('Nenhum deck salvo para exportar.');
+                        return;
+                    }
+                    const payload = {
+                        exported_at: new Date().toISOString(),
+                        version: 1,
+                        decks: savedDecks.value
+                    };
+                    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `optcg_decks_backup_${new Date().toISOString().slice(0, 10)}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                };
+
+                // 2.4 — Import saved decks from a JSON backup file
+                const importSavedDecks = (event) => {
+                    const file = event.target.files?.[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        try {
+                            const data = JSON.parse(e.target.result);
+                            const imported = Array.isArray(data) ? data : (data.decks || []);
+                            if (!imported.length) {
+                                alert('Nenhum deck encontrado no arquivo.');
+                                return;
+                            }
+                            const existing = savedDecks.value;
+                            const existingIds = new Set(existing.map(d => d.id));
+                            const newDecks = imported.filter(d => d.id && !existingIds.has(d.id));
+                            savedDecks.value = [...existing, ...newDecks].slice(-MAX_SAVED_DECKS);
+                            localStorage.setItem(LS_KEY, JSON.stringify(savedDecks.value));
+                            alert(`✅ ${newDecks.length} deck(s) importado(s) com sucesso!`);
+                        } catch (err) {
+                            alert('Erro ao ler o arquivo JSON. Verifique se o formato é válido.');
+                        }
+                        event.target.value = '';
+                    };
+                    reader.readAsText(file);
+                };
+
                 
                 // Get all leaders in the general database
                 const availableLeaders = computed(() => {
@@ -3025,7 +3139,8 @@
 
                 const addCardToDeck = (card) => {
                     if (!card || isCardBanned(card)) {
-                        alert("Esta carta está banida no Meta EN e não pode ser adicionada ao deck!");
+                        const reason = getBanReasonText(card);
+                        alert(`Esta carta está banida e não pode ser adicionada ao deck!\n${reason ? `Motivo: ${reason}` : ''}`);
                         return;
                     }
                     if (userDeckCount.value >= 50) {
@@ -3042,6 +3157,20 @@
                         found.quantity++;
                     } else {
                         userDeck.value.push({ card, quantity: 1 });
+                    }
+
+                    // 2.1 — Verificação reativa de pares banidos após adicionar carta
+                    const currentDeckIds = new Set(userDeck.value.map(i => (i.card.card_set_id || '').toUpperCase()));
+                    const bannedPairs = banlistData.value.banned_pairs || [];
+                    for (const pair of bannedPairs) {
+                        if (pair.length === 2) {
+                            const p1 = pair[0].toUpperCase(), p2 = pair[1].toUpperCase();
+                            if (currentDeckIds.has(p1) && currentDeckIds.has(p2)) {
+                                bannedPairToast.value = { show: true, pair: [p1, p2] };
+                                setTimeout(() => { bannedPairToast.value = { show: false, pair: [] }; }, 6000);
+                                break;
+                            }
+                        }
                     }
                 };
 
@@ -4107,6 +4236,15 @@
                     loadDeckFromStorage,
                     deleteSavedDeck,
                     loadSavedDecks,
+                    exportSavedDecks,
+                    importSavedDecks,
+
+                    // Banlist State
+                    activeBanlistMode,
+                    banlistData,
+                    isCardBanned,
+                    getBanReasonText,
+                    bannedPairToast,
 
                     // Report helpers
                     getDefenseLabel,
