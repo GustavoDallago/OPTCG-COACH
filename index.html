@@ -853,29 +853,6 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
                         Meus Decks Salvos <span v-if="savedDecks.length > 0" class="bg-amber-500 text-slate-950 font-black rounded-full w-4 h-4 flex items-center justify-center text-[10px]">{{ savedDecks.length }}</span>
                     </button>
-
-                    <!-- Banlist Mode Selector (EN, JP, NONE) -->
-                    <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-800 p-1.5 rounded-2xl shadow-sm text-xs">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase px-2 font-mono">Modo de Banlist:</span>
-                        <button 
-                            @click="activeBanlistMode = 'EN'"
-                            :class="activeBanlistMode === 'EN' ? 'bg-amber-500 text-slate-950 font-black shadow' : 'text-slate-400 hover:text-slate-200 bg-slate-950/50 hover:bg-slate-800'"
-                            class="px-3 py-1.5 rounded-xl transition-all font-mono font-bold flex items-center gap-1">
-                            <span>🇺🇸 Meta EN</span>
-                        </button>
-                        <button 
-                            @click="activeBanlistMode = 'JP'"
-                            :class="activeBanlistMode === 'JP' ? 'bg-amber-500 text-slate-950 font-black shadow' : 'text-slate-400 hover:text-slate-200 bg-slate-950/50 hover:bg-slate-800'"
-                            class="px-3 py-1.5 rounded-xl transition-all font-mono font-bold flex items-center gap-1">
-                            <span>🇯🇵 Meta JP</span>
-                        </button>
-                        <button 
-                            @click="activeBanlistMode = 'NONE'"
-                            :class="activeBanlistMode === 'NONE' ? 'bg-emerald-600 text-white font-black shadow' : 'text-slate-400 hover:text-slate-200 bg-slate-950/50 hover:bg-slate-800'"
-                            class="px-3 py-1.5 rounded-xl transition-all font-mono font-bold flex items-center gap-1">
-                            <span>🔓 Sem Banlist (Livre)</span>
-                        </button>
-                    </div>
                 </div>
 
                 <!-- Saved Decks Panel -->
@@ -1578,23 +1555,84 @@
                                                 <p class="text-slate-300 mt-1.5 font-medium leading-relaxed text-xs">{{ opp.guide.mulligan_tips }}</p>
                                             </div>
                                         </div>
+
+                                        <!-- Don Strategy -->
+                                        <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-2">
+                                            <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Melhores Cartas por Fase de Jogo (Curva de Don)</span>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-1 text-[11px] leading-relaxed">
+                                                <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
+                                                    <span class="font-bold text-emerald-400 font-mono text-xs">🌱 Early Game (1-4 Don)</span>
+                                                    <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.early }}</p>
+                                                </div>
+                                                <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
+                                                    <span class="font-bold text-amber-400 font-mono text-xs">⚔️ Mid Game (5-8 Don)</span>
+                                                    <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.mid }}</p>
+                                                </div>
+                                                <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
+                                                    <span class="font-bold text-purple-400 font-mono text-xs">👑 Late Game (9-10 Don)</span>
+                                                    <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.late }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <!-- Don Strategy -->
-                                    <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-2">
-                                        <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Melhores Cartas por Fase de Jogo (Curva de Don)</span>
-                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-1 text-[11px] leading-relaxed">
-                                            <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
-                                                <span class="font-bold text-emerald-400 font-mono text-xs">🌱 Early Game (1-4 Don)</span>
-                                                <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.early }}</p>
-                                            </div>
-                                            <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
-                                                <span class="font-bold text-amber-400 font-mono text-xs">⚔️ Mid Game (5-8 Don)</span>
-                                                <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.mid }}</p>
-                                            </div>
-                                            <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
-                                                <span class="font-bold text-purple-400 font-mono text-xs">👑 Late Game (9-10 Don)</span>
-                                                <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.late }}</p>
+                                    <!-- Key Counter Cards Section -->
+                                    <div v-if="opp.guide.key_counter_cards && opp.guide.key_counter_cards.length > 0" class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-3">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-[9px] uppercase font-bold text-amber-500 tracking-wider">🎯 Cartas-Chave Recomendadas contra {{ opp.opponent_name }}</span>
+                                            <span class="text-[9px] text-slate-400 font-mono">Análise Dinâmica do Meta</span>
+                                        </div>
+                                        
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                            <div 
+                                                v-for="kcard in opp.guide.key_counter_cards" 
+                                                :key="kcard.card_id"
+                                                class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 flex items-start gap-3 hover:border-slate-700 transition-colors">
+                                                
+                                                <!-- Card Thumbnail -->
+                                                <div 
+                                                    class="w-10 h-14 rounded-lg border border-slate-800 overflow-hidden shrink-0 bg-slate-900 shadow-sm cursor-pointer hover:border-amber-500 transition-colors"
+                                                    @click="openDetails(kcard)"
+                                                    :title="'Ver detalhes: ' + kcard.card_name">
+                                                    <img 
+                                                        v-if="kcard.image" 
+                                                        :src="kcard.image" 
+                                                        :alt="kcard.card_name" 
+                                                        @error="handleCardImgError($event, kcard.card_id)"
+                                                        class="w-full h-full object-cover">
+                                                    <div v-else class="w-full h-full flex items-center justify-center text-[7px] text-slate-500 text-center font-mono p-0.5">{{ kcard.card_id }}</div>
+                                                </div>
+
+                                                <!-- Card Info & Dynamic Status -->
+                                                <div class="flex flex-col gap-1 min-w-0 flex-1">
+                                                    <div class="flex items-center justify-between gap-1">
+                                                        <span 
+                                                            class="font-bold text-xs text-slate-200 truncate hover:underline cursor-pointer"
+                                                            @click="openDetails(kcard)">
+                                                            {{ kcard.card_name }}
+                                                        </span>
+                                                        <span class="text-[9px] font-mono text-slate-500 shrink-0">{{ kcard.card_id }}</span>
+                                                    </div>
+                                                    
+                                                    <!-- Status Badge -->
+                                                    <div class="flex items-center gap-1.5 mt-0.5">
+                                                        <span 
+                                                            v-if="kcard.in_deck" 
+                                                            class="px-2 py-0.5 text-[9px] font-bold rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+                                                            <span>✅ Presente no Deck</span>
+                                                            <span class="text-emerald-300 font-mono">({{ kcard.user_qty }}x)</span>
+                                                        </span>
+                                                        <span 
+                                                            v-else 
+                                                            class="px-2 py-0.5 text-[9px] font-bold rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
+                                                            <span>💡 Recomendada</span>
+                                                            <span class="text-amber-300 font-mono">(+{{ kcard.winrate_boost }}% Win Rate)</span>
+                                                        </span>
+                                                    </div>
+
+                                                    <!-- Contextual Tip -->
+                                                    <p class="text-[10px] text-slate-400 leading-snug font-medium mt-1">{{ kcard.tip }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1770,9 +1808,10 @@
                 const availableMetaSets = ref([
                     { value: 'OP09', label: 'OP09 (500 Years Future)' },
                     { value: 'OP10', label: 'OP10 (Royal Blood)' },
-                    { value: 'OP16', label: 'OP16 (Filtro Personalizado)' }
+                    { value: 'OP16', label: 'OP16 (Legends of the Past)' },
+                    { value: 'OP17', label: 'OP17 (Coleção Mais Recente)' }
                 ]);
-                const metaSet = ref(availableMetaSets.value[availableMetaSets.value.length - 1].value);
+                const metaSet = ref('OP17');
                 const metaLoading = ref(false);
                 const metaError = ref(false);
                 const metaData = ref({ leaders: [], decks_tracked: 0, scraped_at: '' });
@@ -1803,18 +1842,28 @@
                 // --- Banlist State (Multi-Mode: EN, JP, NONE) ---
                 const activeBanlistMode = ref('EN'); // 'EN', 'JP', 'NONE'
                 const banlistData = ref({ modes: {}, banned_cards: [], banned_pairs: [], restricted_cards: {} });
-                const bannedCardsSet = computed(() => {
-                    if (activeBanlistMode.value === 'NONE') return new Set();
-                    const modes = banlistData.value.modes || {};
-                    const currentMode = modes[activeBanlistMode.value] || banlistData.value;
-                    const cards = currentMode.banned_cards || [];
-                    return new Set(cards.map(id => (id || '').toUpperCase().trim()));
-                });
                 const isCardBanned = (cardOrId) => {
                     if (activeBanlistMode.value === 'NONE' || !cardOrId) return false;
                     const rawId = typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '');
                     if (!rawId) return false;
-                    return bannedCardsSet.value.has(rawId.toUpperCase().trim());
+                    const cid = rawId.toUpperCase().trim();
+
+                    const modes = banlistData.value.modes || {};
+                    const currentMode = modes[activeBanlistMode.value] || banlistData.value;
+
+                    const bannedCards = new Set((currentMode.banned_cards || banlistData.value.banned_cards || []).map(i => i.toUpperCase().trim()));
+                    const bannedSets = new Set((currentMode.banned_sets || banlistData.value.banned_sets || []).map(i => i.toUpperCase().trim()));
+                    const bannedStarters = new Set((currentMode.banned_starter_decks || banlistData.value.banned_starter_decks || []).map(i => i.toUpperCase().trim()));
+                    const whitelisted = new Set((currentMode.whitelisted_cards || banlistData.value.whitelisted_cards || []).map(i => i.toUpperCase().trim()));
+
+                    if (bannedCards.has(cid)) return true;
+
+                    const cPrefix = cid.includes('-') ? cid.split('-')[0] : cid;
+                    if ((bannedSets.has(cPrefix) || bannedStarters.has(cPrefix)) && !whitelisted.has(cid)) {
+                        return true;
+                    }
+
+                    return false;
                 };
 
                 // Fetch database files & Dynamically integrate Limitless Meta cards
@@ -1983,14 +2032,20 @@
                             }
                         }
 
-                        // Atualiza lista de sets disponíveis para a aba Meta
+                        // Atualiza lista de sets disponíveis para a aba Meta (sempre seleciona a coleção mais recente)
                         if (detectedSets.length > 0) {
                             availableMetaSets.value = detectedSets.map(d => ({ value: d.value, label: d.label }));
-                            if (!metaSet.value || !detectedSets.some(d => d.value === metaSet.value)) {
-                                const opSets = detectedSets.filter(d => d.value.startsWith('OP'));
-                                const mostRecent = opSets.length > 0 ? opSets[opSets.length - 1] : detectedSets[detectedSets.length - 1];
-                                metaSet.value = mostRecent.value;
-                            }
+                            
+                            // Ordena coleções OP para selecionar a mais recente (ex: OP17)
+                            const opSets = detectedSets.filter(d => d.value.startsWith('OP')).sort((a, b) => {
+                                const numA = parseInt(a.value.replace(/\D/g, '') || 0);
+                                const numB = parseInt(b.value.replace(/\D/g, '') || 0);
+                                return numA - numB;
+                            });
+                            
+                            const mostRecent = opSets.length > 0 ? opSets[opSets.length - 1] : detectedSets[detectedSets.length - 1];
+                            metaSet.value = mostRecent.value;
+
                             const activeMeta = detectedSets.find(d => d.value === metaSet.value);
                             if (activeMeta) {
                                 metaData.value = activeMeta.data;
@@ -2184,39 +2239,29 @@
                     // Verifica se o deck já teve vitórias
                     const wr = leader.overall_winrate !== undefined && leader.overall_winrate !== null ? Number(leader.overall_winrate) : 0;
                     let totalWins = 0;
-                    if (leader.matchups) {
-                        for (const key in leader.matchups) {
-                            totalWins += (leader.matchups[key].wins || 0);
-                        }
-                    }
-                    const hasWon = wr > 0 || totalWins > 0;
+                    let pool = [];
 
-                    // CASO CONTRÁRIO MANTENHA IGUAL: Se o deck já ganhou no meta e possui cartas, mantém as originais
-                    if (hasWon && originalCards.length > 0) {
-                        return originalCards;
-                    }
-
-                    // Se já possui cartas mesmo sem vitórias registradas, mantém as originais
                     if (originalCards.length > 0) {
-                        return originalCards;
-                    }
-
-                    // MAS SÓ EM CASO DE SE O DECK NUNCA TIVER GANHO:
-                    // Se o deck nunca ganhou no meta e está sem cartas no meta atual, busca as cartas mais usadas em outros metas
-                    const leaderId = getLeaderCardId(leader);
-
-                    if (availableMetaSets.value && availableMetaSets.value.length > 0) {
+                        pool = originalCards;
+                    } else if (availableMetaSets.value && availableMetaSets.value.length > 0) {
+                        const leaderId = getLeaderCardId(leader);
                         for (const sObj of availableMetaSets.value) {
                             if (sObj.data && sObj.data.leaders) {
                                 const found = sObj.data.leaders.find(l => getLeaderCardId(l) === leaderId);
                                 if (found && found.cards && found.cards.length > 0) {
-                                    return found.cards;
+                                    pool = found.cards;
+                                    break;
                                 }
                             }
                         }
                     }
 
-                    // Fallback para cartas por cor no banco se nenhum arquivo de meta tiver cartas salvas
+                    // Se encontrou cartas reais do meta do líder, retorna elas filtrando banidas!
+                    if (pool.length > 0) {
+                        return pool.filter(c => !isCardBanned(c.card_id || c.card_set_id || c));
+                    }
+
+                    // Fallback de emergência (apenas se a pool do meta estiver totalmente vazia):
                     const lColor = leader.archetype_code && leader.archetype_code.includes('||') ? leader.archetype_code.split('||')[1] : (leader.card_color || 'Multi');
                     const leaderColors = getColors(lColor);
                     const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
@@ -2227,6 +2272,8 @@
                         if (c.card_type === 'Leader' || c.card_type === 'DON!!') continue;
                         const cid = c.card_set_id || c.card_id;
                         if (!cid || seen.has(cid)) continue;
+
+                        if (isCardBanned(c) || isCardBanned(cid)) continue;
 
                         const cColors = getColors(c.card_color);
                         if (cColors.some(cc => leaderColors.includes(cc))) {
@@ -2473,7 +2520,10 @@
                             if (countInDeck >= 50) break;
 
                             const mcId = getMetaCardId(mc);
+                            if (isCardBanned(mcId)) continue;
+
                             let foundCard = allCards.find(c => c.card_set_id && c.card_set_id.toUpperCase() === mcId);
+                            if (foundCard && isCardBanned(foundCard)) continue;
                             
                             if (!foundCard) {
                                 foundCard = {
@@ -2541,10 +2591,12 @@
                         if (match) {
                             const qty = parseInt(match[1]);
                             const cid = match[2].toUpperCase();
-                            if (cid === leaderCardId) {
+                            if (cid === leaderCardId || isCardBanned(cid)) {
                                 continue;
                             }
                             let foundCard = allCards.find(c => c.card_set_id && c.card_set_id.toUpperCase() === cid);
+                            if (foundCard && isCardBanned(foundCard)) continue;
+
                             if (!foundCard) {
                                 foundCard = {
                                     card_name: cid,
@@ -2885,7 +2937,7 @@
                 // Get all leaders in the general database
                 const availableLeaders = computed(() => {
                     const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
-                    const leadersOnly = allCards.filter(c => c.card_type === 'Leader');
+                    const leadersOnly = allCards.filter(c => c.card_type === 'Leader' && !isCardBanned(c));
                     
                     // Remova duplicados de set id
                     const unique = [];
@@ -2905,6 +2957,7 @@
                 });
 
                 const selectBuilderLeader = (leader) => {
+                    if (isCardBanned(leader)) return;
                     selectedBuilderLeader.value = leader;
                     userDeck.value = [];
                 };
@@ -2971,6 +3024,10 @@
                 };
 
                 const addCardToDeck = (card) => {
+                    if (!card || isCardBanned(card)) {
+                        alert("Esta carta está banida no Meta EN e não pode ser adicionada ao deck!");
+                        return;
+                    }
                     if (userDeckCount.value >= 50) {
                         alert("Seu deck já tem 50 cartas!");
                         return;
@@ -3076,9 +3133,15 @@
                             }
                             alignment = Math.min(100.0, (matchedWeight / totalCoreWeight) * 100.0);
                         }
-                    } else {
-                        // Se não encontrou o líder correspondente no meta do arquivo
-                        alignment = 60.0; // Padrão
+                    }
+
+                    // Cartas e inclusão no Meta do Líder selecionado
+                    const currentMatchedCards = matchedLeader ? getActiveLeaderCards(matchedLeader) : [];
+                    const metaInclusionMap = {};
+                    if (currentMatchedCards && currentMatchedCards.length > 0) {
+                        currentMatchedCards.forEach(c => {
+                            if (c && c.card_id) metaInclusionMap[c.card_id.toUpperCase()] = parseFloat(c.inclusion_percentage || 0);
+                        });
                     }
 
                     // Escaneia o deck real do usuário para identificar buscadores, blockers, bosses, remoções, atacantes e curva de Don
@@ -3346,6 +3409,216 @@
                             lateStr = `Distribuir Don nos seus atacantes estabelecidos e no Líder para ataques em massa difíceis de defender com a mão.`;
                         }
 
+                        // E) Motor de Pontuação Dinâmico de Cartas-Chave por Mecânica do Oponente
+                        const keyCounterCards = [];
+                        const oppDisplayName = opp.name || 'este oponente';
+                        const cleanCardName = (n) => (n || '').replace(/\s*\([^)]*\)/g, '').trim().toLowerCase();
+
+                        // Avalia a afinidade tática de cada carta contra a mecânica do oponente específico
+                        const scoreCardAgainstOpponent = (cObj, isInUserDeck) => {
+                            const txt = (cObj.card_text || cObj.card_name || '').toLowerCase();
+                            const cost = parseInt(cObj.card_cost || 0);
+                            const power = parseInt(cObj.card_power || 0);
+                            const counter = parseInt(cObj.counter_amount || 0);
+                            const incPct = parseFloat(cObj.inclusion_percentage || 50.0);
+
+                            let score = 0.0;
+                            let reason = "";
+
+                            if (oppName.includes("sabo")) {
+                                if (txt.includes("bottom of") || txt.includes("place at bottom")) {
+                                    score += 100.0;
+                                    reason = "Ignora a proteção contra K.O. do Sabo enviando o personagem para o fundo do deck.";
+                                } else if (txt.includes("trash")) {
+                                    score += 85.0;
+                                    reason = "Envia diretamente ao Trash ultrapassando os efeitos de proteção contra destruição.";
+                                } else if (power >= 8000) {
+                                    score += 70.0;
+                                    reason = "Ataque pesado (8000+) para ultrapassar a vida reforçada do Sabo.";
+                                } else if (txt.includes("[blocker]") || txt.includes("blocker")) {
+                                    score += 60.0;
+                                    reason = "Blocker para conter os ataques impulsionados com Don do Sabo.";
+                                }
+                            } else if (oppName.includes("kaido") || oppName.includes("teach") || oppName.includes("luffy")) {
+                                if (txt.includes("rush")) {
+                                    score += 95.0;
+                                    reason = "Ataque imediato com Rush para punir os turnos de aceleração de Don do oponente.";
+                                } else if ((txt.includes("k.o.") || txt.includes("trash") || txt.includes("bottom")) && cost >= 4) {
+                                    score += 85.0;
+                                    reason = "Remoção direta para responder aos Bosses pesados antes que dominem o campo.";
+                                } else if (counter === 2000) {
+                                    score += 65.0;
+                                    reason = "Counter +2000 fundamental para defender de ataques massivos de 9000+ de poder.";
+                                }
+                            } else if (oppName.includes("enel") || oppName.includes("linlin")) {
+                                if (txt.includes("trash 1 card") || txt.includes("trash")) {
+                                    score += 95.0;
+                                    reason = "Descarta a Vida do oponente sem disparar os Triggers defensivos do Enel.";
+                                } else if (power >= 8000) {
+                                    score += 80.0;
+                                    reason = "Golpes pesados (8000+) para forçar o Enel a esvaziar a mão se defendendo.";
+                                } else if (txt.includes("rest up to") || txt.includes("cannot be k.o.")) {
+                                    score += 70.0;
+                                    reason = "Imobiliza os defensores inimigos garantindo dano direto na Vida.";
+                                }
+                            } else if (oppName.includes("shanks") || oppName.includes("zoro") || oppName.includes("betty") || oppName.includes("ace")) {
+                                if (txt.includes("[blocker]") || txt.includes("blocker")) {
+                                    score += 95.0;
+                                    reason = "Blocker para defender múltiplos ataques rápidos sem perder cartas da mão.";
+                                } else if (counter === 2000) {
+                                    score += 90.0;
+                                    reason = "Counter +2000 de máxima eficiência defensiva contra o ritmo Rush.";
+                                } else if (cost <= 3 && (txt.includes("k.o.") || txt.includes("rest"))) {
+                                    score += 75.0;
+                                    reason = "Limpa os atacantes de custo baixo adversários nos primeiros turnos.";
+                                }
+                            } else if (oppName.includes("nami")) {
+                                if (txt.includes("rush") || cost <= 2) {
+                                    score += 95.0;
+                                    reason = "Pressão rápida de dano para vencer a partida antes que a Nami zere o próprio deck.";
+                                } else if (power >= 6000) {
+                                    score += 75.0;
+                                    reason = "Atacante de curva média para pressionar a Vida da Nami turno a turno.";
+                                }
+                            }
+
+                            // Fallback genérico por arquétipo se nenhuma regra específica casou
+                            if (score === 0.0) {
+                                if (isAggro) {
+                                    if (counter === 2000 || txt.includes("blocker")) {
+                                        score += 50.0;
+                                        reason = `Recurso defensivo importante para conter a velocidade de ${oppDisplayName}.`;
+                                    } else if (cost <= 2) {
+                                        score += 40.0;
+                                        reason = `Drop inicial para disputar a mesa nos primeiros turnos contra ${oppDisplayName}.`;
+                                    }
+                                } else if (isBigChar) {
+                                    if (txt.includes("k.o.") || txt.includes("trash")) {
+                                        score += 55.0;
+                                        reason = `Opção de remoção para conter os personagens grandes de ${oppDisplayName}.`;
+                                    } else if (power >= 7000) {
+                                        score += 45.0;
+                                        reason = `Ameaça pesada para pressionar a mesa no late game contra ${oppDisplayName}.`;
+                                    }
+                                } else {
+                                    if (txt.includes("search") || txt.includes("look") || txt.includes("reveal") || txt.includes("add")) {
+                                        score += 50.0;
+                                        reason = `Buscador para filtrar a mão e garantir consistência contra ${oppDisplayName}.`;
+                                    } else if (cost >= 3 && cost <= 5) {
+                                        score += 40.0;
+                                        reason = `Atacante de curva intermediária para trocas eficientes contra ${oppDisplayName}.`;
+                                    }
+                                }
+                            }
+
+                            score += incPct * 0.25;
+                            if (!isInUserDeck) score += 25.0; // Bônus para destacar opções ausentes (Outliers)
+
+                            return { score, reason };
+                        };
+
+                        // Pool unificada de candidatos
+                        const allCandidates = [];
+                        const seenCandIds = new Set();
+
+                        // Cartas do deck do usuário
+                        for (const item of userDeck.value) {
+                            const card = item.card;
+                            const cid = (card.card_set_id || '').toUpperCase();
+                            if (cid && !seenCandIds.has(cid)) {
+                                seenCandIds.add(cid);
+                                allCandidates.push({
+                                    ...card,
+                                    card_set_id: cid,
+                                    in_user_deck: true
+                                });
+                            }
+                        }
+
+                        // Cartas do meta do líder
+                        if (currentMatchedCards && currentMatchedCards.length > 0) {
+                            for (const mcard of currentMatchedCards) {
+                                const cid = (mcard.card_id || '').toUpperCase();
+                                if (cid && !seenCandIds.has(cid)) {
+                                    seenCandIds.add(cid);
+                                    const cardObj = setCards.value.find(c => (c.card_set_id || '').toUpperCase() === cid) || mcard;
+                                    const inDeck = !!userDeck.value.find(i => (i.card.card_set_id || '').toUpperCase() === cid);
+                                    allCandidates.push({
+                                        ...cardObj,
+                                        card_set_id: cid,
+                                        inclusion_percentage: mcard.inclusion_percentage,
+                                        image: mcard.image || getCardImage(cardObj),
+                                        in_user_deck: inDeck
+                                    });
+                                }
+                            }
+                        }
+
+                        const scoredPool = [];
+                        const seenNames = new Set();
+
+                        for (const cObj of allCandidates) {
+                            const cid = (cObj.card_set_id || '').toUpperCase();
+                            if (isCardBanned(cObj) || isCardBanned(cid)) continue;
+
+                            const cname = cObj.card_name || cid;
+                            const cleanN = cleanCardName(cname);
+
+                            if (seenNames.has(cleanN)) continue;
+
+                            const inDeck = cObj.in_user_deck || false;
+                            const { score, reason } = scoreCardAgainstOpponent(cObj, inDeck);
+
+                            scoredPool.push({
+                                cObj,
+                                cid,
+                                cname,
+                                cleanN,
+                                inDeck,
+                                score,
+                                reason,
+                                incPct: parseFloat(cObj.inclusion_percentage || 50.0)
+                            });
+                        }
+
+                        scoredPool.sort((a, b) => b.score - a.score);
+
+                        for (const item of scoredPool.slice(0, 4)) {
+                            const { cObj, cid, cname, cleanN, inDeck, reason, incPct } = item;
+                            seenNames.add(cleanN);
+
+                            const cimg = cObj.image || getCardImage(cObj);
+                            const isOutlier = incPct >= 15.0 && incPct <= 65.0;
+                            const baseBoost = isOutlier ? (incPct / 12.0) : (incPct / 18.0);
+                            const boost = parseFloat(Math.min(8.5, Math.max(3.5, baseBoost)).toFixed(1));
+
+                            if (inDeck) {
+                                const qty = userDeck.value.filter(i => (i.card.card_set_id || '').toUpperCase() === cid).reduce((sum, it) => sum + (it.quantity || 1), 0);
+                                keyCounterCards.push({
+                                    card_id: cid,
+                                    card_name: cname,
+                                    image: cimg,
+                                    in_deck: true,
+                                    user_qty: qty,
+                                    winrate_boost: 0.0,
+                                    status_badge: "Peça Tática no Deck",
+                                    tip: `Você possui ${qty}x no deck. ${reason}`
+                                });
+                            } else {
+                                const badgeTitle = isOutlier ? `💡 Outlier Recomendado (+${boost}%)` : `💡 Recomendada (+${boost}%)`;
+                                keyCounterCards.push({
+                                    card_id: cid,
+                                    card_name: cname,
+                                    image: cimg,
+                                    in_deck: false,
+                                    user_qty: 0,
+                                    winrate_boost: boost,
+                                    status_badge: badgeTitle,
+                                    tip: `${reason} Adicionar ao deck aumenta a chance em +${boost}% contra ${oppDisplayName}.`
+                                });
+                            }
+                        }
+
                         let guide = {
                             tactical_badge: tacticalBadge,
                             tactical_type: tacticalType,
@@ -3353,7 +3626,8 @@
                             turn_preference: `${turnPrefTitle} - ${turnPrefReason}`,
                             mulligan_tips: mulliganAdvice,
                             don_strategy: { early: earlyStr, mid: midStr, late: lateStr },
-                            matchup_explanation: tacticalMessage
+                            matchup_explanation: tacticalMessage,
+                            key_counter_cards: keyCounterCards
                         };
 
                         matchups.push({
@@ -3424,14 +3698,7 @@
                         .sort((a, b) => parseFloat(a.card_cost || 0) - parseFloat(b.card_cost || 0))
                         .slice(0, 6);
 
-                    // Mapeamento de inclusão das cartas no Meta
-                    const metaInclusionMap = {};
-                    const currentMatchedCards = matchedLeader ? getActiveLeaderCards(matchedLeader) : [];
-                    if (currentMatchedCards && currentMatchedCards.length > 0) {
-                        currentMatchedCards.forEach(c => {
-                            metaInclusionMap[c.card_id.toUpperCase()] = parseFloat(c.inclusion_percentage || 0);
-                        });
-                    }
+
 
                     // Determina a pontuação de dispensabilidade de cada carta no deck
                     const getExpendabilityScore = (uCard, categoryType) => {

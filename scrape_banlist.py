@@ -120,21 +120,37 @@ def scrape_banlist() -> bool:
                 "banned_pairs": []
             }
         },
-        # Top-level fallback for backward compatibility
+    filepath = os.path.join(DATA_DIR, "banlist.json")
+
+    existing_sets = []
+    existing_starters = []
+    existing_whitelist = []
+
+    if os.path.exists(filepath):
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                old_data = json.load(f)
+                existing_sets = old_data.get("banned_sets", [])
+                existing_starters = old_data.get("banned_starter_decks", [])
+                existing_whitelist = old_data.get("whitelisted_cards", [])
+        except Exception:
+            pass
+
+    banlist_structure = {
+        "banned_sets": existing_sets,
+        "banned_starter_decks": existing_starters,
+        "whitelisted_cards": existing_whitelist,
         "banned_cards": en_data["banned_cards"],
         "restricted_cards": en_data["restricted_cards"],
         "banned_pairs": en_data["banned_pairs"]
     }
 
-    if not os.path.exists(DATA_DIR):
-        os.makedirs(DATA_DIR)
-
-    filepath = os.path.join(DATA_DIR, "banlist.json")
     try:
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(banlist_structure, f, indent=4, ensure_ascii=False)
             
-        print(f"✅ SUCESSO! Banlist multi-modo salva em {filepath}")
+        print(f"✅ SUCESSO! Banlist oficial atualizada preservando suas coleções/starters manuais em {filepath}")
+        print(f"   Cartas banidas raspadas do site oficial EN: {len(en_data['banned_cards'])}")
         print(f"   Meta EN: {len(en_data['banned_cards'])} banidas")
         print(f"   Meta JP: {len(jp_data['banned_cards'])} banidas")
         print(f"   Livre: 0 banidas (Histórico)")
