@@ -242,5 +242,44 @@ class TestDeckAnalyzer(unittest.TestCase):
                     cards = leader.get('cards', [])
                     self.assertTrue(len(cards) > 0, f"Leader {leader.get('name')} in {filepath} has 0 wins but empty cards list")
 
+    def test_banlist_integrity_and_filtering(self):
+        """Tests banlist integrity and exclusion from recommendations in analyzer.py."""
+        import json
+        import os
+        from analyzer import load_banlist, find_smart_replacements, validate_deck_legality
+
+        banlist_path = 'optcg_data/banlist.json'
+        self.assertTrue(os.path.exists(banlist_path), "banlist.json does not exist. Run scrape_banlist.py first.")
+
+        banlist = load_banlist("EN")
+        self.assertIn("banned_cards", banlist)
+        self.assertTrue(len(banlist["banned_cards"]) > 0)
+        self.assertIn("OP06-086", banlist["banned_cards"]) # Gecko Moria
+
+        # Test smart replacement filtering with EN mode
+        mock_user_deck = [{"card_set_id": "OP01-016", "card_name": "Nami"}]
+        mock_leader_meta_cards = [
+            {"card_id": "OP06-086", "card_name": "Gecko Moria (Banned)", "inclusion_percentage": 95.0},
+            {"card_id": "OP01-025", "card_name": "Roronoa Zoro (Legal)", "inclusion_percentage": 80.0}
+        ]
+
+        replacements = find_smart_replacements(mock_user_deck, mock_leader_meta_cards, banlist)
+        added_ids = [r["add_card"]["card_id"] for r in replacements]
+        
+        # Gecko Moria (OP06-086) MUST NOT be suggested because it is banned!
+        self.assertNotIn("OP06-086", added_ids)
+        self.assertIn("OP01-025", added_ids)
+
+        # Test deck legality validation (EN mode)
+        deck_with_banned = [{"card_set_id": "OP06-086", "card_name": "Gecko Moria"}]
+        val_res = validate_deck_legality(deck_with_banned, mode="EN")
+        self.assertFalse(val_res["is_legal"])
+        self.assertEqual(len(val_res["banned_cards_found"]), 1)
+
+        # Test NONE mode (Histórico / Sem Banlist)
+        val_none = validate_deck_legality(deck_with_banned, mode="NONE")
+        self.assertTrue(val_none["is_legal"])
+        self.assertEqual(len(val_none["banned_cards_found"]), 0)
+
 if __name__ == "__main__":
     unittest.main()

@@ -845,14 +845,37 @@
             <!-- Deck Builder Tab Layout -->
             <div v-else class="flex flex-col gap-6">
                 
-                <!-- Saved Decks Panel Toggle -->
-                <div class="flex justify-between items-center">
+                <!-- Saved Decks & Banlist Mode Controls -->
+                <div class="flex flex-wrap justify-between items-center gap-3">
                     <button 
                         @click="showSavedDecksPanel = !showSavedDecksPanel"
                         class="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-semibold text-slate-300 hover:text-white transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
                         Meus Decks Salvos <span v-if="savedDecks.length > 0" class="bg-amber-500 text-slate-950 font-black rounded-full w-4 h-4 flex items-center justify-center text-[10px]">{{ savedDecks.length }}</span>
                     </button>
+
+                    <!-- Banlist Mode Selector (EN, JP, NONE) -->
+                    <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-800 p-1.5 rounded-2xl shadow-sm text-xs">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase px-2 font-mono">Modo de Banlist:</span>
+                        <button 
+                            @click="activeBanlistMode = 'EN'"
+                            :class="activeBanlistMode === 'EN' ? 'bg-amber-500 text-slate-950 font-black shadow' : 'text-slate-400 hover:text-slate-200 bg-slate-950/50 hover:bg-slate-800'"
+                            class="px-3 py-1.5 rounded-xl transition-all font-mono font-bold flex items-center gap-1">
+                            <span>🇺🇸 Meta EN</span>
+                        </button>
+                        <button 
+                            @click="activeBanlistMode = 'JP'"
+                            :class="activeBanlistMode === 'JP' ? 'bg-amber-500 text-slate-950 font-black shadow' : 'text-slate-400 hover:text-slate-200 bg-slate-950/50 hover:bg-slate-800'"
+                            class="px-3 py-1.5 rounded-xl transition-all font-mono font-bold flex items-center gap-1">
+                            <span>🇯🇵 Meta JP</span>
+                        </button>
+                        <button 
+                            @click="activeBanlistMode = 'NONE'"
+                            :class="activeBanlistMode === 'NONE' ? 'bg-emerald-600 text-white font-black shadow' : 'text-slate-400 hover:text-slate-200 bg-slate-950/50 hover:bg-slate-800'"
+                            class="px-3 py-1.5 rounded-xl transition-all font-mono font-bold flex items-center gap-1">
+                            <span>🔓 Sem Banlist (Livre)</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Saved Decks Panel -->
@@ -1210,6 +1233,9 @@
                         <div class="flex flex-wrap items-center gap-2 mt-1">
                             <span class="text-[10px] sm:text-xs font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-extrabold">ID: {{ selectedCard.card_set_id || selectedCard.don_id || 'PROMO' }}</span>
                             <span v-if="selectedCard.rarity" class="text-[10px] sm:text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-extrabold">Raridade: {{ selectedCard.rarity }}</span>
+                            <span v-if="isCardBanned(selectedCard)" class="text-[10px] sm:text-xs font-mono bg-rose-600 text-white font-extrabold px-2 py-0.5 rounded shadow flex items-center gap-1">
+                                ⛔ BANIDA (Meta {{ activeBanlistMode }})
+                            </span>
                         </div>
                     </div>
 
@@ -1774,19 +1800,39 @@
                 const showSavedDecksPanel = ref(false);
                 const savedDeckNameInput = ref('');
 
+                // --- Banlist State (Multi-Mode: EN, JP, NONE) ---
+                const activeBanlistMode = ref('EN'); // 'EN', 'JP', 'NONE'
+                const banlistData = ref({ modes: {}, banned_cards: [], banned_pairs: [], restricted_cards: {} });
+                const bannedCardsSet = computed(() => {
+                    if (activeBanlistMode.value === 'NONE') return new Set();
+                    const modes = banlistData.value.modes || {};
+                    const currentMode = modes[activeBanlistMode.value] || banlistData.value;
+                    const cards = currentMode.banned_cards || [];
+                    return new Set(cards.map(id => (id || '').toUpperCase().trim()));
+                });
+                const isCardBanned = (cardOrId) => {
+                    if (activeBanlistMode.value === 'NONE' || !cardOrId) return false;
+                    const rawId = typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '');
+                    if (!rawId) return false;
+                    return bannedCardsSet.value.has(rawId.toUpperCase().trim());
+                };
+
                 // Fetch database files & Dynamically integrate Limitless Meta cards
                 const loadData = async () => {
                     loading.value = true;
                     try {
                         const fetchOpts = { cache: 'no-cache' };
-                        const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes] = await Promise.all([
+                        const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes, banlistRes] = await Promise.all([
                             fetch('./optcg_data/sets.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/set_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/decks.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/starter_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/promo_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
-                            fetch('./optcg_data/don_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => [])
+                            fetch('./optcg_data/don_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
+                            fetch('./optcg_data/banlist.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null)
                         ]);
+
+                        if (banlistRes) banlistData.value = banlistRes;
 
                         sets.value = setsRes;
                         
@@ -2884,11 +2930,11 @@
                         return cardColors.some(cc => leaderColors.includes(cc));
                     });
 
-                    // Remove duplicados de card_set_id para não mostrar paralelos redundantes
+                    // Remove duplicados de card_set_id e exclui cartas banidas no Meta EN
                     let unique = [];
                     const seen = new Set();
                     for (const c of pool) {
-                        if (!seen.has(c.card_set_id)) {
+                        if (!seen.has(c.card_set_id) && !isCardBanned(c)) {
                             seen.add(c.card_set_id);
                             unique.push(c);
                         }
@@ -3337,10 +3383,10 @@
                             return cardColors.some(cl => leaderColors.includes(cl));
                         });
 
-                    // Deduplica por card_set_id
+                    // Deduplica por card_set_id e exclui cartas banidas
                     const seenPoolIds = new Set();
                     const uniquePool = allPool.filter(c => {
-                        if (seenPoolIds.has(c.card_set_id)) return false;
+                        if (seenPoolIds.has(c.card_set_id) || isCardBanned(c)) return false;
                         seenPoolIds.add(c.card_set_id);
                         return true;
                     });
@@ -3423,6 +3469,19 @@
                         scored.sort((a, b) => b.score - a.score);
                         return scored[0] ? scored[0].card : null;
                     };
+
+                    // 0) Legalidade de Banimentos (Meta EN)
+                    const userBannedItems = userDeck.value.filter(item => isCardBanned(item.card));
+                    if (userBannedItems.length > 0) {
+                        const bannedNames = userBannedItems.map(i => `${i.card.card_name} (${i.card.card_set_id})`).join(', ');
+                        structuralSuggestions.push({
+                            icon: '⛔',
+                            title: 'Carta Banida Detectada no Deck (Meta EN)',
+                            text: `Atenção: Seu deck contém carta(s) BANIDA(S) no Meta Ocidental: ${bannedNames}. Remova-as para manter a legalidade oficial em torneios.`,
+                            cards: [],
+                            replacementCard: null
+                        });
+                    }
 
                     // a) Tamanho de deck
                     if (stats.total_cards < 50) {
@@ -3526,9 +3585,9 @@
                     if (matchedLeader && currentMatchedCards && currentMatchedCards.length > 0) {
                         const userDeckSetIds = new Set(userDeck.value.map(item => (item.card.card_set_id || '').toUpperCase()));
                         
-                        // Missing staples (>= 50% inclusion in tournaments)
+                        // Missing staples (>= 50% inclusion in tournaments - Excluindo cartas banidas no Meta EN)
                         const missingMetaStaples = currentMatchedCards
-                            .filter(c => !userDeckSetIds.has((c.card_id || '').toUpperCase()) && parseFloat(c.inclusion_percentage || 0) >= 50.0)
+                            .filter(c => !userDeckSetIds.has((c.card_id || '').toUpperCase()) && !isCardBanned(c.card_id) && parseFloat(c.inclusion_percentage || 0) >= 50.0)
                             .sort((a, b) => parseFloat(b.inclusion_percentage || 0) - parseFloat(a.inclusion_percentage || 0));
                             
                         // User deck cards with lowest tournament presence

@@ -114,19 +114,92 @@ def get_real_matchup_winrate(opponent_leader_id: str, leader_matchups_data: dict
         return matchup
     return None
 
-def find_smart_replacements(user_deck_cards: list, leader_meta_cards: list) -> list:
+import os
+import json
+from typing import Optional, List, Dict, Any
+
+BANLIST_CACHE = None
+
+def load_banlist(mode: str = "EN") -> Dict[str, Any]:
+    global BANLIST_CACHE
+    if BANLIST_CACHE is None:
+        banlist_path = os.path.join("optcg_data", "banlist.json")
+        if os.path.exists(banlist_path):
+            try:
+                with open(banlist_path, "r", encoding="utf-8") as f:
+                    BANLIST_CACHE = json.load(f)
+            except Exception:
+                pass
+                
+    if not BANLIST_CACHE:
+        BANLIST_CACHE = {
+            "modes": {
+                "EN": {"banned_cards": ["OP06-047", "OP03-040", "OP06-086", "ST10-001", "OP06-116"], "banned_pairs": []},
+                "JP": {"banned_cards": ["OP06-047", "OP03-040", "OP06-086", "ST10-001", "OP06-116"], "banned_pairs": []},
+                "NONE": {"banned_cards": [], "banned_pairs": []}
+            }
+        }
+        
+    modes = BANLIST_CACHE.get("modes", {})
+    if mode in modes:
+        return modes[mode]
+    return BANLIST_CACHE
+
+def validate_deck_legality(user_deck_cards: list, leader_card_id: str = "", mode: str = "EN") -> dict:
+    banlist = load_banlist(mode)
+    banned_set = {c.strip().upper() for c in banlist.get("banned_cards", [])}
+    banned_pairs = banlist.get("banned_pairs", [])
+    
+    deck_card_ids = set()
+    if leader_card_id:
+        deck_card_ids.add(leader_card_id.strip().upper())
+        
+    found_banned = []
+    for item in user_deck_cards:
+        cid = (item.get("card_set_id") or item.get("card_id") or "").strip().upper()
+        if cid:
+            deck_card_ids.add(cid)
+            if cid in banned_set:
+                cname = item.get("card_name") or cid
+                found_banned.append({"card_id": cid, "card_name": cname})
+                
+    found_illegal_pairs = []
+    for pair in banned_pairs:
+        if len(pair) == 2:
+            p1, p2 = pair[0].strip().upper(), pair[1].strip().upper()
+            if p1 in deck_card_ids and p2 in deck_card_ids:
+                found_illegal_pairs.append([p1, p2])
+                
+    return {
+        "is_legal": len(found_banned) == 0 and len(found_illegal_pairs) == 0,
+        "banned_cards_found": found_banned,
+        "banned_pairs_found": found_illegal_pairs
+    }
+
+def find_smart_replacements(user_deck_cards: list, leader_meta_cards: list, banlist_data: dict = None) -> list:
     """
     Recommends smart card replacements: replaces cards in user deck with lowest meta inclusion %
     with missing core/staple cards with highest meta inclusion %.
+    Excludes any banned cards from recommendations.
     """
     if not leader_meta_cards or not user_deck_cards:
         return []
     
+    if banlist_data is None:
+        banlist_data = load_banlist()
+    
+    banned_ids = {c.strip().upper() for c in banlist_data.get("banned_cards", [])}
+    
     meta_pct_map = {c.get("card_id", "").upper(): float(c.get("inclusion_percentage", 0.0)) for c in leader_meta_cards}
     user_deck_ids = {c.get("card_set_id", "").upper() for c in user_deck_cards}
     
-    # Missing high-inclusion staples (>= 50%)
-    missing_staples = [c for c in leader_meta_cards if c.get("card_id", "").upper() not in user_deck_ids and float(c.get("inclusion_percentage", 0.0)) >= 50.0]
+    # Missing high-inclusion staples (>= 50%) - Excluding banned cards!
+    missing_staples = [
+        c for c in leader_meta_cards 
+        if c.get("card_id", "").upper() not in user_deck_ids 
+        and c.get("card_id", "").upper() not in banned_ids
+        and float(c.get("inclusion_percentage", 0.0)) >= 50.0
+    ]
     missing_staples.sort(key=lambda x: float(x.get("inclusion_percentage", 0.0)), reverse=True)
     
     # User cards with lowest meta inclusion

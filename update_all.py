@@ -90,8 +90,9 @@ def main():
     log("Starting Full Automatic Update Pipeline...")
     log("==========================================")
     
-    # 1. Fetch latest card and set data
+    # 1. Fetch latest card, set, and banlist data
     s1 = run_cmd(f"{sys.executable} fetch_optcg_data.py")
+    s_ban = run_cmd(f"{sys.executable} scrape_banlist.py")
     
     # 2. Scrape OP17 Meta Game data from Limitless TCG (Past 7 Days tournaments, pairings, and 50-card lists)
     s2 = run_cmd(f"{sys.executable} scrape_limitless.py --set OP17 --min-players 16")
@@ -108,7 +109,7 @@ def main():
     # 5. Run automated test suite
     s3 = run_cmd(f"{sys.executable} -m unittest test_deck_analyzer.py")
     
-    if s1 and s2 and s3:
+    if s1 and s_ban and s2 and s3:
         log("==========================================")
         log("SUCCESS: All update tasks completed flawlessly!")
         log("==========================================")

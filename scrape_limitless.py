@@ -600,6 +600,7 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
             total_games += tot
             
             winrate = round((w / max(1, tot)) * 100.0, 1) if tot > 0 else 50.0
+            
             leader_matchups[opp_id] = {
                 "opponent_id": opp_id,
                 "opponent_name": opp_name,
