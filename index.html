@@ -12,6 +12,8 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <!-- OPTCG Utility Functions Module -->
     <script src="./js/optcg-utils.js"></script>
+    <!-- QRCode JS for Cross-Device Sync -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <style>
         [v-cloak] { display: none; }
         /* Custom scrollbar for slate theme */
@@ -90,37 +92,44 @@
                 </div>
 
                 <!-- Navigation Tabs -->
-                <nav class="flex flex-wrap gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800">
+                <nav class="grid grid-cols-3 sm:flex sm:flex-wrap items-center justify-center gap-1 sm:gap-1.5 bg-slate-950 p-1.5 rounded-xl sm:rounded-2xl border border-slate-800 w-full md:w-auto shadow-inner">
                     <button 
                         @click="switchTab('sets')"
-                        :class="currentTab === 'sets' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-slate-200'"
-                        class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all duration-200">
+                        :class="currentTab === 'sets' ? 'bg-amber-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'"
+                        class="px-2.5 py-2 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs md:text-sm font-semibold transition-all duration-200 text-center flex items-center justify-center">
                         Coleções (Sets)
                     </button>
 
                     <button 
                         @click="switchTab('promos')"
-                        :class="currentTab === 'promos' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-slate-200'"
-                        class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all duration-200">
+                        :class="currentTab === 'promos' ? 'bg-amber-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'"
+                        class="px-2.5 py-2 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs md:text-sm font-semibold transition-all duration-200 text-center flex items-center justify-center">
                         Promocionais
                     </button>
                     <button 
                         @click="switchTab('don')"
-                        :class="currentTab === 'don' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-slate-200'"
-                        class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all duration-200">
+                        :class="currentTab === 'don' ? 'bg-amber-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'"
+                        class="px-2.5 py-2 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs md:text-sm font-semibold transition-all duration-200 text-center flex items-center justify-center">
                         Don!!
                     </button>
                     <button 
                         @click="switchTab('meta')"
-                        :class="currentTab === 'meta' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-slate-200'"
-                        class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all duration-200">
+                        :class="currentTab === 'meta' ? 'bg-amber-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'"
+                        class="px-2.5 py-2 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs md:text-sm font-semibold transition-all duration-200 text-center flex items-center justify-center">
                         Popular Decks
                     </button>
                     <button 
                         @click="switchTab('builder')"
-                        :class="currentTab === 'builder' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-slate-200'"
-                        class="px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all duration-200">
+                        :class="currentTab === 'builder' ? 'bg-amber-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'"
+                        class="px-2.5 py-2 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs md:text-sm font-semibold transition-all duration-200 text-center flex items-center justify-center">
                         Montar Deck
+                    </button>
+                    <button 
+                        @click="switchTab('collection')"
+                        :class="currentTab === 'collection' ? 'bg-amber-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'"
+                        class="px-2.5 py-2 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-1 sm:gap-1.5 text-center">
+                        <svg class="w-3.5 h-3.5 shrink-0 hidden xs:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                        <span>Minha Coleção</span>
                     </button>
                 </nav>
             </div>
@@ -135,8 +144,8 @@
                 <p class="text-slate-400 font-mono">Carregando banco de dados local...</p>
             </div>
 
-            <!-- Standard Database Layout (when loaded and not meta / builder tab) -->
-            <div v-else-if="currentTab !== 'meta' && currentTab !== 'builder'" class="flex flex-col gap-6">
+            <!-- Standard Database Layout (when loaded and not meta / builder / collection tab) -->
+            <div v-else-if="currentTab !== 'meta' && currentTab !== 'builder' && currentTab !== 'collection'" class="flex flex-col gap-6">
                 
                 <!-- Filters Bar -->
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 md:p-6 shadow-md flex flex-col gap-4">
@@ -810,7 +819,7 @@
                                                 <span 
                                                     :class="build.placing === 1 ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-800 text-slate-300 font-bold'"
                                                     class="text-[10px] uppercase px-2 py-0.5 rounded shadow">
-                                                    {{ build.placing === 1 ? '🥇 1º Lugar (Campeão)' : `#${build.placing} Lugar` }}
+                                                    {{ build.placing === 1 ? '1º Lugar (Campeão)' : `#${build.placing} Lugar` }}
                                                 </span>
                                                 <span v-if="build.country" class="text-[10px] font-mono text-slate-400">[{{ build.country }}]</span>
                                             </div>
@@ -843,7 +852,7 @@
             </div>
 
             <!-- Deck Builder Tab Layout -->
-            <div v-else class="flex flex-col gap-6">
+            <div v-else-if="currentTab === 'builder'" class="flex flex-col gap-6">
                 
                 <!-- 2.1 — Banned Pair Toast Warning -->
                 <transition name="fade">
@@ -869,7 +878,7 @@
 
                 <!-- Saved Decks Panel -->
                 <div v-if="showSavedDecksPanel" class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col gap-4">
-                    <h3 class="text-sm font-bold text-slate-200">💾 Decks Salvos</h3>
+                    <h3 class="text-sm font-bold text-slate-200">Decks Salvos</h3>
                     
                     <!-- Save current deck -->
                     <div v-if="selectedBuilderLeader && userDeck.length > 0" class="flex gap-2">
@@ -1191,6 +1200,415 @@
 
             </div>
 
+            <!-- Collection Tab Layout -->
+            <div v-else-if="currentTab === 'collection'" class="flex flex-col gap-6">
+                
+                <!-- 1. Profile Manager Bar -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h2 class="text-lg sm:text-xl font-black text-slate-100">{{ activeProfile.name }}</h2>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-amber-400 font-bold border border-slate-700">
+                                    Perfil Ativo
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-0.5">Gerenciador de cartas e inventário pessoal</p>
+                        </div>
+                    </div>
+
+                    <!-- Profile Action Buttons -->
+                    <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                        <!-- Profile Selector Dropdown -->
+                        <div class="relative flex-1 sm:flex-initial">
+                            <select 
+                                :value="activeProfileId"
+                                @change="switchProfile($event.target.value)"
+                                class="w-full sm:w-auto bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-200 focus:outline-none focus:border-amber-500 transition-colors">
+                                <option v-for="p in collectionProfiles" :key="p.id" :value="p.id">
+                                    {{ p.name }}
+                                </option>
+                            </select>
+                        </div>
+
+                        <button 
+                            @click="newProfileNameInput = ''; showNewProfileModal = true"
+                            class="px-3 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5 shadow-sm">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            <span>Novo Perfil</span>
+                        </button>
+
+                        <button 
+                            @click="openRenameProfileModal"
+                            title="Renomear perfil atual"
+                            class="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl border border-slate-700 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                        </button>
+
+                        <button 
+                            @click="deleteActiveProfile"
+                            title="Excluir perfil atual"
+                            :disabled="collectionProfiles.length <= 1"
+                            :class="collectionProfiles.length <= 1 ? 'opacity-40 cursor-not-allowed' : 'hover:bg-rose-950 hover:text-rose-400 hover:border-rose-800'"
+                            class="p-2 bg-slate-800 text-slate-400 rounded-xl border border-slate-700 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        </button>
+
+                        <!-- Share & Backup Buttons -->
+                        <div class="flex items-center gap-1.5 ml-auto sm:ml-0">
+                            <button 
+                                @click="openSyncQrModal"
+                                class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5 shadow-sm">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                                <span>Sincronizar QR</span>
+                            </button>
+
+                            <button 
+                                @click="exportProfileCollection"
+                                title="Exportar backup em arquivo JSON"
+                                class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold rounded-xl border border-slate-700 transition-colors flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                <span class="hidden sm:inline">Exportar</span>
+                            </button>
+
+                            <label 
+                                title="Importar backup de arquivo JSON"
+                                class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold rounded-xl border border-slate-700 transition-colors flex items-center gap-1.5 cursor-pointer">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l4-4m0 0l4 4m-4-4v12"/></svg>
+                                <span class="hidden sm:inline">Importar</span>
+                                <input type="file" accept=".json" class="hidden" @change="importProfileCollectionFile">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Collection Overview Metrics -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col gap-1">
+                        <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">Cartas Únicas</span>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xl sm:text-2xl font-black text-amber-400">{{ collectionStats.uniqueCards }}</span>
+                            <span class="text-xs text-slate-500">/ {{ collectionStats.totalCards }}</span>
+                        </div>
+                        <div class="w-full bg-slate-950 rounded-full h-1.5 mt-1 overflow-hidden border border-slate-800">
+                            <div class="bg-amber-500 h-full rounded-full transition-all duration-500" :style="{ width: `${collectionStats.completionRate}%` }"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col gap-1">
+                        <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">Total de Cópias Físicas</span>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xl sm:text-2xl font-black text-slate-100">{{ collectionStats.totalCopies }}</span>
+                            <span class="text-xs text-slate-500">unidades</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 mt-1">Soma de todas as cartas</span>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col gap-1">
+                        <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">Playsets Completos (4x+)</span>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xl sm:text-2xl font-black text-emerald-400">{{ collectionStats.completePlaysets }}</span>
+                            <span class="text-xs text-emerald-600 font-bold">prontos</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 mt-1">Com 4 ou mais cópias</span>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col gap-1">
+                        <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">Completude do Banco</span>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xl sm:text-2xl font-black text-indigo-400">{{ collectionStats.completionRate }}%</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 mt-1">De todas as cartas registradas</span>
+                    </div>
+                </div>
+
+                <!-- 3. Collection Filters Bar -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-md flex flex-col gap-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                            Filtrar Minha Coleção
+                        </h3>
+                        <button 
+                            @click="clearCollectionFilters"
+                            class="text-xs text-amber-400 hover:text-amber-300 font-semibold transition-colors">
+                            Limpar Filtros
+                        </button>
+                    </div>
+
+                    <!-- Filter by Ownership Status Pills -->
+                    <div class="flex flex-wrap gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800">
+                        <button 
+                            @click="collectionFilters.ownership = 'all'"
+                            :class="collectionFilters.ownership === 'all' ? 'bg-amber-600 text-white font-bold' : 'text-slate-400 hover:text-slate-200'"
+                            class="px-3 py-1.5 rounded-lg text-xs transition-all">
+                            Todas as Cartas
+                        </button>
+                        <button 
+                            @click="collectionFilters.ownership = 'owned'"
+                            :class="collectionFilters.ownership === 'owned' ? 'bg-amber-600 text-white font-bold' : 'text-slate-400 hover:text-slate-200'"
+                            class="px-3 py-1.5 rounded-lg text-xs transition-all">
+                            Possuídas (>0)
+                        </button>
+                        <button 
+                            @click="collectionFilters.ownership = 'missing'"
+                            :class="collectionFilters.ownership === 'missing' ? 'bg-amber-600 text-white font-bold' : 'text-slate-400 hover:text-slate-200'"
+                            class="px-3 py-1.5 rounded-lg text-xs transition-all">
+                            Faltando (0)
+                        </button>
+                        <button 
+                            @click="collectionFilters.ownership = 'incomplete'"
+                            :class="collectionFilters.ownership === 'incomplete' ? 'bg-amber-600 text-white font-bold' : 'text-slate-400 hover:text-slate-200'"
+                            class="px-3 py-1.5 rounded-lg text-xs transition-all">
+                            Incompletas (1-3)
+                        </button>
+                        <button 
+                            @click="collectionFilters.ownership = 'playset'"
+                            :class="collectionFilters.ownership === 'playset' ? 'bg-emerald-600 text-white font-bold' : 'text-slate-400 hover:text-slate-200'"
+                            class="px-3 py-1.5 rounded-lg text-xs transition-all">
+                            Playset Pronto (4+)
+                        </button>
+                    </div>
+
+                    <!-- Dropdowns Row -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                        <!-- Search -->
+                        <div class="flex flex-col gap-1 lg:col-span-2">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Busca</label>
+                            <input 
+                                v-model="collectionFilters.search"
+                                type="text" 
+                                placeholder="Nome, código (OP01-001)..." 
+                                class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amber-500 text-slate-200">
+                        </div>
+
+                        <!-- Set -->
+                        <div class="flex flex-col gap-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Coleção (Set)</label>
+                            <select 
+                                v-model="collectionFilters.setId"
+                                class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amber-500 text-slate-200">
+                                <option value="">Todas</option>
+                                <option v-for="s in sets" :key="s.set_id" :value="s.set_id">{{ s.set_name }} ({{ s.set_id }})</option>
+                            </select>
+                        </div>
+
+                        <!-- Starter Deck -->
+                        <div class="flex flex-col gap-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Starter Deck</label>
+                            <select 
+                                v-model="collectionFilters.deckId"
+                                class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amber-500 text-slate-200">
+                                <option value="">Todos</option>
+                                <option v-for="d in decks" :key="d.structure_deck_id" :value="d.structure_deck_id">{{ d.structure_deck_name }} ({{ d.structure_deck_id }})</option>
+                            </select>
+                        </div>
+
+                        <!-- Color -->
+                        <div class="flex flex-col gap-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Cor</label>
+                            <select 
+                                v-model="collectionFilters.color"
+                                class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amber-500 text-slate-200">
+                                <option value="">Todas</option>
+                                <option value="Red">Vermelho</option>
+                                <option value="Green">Verde</option>
+                                <option value="Blue">Azul</option>
+                                <option value="Purple">Roxo</option>
+                                <option value="Black">Preto</option>
+                                <option value="Yellow">Amarelo</option>
+                                <option value="Multi">Multicolor</option>
+                            </select>
+                        </div>
+
+                        <!-- Card Type -->
+                        <div class="flex flex-col gap-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Tipo</label>
+                            <select 
+                                v-model="collectionFilters.type"
+                                class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amber-500 text-slate-200">
+                                <option value="">Todos</option>
+                                <option value="Leader">Leader</option>
+                                <option value="Character">Character</option>
+                                <option value="Event">Event</option>
+                                <option value="Stage">Stage</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Results Info and Pagination Head -->
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-900 border border-slate-800 px-6 py-3 rounded-2xl">
+                    <span class="text-xs font-mono text-slate-400">
+                        Exibindo <strong class="text-amber-500">{{ filteredCollectionCards.length }}</strong> cartas encontradas
+                    </span>
+
+                    <div v-if="collectionTotalPages > 1" class="flex items-center gap-2">
+                        <button 
+                            @click="collectionCurrentPage--" 
+                            :disabled="collectionCurrentPage === 1"
+                            class="p-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-700 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <span class="text-xs font-mono text-slate-400">
+                            Página {{ collectionCurrentPage }} de {{ collectionTotalPages }}
+                        </span>
+                        <button 
+                            @click="collectionCurrentPage++" 
+                            :disabled="collectionCurrentPage === collectionTotalPages"
+                            class="p-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-700 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 5. Cards Collection Grid -->
+                <div v-if="paginatedCollectionCards.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+                    <div 
+                        v-for="card in paginatedCollectionCards" 
+                        :key="(card.card_set_id || card.card_id || card.don_id) + (card.card_image_id || '')"
+                        :class="[
+                            getCardOwned(card) >= 4 ? 'border-emerald-500/60 ring-1 ring-emerald-500/40 shadow-emerald-950/40' : 
+                            getCardOwned(card) > 0 ? 'border-amber-500/50 shadow-amber-950/30' : 
+                            'border-slate-800 opacity-60 hover:opacity-100'
+                        ]"
+                        class="bg-slate-900 border rounded-2xl overflow-hidden shadow-md flex flex-col transition-all duration-300 group">
+                        
+                        <!-- Image Container -->
+                        <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 overflow-hidden flex items-center justify-center cursor-pointer" @click="openDetails(card)">
+                            <div v-if="card.card_image && !card.imageError" class="relative w-full h-full">
+                                <div v-if="!card.imageLoaded" class="absolute inset-0 card-skeleton rounded-xl"></div>
+                                <img 
+                                    :src="card.card_image" 
+                                    :alt="card.card_name" 
+                                    @load="card.imageLoaded = true"
+                                    @error="handleCardImgError($event, card.card_set_id || card.card_id); card.imageError = true; card.imageLoaded = true"
+                                    loading="lazy"
+                                    class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div v-else class="w-full h-full p-4 flex flex-col justify-between items-center text-center bg-gradient-to-br from-slate-900 to-slate-950 select-none">
+                                <div class="w-full flex justify-between items-center text-[10px] font-mono text-slate-500">
+                                    <span>OPTCG</span>
+                                    <span>{{ card.card_set_id || card.don_id || 'PROMO' }}</span>
+                                </div>
+                                <span class="text-xs font-bold text-slate-400 line-clamp-2 px-2">{{ card.card_name }}</span>
+                                <span class="text-[9px] font-mono text-amber-600/70 border border-amber-600/20 px-2 py-0.5 rounded-full bg-amber-500/5">Sem Imagem</span>
+                            </div>
+
+                            <!-- Color Badges -->
+                            <div v-if="card.card_color" class="absolute top-2 left-2 flex gap-1">
+                                <span 
+                                    v-for="color in getColors(card.card_color)"
+                                    :class="getColorClass(color)"
+                                    class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded-md shadow-md border border-white/10">
+                                    {{ translateColor(color) }}
+                                </span>
+                            </div>
+
+                            <!-- Owned Count Badge (Top Right) -->
+                            <div class="absolute top-2 right-2 flex items-center gap-1">
+                                <span 
+                                    v-if="getCardOwned(card) >= 4" 
+                                    class="bg-emerald-600 text-white font-mono text-[10px] font-black px-2 py-0.5 rounded-lg shadow-lg border border-emerald-400/50 flex items-center gap-1">
+                                    {{ getCardOwned(card) }}x (Playset)
+                                </span>
+                                <span 
+                                    v-else-if="getCardOwned(card) > 0" 
+                                    class="bg-amber-500 text-slate-950 font-mono text-[10px] font-black px-2 py-0.5 rounded-lg shadow-lg border border-amber-300/50">
+                                    {{ getCardOwned(card) }}x
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Card Body & Controls -->
+                        <div class="p-3.5 flex flex-col gap-2.5 mt-auto">
+                            <div>
+                                <p class="text-xs font-bold text-slate-200 line-clamp-1 group-hover:text-amber-400 transition-colors" :title="card.card_name">
+                                    {{ card.card_name }}
+                                </p>
+                                <div class="flex justify-between items-center text-[10px] font-mono text-slate-500 mt-0.5">
+                                    <span>{{ card.card_set_id || card.don_id || 'PROMO' }}</span>
+                                    <span v-if="card.rarity" class="text-amber-500/80 font-bold">{{ card.rarity }}</span>
+                                </div>
+                            </div>
+
+                            <!-- Quantity Counter Controls -->
+                            <div class="flex items-center justify-between gap-1.5 bg-slate-950 p-1.5 rounded-xl border border-slate-800">
+                                <button 
+                                    @click="decrementCardOwned(card, 1)"
+                                    :disabled="getCardOwned(card) === 0"
+                                    class="w-7 h-7 bg-slate-800 hover:bg-rose-900 disabled:opacity-30 disabled:hover:bg-slate-800 text-slate-300 hover:text-white font-black text-sm rounded-lg transition-colors flex items-center justify-center shrink-0">
+                                    -
+                                </button>
+
+                                <div class="flex-1 text-center font-mono">
+                                    <input 
+                                        type="number"
+                                        min="0"
+                                        max="99"
+                                        :value="getCardOwned(card)"
+                                        @change="setCardOwned(card, $event.target.value)"
+                                        class="w-full text-center bg-transparent text-xs font-bold text-slate-200 focus:outline-none focus:text-amber-400">
+                                </div>
+
+                                <button 
+                                    @click="incrementCardOwned(card, 1)"
+                                    class="w-7 h-7 bg-slate-800 hover:bg-emerald-700 text-slate-300 hover:text-white font-black text-sm rounded-lg transition-colors flex items-center justify-center shrink-0">
+                                    +
+                                </button>
+
+                                <button 
+                                    @click="setPlaysetOwned(card)"
+                                    title="Definir 4 cópias (Playset completo)"
+                                    :class="getCardOwned(card) >= 4 ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'"
+                                    class="px-1.5 h-7 text-[10px] font-mono font-bold rounded-lg transition-colors shrink-0 flex items-center justify-center">
+                                    4x
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div v-else class="text-center py-16 bg-slate-900 border border-slate-800 rounded-2xl">
+                    <p class="text-slate-400 text-sm">Nenhuma carta encontrada com os filtros selecionados.</p>
+                </div>
+
+                <!-- Bottom Pagination -->
+                <div v-if="collectionTotalPages > 1" class="flex justify-center items-center gap-2 py-4">
+                    <button 
+                        @click="collectionCurrentPage = 1" 
+                        :disabled="collectionCurrentPage === 1"
+                        class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 disabled:opacity-40 hover:bg-slate-800">
+                        Primeira
+                    </button>
+                    <button 
+                        @click="collectionCurrentPage--" 
+                        :disabled="collectionCurrentPage === 1"
+                        class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 disabled:opacity-40 hover:bg-slate-800">
+                        Anterior
+                    </button>
+                    <span class="text-xs font-mono text-slate-400 px-2">
+                        {{ collectionCurrentPage }} / {{ collectionTotalPages }}
+                    </span>
+                    <button 
+                        @click="collectionCurrentPage++" 
+                        :disabled="collectionCurrentPage === collectionTotalPages"
+                        class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 disabled:opacity-40 hover:bg-slate-800">
+                        Próxima
+                    </button>
+                    <button 
+                        @click="collectionCurrentPage = collectionTotalPages" 
+                        :disabled="collectionCurrentPage === collectionTotalPages"
+                        class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 disabled:opacity-40 hover:bg-slate-800">
+                        Última
+                    </button>
+                </div>
+
+            </div>
+
         </main>
 
         <!-- Footer -->
@@ -1274,6 +1692,39 @@
                         </div>
                     </div>
 
+                    <!-- Collection Quick Tracker in Card Modal (Only on Minha Coleção tab) -->
+                    <div v-if="currentTab === 'collection'" class="bg-slate-950/70 border border-slate-800 p-3.5 rounded-2xl flex items-center justify-between gap-3 shadow-inner">
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-mono uppercase font-bold text-slate-400">Minha Coleção ({{ activeProfile.name }})</span>
+                            <span class="text-xs font-bold" :class="getCardOwned(selectedCard) >= 4 ? 'text-emerald-400' : getCardOwned(selectedCard) > 0 ? 'text-amber-400' : 'text-slate-500'">
+                                {{ getCardOwned(selectedCard) >= 4 ? 'Playset Completo (4x+)' : getCardOwned(selectedCard) > 0 ? `Possui ${getCardOwned(selectedCard)} cópia(s)` : 'Nenhuma cópia registrada' }}
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button 
+                                @click="decrementCardOwned(selectedCard, 1)"
+                                :disabled="getCardOwned(selectedCard) === 0"
+                                class="w-8 h-8 bg-slate-800 hover:bg-rose-900 disabled:opacity-30 text-slate-200 font-bold rounded-xl transition-colors flex items-center justify-center">
+                                -
+                            </button>
+                            <span class="font-mono text-sm font-black w-7 text-center text-slate-100">
+                                {{ getCardOwned(selectedCard) }}
+                            </span>
+                            <button 
+                                @click="incrementCardOwned(selectedCard, 1)"
+                                class="w-8 h-8 bg-slate-800 hover:bg-emerald-700 text-slate-200 font-bold rounded-xl transition-colors flex items-center justify-center">
+                                +
+                            </button>
+                            <button 
+                                @click="setPlaysetOwned(selectedCard)"
+                                title="Definir 4 cópias (Playset)"
+                                :class="getCardOwned(selectedCard) >= 4 ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'"
+                                class="px-2.5 h-8 text-xs font-mono font-bold rounded-xl transition-colors flex items-center justify-center">
+                                4x
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="flex flex-col sm:flex-row gap-2.5 border-t border-slate-800/80 pt-4 mt-auto">
                         <a :href="getLigaOnePieceUrl(selectedCard)" target="_blank" rel="noopener noreferrer" 
                            class="flex-1 flex items-center justify-center gap-2 py-2.5 sm:py-3 px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-amber-500/10 text-center">
@@ -1322,10 +1773,9 @@
                     </div>
 
                     <!-- Meta Data Warning (if meta was not scraped) -->
-                    <div v-if="metaError" class="bg-red-500/5 border border-red-500/20 p-4 rounded-xl text-center text-xs text-red-400">
-                        ⚠️ **Aviso**: O arquivo de dados dos decks populares `meta_{{ metaSet }}.json` não foi localizado. Os matchups simulados abaixo usarão uma estimativa matemática básica. 
-                        Rode `python scrape_meta.py --set {{ metaSet }}` no terminal para carregar dados reais dos arquétipos inimigos.
-                    </div>
+                    <div v-if="metaDataUnavailable" class="bg-amber-950/30 border border-amber-800/60 p-4 rounded-2xl text-amber-200 text-xs flex flex-col gap-1">
+                    <p><strong>Aviso</strong>: O arquivo de dados dos decks populares <code>meta_{{ metaSet }}.json</code> não foi localizado. Os matchups simulados abaixo usarão uma estimativa matemática baseada em arquétipos universais.</p>
+                </div>
 
                     <!-- Row 1: Consistency Scores -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1408,7 +1858,7 @@
                             <div>
                                 <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Fundamentos do Deckbuilding</span>
                                 <h3 class="text-sm font-bold text-amber-500 flex items-center gap-1.5 mt-0.5">
-                                    💡 Sugestões de Melhoria Estrutural (Gerais & Universais)
+                                    Sugestões de Melhoria Estrutural (Gerais & Universais)
                                 </h3>
                             </div>
                             <span class="text-[10px] text-slate-500 font-mono">Regras de Ouro independentes do Meta</span>
@@ -1420,7 +1870,7 @@
                                 :key="sug.title"
                                 class="bg-slate-900/60 border border-slate-800/80 p-3.5 rounded-xl flex flex-col gap-2">
                                 <div class="flex items-start gap-3">
-                                    <span class="text-xl shrink-0">{{ sug.icon }}</span>
+                                    <span v-if="sug.icon" class="text-xl shrink-0">{{ sug.icon }}</span>
                                     <div>
                                         <h4 class="font-bold text-xs text-slate-200">{{ sug.title }}</h4>
                                         <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">{{ sug.text }}</p>
@@ -1451,7 +1901,7 @@
                                 <!-- Substitution Suggestion if deck is full -->
                                 <div v-if="sug.replacementCard && userDeckCount >= 50" class="mt-2 bg-slate-950/40 border border-slate-800/60 p-2 rounded-xl flex items-center justify-between gap-3">
                                     <div class="flex items-start gap-2.5 min-w-0">
-                                        <span class="text-xs shrink-0 mt-0.5">🔄</span>
+                                        <svg class="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
                                         <div class="min-w-0">
                                             <div class="text-[8px] uppercase font-black text-amber-500/80 tracking-wider">Sugestão de Substituição:</div>
                                             <div class="text-[10px] text-slate-400 mt-0.5 leading-relaxed truncate">
@@ -1522,7 +1972,7 @@
                                 <!-- Dynamic Recommendation Tips -->
                                 <div class="text-xs text-slate-300 font-medium border-t border-slate-800/80 pt-2.5 mt-1">
                                     <div class="flex items-center gap-1 text-amber-500 font-semibold mb-1">
-                                        💡 Dica de Combate:
+                                        Dica de Combate:
                                     </div>
                                     <ul class="list-disc list-inside text-slate-400 text-[11px] leading-relaxed">
                                         <li v-for="tip in opp.recommendations" :key="tip">{{ tip }}</li>
@@ -1534,7 +1984,7 @@
                                     <button 
                                         @click="opp.showGuide = !opp.showGuide"
                                         class="text-[10px] text-amber-500 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors uppercase tracking-wider">
-                                        <span>{{ opp.showGuide ? 'Recolher Guia de Matchup 📖' : 'Ver Guia de Matchup Passo a Passo 📖' }}</span>
+                                        <span>{{ opp.showGuide ? 'Recolher Guia de Matchup' : 'Ver Guia de Matchup Passo a Passo' }}</span>
                                         <svg 
                                             :class="opp.showGuide ? 'rotate-180' : ''" 
                                             class="w-3.5 h-3.5 transform transition-transform" 
@@ -1586,15 +2036,15 @@
                                             <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Melhores Cartas por Fase de Jogo (Curva de Don)</span>
                                             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-1 text-[11px] leading-relaxed">
                                                 <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
-                                                    <span class="font-bold text-emerald-400 font-mono text-xs">🌱 Early Game (1-4 Don)</span>
+                                                    <span class="font-bold text-emerald-400 font-mono text-xs">Early Game (1-4 Don)</span>
                                                     <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.early }}</p>
                                                 </div>
                                                 <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
-                                                    <span class="font-bold text-amber-400 font-mono text-xs">⚔️ Mid Game (5-8 Don)</span>
+                                                    <span class="font-bold text-amber-400 font-mono text-xs">Mid Game (5-8 Don)</span>
                                                     <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.mid }}</p>
                                                 </div>
                                                 <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
-                                                    <span class="font-bold text-purple-400 font-mono text-xs">👑 Late Game (9-10 Don)</span>
+                                                    <span class="font-bold text-purple-400 font-mono text-xs">Late Game (9-10 Don)</span>
                                                     <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.late }}</p>
                                                 </div>
                                             </div>
@@ -1604,7 +2054,7 @@
                                     <!-- Key Counter Cards Section -->
                                     <div v-if="opp.guide.key_counter_cards && opp.guide.key_counter_cards.length > 0" class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-3">
                                         <div class="flex items-center justify-between">
-                                            <span class="text-[9px] uppercase font-bold text-amber-500 tracking-wider">🎯 Cartas-Chave Recomendadas contra {{ opp.opponent_name }}</span>
+                                            <span class="text-[9px] uppercase font-bold text-amber-500 tracking-wider">Cartas-Chave Recomendadas contra {{ opp.opponent_name }}</span>
                                             <span class="text-[9px] text-slate-400 font-mono">Análise Dinâmica do Meta</span>
                                         </div>
                                         
@@ -1644,13 +2094,13 @@
                                                         <span 
                                                             v-if="kcard.in_deck" 
                                                             class="px-2 py-0.5 text-[9px] font-bold rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-                                                            <span>✅ Presente no Deck</span>
+                                                            <span>Presente no Deck</span>
                                                             <span class="text-emerald-300 font-mono">({{ kcard.user_qty }}x)</span>
                                                         </span>
                                                         <span 
                                                             v-else 
                                                             class="px-2 py-0.5 text-[9px] font-bold rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
-                                                            <span>💡 Recomendada</span>
+                                                            <span>Recomendada</span>
                                                             <span class="text-amber-300 font-mono">(+{{ kcard.winrate_boost }}% Win Rate)</span>
                                                         </span>
                                                     </div>
@@ -1793,6 +2243,177 @@
             </div>
         </div>
 
+        <!-- NEW PROFILE MODAL -->
+        <div v-if="showNewProfileModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4" @click="showNewProfileModal = false">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md shadow-2xl p-6 flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                        Criar Novo Perfil de Coleção
+                    </h3>
+                    <button @click="showNewProfileModal = false" class="text-slate-500 hover:text-slate-300">✕</button>
+                </div>
+                <p class="text-xs text-slate-400">
+                    Crie um perfil separado para gerenciar cartas de um amigo, coleção alternativa ou outro inventário sem alterar sua coleção principal.
+                </p>
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-semibold text-slate-400">Nome do Perfil:</label>
+                    <input 
+                        v-model="newProfileNameInput"
+                        type="text" 
+                        placeholder="Ex: Coleção do Amigo, Perfil 2..."
+                        @keydown.enter="createProfile"
+                        class="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none">
+                </div>
+                <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+                    <button @click="showNewProfileModal = false" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-colors">
+                        Cancelar
+                    </button>
+                    <button @click="createProfile" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-colors">
+                        Criar Perfil
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RENAME PROFILE MODAL -->
+        <div v-if="showRenameProfileModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4" @click="showRenameProfileModal = false">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md shadow-2xl p-6 flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                        Renomear Perfil
+                    </h3>
+                    <button @click="showRenameProfileModal = false" class="text-slate-500 hover:text-slate-300">✕</button>
+                </div>
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-semibold text-slate-400">Novo Nome:</label>
+                    <input 
+                        v-model="renameProfileNameInput"
+                        type="text" 
+                        @keydown.enter="renameProfile"
+                        class="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none">
+                </div>
+                <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+                    <button @click="showRenameProfileModal = false" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-colors">
+                        Cancelar
+                    </button>
+                    <button @click="renameProfile" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-colors">
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SYNC QR CODE MODAL -->
+        <div v-if="showSyncQrModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4" @click="showSyncQrModal = false">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md shadow-2xl p-6 flex flex-col items-center gap-4 text-center">
+                <div class="w-full flex items-center justify-between">
+                    <h3 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                        Sincronizar com Celular
+                    </h3>
+                    <button @click="showSyncQrModal = false" class="text-slate-500 hover:text-slate-300">✕</button>
+                </div>
+                <p class="text-xs text-slate-400 text-left">
+                    Aponte a câmera do seu smartphone para o QR Code abaixo. O site abrirá no celular com todas as cartas do perfil <strong>{{ activeProfile.name }}</strong> carregadas!
+                </p>
+
+                <!-- QR Code Box -->
+                <div class="bg-white p-4 rounded-2xl shadow-xl flex items-center justify-center">
+                    <img v-if="syncQrDataUrl" :src="syncQrDataUrl" alt="QR Code de Sincronização" class="w-56 h-56">
+                    <div v-else class="w-56 h-56 flex items-center justify-center text-slate-900 text-xs font-mono">
+                        Gerando QR Code...
+                    </div>
+                </div>
+
+                <div v-if="qrCopiedToast" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs py-1.5 px-3 rounded-lg">
+                    Link de sincronização copiado!
+                </div>
+
+                <div class="flex gap-2 w-full pt-2 border-t border-slate-800">
+                    <button @click="copySyncQrUrl" class="flex-1 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-1.5">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        <span>Copiar Link</span>
+                    </button>
+                    <button @click="showSyncQrModal = false" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-colors">
+                        Fechar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMPORT PAYLOAD MODAL (Smart friend QR / Backup Import) -->
+        <div v-if="showImportPayloadModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-lg shadow-2xl p-6 flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-black text-slate-100">Coleção Detectada para Importação</h3>
+                        <p class="text-xs text-slate-400">Origem: <strong>{{ importPayloadData?.name || 'Coleção Compartilhada' }}</strong> ({{ Object.keys(importPayloadData?.collection || {}).length }} tipos de cartas)</p>
+                    </div>
+                </div>
+
+                <p class="text-xs text-slate-300">
+                    Como você deseja salvar essa coleção no seu navegador?
+                </p>
+
+                <!-- Radio Options -->
+                <div class="flex flex-col gap-2.5">
+                    <!-- Option 1: New Profile (Default & Recommended) -->
+                    <label 
+                        @click="importPayloadAction = 'new_profile'"
+                        :class="importPayloadAction === 'new_profile' ? 'border-amber-500 bg-amber-500/5' : 'border-slate-800 bg-slate-950'"
+                        class="p-3.5 rounded-2xl border flex items-start gap-3 cursor-pointer transition-all">
+                        <input type="radio" v-model="importPayloadAction" value="new_profile" class="mt-0.5 text-amber-600">
+                        <div class="flex-1">
+                            <p class="text-xs font-bold text-slate-100">Criar como Novo Perfil (Recomendado)</p>
+                            <p class="text-[11px] text-slate-400">Mantém a sua coleção atual 100% intacta e cria um perfil separado para esta coleção.</p>
+                            <div v-if="importPayloadAction === 'new_profile'" class="mt-2">
+                                <input 
+                                    v-model="importPayloadProfileName"
+                                    type="text" 
+                                    placeholder="Nome do perfil..." 
+                                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Option 2: Merge -->
+                    <label 
+                        @click="importPayloadAction = 'merge'"
+                        :class="importPayloadAction === 'merge' ? 'border-amber-500 bg-amber-500/5' : 'border-slate-800 bg-slate-950'"
+                        class="p-3.5 rounded-2xl border flex items-start gap-3 cursor-pointer transition-all">
+                        <input type="radio" v-model="importPayloadAction" value="merge" class="mt-0.5 text-amber-600">
+                        <div>
+                            <p class="text-xs font-bold text-slate-100">Mesclar com meu perfil ativo ({{ activeProfile.name }})</p>
+                            <p class="text-[11px] text-slate-400">Soma as quantidades destas cartas ao seu perfil ativo atual.</p>
+                        </div>
+                    </label>
+
+                    <!-- Option 3: Replace -->
+                    <label 
+                        @click="importPayloadAction = 'replace'"
+                        :class="importPayloadAction === 'replace' ? 'border-rose-500 bg-rose-500/5' : 'border-slate-800 bg-slate-950'"
+                        class="p-3.5 rounded-2xl border flex items-start gap-3 cursor-pointer transition-all">
+                        <input type="radio" v-model="importPayloadAction" value="replace" class="mt-0.5 text-rose-600">
+                        <div>
+                            <p class="text-xs font-bold text-slate-100">Substituir meu perfil ativo ({{ activeProfile.name }})</p>
+                            <p class="text-[11px] text-rose-400/80">Sobrescreve todas as cartas do perfil atual com os dados deste arquivo/link.</p>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
+                    <button @click="showImportPayloadModal = false; importPayloadData = null" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-colors">
+                        Cancelar
+                    </button>
+                    <button @click="applyImportPayload" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-colors">
+                        Confirmar Importação
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Vue App Script -->
@@ -1864,6 +2485,42 @@
                 const savedDecks = ref([]);  // Array of { id, name, leaderId, leaderName, cards: [{id, qty}], savedAt }
                 const showSavedDecksPanel = ref(false);
                 const savedDeckNameInput = ref('');
+
+                // --- Multi-Profile & Collection State ---
+                const PROFILES_KEY = 'optcg_collection_profiles';
+                const ACTIVE_PROFILE_KEY = 'optcg_active_profile_id';
+                const COLLECTION_PREFIX = 'optcg_collection_';
+
+                const collectionProfiles = ref([]); // [{ id, name, createdAt }]
+                const activeProfileId = ref('default');
+                const userCardCollection = ref({}); // { [cardId]: count }
+                
+                // Collection Modals
+                const showNewProfileModal = ref(false);
+                const newProfileNameInput = ref('');
+                const showRenameProfileModal = ref(false);
+                const renameProfileNameInput = ref('');
+                const showSyncQrModal = ref(false);
+                const syncQrDataUrl = ref('');
+                const syncQrUrl = ref('');
+                const qrCopiedToast = ref(false);
+                const showImportPayloadModal = ref(false);
+                const importPayloadData = ref(null);
+                const importPayloadAction = ref('new_profile'); // 'new_profile' | 'merge' | 'replace'
+                const importPayloadProfileName = ref('');
+
+                // Collection Filters & Pagination
+                const collectionFilters = ref({
+                    search: '',
+                    setId: '',
+                    deckId: '',
+                    color: '',
+                    type: '',
+                    rarity: '',
+                    ownership: 'all' // 'all', 'owned', 'missing', 'incomplete', 'playset'
+                });
+                const collectionCurrentPage = ref(1);
+                const collectionItemsPerPage = ref(40);
 
                 // --- Banlist State (Multi-Mode: EN, JP, NONE) ---
                 const activeBanlistMode = ref('EN'); // 'EN', 'JP', 'NONE'
@@ -2174,6 +2831,9 @@
                     clearFilters();
                     if (tab === 'meta' || tab === 'builder') {
                         loadMeta();
+                    }
+                    if (tab === 'collection') {
+                        collectionCurrentPage.value = 1;
                     }
                 };
 
@@ -2906,12 +3566,12 @@
                         userDeck.value = tempDeck;
                         currentTab.value = 'builder';
 
-                        let msg = `✅ Deck importado com sucesso!\nLíder: ${tempLeader.card_name} (${tempLeader.card_set_id})\nTotal de cartas no deck: ${userDeckCount.value}`;
+                        let msg = `Deck importado com sucesso!\nLíder: ${tempLeader.card_name} (${tempLeader.card_set_id})\nTotal de cartas no deck: ${userDeckCount.value}`;
                         if (notFound.length > 0) {
-                            msg += `\n\n⚠️ Cartas não encontradas (${notFound.length}): ${notFound.slice(0, 5).join(', ')}`;
+                            msg += `\n\nCartas não encontradas (${notFound.length}): ${notFound.slice(0, 5).join(', ')}`;
                         }
                         if (colorMismatches.length > 0) {
-                            msg += `\n\n⚠️ Cartas ignoradas por cor incompatível com o líder (${colorMismatches.length}): ${colorMismatches.slice(0, 5).join(', ')}`;
+                            msg += `\n\nCartas ignoradas por cor incompatível com o líder (${colorMismatches.length}): ${colorMismatches.slice(0, 5).join(', ')}`;
                         }
                         alert(msg);
                         showImportModal.value = false;
@@ -3038,7 +3698,7 @@
                             const newDecks = imported.filter(d => d.id && !existingIds.has(d.id));
                             savedDecks.value = [...existing, ...newDecks].slice(-MAX_SAVED_DECKS);
                             localStorage.setItem(LS_KEY, JSON.stringify(savedDecks.value));
-                            alert(`✅ ${newDecks.length} deck(s) importado(s) com sucesso!`);
+                            alert(`${newDecks.length} deck(s) importado(s) com sucesso!`);
                         } catch (err) {
                             alert('Erro ao ler o arquivo JSON. Verifique se o formato é válido.');
                         }
@@ -3046,6 +3706,473 @@
                     };
                     reader.readAsText(file);
                 };
+
+                // ====================================================
+                // --- MULTI-PROFILE & COLLECTION MANAGEMENT LOGIC ---
+                // ====================================================
+                const activeProfile = computed(() => {
+                    return collectionProfiles.value.find(p => p.id === activeProfileId.value) || {
+                        id: activeProfileId.value,
+                        name: 'Coleção Principal',
+                        createdAt: new Date().toISOString()
+                    };
+                });
+
+                const loadCollectionProfiles = () => {
+                    try {
+                        const raw = localStorage.getItem(PROFILES_KEY);
+                        if (raw) {
+                            collectionProfiles.value = JSON.parse(raw);
+                        }
+                    } catch (e) {
+                        collectionProfiles.value = [];
+                    }
+
+                    if (!collectionProfiles.value || collectionProfiles.value.length === 0) {
+                        collectionProfiles.value = [{
+                            id: 'default',
+                            name: 'Coleção Principal',
+                            createdAt: new Date().toISOString()
+                        }];
+                        saveCollectionProfiles();
+                    }
+
+                    const savedActiveId = localStorage.getItem(ACTIVE_PROFILE_KEY);
+                    if (savedActiveId && collectionProfiles.value.some(p => p.id === savedActiveId)) {
+                        activeProfileId.value = savedActiveId;
+                    } else {
+                        activeProfileId.value = collectionProfiles.value[0].id;
+                        localStorage.setItem(ACTIVE_PROFILE_KEY, activeProfileId.value);
+                    }
+
+                    loadActiveCollection();
+                };
+
+                const saveCollectionProfiles = () => {
+                    try {
+                        localStorage.setItem(PROFILES_KEY, JSON.stringify(collectionProfiles.value));
+                    } catch (e) {}
+                };
+
+                const loadActiveCollection = () => {
+                    try {
+                        const raw = localStorage.getItem(COLLECTION_PREFIX + activeProfileId.value);
+                        userCardCollection.value = raw ? JSON.parse(raw) : {};
+                    } catch (e) {
+                        userCardCollection.value = {};
+                    }
+                };
+
+                const saveActiveCollection = () => {
+                    try {
+                        localStorage.setItem(COLLECTION_PREFIX + activeProfileId.value, JSON.stringify(userCardCollection.value));
+                    } catch (e) {}
+                };
+
+                const createProfile = () => {
+                    const name = newProfileNameInput.value.trim() || `Coleção ${collectionProfiles.value.length + 1}`;
+                    const newId = 'p_' + Date.now();
+                    const newProf = {
+                        id: newId,
+                        name,
+                        createdAt: new Date().toISOString()
+                    };
+                    collectionProfiles.value.push(newProf);
+                    saveCollectionProfiles();
+                    
+                    activeProfileId.value = newId;
+                    localStorage.setItem(ACTIVE_PROFILE_KEY, newId);
+                    userCardCollection.value = {};
+                    saveActiveCollection();
+
+                    newProfileNameInput.value = '';
+                    showNewProfileModal.value = false;
+                    collectionCurrentPage.value = 1;
+                };
+
+                const switchProfile = (id) => {
+                    if (activeProfileId.value === id) return;
+                    activeProfileId.value = id;
+                    localStorage.setItem(ACTIVE_PROFILE_KEY, id);
+                    loadActiveCollection();
+                    collectionCurrentPage.value = 1;
+                };
+
+                const openRenameProfileModal = () => {
+                    renameProfileNameInput.value = activeProfile.value.name;
+                    showRenameProfileModal.value = true;
+                };
+
+                const renameProfile = () => {
+                    const name = renameProfileNameInput.value.trim();
+                    if (!name) return;
+                    const found = collectionProfiles.value.find(p => p.id === activeProfileId.value);
+                    if (found) {
+                        found.name = name;
+                        saveCollectionProfiles();
+                    }
+                    showRenameProfileModal.value = false;
+                };
+
+                const deleteActiveProfile = () => {
+                    if (collectionProfiles.value.length <= 1) {
+                        alert('Não é possível excluir o único perfil existente.');
+                        return;
+                    }
+                    const name = activeProfile.value.name;
+                    if (!confirm(`Tem certeza que deseja excluir o perfil "${name}" e todas as suas cartas registradas? Esta ação não pode ser desfeita.`)) {
+                        return;
+                    }
+                    const idToDelete = activeProfileId.value;
+                    try {
+                        localStorage.removeItem(COLLECTION_PREFIX + idToDelete);
+                    } catch (e) {}
+
+                    collectionProfiles.value = collectionProfiles.value.filter(p => p.id !== idToDelete);
+                    saveCollectionProfiles();
+
+                    activeProfileId.value = collectionProfiles.value[0].id;
+                    localStorage.setItem(ACTIVE_PROFILE_KEY, activeProfileId.value);
+                    loadActiveCollection();
+                    collectionCurrentPage.value = 1;
+                };
+
+                // Quantity Modifiers
+                const getCardOwned = (cardOrId) => {
+                    if (!cardOrId) return 0;
+                    const cid = typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '');
+                    if (!cid) return 0;
+                    return userCardCollection.value[cid.toUpperCase()] || 0;
+                };
+
+                const setCardOwned = (cardOrId, qty) => {
+                    if (!cardOrId) return;
+                    const cid = (typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '')).toUpperCase();
+                    if (!cid) return;
+                    const parsed = Math.max(0, parseInt(qty) || 0);
+                    if (parsed === 0) {
+                        delete userCardCollection.value[cid];
+                    } else {
+                        userCardCollection.value[cid] = parsed;
+                    }
+                    saveActiveCollection();
+                };
+
+                const incrementCardOwned = (cardOrId, delta = 1) => {
+                    const curr = getCardOwned(cardOrId);
+                    setCardOwned(cardOrId, curr + delta);
+                };
+
+                const decrementCardOwned = (cardOrId, delta = 1) => {
+                    const curr = getCardOwned(cardOrId);
+                    setCardOwned(cardOrId, Math.max(0, curr - delta));
+                };
+
+                const setPlaysetOwned = (cardOrId) => {
+                    setCardOwned(cardOrId, 4);
+                };
+
+                // All unique cards pool for collection
+                const allCollectionCardsPool = computed(() => {
+                    const all = [...setCards.value, ...starterCards.value, ...promoCards.value, ...donCards.value];
+                    const seen = new Set();
+                    const unique = [];
+                    for (const c of all) {
+                        const id = (c.card_set_id || c.card_id || c.don_id || '').toUpperCase();
+                        if (id && !seen.has(id)) {
+                            seen.add(id);
+                            unique.push(c);
+                        }
+                    }
+                    return unique;
+                });
+
+                // Collection Statistics
+                const collectionStats = computed(() => {
+                    const pool = allCollectionCardsPool.value;
+                    const totalDbCards = pool.length;
+                    let uniqueOwned = 0;
+                    let totalCopies = 0;
+                    let playsets = 0;
+
+                    for (const [cid, qty] of Object.entries(userCardCollection.value)) {
+                        if (qty > 0) {
+                            uniqueOwned++;
+                            totalCopies += qty;
+                            if (qty >= 4) {
+                                playsets++;
+                            }
+                        }
+                    }
+
+                    const completionRate = totalDbCards > 0 ? Math.round((uniqueOwned / totalDbCards) * 100) : 0;
+
+                    return {
+                        totalCards: totalDbCards,
+                        uniqueCards: uniqueOwned,
+                        totalCopies,
+                        completePlaysets: playsets,
+                        completionRate
+                    };
+                });
+
+                // Filtered Collection Cards
+                const filteredCollectionCards = computed(() => {
+                    let list = allCollectionCardsPool.value;
+
+                    // Search filter
+                    if (collectionFilters.value.search) {
+                        const q = collectionFilters.value.search.toLowerCase().trim();
+                        list = list.filter(c => {
+                            const name = (c.card_name || '').toLowerCase();
+                            const id = (c.card_set_id || c.card_id || c.don_id || '').toLowerCase();
+                            const text = (c.card_text || '').toLowerCase();
+                            return name.includes(q) || id.includes(q) || text.includes(q);
+                        });
+                    }
+
+                    // Set filter
+                    if (collectionFilters.value.setId) {
+                        const filterClean = collectionFilters.value.setId.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                        list = list.filter(c => {
+                            const cardSet = c.set_id || (c.card_set_id ? c.card_set_id.split('-')[0] : '');
+                            const cardSetClean = cardSet.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                            return cardSetClean === filterClean || c.set_id === collectionFilters.value.setId;
+                        });
+                    }
+
+                    // Starter Deck filter
+                    if (collectionFilters.value.deckId) {
+                        const filterClean = collectionFilters.value.deckId.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                        list = list.filter(c => {
+                            const cardSet = c.set_id || (c.card_set_id ? c.card_set_id.split('-')[0] : '');
+                            const cardSetClean = cardSet.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                            return cardSetClean === filterClean || c.set_id === collectionFilters.value.deckId;
+                        });
+                    }
+
+                    // Color filter
+                    if (collectionFilters.value.color) {
+                        list = list.filter(c => {
+                            if (!c.card_color) return false;
+                            if (collectionFilters.value.color === 'Multi') return c.card_color.includes('/');
+                            return c.card_color.split('/').map(col => col.trim()).includes(collectionFilters.value.color);
+                        });
+                    }
+
+                    // Type filter
+                    if (collectionFilters.value.type) {
+                        list = list.filter(c => c.card_type === collectionFilters.value.type);
+                    }
+
+                    // Rarity filter
+                    if (collectionFilters.value.rarity) {
+                        list = list.filter(c => c.rarity === collectionFilters.value.rarity);
+                    }
+
+                    // Ownership status filter
+                    if (collectionFilters.value.ownership === 'owned') {
+                        list = list.filter(c => getCardOwned(c) > 0);
+                    } else if (collectionFilters.value.ownership === 'missing') {
+                        list = list.filter(c => getCardOwned(c) === 0);
+                    } else if (collectionFilters.value.ownership === 'incomplete') {
+                        list = list.filter(c => {
+                            const q = getCardOwned(c);
+                            return q > 0 && q < 4;
+                        });
+                    } else if (collectionFilters.value.ownership === 'playset') {
+                        list = list.filter(c => getCardOwned(c) >= 4);
+                    }
+
+                    return list;
+                });
+
+                const collectionTotalPages = computed(() => {
+                    return Math.max(1, Math.ceil(filteredCollectionCards.value.length / collectionItemsPerPage.value));
+                });
+
+                const paginatedCollectionCards = computed(() => {
+                    const start = (collectionCurrentPage.value - 1) * collectionItemsPerPage.value;
+                    return filteredCollectionCards.value.slice(start, start + collectionItemsPerPage.value);
+                });
+
+                const clearCollectionFilters = () => {
+                    collectionFilters.value = {
+                        search: '',
+                        setId: '',
+                        deckId: '',
+                        color: '',
+                        type: '',
+                        rarity: '',
+                        ownership: 'all'
+                    };
+                    collectionCurrentPage.value = 1;
+                };
+
+                watch(collectionFilters, () => {
+                    collectionCurrentPage.value = 1;
+                }, { deep: true });
+
+                // QR Sync Generator
+                const isLocalhost = computed(() => {
+                    return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                });
+
+                const openSyncQrModal = async () => {
+                    const payload = {
+                        n: activeProfile.value.name,
+                        c: userCardCollection.value,
+                        t: Date.now()
+                    };
+                    const jsonStr = JSON.stringify(payload);
+                    const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
+                    const url = `${window.location.origin}${window.location.pathname}#import_col=${b64}`;
+                    syncQrUrl.value = url;
+                    showSyncQrModal.value = true;
+                    qrCopiedToast.value = false;
+                    syncQrDataUrl.value = '';
+
+                    // 1. Try browser QRCode library if available
+                    let generated = false;
+                    if (window.QRCode && typeof window.QRCode.toDataURL === 'function') {
+                        try {
+                            syncQrDataUrl.value = await QRCode.toDataURL(url, {
+                                width: 280,
+                                margin: 2,
+                                color: {
+                                    dark: '#020617',
+                                    light: '#ffffff'
+                                }
+                            });
+                            generated = true;
+                        } catch (err) {
+                            console.warn('QRCode.toDataURL falhou, usando fallback direto:', err);
+                        }
+                    }
+
+                    // 2. Instant guaranteed fallback via standard QR generator
+                    if (!generated) {
+                        syncQrDataUrl.value = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(url)}`;
+                    }
+                };
+
+                const copySyncQrUrl = () => {
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(syncQrUrl.value).then(() => {
+                            qrCopiedToast.value = true;
+                            setTimeout(() => { qrCopiedToast.value = false; }, 3000);
+                        });
+                    }
+                };
+
+                // JSON Backup Export
+                const exportProfileCollection = () => {
+                    const payload = {
+                        version: 1,
+                        exportedAt: new Date().toISOString(),
+                        profile: activeProfile.value,
+                        collection: userCardCollection.value
+                    };
+                    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    const safeName = activeProfile.value.name.replace(/[^a-zA-Z0-9_-]/g, '_');
+                    a.href = url;
+                    a.download = `optcg_colecao_${safeName}_${new Date().toISOString().slice(0, 10)}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                };
+
+                // JSON Backup Import
+                const importProfileCollectionFile = (event) => {
+                    const file = event.target.files?.[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        try {
+                            const data = JSON.parse(e.target.result);
+                            const coll = data.collection || data;
+                            const profName = data.profile?.name || file.name.replace('.json', '');
+                            importPayloadData.value = {
+                                name: profName,
+                                collection: coll
+                            };
+                            importPayloadProfileName.value = profName;
+                            importPayloadAction.value = 'new_profile';
+                            showImportPayloadModal.value = true;
+                        } catch (err) {
+                            alert('Arquivo JSON inválido. Verifique o formato.');
+                        }
+                        event.target.value = '';
+                    };
+                    reader.readAsText(file);
+                };
+
+                // Apply Import Payload
+                const applyImportPayload = () => {
+                    if (!importPayloadData.value) return;
+                    const incomingColl = importPayloadData.value.collection || {};
+                    
+                    if (importPayloadAction.value === 'new_profile') {
+                        const name = importPayloadProfileName.value.trim() || `Coleção Importada ${collectionProfiles.value.length + 1}`;
+                        const newId = 'p_' + Date.now();
+                        const newProf = {
+                            id: newId,
+                            name,
+                            createdAt: new Date().toISOString()
+                        };
+                        collectionProfiles.value.push(newProf);
+                        saveCollectionProfiles();
+
+                        activeProfileId.value = newId;
+                        localStorage.setItem(ACTIVE_PROFILE_KEY, newId);
+                        userCardCollection.value = { ...incomingColl };
+                        saveActiveCollection();
+                        alert(`Novo perfil "${name}" criado com sucesso com ${Object.keys(incomingColl).length} tipos de cartas!`);
+                    } else if (importPayloadAction.value === 'merge') {
+                        for (const [cid, qty] of Object.entries(incomingColl)) {
+                            userCardCollection.value[cid] = (userCardCollection.value[cid] || 0) + (parseInt(qty) || 0);
+                        }
+                        saveActiveCollection();
+                        alert(`Coleção mesclada ao perfil "${activeProfile.value.name}" com sucesso!`);
+                    } else if (importPayloadAction.value === 'replace') {
+                        userCardCollection.value = { ...incomingColl };
+                        saveActiveCollection();
+                        alert(`Coleção do perfil "${activeProfile.value.name}" substituída com sucesso!`);
+                    }
+
+                    showImportPayloadModal.value = false;
+                    importPayloadData.value = null;
+                    collectionCurrentPage.value = 1;
+                };
+
+                // Check URL Hash on Load (from QR Code or share link)
+                const checkUrlImportHash = () => {
+                    if (window.location.hash && window.location.hash.startsWith('#import_col=')) {
+                        try {
+                            const b64 = window.location.hash.replace('#import_col=', '');
+                            const jsonStr = decodeURIComponent(escape(atob(b64)));
+                            const parsed = JSON.parse(jsonStr);
+                            if (parsed && parsed.c) {
+                                importPayloadData.value = {
+                                    name: parsed.n || 'Coleção Compartilhada',
+                                    collection: parsed.c
+                                };
+                                importPayloadProfileName.value = parsed.n || 'Coleção Compartilhada';
+                                importPayloadAction.value = 'new_profile';
+                                showImportPayloadModal.value = true;
+                                currentTab.value = 'collection';
+                            }
+                        } catch (e) {
+                            console.error('Erro ao ler URL hash de coleção:', e);
+                        }
+                        // Limpa o hash da URL para não reabrir ao atualizar a página
+                        try {
+                            history.replaceState(null, '', window.location.pathname + window.location.search);
+                        } catch (e) {}
+                    }
+                };
+
 
                 
                 // Get all leaders in the general database
@@ -3436,13 +4563,13 @@
                         let tacticalMessage = "";
 
                         if (isAggro) {
-                            tacticalBadge = "🚨 Oponente Agressivo (Rush / Swarm)";
+                            tacticalBadge = "Oponente Agressivo (Rush / Swarm)";
                             tacticalMessage = "Este oponente tentará zerar seus pontos de vida em ritmo acelerado desde os primeiros turnos. Postura recomendada: CONTROLE DE MESA E DEFESA. Não dispute corrida de vida (face race); use seus personagens para limpar os atacantes virados (rested) dele, mantenha sua mão cheia de Counters (+2000) e preserve sua vida para os turnos decisivos.";
                         } else if (isBigChar) {
-                            tacticalBadge = "🛡️ Oponente de Controle (Late Game / Chefes)";
+                            tacticalBadge = "Oponente de Controle (Late Game / Chefes)";
                             tacticalMessage = "Este oponente quer arrastar o jogo para os turnos 8 a 10 e dominar o campo com personagens gigantes de alto custo. Postura recomendada: PRESSÃO E AGRESSIVIDADE INICIAL. Ataque a vida do oponente nos turnos 2 a 4 forçando-o a queimar cartas da mão se defendendo, guardando suas remoções para responder aos Bosses que ele descer.";
                         } else {
-                            tacticalBadge = "🔄 Oponente de Ritmo (Manipulação & Recursos)";
+                            tacticalBadge = "Oponente de Ritmo (Manipulação & Recursos)";
                             tacticalMessage = "Este líder manipula a mesa virando ou retornando peças. Postura recomendada: JOGO CADENCIADO E VALOR. Faça trocas vantajosas, evite deixar personagens de suporte virados (rested) sem proteção e mantenha Don ativo no turno dele para eventos defensivos.";
                         }
 
@@ -3493,20 +4620,20 @@
                             if (topBlocker) keepList.push(`Blocker (${topBlocker.card_name})`);
                             if (top2k) keepList.push(`Counter +2000 (${top2k.card_name})`);
 
-                            mulliganAdvice = `🚨 Prioridade contra Agressividade: Mantenha ${keepList.length > 0 ? keepList.join(' e ') : 'suas cartas de custo 1-2 e defesas'}. Se a mão vier pesada com apenas cartas de custo 5+, faça Mulligan imediatamente para não sofrer pressão letal rápida.`;
+                            mulliganAdvice = `Prioridade contra Agressividade: Mantenha ${keepList.length > 0 ? keepList.join(' e ') : 'suas cartas de custo 1-2 e defesas'}. Se a mão vier pesada com apenas cartas de custo 5+, faça Mulligan imediatamente para não sofrer pressão letal rápida.`;
                         } else if (isBigChar) {
                             let keepList = [];
                             if (topSearcher) keepList.push(`Buscador (${topSearcher.card_name})`);
                             if (topMid) keepList.push(`Atacante de curva (${topMid.card_name})`);
                             if (topRemoval) keepList.push(`Remoção (${topRemoval.card_name})`);
 
-                            mulliganAdvice = `🛡️ Prioridade contra Controle: Garanta peças de ataque proativo (${keepList.length > 0 ? keepList.join(' + ') : 'buscadores e atacantes de custo médio'}) para pressionar a vida do oponente antes do turno 10. Mãos puramente defensivas devem levar Mulligan.`;
+                            mulliganAdvice = `Prioridade contra Controle: Garanta peças de ataque proativo (${keepList.length > 0 ? keepList.join(' + ') : 'buscadores e atacantes de custo médio'}) para pressionar a vida do oponente antes do turno 10. Mãos puramente defensivas devem levar Mulligan.`;
                         } else {
                             let keepList = [];
                             if (topSearcher || userEarlyDrops[0]) keepList.push(`Drop inicial (${(topSearcher || userEarlyDrops[0]).card_name})`);
                             if (topMid) keepList.push(`Peça de meio de jogo (${topMid.card_name})`);
 
-                            mulliganAdvice = `🔄 Prioridade para Jogo de Ritmo: Busque ${keepList.length > 0 ? keepList.join(' e ') : 'uma curva equilibrada de custos baixos e médios'} para garantir trocas eficientes de recursos desde o início.`;
+                            mulliganAdvice = `Prioridade para Jogo de Ritmo: Busque ${keepList.length > 0 ? keepList.join(' e ') : 'uma curva equilibrada de custos baixos e médios'} para garantir trocas eficientes de recursos desde o início.`;
                         }
 
                         // D) Estratégia de Curva de Don (Cartas Exatas do Deck)
@@ -3734,7 +4861,7 @@
                                     tip: `Você possui ${qty}x no deck. ${reason}`
                                 });
                             } else {
-                                const badgeTitle = isOutlier ? `💡 Outlier Recomendado (+${boost}%)` : `💡 Recomendada (+${boost}%)`;
+                                const badgeTitle = isOutlier ? `Outlier Recomendado (+${boost}%)` : `Recomendada (+${boost}%)`;
                                 keyCounterCards.push({
                                     card_id: cid,
                                     card_name: cname,
@@ -3882,7 +5009,7 @@
                     // a) Tamanho de deck
                     if (stats.total_cards < 50) {
                         structuralSuggestions.push({
-                            icon: '⚠️',
+                            icon: '',
                             title: 'Tamanho de Deck Incompleto',
                             text: `Seu deck possui ${stats.total_cards}/50 cartas. O tamanho regulamentar é exatamente 50 cartas para manter as probabilidades corretas.`,
                             cards: [],
@@ -3890,7 +5017,7 @@
                         });
                     } else if (stats.total_cards > 50) {
                         structuralSuggestions.push({
-                            icon: '⚠️',
+                            icon: '',
                             title: 'Excesso de Cartas no Deck',
                             text: `Seu deck possui ${stats.total_cards} cartas. O ideal é reduzir para 50 cartas para maximizar a chance de comprar suas peças essenciais.`,
                             cards: [],
@@ -3901,7 +5028,7 @@
                     // b) Counters +2000
                     if (stats.counter_2000_count < 8) {
                         structuralSuggestions.push({
-                            icon: '🛡️',
+                            icon: '',
                             title: 'Reforçar Defesa (+2000 Counters)',
                             text: `Apenas ${stats.counter_2000_count} cartas com Counter +2000. Recomenda-se de 8 a 12 cartas para sobreviver a turnos agressivos sem perder muitas cartas da mão.`,
                             cards: find2kCounters(),
@@ -3909,7 +5036,7 @@
                         });
                     } else {
                         structuralSuggestions.push({
-                            icon: '✅',
+                            icon: '',
                             title: 'Ótima Cota Defensiva (+2000)',
                             text: `Você tem ${stats.counter_2000_count} cartas com Counter +2000, garantindo uma sólida margem de sobrevivência.`,
                             cards: [],
@@ -3920,7 +5047,7 @@
                     // c) Blockers
                     if (stats.blockers_count < 4) {
                         structuralSuggestions.push({
-                            icon: '🧱',
+                            icon: '',
                             title: 'Adicionar Blockers de Proteção',
                             text: `Apenas ${stats.blockers_count} blockers identificados. Incluir de 4 a 8 blockers reduz drasticamente o dano direto no seu Líder.`,
                             cards: findBlockers(),
@@ -3931,7 +5058,7 @@
                     // d) Buscadores (Searchers Custo 1-2)
                     if (userSearchers.length === 0) {
                         structuralSuggestions.push({
-                            icon: '🔍',
+                            icon: '',
                             title: 'Incluir Buscadores (Searchers)',
                             text: 'Nenhuma carta de busca inicial (Custo 1-2) foi encontrada. Adicionar de 4 a 8 buscadores melhora muito a consistência de compra.',
                             cards: findSearchers(),
@@ -3939,7 +5066,7 @@
                         });
                     } else {
                         structuralSuggestions.push({
-                            icon: '✅',
+                            icon: '',
                             title: 'Consistência Inicial Garantida',
                             text: `Identificados buscadores de custo baixo para acelerar a estruturação do seu jogo nos primeiros turnos.`,
                             cards: [],
@@ -3950,7 +5077,7 @@
                     // e) Curva de Custo / Boss Characters (Custo 7+)
                     if (userBosses.length > 8) {
                         structuralSuggestions.push({
-                            icon: '⚖️',
+                            icon: '',
                             title: 'Atenção ao Risco de Mão Tijolada',
                             text: `Mais de 8 cartas de custo 7+ podem causar mãos pesadas nos primeiros turnos. Considere ajustar para 4-6 finalizadores.`,
                             cards: [],
@@ -3958,7 +5085,7 @@
                         });
                     } else if (userBosses.length === 0) {
                         structuralSuggestions.push({
-                            icon: '👑',
+                            icon: '',
                             title: 'Falta de Finalizadores (Boss Characters)',
                             text: 'Seu deck não possui personagens de Custo 7+. Adicionar de 2 a 4 ameaças pesadas ajuda a fechar o jogo no Late Game.',
                             cards: findBosses(),
@@ -3969,7 +5096,7 @@
                     // f) Remoções
                     if (stats.removal_count < 3) {
                         structuralSuggestions.push({
-                            icon: '💥',
+                            icon: '',
                             title: 'Faltam Remoções de Mesa',
                             text: `Apenas ${stats.removal_count} eventos de remoção (K.O./Trash). Adicionar de 4 a 6 remoções ajuda a conter ameaças grandes do oponente.`,
                             cards: findRemovals(),
@@ -4018,7 +5145,7 @@
                             }).join(' ');
 
                             structuralSuggestions.unshift({
-                                icon: '🔥',
+                                icon: '',
                                 title: 'Otimização com Decks Populares (Limitless TCG)',
                                 text: `Identificamos cartas Staples com alta presença nos decks populares ausentes no seu deck. ${swapLines}`,
                                 cards: stapleObjs,
@@ -4104,6 +5231,8 @@
                 onMounted(async () => {
                     await loadData();
                     loadSavedDecks();
+                    loadCollectionProfiles();
+                    checkUrlImportHash();
                     
                     // Keyboard shortcuts
                     document.addEventListener('keydown', (e) => {
@@ -4117,6 +5246,10 @@
                             if (showImportModal.value) { showImportModal.value = false; return; }
                             if (showExportModal.value) { showExportModal.value = false; return; }
                             if (showDeckAnalysis.value) { showDeckAnalysis.value = false; return; }
+                            if (showNewProfileModal.value) { showNewProfileModal.value = false; return; }
+                            if (showRenameProfileModal.value) { showRenameProfileModal.value = false; return; }
+                            if (showSyncQrModal.value) { showSyncQrModal.value = false; return; }
+                            if (showImportPayloadModal.value) { showImportPayloadModal.value = false; return; }
                         }
                         
                         // '/': focus search bar of active tab
@@ -4128,6 +5261,8 @@
                                 document.querySelector('input[placeholder*="Filtrar por nome"]')?.focus();
                             } else if (currentTab.value === 'meta') {
                                 document.querySelector('input[placeholder*="Buscar l"]')?.focus();
+                            } else if (currentTab.value === 'collection') {
+                                document.querySelector('input[placeholder*="código (OP01-001)"]')?.focus();
                             }
                             return;
                         }
@@ -4245,6 +5380,47 @@
                     isCardBanned,
                     getBanReasonText,
                     bannedPairToast,
+
+                    // Multi-Profile & Collection Exports
+                    collectionProfiles,
+                    activeProfileId,
+                    activeProfile,
+                    userCardCollection,
+                    showNewProfileModal,
+                    newProfileNameInput,
+                    showRenameProfileModal,
+                    renameProfileNameInput,
+                    showSyncQrModal,
+                    syncQrDataUrl,
+                    syncQrUrl,
+                    qrCopiedToast,
+                    showImportPayloadModal,
+                    importPayloadData,
+                    importPayloadAction,
+                    importPayloadProfileName,
+                    collectionFilters,
+                    collectionCurrentPage,
+                    collectionTotalPages,
+                    collectionStats,
+                    filteredCollectionCards,
+                    paginatedCollectionCards,
+                    createProfile,
+                    switchProfile,
+                    openRenameProfileModal,
+                    renameProfile,
+                    deleteActiveProfile,
+                    getCardOwned,
+                    setCardOwned,
+                    incrementCardOwned,
+                    decrementCardOwned,
+                    setPlaysetOwned,
+                    clearCollectionFilters,
+                    isLocalhost,
+                    openSyncQrModal,
+                    copySyncQrUrl,
+                    exportProfileCollection,
+                    importProfileCollectionFile,
+                    applyImportPayload,
 
                     // Report helpers
                     getDefenseLabel,
