@@ -1,4 +1,4 @@
-﻿/**
+/**
  * optcg-utils.js
  * Pure utility functions for OPTCG-COACH (no reactive dependencies).
  * Exposed on window.OPTCG_UTILS for use inside Vue setup().
@@ -31,7 +31,7 @@
 
     function getColors(colorStr) {
         if (!colorStr || colorStr === 'NULL') return [];
-        return colorStr.split('/');
+        return colorStr.split(/[\s/]+/).map(c => c.trim()).filter(Boolean);
     }
 
     function getColorClass(color) {

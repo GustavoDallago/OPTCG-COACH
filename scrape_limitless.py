@@ -329,6 +329,57 @@ def parse_pairings(t_id: str) -> List[Dict[str, Any]]:
 
     return all_matches
 
+def fetch_fallback_meta_cards(leader_id: str, card_db: dict, current_set_code: str) -> list:
+    """
+    Se o deck nunca ganhou no meta (0 vitórias) e não possui cartas salvas,
+    busca as cartas que o líder mais usa nos arquivos JSON de metas anteriores ou no banco de cartas.
+    """
+    import glob
+    meta_files = sorted(glob.glob(os.path.join(DATA_DIR, "meta_*.json")), reverse=True)
+    for filepath in meta_files:
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                prev_data = json.load(f)
+            for leader in prev_data.get("leaders", []):
+                l_id = leader.get("leader_card_id") or ""
+                if l_id.upper() == leader_id.upper():
+                    cards = leader.get("cards", [])
+                    if cards and len(cards) > 0:
+                        return cards
+        except Exception:
+            pass
+
+    leader_info = card_db.get(leader_id, {})
+    leader_color = leader_info.get("card_color") or ""
+    if not leader_color:
+        return []
+
+    leader_colors = [c.strip().lower() for c in re.split(r'[\s/]+', leader_color) if c.strip()]
+    fallback_cards = []
+
+    for cid, cinfo in card_db.items():
+        if cid == leader_id or cinfo.get("card_type") == "Leader":
+            continue
+        ccolor_raw = (cinfo.get("card_color") or "").lower()
+        ccolors = [c.strip() for c in re.split(r'[\s/]+', ccolor_raw) if c.strip()]
+        if any(lc in ccolors for lc in leader_colors):
+            c_set = cid.split("-")[0] if "-" in cid else current_set_code
+            c_img = cinfo.get("card_image") or f"https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/{c_set}/{cid}_EN.webp"
+            fallback_cards.append({
+                "card_name": clean_card_name(cinfo.get("card_name") or cid),
+                "card_id": cid,
+                "inclusion_percentage": 50.0,
+                "copies_recommendation": "usually 4x",
+                "avg_copies": 4.0,
+                "category": "suggested",
+                "decks_count_text": "Carta Sugerida por Cor",
+                "image": c_img
+            })
+            if len(fallback_cards) >= 30:
+                break
+
+    return fallback_cards
+
 def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 7):
     print("=" * 60)
     print(f"🏴‍☠️ INICIANDO SCRAPER LIMITLESS TCG: META {set_code.upper()} (ÚLTIMOS {days} DIAS)")
@@ -559,7 +610,13 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
                 "winrate": winrate
             }
             
-        overall_winrate = round((total_wins / max(1, total_games)) * 100.0, 1) if total_games > 0 else 50.0
+        overall_winrate = round((total_wins / max(1, total_games)) * 100.0, 1) if total_games > 0 else 0.0
+        
+        # REGRA: Se o deck nunca ganhou no meta (overall_winrate == 0 ou total_wins == 0) e não possui cartas coletadas,
+        # puxe as cartas que ele mais usa (de metas anteriores ou fallback do banco de cartas).
+        # MAS SÓ EM CASO DE NUNCA TER GANHO. CASO CONTRÁRIO MANTENHA IGUAL.
+        if (overall_winrate == 0.0 or total_wins == 0) and len(cards_list) == 0:
+            cards_list = fetch_fallback_meta_cards(leader_id, card_db, set_code)
         
         sample_builds = leader_sample_builds.get(leader_id, [])
         sample_builds.sort(key=lambda x: x["placing"])

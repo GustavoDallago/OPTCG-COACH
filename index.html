@@ -2127,15 +2127,98 @@
                     selectedMetaLeader.value = leader;
                 };
 
+                // Retorna as cartas ativas de um líder do meta.
+                // REGRA: Se o deck nunca ganhou no meta (0 vitórias/winrate=0), mas não tem cartas no meta atual,
+                // puxe as cartas que ele mais usa (de outros metas ou fallback do banco de cartas).
+                // CASO O CONTRÁRIO (se o deck já ganhou / tem vitórias), MANTENHA IGUAL (retorna leader.cards sem alterações).
+                const getActiveLeaderCards = (leader) => {
+                    if (!leader) return [];
+                    const originalCards = leader.cards || [];
+
+                    // Verifica se o deck já teve vitórias
+                    const wr = leader.overall_winrate !== undefined && leader.overall_winrate !== null ? Number(leader.overall_winrate) : 0;
+                    let totalWins = 0;
+                    if (leader.matchups) {
+                        for (const key in leader.matchups) {
+                            totalWins += (leader.matchups[key].wins || 0);
+                        }
+                    }
+                    const hasWon = wr > 0 || totalWins > 0;
+
+                    // CASO CONTRÁRIO MANTENHA IGUAL: Se o deck já ganhou no meta e possui cartas, mantém as originais
+                    if (hasWon && originalCards.length > 0) {
+                        return originalCards;
+                    }
+
+                    // Se já possui cartas mesmo sem vitórias registradas, mantém as originais
+                    if (originalCards.length > 0) {
+                        return originalCards;
+                    }
+
+                    // MAS SÓ EM CASO DE SE O DECK NUNCA TIVER GANHO:
+                    // Se o deck nunca ganhou no meta e está sem cartas no meta atual, busca as cartas mais usadas em outros metas
+                    const leaderId = getLeaderCardId(leader);
+
+                    if (availableMetaSets.value && availableMetaSets.value.length > 0) {
+                        for (const sObj of availableMetaSets.value) {
+                            if (sObj.data && sObj.data.leaders) {
+                                const found = sObj.data.leaders.find(l => getLeaderCardId(l) === leaderId);
+                                if (found && found.cards && found.cards.length > 0) {
+                                    return found.cards;
+                                }
+                            }
+                        }
+                    }
+
+                    // Fallback para cartas por cor no banco se nenhum arquivo de meta tiver cartas salvas
+                    const lColor = leader.archetype_code && leader.archetype_code.includes('||') ? leader.archetype_code.split('||')[1] : (leader.card_color || 'Multi');
+                    const leaderColors = getColors(lColor);
+                    const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
+                    const fallback = [];
+                    const seen = new Set();
+
+                    for (const c of allCards) {
+                        if (c.card_type === 'Leader' || c.card_type === 'DON!!') continue;
+                        const cid = c.card_set_id || c.card_id;
+                        if (!cid || seen.has(cid)) continue;
+
+                        const cColors = getColors(c.card_color);
+                        if (cColors.some(cc => leaderColors.includes(cc))) {
+                            seen.add(cid);
+                            fallback.push({
+                                card_name: c.card_name || cid,
+                                card_id: cid,
+                                inclusion_percentage: 50.0,
+                                copies_recommendation: "usually 4x",
+                                avg_copies: 4,
+                                category: "suggested",
+                                decks_count_text: "Cartas Mais Usadas (Sugestão por Cor)",
+                                image: getCardImage(c)
+                            });
+                            if (fallback.length >= 24) break;
+                        }
+                    }
+
+                    return fallback;
+                };
+
                 // Filter Meta cards by category: core (>70%), suggested (30% to 70%), tech (<30%)
                 const getMetaCardsByCategory = (category) => {
-                    if (!selectedMetaLeader.value || !selectedMetaLeader.value.cards) return [];
-                    const cards = selectedMetaLeader.value.cards;
+                    if (!selectedMetaLeader.value) return [];
+                    const cards = getActiveLeaderCards(selectedMetaLeader.value);
                     
                     if (category === 'core') {
-                        return cards.filter(c => c.inclusion_percentage > 70.0);
+                        const core = cards.filter(c => c.inclusion_percentage > 70.0);
+                        if (core.length === 0 && cards.length > 0) {
+                            return cards.slice(0, Math.ceil(cards.length / 2));
+                        }
+                        return core;
                     } else if (category === 'suggested') {
-                        return cards.filter(c => c.inclusion_percentage >= 30.0 && c.inclusion_percentage <= 70.0);
+                        const suggested = cards.filter(c => c.inclusion_percentage >= 30.0 && c.inclusion_percentage <= 70.0);
+                        if (suggested.length === 0 && cards.length > 0) {
+                            return cards.slice(Math.ceil(cards.length / 2));
+                        }
+                        return suggested;
                     } else if (category === 'tech') {
                         return cards.filter(c => c.inclusion_percentage < 30.0);
                     }
@@ -2150,7 +2233,7 @@
                     if (found) {
                         openDetails(found);
                     } else {
-                        const metaList = selectedMetaLeader.value.cards;
+                        const metaList = getActiveLeaderCards(selectedMetaLeader.value);
                         const metaCard = metaList.find(c => c.card_id === cardId);
                         if (metaCard) {
                             openDetails({
@@ -2234,8 +2317,9 @@
                         txtLines.push(`1x${leaderId}`);
                     }
 
-                    if (leader.cards && leader.cards.length > 0) {
-                        const sorted = [...leader.cards].sort((a, b) => (b.inclusion_percentage || 0) - (a.inclusion_percentage || 0));
+                    const cards = getActiveLeaderCards(leader);
+                    if (cards && cards.length > 0) {
+                        const sorted = [...cards].sort((a, b) => (b.inclusion_percentage || 0) - (a.inclusion_percentage || 0));
                         let totalCards = 0;
 
                         for (const mc of sorted) {
@@ -2335,8 +2419,9 @@
                     userDeck.value = [];
                     let countInDeck = 0;
 
-                    if (leader.cards && leader.cards.length > 0) {
-                        const sortedCards = [...leader.cards].sort((a, b) => (b.inclusion_percentage || 0) - (a.inclusion_percentage || 0));
+                    const cards = getActiveLeaderCards(leader);
+                    if (cards && cards.length > 0) {
+                        const sortedCards = [...cards].sort((a, b) => (b.inclusion_percentage || 0) - (a.inclusion_percentage || 0));
 
                         for (const mc of sortedCards) {
                             if (countInDeck >= 50) break;
@@ -2924,10 +3009,11 @@
                     
                     // Acha no metaData o líder correspondente
                     const matchedLeader = metaData.value.leaders.find(l => l.leader_card_id === selectedBuilderLeader.value.card_set_id);
-                    if (matchedLeader && matchedLeader.cards) {
+                    const matchedLeaderCards = matchedLeader ? getActiveLeaderCards(matchedLeader) : [];
+                    if (matchedLeader && matchedLeaderCards.length > 0) {
                         const metaCoreMap = {};
                         let totalCoreWeight = 0;
-                        for (const c of matchedLeader.cards) {
+                        for (const c of matchedLeaderCards) {
                             if (c.inclusion_percentage >= 50.0) {
                                 metaCoreMap[c.card_id] = c.inclusion_percentage;
                                 totalCoreWeight += c.inclusion_percentage;
@@ -3294,8 +3380,9 @@
 
                     // Mapeamento de inclusão das cartas no Meta
                     const metaInclusionMap = {};
-                    if (matchedLeader && matchedLeader.cards) {
-                        matchedLeader.cards.forEach(c => {
+                    const currentMatchedCards = matchedLeader ? getActiveLeaderCards(matchedLeader) : [];
+                    if (currentMatchedCards && currentMatchedCards.length > 0) {
+                        currentMatchedCards.forEach(c => {
                             metaInclusionMap[c.card_id.toUpperCase()] = parseFloat(c.inclusion_percentage || 0);
                         });
                     }
@@ -3436,11 +3523,11 @@
                     }
 
                     // g) Otimização Inteligente com Decks Campeões (Limitless TCG - Menor % vs Maior %)
-                    if (matchedLeader && matchedLeader.cards && matchedLeader.cards.length > 0) {
+                    if (matchedLeader && currentMatchedCards && currentMatchedCards.length > 0) {
                         const userDeckSetIds = new Set(userDeck.value.map(item => (item.card.card_set_id || '').toUpperCase()));
                         
                         // Missing staples (>= 50% inclusion in tournaments)
-                        const missingMetaStaples = matchedLeader.cards
+                        const missingMetaStaples = currentMatchedCards
                             .filter(c => !userDeckSetIds.has((c.card_id || '').toUpperCase()) && parseFloat(c.inclusion_percentage || 0) >= 50.0)
                             .sort((a, b) => parseFloat(b.inclusion_percentage || 0) - parseFloat(a.inclusion_percentage || 0));
                             

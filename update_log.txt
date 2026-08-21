@@ -40,3 +40,25 @@
 [2026-08-20 10:57:36] ==========================================
 [2026-08-20 10:57:36] SUCCESS: All update tasks completed flawlessly!
 [2026-08-20 10:57:36] ==========================================
+[2026-08-20 20:32:57] ==========================================
+[2026-08-20 20:32:57] Starting Full Automatic Update Pipeline...
+[2026-08-20 20:32:57] ==========================================
+[2026-08-20 20:32:57] Executing: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe fetch_optcg_data.py
+[2026-08-20 20:33:13] SUCCESS: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe fetch_optcg_data.py
+[2026-08-20 20:33:13] Executing: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe scrape_limitless.py --set OP17 --min-players 16
+[2026-08-20 20:42:02] ==========================================
+[2026-08-20 20:42:02] Starting Full Automatic Update Pipeline...
+[2026-08-20 20:42:02] ==========================================
+[2026-08-20 20:42:02] Executing: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe fetch_optcg_data.py
+[2026-08-20 20:42:18] SUCCESS: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe fetch_optcg_data.py
+[2026-08-20 20:42:18] Executing: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe scrape_limitless.py --set OP17 --min-players 16
+[2026-08-20 20:59:14] SUCCESS: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe scrape_limitless.py --set OP17 --min-players 16
+[2026-08-20 20:59:14] Recalculating decks_tracked for all meta JSON files...
+[2026-08-20 20:59:14] Updated decks_tracked in 13 files.
+[2026-08-20 20:59:14] Generating optcg_data/manifest.json...
+[2026-08-20 20:59:14] manifest.json generated: 13 sets available.
+[2026-08-20 20:59:14] Executing: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe -m unittest test_deck_analyzer.py
+[2026-08-20 20:59:14] SUCCESS: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe -m unittest test_deck_analyzer.py
+[2026-08-20 20:59:14] ==========================================
+[2026-08-20 20:59:14] SUCCESS: All update tasks completed flawlessly!
+[2026-08-20 20:59:14] ==========================================

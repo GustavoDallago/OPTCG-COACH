@@ -224,5 +224,23 @@ class TestDeckAnalyzer(unittest.TestCase):
             expected_file = f'optcg_data/meta_{code}.json'
             self.assertTrue(glob.glob(expected_file), f'Manifest references {code} but file not found')
 
+    def test_zero_win_leader_cards_fallback(self):
+        """Tests that zero-win leaders in meta files have fallback cards populated."""
+        import json
+        import glob
+
+        for filepath in glob.glob('optcg_data/meta_*.json'):
+            with open(filepath, 'r', encoding='utf-8') as f:
+                try:
+                    data = json.load(f)
+                except Exception:
+                    continue
+            for leader in data.get('leaders', []):
+                winrate = leader.get('overall_winrate', 0.0)
+                total_wins = sum(m.get('wins', 0) for m in leader.get('matchups', {}).values())
+                if (winrate == 0.0 or total_wins == 0):
+                    cards = leader.get('cards', [])
+                    self.assertTrue(len(cards) > 0, f"Leader {leader.get('name')} in {filepath} has 0 wins but empty cards list")
+
 if __name__ == "__main__":
     unittest.main()
