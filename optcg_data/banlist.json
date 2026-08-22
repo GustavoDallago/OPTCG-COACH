@@ -1,6 +1,9 @@
 {
     "source": "Official Bandai ONE PIECE CARD GAME (EN)",
-    "last_updated": "2026-08-21",
+    "last_updated": "2026-08-22",
+    "banned_sets": [],
+    "banned_starter_decks": [],
+    "whitelisted_cards": [],
     "banned_cards": [
         "OP03-040",
         "OP06-047",

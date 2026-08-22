@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T03:52:24Z",
+  "generated_at": "2026-08-22T03:45:10Z",
   "available_meta_sets": [
     {
       "code": "OP05",
@@ -64,7 +64,7 @@
     {
       "code": "OP17",
       "deck_count": 396,
-      "scraped_at": "2026-08-21 03:52:24"
+      "scraped_at": "2026-08-22 03:45:10"
     }
   ],
   "total_sets": 13
