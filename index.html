@@ -14,6 +14,9 @@
     <script src="./js/optcg-utils.js"></script>
     <!-- QRCode JS for Cross-Device Sync -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <!-- html2canvas for Deck Image Export -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
     <style>
         [v-cloak] { display: none; }
         /* Custom scrollbar for slate theme */
@@ -518,7 +521,7 @@
                         <div v-if="topMetaLeader && !metaSearchQuery" class="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-slate-900 border border-amber-500/30 rounded-2xl p-5 flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg">
                             <div class="flex items-center gap-4">
                                 <div class="w-14 sm:w-16 aspect-[2.5/3.5] rounded-xl overflow-hidden bg-slate-950 border border-amber-500/40 flex-shrink-0 relative shadow-md">
-                                    <img :src="topMetaLeader.image" :alt="topMetaLeader.name" class="w-full h-full object-cover object-center">
+                                    <img :src="topMetaLeader.image" :alt="topMetaLeader.name" class="w-full h-full object-cover object-center" loading="lazy">
                                 </div>
                                 <div>
                                     <div class="flex flex-wrap items-center gap-2">
@@ -624,7 +627,7 @@
                                         :src="getCardImage(selectedMetaLeader)" 
                                         :alt="selectedMetaLeader.name" 
                                         @error="handleCardImgError($event, getLeaderCardId(selectedMetaLeader))"
-                                        class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300">
+                                        class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300" loading="lazy">
                                     <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl"></div>
                                 </div>
                             </div>
@@ -700,7 +703,7 @@
                                         class="bg-slate-900 border border-slate-800/80 hover:border-emerald-500/50 rounded-xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group shadow-sm flex flex-col">
                                         
                                         <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 flex items-center justify-center overflow-hidden">
-                                            <img :src="getCardImage(metaCard)" :alt="metaCard.card_name" @error="handleCardImgError($event, getMetaCardId(metaCard))" class="w-full h-full object-cover">
+                                            <img :src="getCardImage(metaCard)" :alt="metaCard.card_name" @error="handleCardImgError($event, getMetaCardId(metaCard))" class="w-full h-full object-cover" loading="lazy">
                                             <div class="absolute top-2 left-2 bg-emerald-500 text-slate-950 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded shadow">
                                                 {{ metaCard.inclusion_percentage }}%
                                             </div>
@@ -737,7 +740,7 @@
                                         class="bg-slate-900 border border-slate-800/80 hover:border-amber-500/50 rounded-xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group shadow-sm flex flex-col">
                                         
                                         <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 flex items-center justify-center overflow-hidden">
-                                            <img :src="getCardImage(metaCard)" :alt="metaCard.card_name" @error="handleCardImgError($event, getMetaCardId(metaCard))" class="w-full h-full object-cover">
+                                            <img :src="getCardImage(metaCard)" :alt="metaCard.card_name" @error="handleCardImgError($event, getMetaCardId(metaCard))" class="w-full h-full object-cover" loading="lazy">
                                             <div class="absolute top-2 left-2 bg-amber-500 text-slate-950 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded shadow">
                                                 {{ metaCard.inclusion_percentage }}%
                                             </div>
@@ -779,7 +782,7 @@
                                         class="bg-slate-900 border border-slate-800/80 hover:border-slate-500/50 rounded-xl overflow-hidden hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group shadow-sm flex flex-col opacity-80 hover:opacity-100">
                                         
                                         <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 flex items-center justify-center overflow-hidden">
-                                            <img :src="getCardImage(metaCard)" :alt="metaCard.card_name" @error="handleCardImgError($event, getMetaCardId(metaCard))" class="w-full h-full object-cover">
+                                            <img :src="getCardImage(metaCard)" :alt="metaCard.card_name" @error="handleCardImgError($event, getMetaCardId(metaCard))" class="w-full h-full object-cover" loading="lazy">
                                             <div class="absolute top-2 left-2 bg-slate-800 text-slate-300 text-[10px] font-mono px-1.5 py-0.5 rounded shadow">
                                                 {{ metaCard.inclusion_percentage }}%
                                             </div>
@@ -898,7 +901,7 @@
                             v-for="deck in savedDecks" 
                             :key="deck.id"
                             class="flex items-center gap-3 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5">
-                            <img v-if="deck.leaderImage" :src="deck.leaderImage" class="w-8 h-10 object-cover rounded" :alt="deck.leaderName">
+                            <img v-if="deck.leaderImage" :src="deck.leaderImage" class="w-8 h-10 object-cover rounded" :alt="deck.leaderName" loading="lazy">
                             <div class="flex-1 min-w-0">
                                 <p class="text-xs font-bold text-slate-200 truncate">{{ deck.name }}</p>
                                 <p class="text-[10px] text-slate-500">{{ deck.leaderName }} · {{ deck.totalCards }} cartas · {{ new Date(deck.savedAt).toLocaleDateString('pt-BR') }}</p>
@@ -961,7 +964,7 @@
                                     v-if="leader.card_image" 
                                     :src="leader.card_image" 
                                     :alt="leader.card_name" 
-                                    class="w-full h-full object-cover">
+                                    class="w-full h-full object-cover" loading="lazy">
                                 <div v-else class="w-full h-full p-4 flex flex-col justify-between items-center text-center bg-slate-950 text-slate-400">
                                     <span class="text-[10px] font-mono">{{ leader.card_set_id }}</span>
                                     <span class="text-xs font-bold">{{ leader.card_name }}</span>
@@ -1078,7 +1081,7 @@
                             <div class="flex justify-between items-center pb-4 border-b border-slate-800/80">
                                 <div class="flex items-center gap-3">
                                     <div class="w-12 h-12 rounded-lg overflow-hidden bg-slate-950 flex items-center justify-center border border-slate-800 shrink-0">
-                                        <img :src="getCardImage(selectedBuilderLeader)" :alt="selectedBuilderLeader.card_name" @error="handleCardImgError($event, getLeaderCardId(selectedBuilderLeader))" class="w-full h-full object-cover object-top scale-[1.3]">
+                                        <img :src="getCardImage(selectedBuilderLeader)" :alt="selectedBuilderLeader.card_name" @error="handleCardImgError($event, getLeaderCardId(selectedBuilderLeader))" class="w-full h-full object-cover object-top scale-[1.3]" loading="lazy">
                                     </div>
                                     <div>
                                         <h3 class="font-bold text-sm text-slate-100 line-clamp-1">{{ selectedBuilderLeader.card_name }}</h3>
@@ -1124,16 +1127,28 @@
                                     class="bg-slate-950/50 hover:bg-slate-950 border border-slate-800 rounded-lg p-2 flex items-center justify-between gap-3 group">
                                     
                                     <div class="flex items-center gap-2 min-w-0">
-                                        <div class="w-8 h-10 bg-slate-900 border border-slate-800 rounded overflow-hidden flex items-center justify-center shrink-0">
-                                            <img :src="getCardImage(item.card)" :alt="item.card.card_name" @error="handleCardImgError($event, item.card.card_set_id)" class="w-full h-full object-cover">
+                                        <div class="relative w-8 h-10 bg-slate-900 border border-slate-800 rounded overflow-hidden flex items-center justify-center shrink-0">
+                                            <img :src="getCardImage(item.card)" :alt="item.card.card_name" @error="handleCardImgError($event, item.card.card_set_id)" class="w-full h-full object-cover" loading="lazy">
+                                            <!-- Badge de carta banida/restrita -->
+                                            <span v-if="isCardBanned(item.card)"
+                                                  class="absolute inset-0 flex items-end justify-center bg-rose-900/60 pb-0.5"
+                                                  :title="getBanReasonText(item.card)">
+                                                <span class="text-[7px] font-black text-white leading-none">⛔BAN</span>
+                                            </span>
                                         </div>
                                         <div class="min-w-0">
-                                            <h4 class="text-xs font-bold text-slate-200 line-clamp-1 group-hover:text-amber-500 transition-colors" :title="item.card.card_name">
+                                            <h4 class="text-xs font-bold line-clamp-1 group-hover:text-amber-500 transition-colors"
+                                                :class="isCardBanned(item.card) ? 'text-rose-400' : 'text-slate-200'"
+                                                :title="item.card.card_name">
                                                 {{ item.card.card_name }}
                                             </h4>
                                             <span class="text-[9px] font-mono text-slate-500">{{ item.card.card_set_id }}</span>
+                                            <span v-if="isCardBanned(item.card)" class="text-[8px] font-bold text-rose-500 block leading-none mt-0.5">
+                                                {{ getBanReasonText(item.card) }}
+                                            </span>
                                         </div>
                                     </div>
+
                                     
                                     <!-- Quantity adjust buttons -->
                                     <div class="flex items-center gap-1">
@@ -1174,7 +1189,7 @@
                                     </select>
                                 </div>
 
-                                <div class="grid grid-cols-2 gap-2">
+                                <div class="grid grid-cols-3 gap-2">
                                     <button 
                                         @click="runDeckAnalysis"
                                         :disabled="userDeck.length === 0"
@@ -1186,6 +1201,14 @@
                                         :disabled="userDeck.length === 0"
                                         class="py-3 bg-slate-950 hover:bg-slate-800 border border-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-amber-400 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5">
                                         <span>Exportar TXT</span>
+                                    </button>
+                                    <button 
+                                        @click="exportUserDeckImage"
+                                        :disabled="userDeck.length === 0 || isExportingImage"
+                                        class="py-3 bg-slate-950 hover:bg-slate-800 border border-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-emerald-400 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5"
+                                        title="Exportar deck como imagem PNG">
+                                        <span v-if="!isExportingImage">Exportar PNG</span>
+                                        <span v-else class="animate-pulse flex items-center gap-1">Gerando...</span>
                                     </button>
                                 </div>
                                 <p v-if="userDeckCount !== 50 && userDeckCount > 0" class="text-[10px] text-amber-500 text-center font-mono">
@@ -1589,7 +1612,7 @@
                             :src="getCardImage(selectedCard)" 
                             :alt="selectedCard.card_name" 
                             @error="handleCardImgError($event, selectedCard.card_set_id || selectedCard.card_id)"
-                            class="w-full h-full object-cover">
+                            class="w-full h-full object-cover" loading="lazy">
                     </div>
                 </div>
 
@@ -1840,7 +1863,7 @@
                                                     v-if="rc.card_image" 
                                                     :src="rc.card_image" 
                                                     :alt="rc.card_name"
-                                                    class="w-full h-full object-cover">
+                                                    class="w-full h-full object-cover" loading="lazy">
                                                 <div v-else class="w-full h-full bg-slate-950 flex items-center justify-center text-[8px] text-slate-500 font-mono text-center p-1">{{ rc.card_set_id }}</div>
                                             </div>
                                             <span class="text-[8px] text-slate-500 font-mono text-center line-clamp-1 w-full group-hover:text-amber-500 transition-colors">{{ rc.card_set_id }}</span>
@@ -1872,7 +1895,7 @@
                                             :src="getCardImage(sug.replacementCard)" 
                                             :alt="sug.replacementCard.card_name" 
                                             @error="handleCardImgError($event, sug.replacementCard.card_set_id)"
-                                            class="w-full h-full object-cover">
+                                            class="w-full h-full object-cover" loading="lazy">
                                     </div>
                                 </div>
                             </div>
@@ -1893,7 +1916,7 @@
                                     <!-- Opponent Details -->
                                     <div class="flex items-center gap-3">
                                         <div class="w-10 h-10 rounded-full overflow-hidden bg-slate-900 flex items-center justify-center border border-slate-800 shrink-0">
-                                            <img :src="getCardImage({image: opp.image, card_set_id: opp.opponent_id})" :alt="opp.opponent_name" @error="handleCardImgError($event, opp.opponent_id)" class="w-full h-full object-cover object-top scale-[1.3]">
+                                            <img :src="getCardImage({image: opp.image, card_set_id: opp.opponent_id})" :alt="opp.opponent_name" @error="handleCardImgError($event, opp.opponent_id)" class="w-full h-full object-cover object-top scale-[1.3]" loading="lazy">
                                         </div>
                                         <div>
                                             <h4 class="font-bold text-sm text-slate-200">{{ opp.opponent_name }}</h4>
@@ -2023,7 +2046,7 @@
                                                         :src="kcard.image" 
                                                         :alt="kcard.card_name" 
                                                         @error="handleCardImgError($event, kcard.card_id)"
-                                                        class="w-full h-full object-cover">
+                                                        class="w-full h-full object-cover" loading="lazy">
                                                     <div v-else class="w-full h-full flex items-center justify-center text-[7px] text-slate-500 text-center font-mono p-0.5">{{ kcard.card_id }}</div>
                                                 </div>
 
@@ -2267,7 +2290,7 @@
 
                 <!-- QR Code Box -->
                 <div class="bg-white p-4 rounded-2xl shadow-xl flex items-center justify-center">
-                    <img v-if="syncQrDataUrl" :src="syncQrDataUrl" alt="QR Code de Sincronização" class="w-56 h-56">
+                    <img v-if="syncQrDataUrl" :src="syncQrDataUrl" alt="QR Code de Sincronização" class="w-56 h-56" loading="lazy">
                     <div v-else class="w-56 h-56 flex items-center justify-center text-slate-900 text-xs font-mono">
                         Gerando QR Code...
                     </div>
@@ -2416,7 +2439,9 @@
                 const exportModalText = ref('');
                 const exportModalTitle = ref('');
                 const copiedToast = ref(false);
+                const isExportingImage = ref(false);
                 const bannedPairToast = ref({ show: false, pair: [] });
+
 
                 // --- Deck Builder State ---
                 const selectedBuilderLeader = ref(null);
@@ -3140,6 +3165,281 @@
                     showExportModal.value = true;
                 };
 
+                const exportUserDeckImage = async () => {
+                    if (userDeck.value.length === 0) return;
+                    isExportingImage.value = true;
+
+                    try {
+                        const leader = selectedBuilderLeader.value;
+                        const mainDeckCards = [];
+                        userDeck.value.forEach(item => {
+                            const qty = parseInt(item.quantity || 1);
+                            for (let i = 0; i < qty; i++) {
+                                mainDeckCards.push(item.card);
+                            }
+                        });
+
+                        // Image loader with CORS cache-busting and graceful fallback
+                        const loadCardImg = (card, isLdr = false) => {
+                            return new Promise((resolve) => {
+                                if (!card) return resolve({ img: null, card, isLeader: isLdr });
+                                const rawSrc = getCardImage(card);
+                                if (!rawSrc) return resolve({ img: null, card, isLeader: isLdr });
+
+                                const img = new Image();
+                                img.crossOrigin = 'anonymous';
+                                let finished = false;
+
+                                const timer = setTimeout(() => {
+                                    if (!finished) {
+                                        finished = true;
+                                        resolve({ img: null, card, isLeader: isLdr });
+                                    }
+                                }, 4500);
+
+                                img.onload = () => {
+                                    if (!finished) {
+                                        finished = true;
+                                        clearTimeout(timer);
+                                        resolve({ img, card, isLeader: isLdr });
+                                    }
+                                };
+
+                                img.onerror = () => {
+                                    // Retry without cachebust query in case server disallowed extra params
+                                    if (!finished) {
+                                        const retry = new Image();
+                                        retry.crossOrigin = 'anonymous';
+                                        let retryTimer = setTimeout(() => {
+                                            if (!finished) {
+                                                finished = true;
+                                                clearTimeout(timer);
+                                                resolve({ img: null, card, isLeader: isLdr });
+                                            }
+                                        }, 2500);
+                                        retry.onload = () => {
+                                            if (!finished) {
+                                                finished = true;
+                                                clearTimeout(timer);
+                                                clearTimeout(retryTimer);
+                                                resolve({ img: retry, card, isLeader: isLdr });
+                                            }
+                                        };
+                                        retry.onerror = () => {
+                                            if (!finished) {
+                                                finished = true;
+                                                clearTimeout(timer);
+                                                clearTimeout(retryTimer);
+                                                resolve({ img: null, card, isLeader: isLdr });
+                                            }
+                                        };
+                                        retry.src = rawSrc;
+                                    }
+                                };
+
+                                const sep = rawSrc.includes('?') ? '&' : '?';
+                                img.src = rawSrc.startsWith('data:') ? rawSrc : `${rawSrc}${sep}cors=1`;
+                            });
+                        };
+
+                        // Concurrently load Leader + all 50 Main Deck Cards
+                        const [leaderLoaded, ...deckLoaded] = await Promise.all([
+                            loadCardImg(leader, true),
+                            ...mainDeckCards.map(c => loadCardImg(c, false))
+                        ]);
+
+                        // Layout Constants
+                        const COLS = 10;
+                        const CARD_W = 120;
+                        const CARD_H = 168;
+                        const GAP = 8;
+                        const PAD = 24;
+                        const HEADER_H = 160;
+                        const FOOTER_H = 36;
+                        const ROWS = Math.max(1, Math.ceil(deckLoaded.length / COLS));
+                        const TOTAL_W = PAD * 2 + COLS * CARD_W + (COLS - 1) * GAP; // 1320px
+                        const TOTAL_H = PAD + HEADER_H + 16 + ROWS * CARD_H + (ROWS - 1) * GAP + FOOTER_H + PAD;
+
+                        // Create Canvas (2x scale for Retina sharpness)
+                        const canvas = document.createElement('canvas');
+                        const SCALE = 2;
+                        canvas.width = TOTAL_W * SCALE;
+                        canvas.height = TOTAL_H * SCALE;
+                        const ctx = canvas.getContext('2d');
+                        ctx.scale(SCALE, SCALE);
+
+                        // 1. Background (Dark Slate Gradient)
+                        const bgGrad = ctx.createLinearGradient(0, 0, 0, TOTAL_H);
+                        bgGrad.addColorStop(0, '#090d16');
+                        bgGrad.addColorStop(1, '#0f172a');
+                        ctx.fillStyle = bgGrad;
+                        ctx.fillRect(0, 0, TOTAL_W, TOTAL_H);
+
+                        // Helper for drawing rounded rectangles
+                        const drawRoundedRect = (cx, cy, cw, ch, cr) => {
+                            ctx.beginPath();
+                            if (ctx.roundRect) {
+                                ctx.roundRect(cx, cy, cw, ch, cr);
+                            } else {
+                                ctx.moveTo(cx + cr, cy);
+                                ctx.lineTo(cx + cw - cr, cy);
+                                ctx.quadraticCurveTo(cx + cw, cy, cx + cw, cy + cr);
+                                ctx.lineTo(cx + cw, cy + ch - cr);
+                                ctx.quadraticCurveTo(cx + cw, cy + ch, cx + cw - cr, cy + ch);
+                                ctx.lineTo(cx + cr, cy + ch);
+                                ctx.quadraticCurveTo(cx, cy + ch, cx, cy + ch - cr);
+                                ctx.lineTo(cx, cy + cr);
+                                ctx.quadraticCurveTo(cx, cy, cx + cr, cy);
+                                ctx.closePath();
+                            }
+                        };
+
+                        // Helper for card drawing
+                        const drawCardItem = (item, x, y, w, h, isLdr) => {
+                            ctx.save();
+                            drawRoundedRect(x, y, w, h, 6);
+                            ctx.clip();
+
+                            if (item.img && item.img.naturalWidth > 0) {
+                                ctx.drawImage(item.img, x, y, w, h);
+                            } else {
+                                // Graceful styled card placeholder
+                                ctx.fillStyle = '#1e293b';
+                                ctx.fillRect(x, y, w, h);
+                                ctx.fillStyle = isLdr ? '#f59e0b' : '#38bdf8';
+                                ctx.fillRect(x, y, w, 4);
+
+                                ctx.fillStyle = '#f8fafc';
+                                ctx.font = 'bold 10px system-ui, -apple-system, sans-serif';
+                                const cName = (item.card?.card_name || 'Carta').slice(0, 15);
+                                ctx.fillText(cName, x + 6, y + 36);
+
+                                ctx.fillStyle = '#94a3b8';
+                                ctx.font = '9px monospace';
+                                const cId = item.card?.card_set_id || item.card?.card_id || '';
+                                ctx.fillText(cId, x + 6, y + 54);
+                            }
+                            ctx.restore();
+
+                            // Card Border
+                            ctx.save();
+                            ctx.strokeStyle = isLdr ? '#f59e0b' : '#334155';
+                            ctx.lineWidth = isLdr ? 2.5 : 1;
+                            drawRoundedRect(x, y, w, h, 6);
+                            ctx.stroke();
+
+                            if (isLdr) {
+                                // Gold LEADER badge in corner
+                                ctx.fillStyle = '#f59e0b';
+                                drawRoundedRect(x + 4, y + 4, 52, 16, 4);
+                                ctx.fill();
+                                ctx.fillStyle = '#0f172a';
+                                ctx.font = 'bold 9px system-ui, -apple-system, sans-serif';
+                                ctx.fillText('★ LÍDER', x + 9, y + 15);
+                            }
+                            ctx.restore();
+                        };
+
+                        // 2. Header Section
+                        const hdrX = PAD;
+                        const hdrY = PAD;
+                        const hdrW = TOTAL_W - PAD * 2;
+                        
+                        ctx.save();
+                        ctx.fillStyle = '#0b1120';
+                        ctx.strokeStyle = '#1e293b';
+                        ctx.lineWidth = 1;
+                        drawRoundedRect(hdrX, hdrY, hdrW, HEADER_H, 12);
+                        ctx.fill();
+                        ctx.stroke();
+
+                        // Leader Artwork in Header (if available)
+                        const ldrW = 96;
+                        const ldrH = 134;
+                        const ldrX = hdrX + 14;
+                        const ldrY = hdrY + 13;
+                        if (leader) {
+                            drawCardItem(leaderLoaded, ldrX, ldrY, ldrW, ldrH, true);
+                        }
+
+                        // Header Text Info
+                        const textX = leader ? ldrX + ldrW + 20 : hdrX + 24;
+                        let curY = hdrY + 36;
+
+                        // App Title Pill
+                        ctx.fillStyle = '#f59e0b';
+                        ctx.font = 'bold 10px system-ui, -apple-system, sans-serif';
+                        ctx.fillText('OPTCG COACH • ONE PIECE CARD GAME', textX, curY);
+
+                        // Leader Name
+                        curY += 28;
+                        ctx.fillStyle = '#f8fafc';
+                        ctx.font = 'bold 24px system-ui, -apple-system, sans-serif';
+                        const leaderTitle = leader ? (leader.card_name || 'Meu Deck') : 'Meu Deck Customizado';
+                        ctx.fillText(leaderTitle, textX, curY);
+
+                        // Leader Set ID & Colors
+                        curY += 22;
+                        ctx.fillStyle = '#f59e0b';
+                        ctx.font = 'bold 12px monospace';
+                        const leaderIdText = leader ? `${leader.card_set_id || ''}  •  ${leader.card_color || 'Multi'}` : 'Deck 50 Cartas';
+                        ctx.fillText(leaderIdText, textX, curY);
+
+                        // Stats Badges
+                        curY += 28;
+                        ctx.fillStyle = '#cbd5e1';
+                        ctx.font = '12px system-ui, -apple-system, sans-serif';
+                        const c2000 = builderDeckStats.value.counter_2000_count || 0;
+                        const blk = builderDeckStats.value.blockers_count || 0;
+                        ctx.fillText(`Total: ${deckLoaded.length}/50 Cartas  |  Counters +2000: ${c2000}  |  Blockers: ${blk}`, textX, curY);
+
+                        ctx.restore();
+
+                        // 3. Main Deck Grid (50 Cards)
+                        const startY = PAD + HEADER_H + 16;
+                        deckLoaded.forEach((item, idx) => {
+                            const col = idx % COLS;
+                            const row = Math.floor(idx / COLS);
+                            const cardX = PAD + col * (CARD_W + GAP);
+                            const cardY = startY + row * (CARD_H + GAP);
+                            drawCardItem(item, cardX, cardY, CARD_W, CARD_H, false);
+                        });
+
+                        // 4. Footer
+                        const footY = startY + ROWS * (CARD_H + GAP) + 12;
+                        ctx.save();
+                        ctx.fillStyle = '#64748b';
+                        ctx.font = '11px system-ui, -apple-system, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Gerado por OPTCG Coach • Western English Meta', TOTAL_W / 2, footY);
+                        ctx.restore();
+
+                        // 5. Download PNG
+                        canvas.toBlob((blob) => {
+                            if (!blob) {
+                                alert('Erro ao processar imagem.');
+                                isExportingImage.value = false;
+                                return;
+                            }
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            const safeLdr = leader ? (leader.card_name || 'deck').replace(/[^a-z0-9]/gi, '_') : 'deck';
+                            a.download = `deck_${safeLdr}.png`;
+                            a.href = url;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                            isExportingImage.value = false;
+                        }, 'image/png');
+
+                    } catch (err) {
+                        alert('Erro ao exportar deck em imagem: ' + err.message);
+                        isExportingImage.value = false;
+                    }
+                };
+
+
                 const copyExportText = () => {
                     if (navigator.clipboard && navigator.clipboard.writeText) {
                         navigator.clipboard.writeText(exportModalText.value).then(() => {
@@ -3165,20 +3465,31 @@
                     const leaderCardId = getLeaderCardId(leader);
                     const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
                     
-                    let leaderObj = allCards.find(c => c.card_type === 'Leader' && (
-                        (c.card_set_id && c.card_set_id.toUpperCase() === leaderCardId) ||
-                        (c.card_name && c.card_name.toLowerCase().includes(leader.name.split('(')[0].trim().toLowerCase()))
-                    ));
+                    // STRICT MATCH ONLY BY EXACT CARD ID (never match another card with different ID by partial name)
+                    let leaderObj = allCards.find(c => c.card_type === 'Leader' && c.card_set_id && c.card_set_id.toUpperCase() === leaderCardId);
 
                     if (!leaderObj) {
+                        const lSet = leaderCardId.split('-')[0] || '';
+                        const lColor = leader.archetype_code && leader.archetype_code.includes('||') 
+                            ? leader.archetype_code.split('||')[1] 
+                            : (leader.card_color || 'Multi');
                         leaderObj = {
                             card_name: leader.name,
                             card_set_id: leaderCardId,
                             card_type: 'Leader',
-                            card_color: leader.archetype_code && leader.archetype_code.includes('||') ? leader.archetype_code.split('||')[1] : 'Multi',
-                            card_image: leader.image,
-                            rarity: 'L'
+                            card_color: lColor,
+                            card_cost: '5',
+                            card_power: '5000',
+                            card_image: leader.image || `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${lSet}/${leaderCardId}_EN.webp`,
+                            rarity: 'L',
+                            set_id: lSet,
+                            set_name: `${lSet} (Limitless Meta)`
                         };
+                        if (lSet.startsWith('ST')) {
+                            starterCards.value.push(leaderObj);
+                        } else {
+                            setCards.value.push(leaderObj);
+                        }
                     }
 
                     selectedBuilderLeader.value = leaderObj;
@@ -3199,12 +3510,13 @@
                             if (foundCard && isCardBanned(foundCard)) continue;
                             
                             if (!foundCard) {
+                                const cSet = mcId.split('-')[0] || '';
                                 foundCard = {
                                     card_name: mc.card_name,
                                     card_set_id: mcId,
                                     card_type: 'Character',
                                     card_color: leaderObj.card_color,
-                                    card_image: mc.image,
+                                    card_image: mc.image || `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${cSet}/${mcId}_EN.webp`,
                                     card_cost: "3",
                                     rarity: 'UC'
                                 };
@@ -3237,20 +3549,31 @@
                     const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
                     const leaderCardId = getLeaderCardId(leader);
                     
-                    let leaderObj = allCards.find(c => c.card_type === 'Leader' && (
-                        (c.card_set_id && c.card_set_id.toUpperCase() === leaderCardId) ||
-                        (c.card_name && c.card_name.toLowerCase().includes(leader.name.split('(')[0].trim().toLowerCase()))
-                    ));
+                    // STRICT MATCH ONLY BY EXACT CARD ID
+                    let leaderObj = allCards.find(c => c.card_type === 'Leader' && c.card_set_id && c.card_set_id.toUpperCase() === leaderCardId);
 
                     if (!leaderObj) {
+                        const lSet = leaderCardId.split('-')[0] || '';
+                        const lColor = leader.archetype_code && leader.archetype_code.includes('||') 
+                            ? leader.archetype_code.split('||')[1] 
+                            : (leader.card_color || 'Multi');
                         leaderObj = {
                             card_name: leader.name,
                             card_set_id: leaderCardId,
                             card_type: 'Leader',
-                            card_color: leader.archetype_code && leader.archetype_code.includes('||') ? leader.archetype_code.split('||')[1] : 'Multi',
-                            card_image: leader.image,
-                            rarity: 'L'
+                            card_color: lColor,
+                            card_cost: '5',
+                            card_power: '5000',
+                            card_image: leader.image || `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${lSet}/${leaderCardId}_EN.webp`,
+                            rarity: 'L',
+                            set_id: lSet,
+                            set_name: `${lSet} (Limitless Meta)`
                         };
+                        if (lSet.startsWith('ST')) {
+                            starterCards.value.push(leaderObj);
+                        } else {
+                            setCards.value.push(leaderObj);
+                        }
                     }
 
                     selectedBuilderLeader.value = leaderObj;
@@ -3271,12 +3594,13 @@
                             if (foundCard && isCardBanned(foundCard)) continue;
 
                             if (!foundCard) {
+                                const cSet = cid.split('-')[0] || '';
                                 foundCard = {
                                     card_name: cid,
                                     card_set_id: cid,
                                     card_type: 'Character',
                                     card_color: leaderObj.card_color,
-                                    card_image: `https://onepiece.limitlesstcg.com/cards/${cid}.png`,
+                                    card_image: `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${cSet}/${cid}_EN.webp`,
                                     card_cost: "3",
                                     rarity: 'UC'
                                 };
@@ -3298,55 +3622,34 @@
                     }
                 };
 
-                // Image Fallback and Resolver System (Strictly Prioritizes English Base Card Artwork)
+                // Image Fallback and Resolver System (Strictly Prioritizes High-Res English Western Base Card Artwork with CORS)
                 const getCardImage = (card) => {
                     if (!card) return 'https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/placeholder.png';
                     
                     let cid = (card.card_set_id || card.card_id || card.id || '').toUpperCase().trim();
                     
-                    // 1. If we have a valid card ID (e.g. OP07-022), lookup in database to find the BASE English version image
+                    // 1. Primary: High-res Western English WebP artwork on Limitless CDN (Fully supports CORS and Fast CDN delivery)
                     if (cid && cid !== 'UNKNOWN' && cid.includes('-')) {
-                        const all = [...(setCards.value || []), ...(starterCards.value || []), ...(promoCards.value || [])];
-                        const matches = all.filter(c => (c.card_set_id || c.card_id || '').toUpperCase() === cid);
-                        
-                        if (matches.length > 0) {
-                            // Find the base English version (not parallel, not alternate art, not Japanese promo)
-                            const baseMatch = matches.find(c => {
-                                const n = (c.card_name || '').toLowerCase();
-                                const img = (c.card_image || '').toLowerCase();
-                                return !n.includes('(parallel') && !n.includes('(alternate') && !n.includes('(japanese') && 
-                                       !n.includes('(special') && !n.includes('(extra grand') && !n.includes('(store') && 
-                                       !n.includes('(premium') && !img.includes('_p1') && !img.includes('_p2') && 
-                                       !img.includes('_parallel') && !img.includes('_jp') && !img.includes('_img.jpg');
-                            });
-                            
-                            if (baseMatch && baseMatch.card_image) {
-                                return baseMatch.card_image;
-                            }
-                            
-                            // Find any English match (even if promo/parallel) before resorting to Japanese
-                            const englishMatch = matches.find(c => {
-                                const n = (c.card_name || '').toLowerCase();
-                                const img = (c.card_image || '').toLowerCase();
-                                return !n.includes('(japanese') && !img.includes('_jp') && c.card_image;
-                            });
-                            if (englishMatch && englishMatch.card_image) {
-                                return englishMatch.card_image;
-                            }
-                        }
-                        
-                        // Default to standard base English card image on Limitless CDN
-                        const setCode = cid.split('-')[0];
+                        const setCode = cid.split('-')[0].trim();
                         return `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_EN.webp`;
                     }
                     
                     let directImg = card.image || card.card_image;
                     if (directImg && !directImg.includes('placeholder')) {
+                        if (directImg.includes('optcgapi.com')) {
+                            const m = directImg.match(/([A-Z0-9]+-[A-Z0-9]+)/i);
+                            if (m) {
+                                const matchedCid = m[1].toUpperCase();
+                                const matchedSet = matchedCid.split('-')[0];
+                                return `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${matchedSet}/${matchedCid}_EN.webp`;
+                            }
+                        }
                         return directImg;
                     }
                     
-                    return 'https://www.optcgapi.com/media/static/Card_Images/placeholder.jpg';
+                    return 'https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/placeholder.png';
                 };
+
 
                 const handleCardImgError = (event, cardId) => {
                     if (!event || !event.target) return;
@@ -5283,7 +5586,10 @@
                     copiedToast,
                     exportMetaDeckTxt,
                     exportUserDeckTxt,
+                    exportUserDeckImage,
+                    isExportingImage,
                     copyExportText,
+
                     downloadExportTxtFile,
                     importMetaBuildToBuilder,
 

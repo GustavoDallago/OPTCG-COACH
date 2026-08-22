@@ -32,7 +32,7 @@ HEADERS = {
 def parse_args():
     parser = argparse.ArgumentParser(description="Scraper de Meta Game do Limitless TCG (Últimos 7 dias)")
     parser.add_argument("--set", type=str, default="OP17", help="Coleção a ser buscada (ex: OP17, OP16, OP09)")
-    parser.add_argument("--min-players", type=int, default=16, help="Número mínimo de jogadores no torneio (padrão: 16)")
+    parser.add_argument("--min-players", type=int, default=8, help="Número mínimo de jogadores no torneio (padrão: 8)")
     parser.add_argument("--days", type=int, default=7, help="Dias de histórico para analisar (padrão: 7)")
     return parser.parse_args()
 
@@ -63,12 +63,40 @@ def fetch_url(url: str, retries: int = 3, delay: float = 0.5) -> Optional[str]:
 _card_details_cache = {}
 import html
 
-def fetch_card_details(card_id: str) -> dict:
-    """Fetches real card attributes (cost, power, type, attribute) from Limitless card page."""
+def fetch_card_details(card_id: str, card_db: dict = None) -> dict:
+    """Fetches real card attributes (cost, power, type, attribute) from local DB first,
+    falling back to the Limitless card page only if not found locally."""
     global _card_details_cache
     if card_id in _card_details_cache:
         return _card_details_cache[card_id]
-    
+
+    # --- Priority 1: Check local card database (zero network cost) ---
+    if card_db:
+        local = card_db.get(card_id.upper(), {})
+        if local:
+            details = {}
+            if local.get('card_cost') is not None:
+                details['cost'] = str(local['card_cost'])
+            raw_power = local.get('card_power')
+            if raw_power is not None:
+                details['power'] = str(raw_power).replace(',', '')
+            if local.get('card_type'):
+                details['card_type'] = local['card_type']
+            if local.get('attribute'):
+                details['attribute'] = local['attribute']
+            raw_counter = local.get('counter_amount')
+            if raw_counter is not None and str(raw_counter) not in ('0', '', 'None'):
+                try:
+                    val = int(str(raw_counter).replace(',', '').replace('+', ''))
+                    if val > 0:
+                        details['counter'] = f"+{val}"
+                except (ValueError, TypeError):
+                    pass
+            if details:
+                _card_details_cache[card_id] = details
+                return details
+
+    # --- Priority 2: Fallback to Limitless web page (for unknown/promo cards) ---
     url = f"{BASE_URL}/cards/{card_id}"
     html_content = fetch_url(url, retries=2, delay=0.3)
     if not html_content:
@@ -154,7 +182,33 @@ def load_card_database() -> Dict[str, Dict[str, Any]]:
                 pass
     return cards_map
 
-def find_tournaments(set_code: str, min_players: int = 16) -> List[Dict[str, Any]]:
+def get_top_cut(num_players: int) -> tuple:
+    """Calcula o top cut dinâmico para coleta de decklists e sample builds.
+    
+    Retorna (top_cut_decklists, top_cut_sample_builds):
+    - top_cut_decklists: máximo de colocação para raspar decklists completas
+    - top_cut_sample_builds: máximo de colocação para exibir como exemplo de build
+    
+    Exemplos:
+      8 jogadores  -> top 8 decklists, top 4 builds
+      16 jogadores -> top 16 decklists, top 8 builds
+      32 jogadores -> top 32 decklists, top 8 builds
+      64 jogadores -> top 48 decklists, top 8 builds
+      128+         -> top 64 decklists, top 8 builds
+    """
+    if num_players < 16:
+        return num_players, min(4, num_players)
+    elif num_players < 32:
+        return 16, 8
+    elif num_players < 64:
+        return 32, 8
+    elif num_players < 128:
+        return 48, 8
+    else:
+        return 64, 8
+
+
+def find_tournaments(set_code: str, min_players: int = 8) -> List[Dict[str, Any]]:
     """Busca a lista de torneios da seção 'Past 7 days' que correspondam ao Set e ao mínimo de jogadores."""
     url = f"{BASE_URL}/tournaments/?game=OP"
     print(f"--> Buscando torneios recentes em: {url}")
@@ -416,7 +470,10 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
     for t_idx, t in enumerate(tournaments):
         t_id = t["id"]
         t_name = t["name"]
+        t_players = t["players"]
+        top_cut_decks, top_cut_builds = get_top_cut(t_players)
         print(f"\n[{t_idx+1}/{len(tournaments)}] Coletando dados do Torneio: {t_name}...", flush=True)
+        print(f"    Jogadores: {t_players} | Top cut decklists: {top_cut_decks} | Top cut builds: {top_cut_builds}", flush=True)
         
         # 1. Standings
         standings = parse_standings(t_id)
@@ -448,8 +505,8 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
                 }
             leader_info_map[leader_id]["deck_count"] += 1
             
-            # 2. Decklists completas (Top 32 de cada torneio para máxima precisão e velocidade)
-            if p["has_decklist"] and p["decklist_url"] and p["placing"] <= 32:
+            # 2. Decklists completas (Top cut dinâmico por tamanho do torneio)
+            if p["has_decklist"] and p["decklist_url"] and p["placing"] <= top_cut_decks:
                 cards = parse_decklist(p["decklist_url"])
                 if cards:
                     if leader_id not in all_leader_decks:
@@ -463,7 +520,7 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
                         "deck_dict": deck_dict
                     })
                     
-                    if p["placing"] <= 8:
+                    if p["placing"] <= top_cut_builds:
                         if leader_id not in leader_sample_builds:
                             leader_sample_builds[leader_id] = []
                         
@@ -578,7 +635,7 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
             }
             
             # Fetch real card attributes from Limitless
-            card_details = fetch_card_details(cid)
+            card_details = fetch_card_details(cid, card_db)
             if card_details.get('cost'):
                 card_entry['cost'] = card_details['cost']
             if card_details.get('power'):
@@ -647,6 +704,14 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
         })
 
     leaders_output.sort(key=lambda x: x["deck_count"], reverse=True)
+
+    # --- Guard: Só salva se tiver dados válidos ---
+    if len(leaders_output) == 0:
+        print("\n" + "=" * 60)
+        print(f"⚠️  AVISO: Nenhum líder encontrado para o Set {set_code.upper()}.")
+        print("   O arquivo JSON existente NÃO foi sobrescrito para evitar perda de dados.")
+        print("=" * 60)
+        return False
     
     final_data = {
         "set_code": set_code.upper(),

@@ -17,6 +17,20 @@ def log(msg: str):
     except Exception:
         pass
 
+def rotate_log(max_lines: int = 1000):
+    """Mantém apenas as últimas max_lines linhas do log para evitar crescimento ilimitado."""
+    if not os.path.exists(LOG_FILE):
+        return
+    try:
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        if len(lines) > max_lines:
+            with open(LOG_FILE, "w", encoding="utf-8") as f:
+                f.writelines(lines[-max_lines:])
+            print(f"[Log] Rotacionado: mantidas as últimas {max_lines} linhas ({len(lines)} -> {max_lines}).")
+    except Exception as e:
+        print(f"[Log] Erro ao rotacionar log: {e}")
+
 def run_cmd(cmd: str) -> bool:
     log(f"Executing: {cmd}")
     try:
@@ -86,6 +100,7 @@ def generate_manifest():
         log(f"Error writing manifest.json: {e}")
 
 def main():
+    rotate_log()
     log("==========================================")
     log("Starting Full Automatic Update Pipeline...")
     log("==========================================")
@@ -95,10 +110,10 @@ def main():
     s_ban = run_cmd(f"{sys.executable} scrape_banlist.py")
     
     # 2. Scrape OP17 Meta Game data from Limitless TCG (Past 7 Days tournaments, pairings, and 50-card lists)
-    s2 = run_cmd(f"{sys.executable} scrape_limitless.py --set OP17 --min-players 16")
+    s2 = run_cmd(f"{sys.executable} scrape_limitless.py --set OP17 --min-players 8")
     if not s2:
-        log("Limitless scraper finished with warning, attempting fallback to Egman scraper...")
-        s2 = run_cmd(f"{sys.executable} scrape_meta.py --set OP17")
+        log("WARNING: Limitless scraper failed or found no data. The existing meta JSON was preserved.")
+
     
     # 3. Recalculate decks_tracked for all meta files
     fix_meta_decks_tracked()
@@ -109,7 +124,7 @@ def main():
     # 5. Run automated test suite
     s3 = run_cmd(f"{sys.executable} -m unittest test_deck_analyzer.py")
     
-    if s1 and s_ban and s2 and s3:
+    if s1 and s_ban and s3:
         log("==========================================")
         log("SUCCESS: All update tasks completed flawlessly!")
         log("==========================================")

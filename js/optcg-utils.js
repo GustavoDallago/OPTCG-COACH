@@ -8,7 +8,8 @@
 
     function getLeaderCardId(leader) {
         if (!leader) return 'UNKNOWN';
-        if (leader.leader_card_id && leader.leader_card_id !== 'UNKNOWN') return leader.leader_card_id;
+        if (leader.card_set_id && leader.card_set_id !== 'UNKNOWN') return leader.card_set_id.toUpperCase().trim();
+        if (leader.leader_card_id && leader.leader_card_id !== 'UNKNOWN') return leader.leader_card_id.toUpperCase().trim();
         if (leader.archetype_code && leader.archetype_code.includes('||')) {
             return leader.archetype_code.split('||')[0].trim().toUpperCase();
         }
@@ -18,6 +19,7 @@
         }
         return 'UNKNOWN';
     }
+
 
     function getMetaCardId(metaCard) {
         if (!metaCard) return 'UNKNOWN';
