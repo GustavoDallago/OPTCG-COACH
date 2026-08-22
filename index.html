@@ -3179,11 +3179,22 @@
                             }
                         });
 
-                        // Image loader with CORS cache-busting and graceful fallback
+                        // Helper to get CORS-safe URL for Canvas drawing (resolves GitHub Pages CORS restriction)
+                        const getCorsSafeUrl = (src) => {
+                            if (!src || src.startsWith('data:') || src.startsWith('blob:')) return src;
+                            return `https://wsrv.nl/?url=${encodeURIComponent(src)}&output=webp`;
+                        };
+
+                        // Image loader with universal CORS proxy and graceful fallback
                         const loadCardImg = (card, isLdr = false) => {
                             return new Promise((resolve) => {
                                 if (!card) return resolve({ img: null, card, isLeader: isLdr });
-                                const rawSrc = getCardImage(card);
+                                const cid = (card.card_set_id || card.card_id || card.id || '').toUpperCase().trim();
+                                let rawSrc = getCardImage(card);
+                                if (!rawSrc && cid && cid.includes('-')) {
+                                    const setCode = cid.split('-')[0];
+                                    rawSrc = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_EN.webp`;
+                                }
                                 if (!rawSrc) return resolve({ img: null, card, isLeader: isLdr });
 
                                 const img = new Image();
@@ -3195,7 +3206,7 @@
                                         finished = true;
                                         resolve({ img: null, card, isLeader: isLdr });
                                     }
-                                }, 4500);
+                                }, 5000);
 
                                 img.onload = () => {
                                     if (!finished) {
@@ -3206,10 +3217,10 @@
                                 };
 
                                 img.onerror = () => {
-                                    // Retry without cachebust query in case server disallowed extra params
+                                    // Fallback: try raw direct URL if proxy had any temporary hiccup
                                     if (!finished) {
-                                        const retry = new Image();
-                                        retry.crossOrigin = 'anonymous';
+                                        const directImg = new Image();
+                                        directImg.crossOrigin = 'anonymous';
                                         let retryTimer = setTimeout(() => {
                                             if (!finished) {
                                                 finished = true;
@@ -3217,15 +3228,15 @@
                                                 resolve({ img: null, card, isLeader: isLdr });
                                             }
                                         }, 2500);
-                                        retry.onload = () => {
+                                        directImg.onload = () => {
                                             if (!finished) {
                                                 finished = true;
                                                 clearTimeout(timer);
                                                 clearTimeout(retryTimer);
-                                                resolve({ img: retry, card, isLeader: isLdr });
+                                                resolve({ img: directImg, card, isLeader: isLdr });
                                             }
                                         };
-                                        retry.onerror = () => {
+                                        directImg.onerror = () => {
                                             if (!finished) {
                                                 finished = true;
                                                 clearTimeout(timer);
@@ -3233,14 +3244,14 @@
                                                 resolve({ img: null, card, isLeader: isLdr });
                                             }
                                         };
-                                        retry.src = rawSrc;
+                                        directImg.src = rawSrc;
                                     }
                                 };
 
-                                const sep = rawSrc.includes('?') ? '&' : '?';
-                                img.src = rawSrc.startsWith('data:') ? rawSrc : `${rawSrc}${sep}cors=1`;
+                                img.src = getCorsSafeUrl(rawSrc);
                             });
                         };
+
 
                         // Concurrently load Leader + all 50 Main Deck Cards
                         const [leaderLoaded, ...deckLoaded] = await Promise.all([
