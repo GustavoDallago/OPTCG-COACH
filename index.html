@@ -1396,7 +1396,7 @@
                     </div>
 
                     <!-- Dropdowns Row -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-3">
                         <!-- Search -->
                         <div class="flex flex-col gap-1 lg:col-span-2">
                             <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Busca</label>
@@ -1457,6 +1457,18 @@
                                 <option value="Character">Character</option>
                                 <option value="Event">Event</option>
                                 <option value="Stage">Stage</option>
+                            </select>
+                        </div>
+
+                        <!-- Art / Variation Type -->
+                        <div class="flex flex-col gap-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Versão / Arte</label>
+                            <select 
+                                v-model="collectionFilters.artType"
+                                class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amber-500 text-slate-200">
+                                <option value="all">Todas as Artes</option>
+                                <option value="base">Apenas Base (Normal)</option>
+                                <option value="variants">Apenas AA / Especiais</option>
                             </select>
                         </div>
                     </div>
@@ -1530,6 +1542,13 @@
                                 </span>
                             </div>
 
+                            <!-- Variant Badge Overlay (Below Color or Top Left) -->
+                            <div v-if="getCardVariantLabel(card)" class="absolute left-2 flex gap-1 z-10" :class="card.card_color ? 'top-8' : 'top-2'">
+                                <span class="text-[8px] font-black uppercase px-1.5 py-0.5 rounded-md shadow-md border border-amber-400/40 bg-amber-950/85 text-amber-300 backdrop-blur-xs">
+                                    ✨ {{ getCardVariantLabel(card) }}
+                                </span>
+                            </div>
+
                             <!-- Owned Count Badge (Top Right) -->
                             <div class="absolute top-2 right-2 flex items-center gap-1">
                                 <span 
@@ -1563,7 +1582,12 @@
                                 </p>
                                 <div class="flex justify-between items-center text-[10px] font-mono text-slate-500 mt-0.5">
                                     <span>{{ card.card_set_id || card.don_id || 'PROMO' }}</span>
-                                    <span v-if="card.rarity" class="text-amber-500/80 font-bold">{{ card.rarity }}</span>
+                                    <div class="flex items-center gap-1">
+                                        <span v-if="getCardVariantLabel(card)" class="text-[8px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                                            {{ getCardVariantLabel(card) }}
+                                        </span>
+                                        <span v-if="card.rarity" class="text-amber-500/80 font-bold">{{ card.rarity }}</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1690,6 +1714,9 @@
                         <h2 class="text-xl sm:text-2xl font-black text-slate-100">{{ selectedCard.card_name }}</h2>
                         <div class="flex flex-wrap items-center gap-2 mt-1">
                             <span class="text-[10px] sm:text-xs font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-extrabold">ID: {{ selectedCard.card_set_id || selectedCard.don_id || 'PROMO' }}</span>
+                            <span v-if="getCardVariantLabel(selectedCard)" class="text-[10px] sm:text-xs font-mono bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded font-black flex items-center gap-1">
+                                ✨ {{ getCardVariantLabel(selectedCard) }}
+                            </span>
                             <span v-if="selectedCard.rarity" class="text-[10px] sm:text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-extrabold">Raridade: {{ selectedCard.rarity }}</span>
                             <span v-if="getCardSpoilerInfo(selectedCard)" class="text-[10px] sm:text-xs font-mono bg-purple-950 text-purple-300 border border-purple-500/50 px-2 py-0.5 rounded font-extrabold flex items-center gap-1">
                                 ⏳ Lançamento Oficial: {{ getCardSpoilerInfo(selectedCard).formattedDate }} (Spoiler / Prévia)
@@ -2618,7 +2645,8 @@
                     color: '',
                     type: '',
                     rarity: '',
-                    ownership: 'all' // 'all', 'owned', 'missing', 'incomplete', 'playset'
+                    ownership: 'all', // 'all', 'owned', 'missing', 'incomplete', 'playset'
+                    artType: 'all' // 'all', 'base', 'variants'
                 });
                 const collectionCurrentPage = ref(1);
                 const collectionItemsPerPage = ref(40);
@@ -3801,36 +3829,30 @@
                     }
                 };
 
-                // Image Fallback and Resolver System (Hybrid Spoilers + Web CDN Auto-Transition)
+                // Image Fallback and Resolver System (Hybrid Spoilers + Direct Variant Art + Web CDN)
                 const getCardImage = (card) => {
                     if (!card) return 'https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/placeholder.png';
                     
                     let directImg = card.card_image || card.image;
+                    // Local spoiler card images
                     if (directImg && (directImg.startsWith('./') || directImg.startsWith('optcg_data/') || directImg.includes('/card_images/'))) {
                         return directImg;
                     }
 
-                    let cid = (card.card_set_id || card.card_id || card.id || '').toUpperCase().trim();
+                    let cid = (card.card_set_id || card.card_id || card.id || card.don_id || '').toUpperCase().trim();
                     if (cid && (cid.startsWith('OP18-') || cid.startsWith('EB05-'))) {
                         return `./optcg_data/card_images/${cid}.png`;
                     }
                     
-                    // 1. Primary: High-res Western English WebP artwork on Limitless CDN (Fully supports CORS and Fast CDN delivery)
+                    // 1. Direct Image URL (Preserves exact individual artwork for AA, Manga, SP, Promos, Reprints, and Base cards)
+                    if (directImg && !directImg.includes('placeholder')) {
+                        return directImg;
+                    }
+
+                    // 2. High-res Western English WebP artwork on Limitless CDN (Fallback if direct image not supplied)
                     if (cid && cid !== 'UNKNOWN' && cid.includes('-')) {
                         const setCode = cid.split('-')[0].trim();
                         return `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_EN.webp`;
-                    }
-                    
-                    if (directImg && !directImg.includes('placeholder')) {
-                        if (directImg.includes('optcgapi.com')) {
-                            const m = directImg.match(/([A-Z0-9]+-[A-Z0-9]+)/i);
-                            if (m) {
-                                const matchedCid = m[1].toUpperCase();
-                                const matchedSet = matchedCid.split('-')[0];
-                                return `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${matchedSet}/${matchedCid}_EN.webp`;
-                            }
-                        }
-                        return directImg;
                     }
                     
                     return 'https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/placeholder.png';
@@ -3858,16 +3880,12 @@
                     const cdnJp = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_JP.webp`;
                     const cdnRaw = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}.webp`;
 
-                    // Hierarchy: English Web CDN -> Local Preview -> OPTCG API -> Official Web -> Japanese Web -> SVG Fallback
-                    if (!currentSrc.includes(cdnEn) && !currentSrc.includes('_EN.webp') && !currentSrc.includes('/card_images/') && !currentSrc.includes('optcgapi.com') && !currentSrc.includes('onepiece-cardgame.com') && !currentSrc.includes('_JP.webp')) {
+                    // Hierarchy: Direct (optcgapi) -> English Limitless CDN -> Official Web -> Japanese Web -> SVG Fallback
+                    if (currentSrc.includes('optcgapi.com') || currentSrc.includes('/card_images/')) {
                         imgEl.src = cdnEn;
                     } else if (currentSrc.includes('_EN.webp') && (setCode === 'OP18' || setCode === 'EB05')) {
                         imgEl.src = localImg;
-                    } else if (currentSrc.includes('_EN.webp') || currentSrc.includes('/card_images/')) {
-                        imgEl.src = optcgApi;
-                    } else if (currentSrc.includes(optcgApi) && !currentSrc.includes('_p1')) {
-                        imgEl.src = optcgApiAlt;
-                    } else if (currentSrc.includes('_p1') || (currentSrc.includes('optcgapi.com') && !currentSrc.includes('onepiece-cardgame.com'))) {
+                    } else if (currentSrc.includes('_EN.webp')) {
                         imgEl.src = officialEn;
                     } else if (currentSrc.includes('en.onepiece-cardgame.com')) {
                         imgEl.src = asiaEn;
@@ -4267,12 +4285,52 @@
                     collectionCurrentPage.value = 1;
                 };
 
+                // Card Key and Art Variation Identifiers
+                const getCardCollectionKey = (cardOrId) => {
+                    if (!cardOrId) return '';
+                    if (typeof cardOrId === 'string') return cardOrId.toUpperCase().trim();
+                    return (cardOrId.card_image_id || cardOrId.don_id || cardOrId.card_set_id || cardOrId.card_id || '').toUpperCase().trim();
+                };
+
+                const isCardVariant = (card) => {
+                    if (!card) return false;
+                    const imgId = (card.card_image_id || '').trim().toUpperCase();
+                    const setId = (card.card_set_id || '').trim().toUpperCase();
+                    const name = (card.card_name || '').toLowerCase();
+                    if (imgId && setId && imgId !== setId) return true;
+                    const keywords = ['alternate art', 'parallel', 'manga', 'sp', 'foil', 'wanted', 'reprint', 'full art', 'dash pack', 'treasure', 'anniversary'];
+                    return keywords.some(kw => name.includes(kw));
+                };
+
+                const getCardVariantLabel = (card) => {
+                    if (!card) return '';
+                    const name = (card.card_name || '').toLowerCase();
+                    if (name.includes('manga')) return 'MANGA';
+                    if (name.includes('alternate art') || name.includes('parallel')) return 'AA';
+                    if (name.includes('sp')) return 'SP';
+                    if (name.includes('wanted')) return 'WANTED';
+                    if (name.includes('foil') || name.includes('jolly roger')) return 'FOIL';
+                    if (name.includes('reprint')) return 'REPRINT';
+                    if (name.includes('full art')) return 'FULL ART';
+                    const imgId = (card.card_image_id || '').trim().toUpperCase();
+                    const setId = (card.card_set_id || '').trim().toUpperCase();
+                    if (imgId && setId && imgId !== setId) return 'ALT';
+                    return '';
+                };
+
                 // Quantity Modifiers
                 const getCardOwned = (cardOrId) => {
                     if (!cardOrId) return 0;
-                    const cid = typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '');
-                    if (!cid) return 0;
-                    return userCardCollection.value[cid.toUpperCase()] || 0;
+                    const key = getCardCollectionKey(cardOrId);
+                    if (userCardCollection.value[key] !== undefined) {
+                        return userCardCollection.value[key];
+                    }
+                    // Fallback for legacy profile collection saved solely with base card_set_id
+                    const baseId = (typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '')).toUpperCase().trim();
+                    if (baseId && baseId !== key && userCardCollection.value[baseId] !== undefined) {
+                        return userCardCollection.value[baseId];
+                    }
+                    return 0;
                 };
 
                 const setCardOwned = (cardOrId, qty) => {
@@ -4281,13 +4339,21 @@
                         console.warn('Cannot add unreleased spoiler cards to collection.');
                         return;
                     }
-                    const cid = (typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '')).toUpperCase().trim();
-                    if (!cid) return;
+                    const key = getCardCollectionKey(cardOrId);
+                    if (!key) return;
                     const parsed = Math.max(0, parseInt(qty) || 0);
+                    const baseId = (typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '')).toUpperCase().trim();
+                    
                     if (parsed === 0) {
-                        delete userCardCollection.value[cid];
+                        delete userCardCollection.value[key];
+                        if (baseId && baseId !== key && userCardCollection.value[baseId] !== undefined) {
+                            delete userCardCollection.value[baseId];
+                        }
                     } else {
-                        userCardCollection.value[cid] = parsed;
+                        userCardCollection.value[key] = parsed;
+                        if (baseId && baseId !== key && userCardCollection.value[baseId] !== undefined) {
+                            delete userCardCollection.value[baseId];
+                        }
                     }
                     saveActiveCollection();
                 };
@@ -4306,18 +4372,30 @@
                     setCardOwned(cardOrId, 4);
                 };
 
-                // All unique cards pool for collection
+                // All unique cards pool for collection (includes all standard cards & Alternate Arts)
                 const allCollectionCardsPool = computed(() => {
                     const all = [...setCards.value, ...starterCards.value, ...promoCards.value, ...donCards.value];
                     const seen = new Set();
                     const unique = [];
                     for (const c of all) {
-                        const id = (c.card_set_id || c.card_id || c.don_id || '').toUpperCase();
-                        if (id && !seen.has(id)) {
-                            seen.add(id);
+                        const key = getCardCollectionKey(c);
+                        if (key && !seen.has(key)) {
+                            seen.add(key);
                             unique.push(c);
                         }
                     }
+                    unique.sort((a, b) => {
+                        const setA = (a.set_id || (a.card_set_id ? a.card_set_id.split('-')[0] : '') || '').toUpperCase();
+                        const setB = (b.set_id || (b.card_set_id ? b.card_set_id.split('-')[0] : '') || '').toUpperCase();
+                        if (setA !== setB) return setA.localeCompare(setB);
+                        const codeA = (a.card_set_id || a.card_id || a.don_id || '').toUpperCase();
+                        const codeB = (b.card_set_id || b.card_id || b.don_id || '').toUpperCase();
+                        if (codeA !== codeB) return codeA.localeCompare(codeB);
+                        const isVarA = isCardVariant(a) ? 1 : 0;
+                        const isVarB = isCardVariant(b) ? 1 : 0;
+                        if (isVarA !== isVarB) return isVarA - isVarB;
+                        return (a.card_name || '').localeCompare(b.card_name || '');
+                    });
                     return unique;
                 });
 
@@ -4360,8 +4438,9 @@
                         list = list.filter(c => {
                             const name = (c.card_name || '').toLowerCase();
                             const id = (c.card_set_id || c.card_id || c.don_id || '').toLowerCase();
+                            const imgId = (c.card_image_id || '').toLowerCase();
                             const text = (c.card_text || '').toLowerCase();
-                            return name.includes(q) || id.includes(q) || text.includes(q);
+                            return name.includes(q) || id.includes(q) || imgId.includes(q) || text.includes(q);
                         });
                     }
 
@@ -4404,6 +4483,13 @@
                         list = list.filter(c => c.rarity === collectionFilters.value.rarity);
                     }
 
+                    // Art / Variation Type filter (all / base / variants)
+                    if (collectionFilters.value.artType === 'base') {
+                        list = list.filter(c => !isCardVariant(c));
+                    } else if (collectionFilters.value.artType === 'variants') {
+                        list = list.filter(c => isCardVariant(c));
+                    }
+
                     // Ownership status filter
                     if (collectionFilters.value.ownership === 'owned') {
                         list = list.filter(c => getCardOwned(c) > 0);
@@ -4438,7 +4524,8 @@
                         color: '',
                         type: '',
                         rarity: '',
-                        ownership: 'all'
+                        ownership: 'all',
+                        artType: 'all'
                     };
                     collectionCurrentPage.value = 1;
                 };
@@ -5876,6 +5963,9 @@
                     decrementCardOwned,
                     setPlaysetOwned,
                     clearCollectionFilters,
+                    getCardVariantLabel,
+                    isCardVariant,
+                    getCardCollectionKey,
                     isLocalhost,
                     openSyncQrModal,
                     copySyncQrUrl,
