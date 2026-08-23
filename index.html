@@ -4322,15 +4322,8 @@
                 const getCardOwned = (cardOrId) => {
                     if (!cardOrId) return 0;
                     const key = getCardCollectionKey(cardOrId);
-                    if (userCardCollection.value[key] !== undefined) {
-                        return userCardCollection.value[key];
-                    }
-                    // Fallback for legacy profile collection saved solely with base card_set_id
-                    const baseId = (typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '')).toUpperCase().trim();
-                    if (baseId && baseId !== key && userCardCollection.value[baseId] !== undefined) {
-                        return userCardCollection.value[baseId];
-                    }
-                    return 0;
+                    if (!key) return 0;
+                    return userCardCollection.value[key] || 0;
                 };
 
                 const setCardOwned = (cardOrId, qty) => {
@@ -4342,18 +4335,11 @@
                     const key = getCardCollectionKey(cardOrId);
                     if (!key) return;
                     const parsed = Math.max(0, parseInt(qty) || 0);
-                    const baseId = (typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '')).toUpperCase().trim();
                     
                     if (parsed === 0) {
                         delete userCardCollection.value[key];
-                        if (baseId && baseId !== key && userCardCollection.value[baseId] !== undefined) {
-                            delete userCardCollection.value[baseId];
-                        }
                     } else {
                         userCardCollection.value[key] = parsed;
-                        if (baseId && baseId !== key && userCardCollection.value[baseId] !== undefined) {
-                            delete userCardCollection.value[baseId];
-                        }
                     }
                     saveActiveCollection();
                 };
