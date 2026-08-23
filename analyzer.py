@@ -1,36 +1,161 @@
 """
 OPTCG Deck Analyzer Core Logic Module
-Extracted business logic for deck validation, statistics calculation, and matchup estimation.
+Extracted business logic for deck validation, statistics calculation,
+meta alignment calculation, banlist verification, and dynamic combat guides.
 """
+from __future__ import annotations
 
+import os
+import sys
 import re
+import json
+from typing import Optional, List, Dict, Any, Union, Tuple, TypedDict
+
+# ==============================================================================
+# Type Definitions & Schemas
+# ==============================================================================
+
+class CardDict(TypedDict, total=False):
+    card_id: str
+    card_set_id: str
+    card_name: str
+    card_color: str
+    card_cost: Union[int, str]
+    card_power: Union[int, str]
+    counter_amount: Union[int, str]
+    card_type: str
+    card_text: str
+    attribute: str
+    sub_types: str
+    rarity: str
+    card_image: str
+    image: str
+    quantity: int
+    inclusion_percentage: float
+    in_user_deck: bool
+
+class DeckStatsDict(TypedDict):
+    total_cards: int
+    counter_2000_count: int
+    counter_1000_count: int
+    blockers_count: int
+    removal_count: int
+    cost_distribution: Dict[int, int]
+
+class DeckLegalityReport(TypedDict):
+    is_legal: bool
+    banned_cards_found: List[Dict[str, str]]
+    banned_pairs_found: List[List[str]]
+    overcopy_violations: List[Dict[str, Any]]
+    size_violations: List[Dict[str, Any]]
+    total_cards: int
+
+class ReplacementCandidate(TypedDict):
+    cut_card: CardDict
+    cut_inclusion: float
+    add_card: CardDict
+    add_inclusion: float
+
+class MatchupReport(TypedDict):
+    winrate: float
+    status: str
+    recommendations: List[str]
+    is_real_data: bool
+    total_matches: int
+
+class KeyCounterCard(TypedDict):
+    card_id: str
+    card_name: str
+    image: str
+    in_deck: bool
+    user_qty: int
+    winrate_boost: float
+    status_badge: str
+    tip: str
+
+class CombatGuideReport(TypedDict):
+    tactical_badge: str
+    tactical_type: str
+    tactical_message: str
+    turn_preference: str
+    mulligan_tips: str
+    don_strategy: Dict[str, str]
+    matchup_explanation: str
+    key_counter_cards: List[KeyCounterCard]
+
+
+# ==============================================================================
+# Game Rules & Configuration Loader
+# ==============================================================================
+
+GAME_RULES_CACHE: Optional[Dict[str, Any]] = None
+
+def load_game_rules(force_reload: bool = False) -> Dict[str, Any]:
+    """
+    Loads shared game rules and thresholds from optcg_data/game_rules.json.
+    Falls back to sensible defaults if the file is missing or corrupted.
+    """
+    global GAME_RULES_CACHE
+    if force_reload:
+        GAME_RULES_CACHE = None
+
+    if GAME_RULES_CACHE is not None:
+        return GAME_RULES_CACHE
+
+    default_rules: Dict[str, Any] = {
+        "deck_constraints": {
+            "deck_size": 50,
+            "max_card_copies": 4,
+            "max_cost": 10
+        },
+        "counter_tiers": [2000, 1000],
+        "synergy_keywords": ["[blocker]", "[trigger]", "[rush]", "[double attack]", "[banish]"],
+        "removal_keywords": ["k.o.", "trash", "place into bottom", "place into trash", "return to hand"]
+    }
+
+    rules_path = os.path.join("optcg_data", "game_rules.json")
+    if os.path.exists(rules_path):
+        try:
+            with open(rules_path, "r", encoding="utf-8") as f:
+                loaded = json.load(f)
+                default_rules.update(loaded)
+        except Exception:
+            pass
+
+    GAME_RULES_CACHE = default_rules
+    return GAME_RULES_CACHE
+
+
+# ==============================================================================
+# Core Validation & Calculation Functions
+# ==============================================================================
 
 def validate_deck_color(leader_color: str, card_color: str) -> bool:
     """
     Checks if a card's color is compatible with the leader's allowed colors.
-    Dual-color leaders contain '/' (e.g. 'Blue/Yellow').
+    Supports dual-color combinations separated by '/' or whitespace (e.g. 'Blue/Yellow').
     """
     if not leader_color or not card_color:
         return False
-    
+
     if card_color == "DON!!":
         return True
-        
-    leader_colors = [c.strip().lower() for c in leader_color.split('/')]
-    card_colors = [c.strip().lower() for c in card_color.split('/')]
-    
+
+    leader_colors = [c.strip().lower() for c in leader_color.replace("/", " ").split() if c.strip()]
+    card_colors = [c.strip().lower() for c in card_color.replace("/", " ").split() if c.strip()]
+
     for c in card_colors:
         if c in leader_colors:
             return True
-            
+
     return False
 
-def calculate_deck_stats(deck_cards: list) -> dict:
+
+def calculate_deck_stats(deck_cards: List[Union[Dict[str, Any], CardDict]]) -> DeckStatsDict:
     """
-    Calculates basic statistics for the user's deck.
-    deck_cards: list of dicts containing card information and quantities.
+    Calculates basic statistics for a deck list (card count, counter breakdown, blockers, removals, cost curve).
     """
-    stats = {
+    stats: DeckStatsDict = {
         "total_cards": 0,
         "counter_2000_count": 0,
         "counter_1000_count": 0,
@@ -38,20 +163,20 @@ def calculate_deck_stats(deck_cards: list) -> dict:
         "removal_count": 0,
         "cost_distribution": {i: 0 for i in range(11)}
     }
-    
+
     for card in deck_cards:
-        qty = card.get("quantity", 1)
+        qty = int(card.get("quantity", 1))
         stats["total_cards"] += qty
-        
-        # Cost distribution
+
+        # Cost curve distribution
         try:
             cost = int(card.get("card_cost", 0))
             if 0 <= cost <= 10:
                 stats["cost_distribution"][cost] += qty
         except (ValueError, TypeError):
             pass
-            
-        # Counters
+
+        # Counter breakdown
         try:
             counter = int(card.get("counter_amount", 0))
             if counter == 2000:
@@ -60,42 +185,50 @@ def calculate_deck_stats(deck_cards: list) -> dict:
                 stats["counter_1000_count"] += qty
         except (ValueError, TypeError):
             pass
-            
-        # Blockers
+
+        # Blockers detection
         text = (card.get("card_text") or "").lower()
-        if "[blocker]" in text:
+        if "[blocker]" in text or "blocker" in text:
             stats["blockers_count"] += qty
-            
-        # Removals
+
+        # Removals detection
         is_event = card.get("card_type", "").lower() == "event"
-        has_ko_effect = "k.o." in text or "trash" in text or "place" in text
+        has_ko_effect = any(kw in text for kw in ["k.o.", "trash", "place into", "rest up to"])
         if is_event and has_ko_effect:
             stats["removal_count"] += qty
-            
+
     return stats
 
-def calculate_meta_alignment(user_deck_ids: list, leader_meta_cards: list) -> float:
+
+def calculate_meta_alignment(user_deck_ids: List[str], leader_meta_cards: List[Dict[str, Any]]) -> float:
     """
-    Calculates percentage alignment between user deck and leader's meta deck.
+    Calculates percentage alignment between user deck cards and tournament meta core staples (>=50% inclusion).
     """
     if not leader_meta_cards:
         return 50.0
-        
-    meta_core_ids = {c["card_id"]: c["inclusion_percentage"] for c in leader_meta_cards if c.get("inclusion_percentage", 0) >= 50.0}
+
+    meta_core_ids = {
+        c["card_id"].upper().strip(): float(c.get("inclusion_percentage", 0.0))
+        for c in leader_meta_cards
+        if float(c.get("inclusion_percentage", 0.0)) >= 50.0 and c.get("card_id")
+    }
+
     if not meta_core_ids:
         return 50.0
-        
+
     matched_weight = 0.0
     total_weight = sum(meta_core_ids.values())
-    
-    for card_id in user_deck_ids:
-        if card_id in meta_core_ids:
-            matched_weight += meta_core_ids[card_id]
-            
+
+    user_id_set = {cid.upper().strip() for cid in user_deck_ids if cid}
+    for card_id, weight in meta_core_ids.items():
+        if card_id in user_id_set:
+            matched_weight += weight
+
     return min(100.0, (matched_weight / total_weight) * 100.0)
 
-# Specific base win rates keyed by exact card_set_id for precision (Item 6)
-KNOWN_LEADER_BASE_WINRATES = {
+
+# Known leader baseline winrates for heuristic estimations
+KNOWN_LEADER_BASE_WINRATES: Dict[str, float] = {
     "OP05-060": 48.0,  # Monkey.D.Luffy (Purple)
     "OP09-001": 50.0,  # Shanks (Red)
     "OP09-081": 47.0,  # Marshall.D.Teach (Black)
@@ -105,7 +238,8 @@ KNOWN_LEADER_BASE_WINRATES = {
     "OP06-022": 49.0,  # Yamato (Green/Yellow)
 }
 
-def get_real_matchup_winrate(opponent_leader_id: str, leader_matchups_data: dict) -> Optional[dict]:
+
+def get_real_matchup_winrate(opponent_leader_id: str, leader_matchups_data: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
     """
     Retrieves real tournament matchup statistics between user's leader and opponent leader.
     """
@@ -116,23 +250,28 @@ def get_real_matchup_winrate(opponent_leader_id: str, leader_matchups_data: dict
         return matchup
     return None
 
-import os
-import json
-from typing import Optional, List, Dict, Any
 
-BANLIST_CACHE = None
+# ==============================================================================
+# Banlist & Legality Verification Engine
+# ==============================================================================
+
+BANLIST_CACHE: Optional[Dict[str, Any]] = None
 
 def load_banlist(mode: str = "EN", force_reload: bool = False) -> Dict[str, Any]:
+    """
+    Loads banlist rules with support for multi-format modes (EN, JP, NONE) and cached reads.
+    """
     global BANLIST_CACHE
     if force_reload:
         BANLIST_CACHE = None
+
     if BANLIST_CACHE is None:
         banlist_path = os.path.join("optcg_data", "banlist.json")
         ban_sets_path = os.path.join("optcg_data", "ban_sets.json")
         ban_st_path = os.path.join("optcg_data", "ban_st.json")
         whitelist_path = os.path.join("optcg_data", "whitelist.json")
 
-        data = {
+        data: Dict[str, Any] = {
             "banned_cards": [],
             "banned_sets": [],
             "banned_starter_decks": [],
@@ -170,9 +309,17 @@ def load_banlist(mode: str = "EN", force_reload: bool = False) -> Dict[str, Any]
                 pass
 
         BANLIST_CACHE = data
-        
+
     if mode == "NONE":
-        return {"banned_cards": [], "banned_sets": [], "banned_starter_decks": [], "whitelisted_cards": [], "banned_pairs": []}
+        return {
+            "banned_cards": [],
+            "banned_sets": [],
+            "banned_starter_decks": [],
+            "whitelisted_cards": [],
+            "restricted_cards": {},
+            "banned_pairs": []
+        }
+
     modes = BANLIST_CACHE.get("modes", {})
     if mode in modes:
         res = dict(modes[mode])
@@ -180,9 +327,21 @@ def load_banlist(mode: str = "EN", force_reload: bool = False) -> Dict[str, Any]
             if key not in res:
                 res[key] = BANLIST_CACHE.get(key, [])
         return res
+
     return BANLIST_CACHE
 
-def validate_deck_legality(user_deck_cards: list, leader_card_id: str = "", mode: str = "EN", banlist_data: dict = None, check_size: bool = True) -> dict:
+
+def validate_deck_legality(
+    user_deck_cards: List[Dict[str, Any]],
+    leader_card_id: str = "",
+    mode: str = "EN",
+    banlist_data: Optional[Dict[str, Any]] = None,
+    check_size: bool = True
+) -> DeckLegalityReport:
+    """
+    Validates complete deck legality against banned cards, banned sets, banned starters,
+    restricted card counts, banned pairs, and deck size constraints.
+    """
     banlist = banlist_data if banlist_data is not None else load_banlist(mode)
     banned_cards = {c.strip().upper() for c in banlist.get("banned_cards", [])}
     banned_sets = {s.strip().upper() for s in banlist.get("banned_sets", [])}
@@ -195,11 +354,10 @@ def validate_deck_legality(user_deck_cards: list, leader_card_id: str = "", mode
     if leader_card_id:
         deck_card_ids.add(leader_card_id.strip().upper())
 
-    # Contagem de cópias por carta e total de cartas
     copy_counts: Dict[str, int] = {}
     total_cards = 0
-    found_banned = []
-    overcopy_violations = []
+    found_banned: List[Dict[str, str]] = []
+    overcopy_violations: List[Dict[str, Any]] = []
 
     for item in user_deck_cards:
         cid = (item.get("card_set_id") or item.get("card_id") or "").strip().upper()
@@ -212,7 +370,6 @@ def validate_deck_legality(user_deck_cards: list, leader_card_id: str = "", mode
         deck_card_ids.add(cid)
         c_prefix = cid.split("-")[0] if "-" in cid else cid
 
-        # Verifica banimento direto por carta ou por coleção/starter (se não estiver na whitelist de sobrevida)
         is_card_banned = cid in banned_cards
         is_set_banned = (c_prefix in banned_sets or c_prefix in banned_starter_decks) and (cid not in whitelisted_cards)
 
@@ -226,7 +383,7 @@ def validate_deck_legality(user_deck_cards: list, leader_card_id: str = "", mode
                 reason = f"Coleção ({c_prefix}) banida"
             found_banned.append({"card_id": cid, "card_name": cname, "reason": reason})
 
-    # Verifica limite de cópias por carta
+    # Check copy limits (default 4x or restricted max)
     for cid, total_copies in copy_counts.items():
         max_allowed = restricted_cards.get(cid, 4)
         if total_copies > max_allowed:
@@ -234,15 +391,16 @@ def validate_deck_legality(user_deck_cards: list, leader_card_id: str = "", mode
             label = f"Restrita (máx. {max_allowed} cópias)" if cid in restricted_cards else f"Limite de 4 cópias excedido ({total_copies}x)"
             overcopy_violations.append({"card_id": cid, "card_name": cname, "copies": total_copies, "max_allowed": max_allowed, "reason": label})
 
-    found_illegal_pairs = []
+    # Check banned pairs
+    found_illegal_pairs: List[List[str]] = []
     for pair in banned_pairs:
         if len(pair) == 2:
             p1, p2 = pair[0].strip().upper(), pair[1].strip().upper()
             if p1 in deck_card_ids and p2 in deck_card_ids:
                 found_illegal_pairs.append([p1, p2])
 
-    # Validação de tamanho do deck (deve ter exatamente 50 cartas)
-    size_violations = []
+    # Check deck size constraints (exactly 50 cards)
+    size_violations: List[Dict[str, Any]] = []
     if check_size and total_cards != 50 and total_cards > 0:
         size_violations.append({
             "total": total_cards,
@@ -265,7 +423,12 @@ def validate_deck_legality(user_deck_cards: list, leader_card_id: str = "", mode
         "total_cards": total_cards
     }
 
-def find_smart_replacements(user_deck_cards: list, leader_meta_cards: list, banlist_data: dict = None) -> list:
+
+def find_smart_replacements(
+    user_deck_cards: List[Dict[str, Any]],
+    leader_meta_cards: List[Dict[str, Any]],
+    banlist_data: Optional[Dict[str, Any]] = None
+) -> List[ReplacementCandidate]:
     """
     Recommends smart card replacements: replaces cards in user deck with lowest meta inclusion %
     with missing core/staple cards with highest meta inclusion %.
@@ -273,7 +436,7 @@ def find_smart_replacements(user_deck_cards: list, leader_meta_cards: list, banl
     """
     if not leader_meta_cards or not user_deck_cards:
         return []
-    
+
     if banlist_data is None:
         banlist_data = load_banlist("EN")
 
@@ -282,11 +445,13 @@ def find_smart_replacements(user_deck_cards: list, leader_meta_cards: list, banl
     banned_starters = {s.strip().upper() for s in banlist_data.get("banned_starter_decks", [])}
     whitelisted = {c.strip().upper() for c in banlist_data.get("whitelisted_cards", [])}
 
-    def is_card_illegal(cid):
-        if not cid: return False
+    def is_card_illegal(cid: str) -> bool:
+        if not cid:
+            return False
         cid_u = cid.strip().upper()
         c_prefix = cid_u.split("-")[0] if "-" in cid_u else cid_u
-        if cid_u in banned_ids: return True
+        if cid_u in banned_ids:
+            return True
         if (c_prefix in banned_sets or c_prefix in banned_starters) and (cid_u not in whitelisted):
             return True
         return False
@@ -294,24 +459,24 @@ def find_smart_replacements(user_deck_cards: list, leader_meta_cards: list, banl
     meta_pct_map = {c.get("card_id", "").upper(): float(c.get("inclusion_percentage", 0.0)) for c in leader_meta_cards}
     user_deck_ids = {c.get("card_set_id", "").upper() for c in user_deck_cards}
 
-    # Missing high-inclusion staples (>= 50%) - Excluding banned cards/sets/starters!
+    # Missing staples (>= 50% inclusion) - excluding banned cards
     missing_staples = [
-        c for c in leader_meta_cards 
-        if c.get("card_id", "").upper() not in user_deck_ids 
+        c for c in leader_meta_cards
+        if c.get("card_id", "").upper() not in user_deck_ids
         and not is_card_illegal(c.get("card_id", ""))
         and float(c.get("inclusion_percentage", 0.0)) >= 50.0
     ]
     missing_staples.sort(key=lambda x: float(x.get("inclusion_percentage", 0.0)), reverse=True)
-    
-    # User cards with lowest meta inclusion
+
+    # Scored user cards
     scored_user_cards = []
     for c in user_deck_cards:
         cid = c.get("card_set_id", "").upper()
         pct = meta_pct_map.get(cid, 0.0)
         scored_user_cards.append({"card": c, "inclusion_percentage": pct})
     scored_user_cards.sort(key=lambda x: x["inclusion_percentage"])
-    
-    replacements = []
+
+    replacements: List[ReplacementCandidate] = []
     for i in range(min(len(missing_staples), len(scored_user_cards))):
         if scored_user_cards[i]["inclusion_percentage"] < float(missing_staples[i].get("inclusion_percentage", 0.0)):
             replacements.append({
@@ -320,30 +485,37 @@ def find_smart_replacements(user_deck_cards: list, leader_meta_cards: list, banl
                 "add_card": missing_staples[i],
                 "add_inclusion": float(missing_staples[i].get("inclusion_percentage", 0.0))
             })
+
     return replacements
 
-def evaluate_matchup(opponent_leader: dict, user_stats: dict, meta_alignment: float, leader_matchups_data: dict = None) -> dict:
+
+def evaluate_matchup(
+    opponent_leader: Dict[str, Any],
+    user_stats: DeckStatsDict,
+    meta_alignment: float,
+    leader_matchups_data: Optional[Dict[str, Any]] = None
+) -> MatchupReport:
     """
     Evaluates estimated win rate against a meta opponent leader.
     Uses real Limitless tournament match records if available, otherwise falls back to heuristics.
     """
     opp_name = opponent_leader.get("name", "").lower()
     opp_id = opponent_leader.get("leader_card_id", "").strip().upper()
-    
-    # 1. Check Real Limitless Matchup Data first
+
+    # 1. Check real tournament matchup records first
     real_match = get_real_matchup_winrate(opp_id, leader_matchups_data)
     if real_match:
         real_winrate = float(real_match.get("winrate", 50.0))
-        tot = real_match.get("total_matches", 0)
-        w = real_match.get("wins", 0)
-        l = real_match.get("losses", 0)
-        
+        tot = int(real_match.get("total_matches", 0))
+        w = int(real_match.get("wins", 0))
+        l = int(real_match.get("losses", 0))
+
         status = "Equilibrado"
         if real_winrate >= 55.0:
             status = "Vantajoso"
         elif real_winrate < 45.0:
             status = "Desfavorável"
-            
+
         recomends = [
             f"Taxa real de {real_winrate}% em {tot} partidas de torneio ({w} vitórias, {l} derrotas)."
         ]
@@ -354,20 +526,19 @@ def evaluate_matchup(opponent_leader: dict, user_stats: dict, meta_alignment: fl
             "is_real_data": True,
             "total_matches": tot
         }
-    
-    # 2. Heuristic Base Matchup Lookup
+
+    # 2. Heuristic baseline lookup
     base_winrate = KNOWN_LEADER_BASE_WINRATES.get(opp_id, 50.0)
-        
-    # 3. Meta Alignment Impact
+
+    # 3. Meta alignment impact
     meta_modifier = (meta_alignment - 70.0) / 6.0
     estimated_winrate = base_winrate + meta_modifier
-    
-    # 4. Strategy Type Classification
+
+    # 4. Archetype classification
     is_aggro = "shanks" in opp_name or "zoro" in opp_name or "betty" in opp_name
     is_big_character = "luffy" in opp_name or "teach" in opp_name or "enel" in opp_name
-    
+
     recomends = []
-    
     if is_aggro:
         defense = user_stats["counter_2000_count"] + user_stats["blockers_count"]
         if defense >= 12:
@@ -378,7 +549,7 @@ def evaluate_matchup(opponent_leader: dict, user_stats: dict, meta_alignment: fl
             recomends.append("Cuidado: Seu deck tem poucas defesas contra a agressividade rápida deste líder. Adicione blockers ou counters +2000.")
         else:
             recomends.append("Defesa equilibrada para lidar com a pressão inicial.")
-            
+
     if is_big_character:
         removals = user_stats["removal_count"]
         if removals >= 6:
@@ -391,14 +562,14 @@ def evaluate_matchup(opponent_leader: dict, user_stats: dict, meta_alignment: fl
             recomends.append("Remoções moderadas para lidar com ameaças pontuais.")
 
     estimated_winrate = max(30.0, min(70.0, estimated_winrate))
-    
+
     if estimated_winrate >= 55.0:
         status = "Vantajoso"
     elif estimated_winrate >= 45.0:
         status = "Equilibrado"
     else:
         status = "Desfavorável"
-        
+
     return {
         "winrate": round(estimated_winrate, 1),
         "status": status,
@@ -407,18 +578,22 @@ def evaluate_matchup(opponent_leader: dict, user_stats: dict, meta_alignment: fl
         "total_matches": 0
     }
 
-def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, leader_meta_cards: list = None) -> dict:
+
+def generate_dynamic_combat_guide(
+    user_deck_cards: List[Dict[str, Any]],
+    opponent_leader: Dict[str, Any],
+    leader_meta_cards: Optional[List[Dict[str, Any]]] = None
+) -> CombatGuideReport:
     """
     Generates a 100% dynamic combat guide tailored to the user's specific deck cards
     and the opponent's archetype (Aggro, Control, Tempo).
-    Includes specific key counter card recommendations with in-deck detection and winrate impact.
     """
     opp_name = opponent_leader.get("name", "").lower()
     opp_display_name = opponent_leader.get("name", "Oponente")
     is_aggro = any(k in opp_name for k in ["shanks", "zoro", "betty", "law", "ace", "kid"])
     is_big = any(k in opp_name for k in ["teach", "kaido", "enel", "linlin", "luffy", "sabo", "sakazuki", "kuzan"])
     opp_type = 'aggro' if is_aggro else ('control' if is_big else 'tempo')
-    
+
     # Categorize user cards
     searchers = []
     blockers = []
@@ -429,23 +604,23 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
     mid_drops = []
     odd_count = 0
     even_count = 0
-    
-    user_deck_set_map = {}
+
+    user_deck_set_map: Dict[str, int] = {}
     for c in user_deck_cards:
         cid = (c.get("card_set_id") or c.get("card_id") or "").strip().upper()
         if cid:
             user_deck_set_map[cid] = user_deck_set_map.get(cid, 0) + int(c.get("quantity", 1))
-            
+
         txt = (c.get("card_text") or "").lower()
         cost = int(c.get("card_cost") or 0)
         counter = int(c.get("counter_amount") or 0)
         ctype = (c.get("card_type") or "").lower()
-        
+
         if cost % 2 == 1:
             odd_count += 1
         elif cost > 0:
             even_count += 1
-            
+
         if cost <= 2 and any(k in txt for k in ["look", "search", "reveal", "add"]):
             searchers.append(c)
         if "[blocker]" in txt or "blocker" in txt:
@@ -460,14 +635,14 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
             early_drops.append(c)
         if 4 <= cost <= 6 and ctype == "character":
             mid_drops.append(c)
-            
+
     searchers.sort(key=lambda x: int(x.get("card_cost") or 0))
     blockers.sort(key=lambda x: int(x.get("card_cost") or 0))
     early_drops.sort(key=lambda x: int(x.get("card_power") or 0), reverse=True)
     mid_drops.sort(key=lambda x: int(x.get("card_power") or 0), reverse=True)
     bosses.sort(key=lambda x: int(x.get("card_power") or 0), reverse=True)
-    
-    # Posture
+
+    # Posture recommendation
     if is_aggro:
         badge = "🚨 Oponente Agressivo (Rush / Swarm)"
         msg = "Este oponente tentará zerar seus pontos de vida em ritmo acelerado desde os primeiros turnos. Postura recomendada: CONTROLE DE MESA E DEFESA. Não dispute corrida de vida; use seus personagens para limpar os atacantes virados (rested) dele e mantenha sua mão cheia de Counters (+2000)."
@@ -478,14 +653,14 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
         badge = "🔄 Oponente de Ritmo (Manipulação & Recursos)"
         msg = "Este líder manipula a mesa virando ou retornando peças. Postura recomendada: JOGO CADENCIADO E VALOR. Faça trocas vantajosas e evite deixar personagens virados sem proteção."
 
-    # Turn Preference
+    # Turn preference analysis
     top_searcher = searchers[0] if searchers else None
     top_blocker = blockers[0] if blockers else None
     top_2k = counters_2k[0] if counters_2k else None
     top_mid = mid_drops[0] if mid_drops else None
     top_boss = bosses[0] if bosses else None
     top_removal = removals[0] if removals else None
-    
+
     if odd_count >= even_count:
         pref_title = "Primeiro (Ímpar - 1, 3, 5, 7, 9 Don!!)"
         pref_desc = f"Seu deck possui predominância de custos ímpares ({odd_count} cartas). Ir primeiro encaixa com perfeição sua curva ideal sem deixar Don ocioso."
@@ -493,7 +668,7 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
         pref_title = "Segundo (Par - 2, 4, 6, 8, 10 Don!!)"
         pref_desc = f"Seu deck possui predominância de custos pares ({even_count} cartas). Ir segundo garante +1 carta comprada e curva de Don sincronizada."
 
-    # Mulligan
+    # Mulligan advice
     if is_aggro:
         mulligan = f"🚨 Prioridade contra Agressividade: Mantenha defesas e cartas de custo baixo (ex: {top_searcher.get('card_name') if top_searcher else 'Buscador'} e {top_2k.get('card_name') if top_2k else '+2000 Counter'}). Se a mão vier pesada, faça Mulligan imediatamente."
     elif is_big:
@@ -501,18 +676,16 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
     else:
         mulligan = "🔄 Prioridade para Ritmo: Busque curva balanceada de custo baixo e médio para trocas de recursos eficientes."
 
-    # Don Curve
+    # Don curve strategy
     early = f"Early Game (1-4 Don): Baixar {top_searcher.get('card_name') if top_searcher else 'buscador/drop inicial'} para estruturar o campo."
     mid = f"Mid Game (5-8 Don): Estabelecer {top_mid.get('card_name') if top_mid else 'atacante de custo médio'} para controlar a mesa."
     late = f"Late Game (9-10 Don): Descer {top_boss.get('card_name') if top_boss else 'Boss principal'} para finalizar com alta força."
 
-    # --- Engine de Pontuação de Cartas Específico por Oponente ---
-    def get_clean_name(n):
+    def get_clean_name(n: str) -> str:
         return re.sub(r'\s*\([^)]*\)', '', n).strip().lower()
 
-    def score_card_against_opponent(c_obj, is_in_user_deck):
+    def score_card_against_opponent(c_obj: Dict[str, Any], is_in_user_deck: bool) -> Tuple[float, str]:
         txt = (c_obj.get("card_text") or "").lower()
-        cname = c_obj.get("card_name") or ""
         cost = int(c_obj.get("card_cost") or 0)
         power = int(c_obj.get("card_power") or 0)
         counter = int(c_obj.get("counter_amount") or 0)
@@ -521,7 +694,7 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
         score = 0.0
         reason = ""
 
-        # Regras de Mecânica Específica de Oponente
+        # Specific opponent mechanic heuristics
         if "sabo" in opp_name:
             if "bottom of" in txt or "place at bottom" in txt:
                 score += 100.0
@@ -577,7 +750,6 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
                 score += 75.0
                 reason = "Atacante de curva média para pressionar a Vida da Nami turno a turno."
 
-        # Fallbacks genéricos por arquétipo se nenhuma regra específica pontuou
         if score == 0.0:
             if is_aggro:
                 if counter == 2000 or "[blocker]" in txt:
@@ -601,18 +773,15 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
                     score += 40.0
                     reason = f"Atacante de curva intermediária para trocas eficientes contra {opp_display_name}."
 
-        # Bônus de relevância no meta e bônus de sugestão para cartas ausentes
         score += inc_pct * 0.25
         if not is_in_user_deck:
-            score += 25.0  # Destaca cartas ausentes (outliers) para sugestão de melhoria!
+            score += 25.0
 
         return score, reason
 
-    # Consolida todo o pool de cartas disponíveis (do deck do usuário + cartas do meta do líder)
-    all_candidates = []
+    all_candidates: List[Dict[str, Any]] = []
     seen_cand_ids = set()
 
-    # Adiciona cartas do deck do usuário
     for item in user_deck_cards:
         cid = (item.get("card_set_id") or item.get("card_id") or "").strip().upper()
         if cid and cid not in seen_cand_ids:
@@ -621,7 +790,6 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
             c_copy["in_user_deck"] = True
             all_candidates.append(c_copy)
 
-    # Adiciona cartas do meta do líder (Limitless)
     if leader_meta_cards:
         for mcard in leader_meta_cards:
             cid = (mcard.get("card_id") or mcard.get("card_set_id") or "").strip().upper()
@@ -632,23 +800,24 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
                 c_copy["in_user_deck"] = cid in user_deck_set_map
                 all_candidates.append(c_copy)
 
-    # Carrega regras de banlist para filtrar recomendações
+    # Filter illegal candidates
     banlist_obj = load_banlist("EN")
     banned_cards_set = {c.strip().upper() for c in banlist_obj.get("banned_cards", [])}
     banned_sets_set = {s.strip().upper() for s in banlist_obj.get("banned_sets", [])}
     banned_starters_set = {s.strip().upper() for s in banlist_obj.get("banned_starter_decks", [])}
     whitelisted_set = {c.strip().upper() for c in banlist_obj.get("whitelisted_cards", [])}
 
-    def is_candidate_illegal(cid):
-        if not cid: return False
+    def is_candidate_illegal(cid: str) -> bool:
+        if not cid:
+            return False
         cid_u = cid.strip().upper()
         c_prefix = cid_u.split("-")[0] if "-" in cid_u else cid_u
-        if cid_u in banned_cards_set: return True
+        if cid_u in banned_cards_set:
+            return True
         if (c_prefix in banned_sets_set or c_prefix in banned_starters_set) and (cid_u not in whitelisted_set):
             return True
         return False
 
-    # Pontua cada carta especificamente contra ESTE oponente (descartando banidas)
     scored_pool = []
     seen_names = set()
 
@@ -683,13 +852,10 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
     missing_candidates = [item for item in scored_pool if not item["in_deck"]]
 
     selected_items = []
-    # Pick up to 2 best cards present in user deck
     for item in in_deck_candidates[:2]:
         selected_items.append(item)
-    # Pick up to 2 best missing tech/outlier cards
     for item in missing_candidates[:2]:
         selected_items.append(item)
-    # Fallback if less than 4 selected
     if len(selected_items) < 4:
         for item in scored_pool:
             if item not in selected_items:
@@ -697,7 +863,7 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
                 if len(selected_items) >= 4:
                     break
 
-    key_counter_cards = []
+    key_counter_cards: List[KeyCounterCard] = []
     for item in selected_items[:4]:
         cid = item["cid"]
         cname = item["cname"]
@@ -752,5 +918,3 @@ def generate_dynamic_combat_guide(user_deck_cards: list, opponent_leader: dict, 
         "matchup_explanation": msg,
         "key_counter_cards": key_counter_cards
     }
-
-

@@ -30,11 +30,31 @@ HEADERS = {
 }
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Scraper de Meta Game do Limitless TCG (Últimos 7 dias)")
-    parser.add_argument("--set", type=str, default="OP17", help="Coleção a ser buscada (ex: OP17, OP16, OP09)")
-    parser.add_argument("--min-players", type=int, default=8, help="Número mínimo de jogadores no torneio (padrão: 8)")
-    parser.add_argument("--days", type=int, default=7, help="Dias de histórico para analisar (padrão: 7)")
+    parser = argparse.ArgumentParser(description="Limitless TCG Metagame Scraper (Past 7 Days)")
+    parser.add_argument("--set", type=str, default="OP17", help="Set code to scrape (e.g., OP17, OP16, OP09)")
+    parser.add_argument("--min-players", type=int, default=8, help="Minimum player count in tournament (default: 8)")
+    parser.add_argument("--days", type=int, default=7, help="Days of history to analyze (default: 7)")
     return parser.parse_args()
+
+def atomic_save_json(data: Any, filepath: str, indent: int = 4) -> bool:
+    """Saves JSON data atomically using a temporary file and atomic replace."""
+    dirname = os.path.dirname(filepath)
+    if dirname and not os.path.exists(dirname):
+        os.makedirs(dirname, exist_ok=True)
+    tmp_file = f"{filepath}.tmp_{os.getpid()}_{int(time.time()*1000)}"
+    try:
+        with open(tmp_file, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=indent, ensure_ascii=False)
+        os.replace(tmp_file, filepath)
+        return True
+    except Exception as e:
+        print(f"Error during atomic save to {filepath}: {e}")
+        if os.path.exists(tmp_file):
+            try:
+                os.remove(tmp_file)
+            except Exception:
+                pass
+        return False
 
 def fetch_url(url: str, retries: int = 3, delay: float = 0.5) -> Optional[str]:
     """Faz requisições HTTP seguras com headers e tratamento de erros, incluindo rate limit (429)."""
@@ -722,19 +742,15 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
         "leaders": leaders_output
     }
     
-    if not os.path.exists(DATA_DIR):
-        os.makedirs(DATA_DIR)
-        
     out_file = os.path.join(DATA_DIR, f"meta_{set_code.upper()}.json")
-    with open(out_file, "w", encoding="utf-8") as f:
-        json.dump(final_data, f, indent=4, ensure_ascii=False)
-        
-    print("\n" + "=" * 60)
-    print(f"✅ SUCESSO! Metagame do Set {set_code.upper()} consolidado.")
-    print(f"   Arquivo Gerado: {out_file}")
-    print(f"   Torneios: {len(tournaments)} | Decks: {total_decks_tracked} | Líderes: {len(leaders_output)}")
-    print("=" * 60)
-    return True
+    if atomic_save_json(final_data, out_file):
+        print("\n" + "=" * 60)
+        print(f"✅ SUCCESS! Metagame for set {set_code.upper()} consolidated.")
+        print(f"   Generated File: {out_file}")
+        print(f"   Tournaments: {len(tournaments)} | Decks: {total_decks_tracked} | Leaders: {len(leaders_output)}")
+        print("=" * 60)
+        return True
+    return False
 
 if __name__ == "__main__":
     args = parse_args()

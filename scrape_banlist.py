@@ -1,7 +1,8 @@
 """
-OPTCG Banlist Scraper (Meta Ocidental EN)
+OPTCG Banlist Scraper (Western Meta EN)
 Scrapes official Bandai EN Banned & Restricted Card announcements and updates optcg_data/banlist.json.
 """
+from __future__ import annotations
 
 import os
 import re
@@ -35,23 +36,45 @@ DEFAULT_EN = {
     ]
 }
 
+def atomic_save_json(data: Any, filepath: str, indent: int = 4) -> bool:
+    """Saves JSON data atomically using a temporary file and atomic replace."""
+    dirname = os.path.dirname(filepath)
+    if dirname and not os.path.exists(dirname):
+        os.makedirs(dirname, exist_ok=True)
+    tmp_file = f"{filepath}.tmp_{os.getpid()}_{int(time.time()*1000)}"
+    try:
+        with open(tmp_file, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=indent, ensure_ascii=False)
+        os.replace(tmp_file, filepath)
+        return True
+    except Exception as e:
+        print(f"Error during atomic save to {filepath}: {e}")
+        if os.path.exists(tmp_file):
+            try:
+                os.remove(tmp_file)
+            except Exception:
+                pass
+        return False
+
 def fetch_url(url: str) -> str:
+    """Performs an HTTP GET request with custom headers."""
     req = urllib.request.Request(url, headers=HEADERS)
     try:
         with urllib.request.urlopen(req, timeout=25) as response:
             if response.status == 200:
                 return response.read().decode("utf-8", errors="replace")
     except Exception as e:
-        print(f"[Aviso] Erro ao acessar URL ({url}): {e}")
+        print(f"[Warning] Error reaching URL ({url}): {e}")
     return ""
 
 def parse_banlist_html(html_content: str, default_data: dict) -> dict:
+    """Parses banlist HTML for banned card IDs and restricted pairs."""
     mode_data = {
         "banned_cards": list(default_data["banned_cards"]),
         "restricted_cards": dict(default_data["restricted_cards"]),
         "banned_pairs": list(default_data["banned_pairs"])
     }
-    
+
     if not html_content:
         return mode_data
 
@@ -77,12 +100,12 @@ def parse_banlist_html(html_content: str, default_data: dict) -> dict:
 
 def scrape_banlist() -> bool:
     print("=" * 60)
-    print("🏴‍☠️ INICIANDO SCRAPER DE BANIMENTOS (META OCIDENTAL EN)")
+    print("🏴‍☠️ STARTING BANLIST SCRAPER (WESTERN META EN)")
     print("=" * 60)
-    
+
     en_html = fetch_url(EN_BANLIST_URL)
     en_data = parse_banlist_html(en_html, DEFAULT_EN)
-    
+
     filepath = os.path.join(DATA_DIR, "banlist.json")
 
     existing_sets = []
@@ -110,18 +133,12 @@ def scrape_banlist() -> bool:
         "banned_pairs": en_data["banned_pairs"]
     }
 
-    try:
-        with open(filepath, "w", encoding="utf-8") as f:
-            json.dump(banlist_structure, f, indent=4, ensure_ascii=False)
-            
-        print(f"✅ SUCESSO! Banlist oficial EN atualizada em {filepath}")
-        print(f"   Cartas banidas raspadas do site oficial EN: {len(en_data['banned_cards'])}")
-        print(f"   Pares proibidos raspados: {len(en_data['banned_pairs'])}")
+    if atomic_save_json(banlist_structure, filepath):
+        print(f"✅ SUCCESS! Official EN banlist updated at {filepath}")
+        print(f"   Banned cards scraped: {len(en_data['banned_cards'])}")
+        print(f"   Banned pairs scraped: {len(en_data['banned_pairs'])}")
         return True
-    except Exception as e:
-        print(f"❌ Erro ao salvar banlist.json: {e}")
-        return False
+    return False
 
 if __name__ == "__main__":
     scrape_banlist()
-

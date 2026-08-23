@@ -1,0 +1,36 @@
+{
+  "deck_constraints": {
+    "deck_size": 50,
+    "max_card_copies": 4,
+    "max_cost": 10,
+    "life_single_color": 5,
+    "life_dual_color": 4
+  },
+  "color_translations": {
+    "red": "Vermelho",
+    "green": "Verde",
+    "blue": "Azul",
+    "purple": "Roxo",
+    "black": "Preto",
+    "yellow": "Amarelo"
+  },
+  "counter_tiers": [2000, 1000],
+  "synergy_keywords": [
+    "[blocker]",
+    "[trigger]",
+    "[rush]",
+    "[double attack]",
+    "[banish]",
+    "[on play]",
+    "[when attacking]",
+    "[activate: main]",
+    "[counter]"
+  ],
+  "removal_keywords": [
+    "k.o.",
+    "trash",
+    "place into bottom",
+    "place into trash",
+    "return to hand"
+  ]
+}

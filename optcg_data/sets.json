@@ -82,5 +82,17 @@
     {
         "set_name": "The Time of Battle",
         "set_id": "OP-16"
+    },
+    {
+        "set_name": "The World's Strongest Warriors",
+        "set_id": "OP-17"
+    },
+    {
+        "set_name": "Extra Booster: EB-05 Spoilers",
+        "set_id": "EB-05"
+    },
+    {
+        "set_name": "Two Legends: OP-18 Spoilers",
+        "set_id": "OP-18"
     }
 ]

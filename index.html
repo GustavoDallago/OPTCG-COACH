@@ -10,8 +10,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Vue.js 3 -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <!-- OPTCG Utility Functions Module -->
+    <!-- OPTCG Modular Modules -->
     <script src="./js/optcg-utils.js"></script>
+    <script src="./js/storage-service.js"></script>
+    <script src="./js/deck-analyzer.js"></script>
     <!-- QRCode JS for Cross-Device Sync -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <!-- html2canvas for Deck Image Export -->
@@ -314,13 +316,13 @@
                         
                         <!-- Image Container with lazy loading fallback -->
                         <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 overflow-hidden flex items-center justify-center">
-                            <div v-if="card.card_image && !card.imageError" class="relative w-full h-full">
+                            <div v-if="!card.imageError" class="relative w-full h-full">
                                 <div v-if="!card.imageLoaded" class="absolute inset-0 card-skeleton rounded-xl"></div>
                                 <img 
-                                    :src="card.card_image" 
+                                    :src="getCardImage(card)" 
                                     :alt="card.card_name" 
                                     @load="card.imageLoaded = true"
-                                    @error="card.imageError = true; card.imageLoaded = true"
+                                    @error="handleCardImgError($event, card.card_set_id || card.card_id); card.imageError = true; card.imageLoaded = true"
                                     loading="lazy"
                                     class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
                             </div>
@@ -353,6 +355,16 @@
                             <!-- Cost/Power Quick Info Overlay -->
                             <div v-if="card.card_cost && card.card_cost !== 'NULL'" class="absolute bottom-2 right-2 bg-slate-950/80 backdrop-blur-sm border border-slate-800 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold text-slate-300">
                                 Custo: {{ card.card_cost }}
+                            </div>
+
+                            <!-- Banned / Rotated Badge Over Image -->
+                            <div v-if="isCardBanned(card)" class="absolute top-2 right-2 max-w-[75%] bg-rose-600 text-white border border-rose-400/60 px-1.5 py-0.5 rounded-md text-[8.5px] font-mono font-black text-center truncate shadow-lg z-10" :title="getBanReasonText(card)">
+                                <span>⛔ BANIDA</span>
+                            </div>
+
+                            <!-- Spoiler / Release Date Flag Over Image -->
+                            <div v-if="getCardSpoilerInfo(card)" class="absolute bottom-2 left-2 right-2 bg-purple-950/95 text-purple-200 border border-purple-500/60 px-1.5 py-0.5 rounded-md text-[8.5px] font-mono font-black text-center flex items-center justify-center gap-1 shadow-lg backdrop-blur-sm z-10">
+                                <span>⏳ Lançamento: {{ getCardSpoilerInfo(card).formattedDate }}</span>
                             </div>
                         </div>
 
@@ -959,18 +971,20 @@
                             @click="selectBuilderLeader(leader)"
                             class="bg-slate-950 border border-slate-800 hover:border-amber-500/50 rounded-2xl overflow-hidden hover:-translate-y-1 transition-all duration-300 cursor-pointer shadow-md flex flex-col h-full group">
                             
-                            <div class="relative w-full aspect-[2.5/3.5] bg-slate-900 flex items-center justify-center">
-                                <img 
-                                    v-if="leader.card_image" 
-                                    :src="leader.card_image" 
-                                    :alt="leader.card_name" 
-                                    class="w-full h-full object-cover" loading="lazy">
-                                <div v-else class="w-full h-full p-4 flex flex-col justify-between items-center text-center bg-slate-950 text-slate-400">
+                            <div class="relative w-full aspect-[2.5/3.5] bg-slate-900 overflow-hidden flex items-center justify-center">
+                                <div v-if="!leader.imageError" class="relative w-full h-full">
+                                    <img 
+                                        :src="getCardImage(leader)" 
+                                        :alt="leader.card_name" 
+                                        @error="handleCardImgError($event, leader.card_set_id); leader.imageError = true"
+                                        class="w-full h-full object-cover" loading="lazy">
+                                </div>
+                                <div v-else class="w-full h-full p-4 flex flex-col justify-between items-center text-center bg-slate-950 text-slate-400 select-none">
                                     <span class="text-[10px] font-mono">{{ leader.card_set_id }}</span>
-                                    <span class="text-xs font-bold">{{ leader.card_name }}</span>
+                                    <span class="text-xs font-bold line-clamp-2">{{ leader.card_name }}</span>
                                     <span class="text-[10px] text-red-500 font-bold">Líder</span>
                                 </div>
-                                <div class="absolute top-2 left-2 flex gap-1">
+                                <div class="absolute top-2 left-2 flex gap-1 z-10">
                                     <span 
                                         v-for="color in getColors(leader.card_color)"
                                         :class="getColorClass(color)"
@@ -978,10 +992,22 @@
                                         {{ translateColor(color) }}
                                     </span>
                                 </div>
+                                <!-- Banned Badge in Leader Modal -->
+                                <div v-if="isCardBanned(leader)" class="absolute top-2 right-2 max-w-[65%] bg-rose-600 text-white border border-rose-400/60 px-1.5 py-0.5 rounded text-[8px] font-mono font-black text-center truncate shadow-md z-10" :title="getBanReasonText(leader)">
+                                    ⛔ BANIDA
+                                </div>
+                                <!-- Spoiler Badge in Leader Modal -->
+                                <div v-else-if="getCardSpoilerInfo(leader)" class="absolute bottom-2 left-2 right-2 bg-purple-950/95 text-purple-200 border border-purple-500/60 px-1.5 py-0.5 rounded text-[8px] font-mono font-black text-center truncate shadow-md z-10">
+                                    ⏳ Lançamento: {{ getCardSpoilerInfo(leader).formattedDate }}
+                                </div>
                             </div>
                             <div class="p-3 bg-slate-900 flex-grow flex flex-col justify-between">
                                 <h3 class="font-bold text-xs text-slate-200 group-hover:text-amber-500 line-clamp-1">{{ leader.card_name }}</h3>
-                                <span class="text-[9px] font-mono text-slate-500 mt-1 block">ID: {{ leader.card_set_id }}</span>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-[9px] font-mono text-slate-500">ID: {{ leader.card_set_id }}</span>
+                                    <span v-if="isCardBanned(leader)" class="text-[8px] font-bold text-rose-400">⛔ Banido</span>
+                                    <span v-else-if="getCardSpoilerInfo(leader)" class="text-[8px] font-bold text-purple-400">⏳ Spoiler</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -996,10 +1022,13 @@
                         <!-- Header & Selector filters -->
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-800/80">
                             <div>
-                                <h2 class="text-lg font-bold text-slate-200 flex items-center gap-1.5">
-                                    Adicionar Cartas ao Deck
+                                <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                                    <span>Pool de Cartas</span>
+                                    <span class="text-xs bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-mono font-normal">
+                                        {{ filteredBuilderPool.length }} disponíveis
+                                    </span>
                                 </h2>
-                                <p class="text-xs text-slate-400">Exibindo apenas cartas compatíveis com a(s) cor(es) do líder.</p>
+                                <p class="text-xs text-slate-400 mt-0.5">Clique na carta para adicionar ao seu deck.</p>
                             </div>
                             
                             <!-- Filter Type/Cost -->
@@ -1024,13 +1053,13 @@
                         <!-- Card Pool Search -->
                         <div class="relative">
                             <input 
-                                v-model="builderSearchQuery"
+                                v-model="builderSearchQuery" 
                                 type="text" 
-                                placeholder="Filtrar por nome ou ID..."
+                                placeholder="Filtrar por nome ou ID..." 
                                 class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 pl-3 pr-10 text-sm focus:outline-none focus:border-amber-500 text-slate-300">
                             <button 
                                 v-if="builderSearchQuery" 
-                                @click="builderSearchQuery = ''"
+                                @click="builderSearchQuery = ''" 
                                 class="absolute right-3 top-2.5 text-slate-500 hover:text-slate-300">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -1041,30 +1070,48 @@
                         <!-- Cards Pool Grid -->
                         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 max-h-[60vh] overflow-y-auto pr-2">
                             <div 
-                                v-for="card in filteredBuilderPool"
+                                v-for="card in filteredBuilderPool" 
                                 :key="card.card_set_id + card.card_name"
-                                @click="addCardToDeck(card)"
-                                class="bg-slate-950 border border-slate-800 hover:border-amber-500/50 rounded-xl overflow-hidden cursor-pointer hover:scale-[1.03] transition-all relative flex flex-col group">
+                                @click="openDetails(card)"
+                                class="bg-slate-950 border border-slate-800 hover:border-amber-500/50 rounded-xl overflow-hidden cursor-pointer hover:scale-[1.03] transition-all relative flex flex-col group shadow-md"
+                                title="Clique para abrir os detalhes e ler o efeito da carta">
                                 
-                                <div class="w-full aspect-[2.5/3.5] bg-slate-900 flex items-center justify-center overflow-hidden">
+                                <div class="w-full aspect-[2.5/3.5] bg-slate-900 flex items-center justify-center overflow-hidden relative">
                                     <img 
                                         :src="getCardImage(card)" 
                                         :alt="card.card_name" 
                                         @error="handleCardImgError($event, card.card_set_id)"
                                         loading="lazy"
                                         class="w-full h-full object-cover">
+
+                                    <!-- Banned Badge in Builder Pool -->
+                                    <div v-if="isCardBanned(card)" class="absolute top-1 left-1 right-1 bg-rose-600 text-white border border-rose-400/60 px-1 py-0.5 rounded text-[7.5px] font-mono font-black text-center truncate shadow-md z-10" :title="getBanReasonText(card)">
+                                        ⛔ BANIDA
+                                    </div>
+                                    <!-- Spoiler Badge in Builder Pool -->
+                                    <div v-else-if="getCardSpoilerInfo(card)" class="absolute bottom-1 left-1 right-1 bg-purple-950/95 text-purple-200 border border-purple-500/60 px-1 py-0.5 rounded text-[7.5px] font-mono font-black text-center truncate shadow-md z-10">
+                                        ⏳ Lançamento: {{ getCardSpoilerInfo(card).formattedDate }}
+                                    </div>
                                 </div>
                                 
-                                <!-- Floating count in deck -->
-                                <div v-if="getCardCountInDeck(card.card_set_id) > 0" class="absolute top-1 right-1 bg-amber-500 text-slate-950 font-mono font-black text-xs w-5 h-5 rounded-full flex items-center justify-center border border-slate-950 shadow">
+                                <!-- Floating count in deck (Top Right) -->
+                                <div v-if="getCardCountInDeck(card.card_set_id) > 0" class="absolute top-1 right-1 bg-amber-500 text-slate-950 font-mono font-black text-xs w-5 h-5 rounded-full flex items-center justify-center border border-slate-950 shadow z-20">
                                     {{ getCardCountInDeck(card.card_set_id) }}
                                 </div>
                                 
-                                <!-- Hover quick add overlay -->
-                                <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                                    <span class="text-white text-xs font-bold bg-amber-600 px-2.5 py-1 rounded-lg flex items-center gap-1 shadow">
+                                <!-- Hover quick actions overlay -->
+                                <div class="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-1.5 p-2 transition-opacity z-20">
+                                    <button 
+                                        @click.stop="addCardToDeck(card)"
+                                        :disabled="getCardCountInDeck(card.card_set_id) >= 4 || userDeckCount >= 50"
+                                        class="w-full py-1.5 bg-amber-600 hover:bg-amber-500 disabled:opacity-40 text-white font-bold text-xs rounded-lg shadow flex items-center justify-center gap-1 transition-colors">
                                         + Adicionar
-                                    </span>
+                                    </button>
+                                    <button 
+                                        @click.stop="openDetails(card)"
+                                        class="w-full py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-semibold rounded-lg flex items-center justify-center gap-1 transition-colors">
+                                        🔍 Ver Detalhes
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -1080,11 +1127,11 @@
                             <!-- Deck Builder Summary Header -->
                             <div class="flex justify-between items-center pb-4 border-b border-slate-800/80">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 rounded-lg overflow-hidden bg-slate-950 flex items-center justify-center border border-slate-800 shrink-0">
-                                        <img :src="getCardImage(selectedBuilderLeader)" :alt="selectedBuilderLeader.card_name" @error="handleCardImgError($event, getLeaderCardId(selectedBuilderLeader))" class="w-full h-full object-cover object-top scale-[1.3]" loading="lazy">
+                                    <div class="w-12 h-12 rounded-lg overflow-hidden bg-slate-950 flex items-center justify-center border border-slate-800 shrink-0 cursor-pointer group" @click="openDetails(selectedBuilderLeader)" title="Clique para ver detalhes do Líder">
+                                        <img :src="getCardImage(selectedBuilderLeader)" :alt="selectedBuilderLeader.card_name" @error="handleCardImgError($event, getLeaderCardId(selectedBuilderLeader))" class="w-full h-full object-cover object-top scale-[1.3] group-hover:scale-[1.4] transition-transform" loading="lazy">
                                     </div>
                                     <div>
-                                        <h3 class="font-bold text-sm text-slate-100 line-clamp-1">{{ selectedBuilderLeader.card_name }}</h3>
+                                        <h3 class="font-bold text-sm text-slate-100 line-clamp-1 cursor-pointer hover:text-amber-400 transition-colors" @click="openDetails(selectedBuilderLeader)" title="Clique para ver detalhes do Líder">{{ selectedBuilderLeader.card_name }}</h3>
                                         <div class="flex gap-2">
                                             <button 
                                                 @click="changeLeader" 
@@ -1126,7 +1173,7 @@
                                     :key="item.card.card_set_id"
                                     class="bg-slate-950/50 hover:bg-slate-950 border border-slate-800 rounded-lg p-2 flex items-center justify-between gap-3 group">
                                     
-                                    <div class="flex items-center gap-2 min-w-0">
+                                    <div class="flex items-center gap-2 min-w-0 cursor-pointer flex-1" @click="openDetails(item.card)" title="Clique para ver detalhes desta carta">
                                         <div class="relative w-8 h-10 bg-slate-900 border border-slate-800 rounded overflow-hidden flex items-center justify-center shrink-0">
                                             <img :src="getCardImage(item.card)" :alt="item.card.card_name" @error="handleCardImgError($event, item.card.card_set_id)" class="w-full h-full object-cover" loading="lazy">
                                             <!-- Badge de carta banida/restrita -->
@@ -1144,7 +1191,10 @@
                                             </h4>
                                             <span class="text-[9px] font-mono text-slate-500">{{ item.card.card_set_id }}</span>
                                             <span v-if="isCardBanned(item.card)" class="text-[8px] font-bold text-rose-500 block leading-none mt-0.5">
-                                                {{ getBanReasonText(item.card) }}
+                                                ⛔ {{ getBanReasonText(item.card) || 'Banida' }}
+                                            </span>
+                                            <span v-else-if="getCardSpoilerInfo(item.card)" class="text-[8px] font-bold text-purple-400 block leading-none mt-0.5">
+                                                ⏳ Lançamento: {{ getCardSpoilerInfo(item.card).formattedDate }}
                                             </span>
                                         </div>
                                     </div>
@@ -1451,10 +1501,10 @@
                         
                         <!-- Image Container -->
                         <div class="relative w-full aspect-[2.5/3.5] bg-slate-950 overflow-hidden flex items-center justify-center cursor-pointer" @click="openDetails(card)">
-                            <div v-if="card.card_image && !card.imageError" class="relative w-full h-full">
+                            <div v-if="!card.imageError" class="relative w-full h-full">
                                 <div v-if="!card.imageLoaded" class="absolute inset-0 card-skeleton rounded-xl"></div>
                                 <img 
-                                    :src="card.card_image" 
+                                    :src="getCardImage(card)" 
                                     :alt="card.card_name" 
                                     @load="card.imageLoaded = true"
                                     @error="handleCardImgError($event, card.card_set_id || card.card_id); card.imageError = true; card.imageLoaded = true"
@@ -1493,6 +1543,16 @@
                                     {{ getCardOwned(card) }}x
                                 </span>
                             </div>
+
+                            <!-- Banned Badge in Collection Over Image -->
+                            <div v-if="isCardBanned(card)" class="absolute top-2 right-2 max-w-[70%] bg-rose-600 text-white border border-rose-400/60 px-1.5 py-0.5 rounded-md text-[8.5px] font-mono font-black text-center truncate shadow-lg z-10" :title="getBanReasonText(card)">
+                                <span>⛔ BANIDA</span>
+                            </div>
+
+                            <!-- Spoiler / Release Date Flag in Collection Card -->
+                            <div v-if="getCardSpoilerInfo(card)" class="absolute bottom-1.5 left-1.5 right-1.5 bg-purple-950/95 text-purple-200 border border-purple-500/60 px-1.5 py-0.5 rounded-md text-[8.5px] font-mono font-black text-center flex items-center justify-center gap-1 shadow-lg backdrop-blur-sm z-10">
+                                <span>⏳ Lançamento: {{ getCardSpoilerInfo(card).formattedDate }}</span>
+                            </div>
                         </div>
 
                         <!-- Card Body & Controls -->
@@ -1507,8 +1567,14 @@
                                 </div>
                             </div>
 
-                            <!-- Quantity Counter Controls -->
-                            <div class="flex items-center justify-between gap-1.5 bg-slate-950 p-1.5 rounded-xl border border-slate-800">
+                            <!-- Quantity Counter Controls (Normal vs Spoiler Locked) -->
+                            <div v-if="getCardSpoilerInfo(card)" class="flex items-center justify-center gap-1.5 bg-purple-950/40 p-1.5 rounded-xl border border-purple-900/40 text-purple-300 select-none py-1.5" title="Esta carta ainda não foi lançada oficialmente e não pode ser adicionada à coleção.">
+                                <svg class="w-3.5 h-3.5 text-purple-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                </svg>
+                                <span class="text-[9.5px] font-mono font-bold tracking-tight text-purple-300">Não Lançada (Bloqueado)</span>
+                            </div>
+                            <div v-else class="flex items-center justify-between gap-1.5 bg-slate-950 p-1.5 rounded-xl border border-slate-800">
                                 <button 
                                     @click="decrementCardOwned(card, 1)"
                                     :disabled="getCardOwned(card) === 0"
@@ -1625,6 +1691,9 @@
                         <div class="flex flex-wrap items-center gap-2 mt-1">
                             <span class="text-[10px] sm:text-xs font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-extrabold">ID: {{ selectedCard.card_set_id || selectedCard.don_id || 'PROMO' }}</span>
                             <span v-if="selectedCard.rarity" class="text-[10px] sm:text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-extrabold">Raridade: {{ selectedCard.rarity }}</span>
+                            <span v-if="getCardSpoilerInfo(selectedCard)" class="text-[10px] sm:text-xs font-mono bg-purple-950 text-purple-300 border border-purple-500/50 px-2 py-0.5 rounded font-extrabold flex items-center gap-1">
+                                ⏳ Lançamento Oficial: {{ getCardSpoilerInfo(selectedCard).formattedDate }} (Spoiler / Prévia)
+                            </span>
                             <span v-if="isCardBanned(selectedCard)" class="text-[10px] sm:text-xs font-mono bg-rose-600 text-white font-extrabold px-2 py-0.5 rounded shadow flex items-center gap-1" :title="getBanReasonText(selectedCard)">
                                 ⛔ BANIDA — {{ getBanReasonText(selectedCard) || `Meta ${activeBanlistMode}` }}
                             </span>
@@ -1633,7 +1702,7 @@
 
                     <div v-if="selectedCard.card_type !== 'DON!!'" class="grid grid-cols-2 gap-3 sm:gap-4 bg-slate-950/50 p-3.5 sm:p-4 rounded-2xl border border-slate-800 text-xs sm:text-sm">
                         <div class="flex flex-col">
-                            <span class="text-[9px] sm:text-[10px] text-slate-500 uppercase font-semibold">Custo / Custo Vida</span>
+                            <span class="text-[9px] sm:text-[10px] text-slate-500 uppercase font-semibold">Custo</span>
                             <span class="font-bold text-slate-200">
                                 {{ selectedCard.card_cost !== 'NULL' && selectedCard.card_cost ? selectedCard.card_cost : 'N/A' }} 
                                 <span class="text-[10px] text-slate-500 font-normal" v-if="selectedCard.life && selectedCard.life !== 'NULL'">(Leader Life: {{ selectedCard.life }})</span>
@@ -1652,7 +1721,7 @@
                             <span class="font-bold text-slate-200">{{ selectedCard.attribute !== 'NULL' && selectedCard.attribute ? selectedCard.attribute : 'N/A' }}</span>
                         </div>
                         <div class="flex flex-col col-span-2 border-t border-slate-900 pt-2.5 mt-1">
-                            <span class="text-[9px] sm:text-[10px] text-slate-500 uppercase font-semibold">Sub-Tipos (Família/Afiliação)</span>
+                            <span class="text-[9px] sm:text-[10px] text-slate-500 uppercase font-semibold">Tipo</span>
                             <span class="text-[11px] sm:text-xs text-slate-300 font-medium">{{ selectedCard.sub_types !== 'NULL' && selectedCard.sub_types ? selectedCard.sub_types : 'N/A' }}</span>
                         </div>
                     </div>
@@ -1664,15 +1733,73 @@
                         </div>
                     </div>
 
+                    <!-- Deck Builder Quick Controller in Card Modal (When on Montar Deck tab) -->
+                    <div v-if="currentTab === 'builder' && selectedBuilderLeader" class="bg-slate-950/70 border border-slate-800 p-3.5 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-inner">
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-mono uppercase font-bold text-amber-500">Montar Deck (Total: {{ userDeckCount }}/50)</span>
+                            <span v-if="selectedCard.card_type === 'Leader'" class="text-xs font-bold text-slate-300">
+                                {{ selectedCard.card_set_id === selectedBuilderLeader.card_set_id ? '👑 Líder selecionado do deck atual' : 'Carta do tipo Líder' }}
+                            </span>
+                            <span v-else class="text-xs font-bold" :class="getCardCountInDeck(selectedCard.card_set_id) > 0 ? 'text-amber-400' : 'text-slate-400'">
+                                {{ getCardCountInDeck(selectedCard.card_set_id) > 0 ? `${getCardCountInDeck(selectedCard.card_set_id)}x adicionada(s) ao deck` : 'Nenhuma cópia no deck atual' }}
+                            </span>
+                        </div>
+                        
+                        <!-- Controls for Non-Leader cards -->
+                        <div v-if="selectedCard.card_type !== 'Leader'" class="flex items-center gap-1.5 shrink-0 w-full sm:w-auto justify-end">
+                            <button 
+                                @click="removeCardFromDeck(selectedCard.card_set_id)"
+                                :disabled="getCardCountInDeck(selectedCard.card_set_id) === 0"
+                                class="w-8 h-8 bg-slate-800 hover:bg-rose-900 disabled:opacity-30 text-slate-200 font-bold rounded-xl transition-colors flex items-center justify-center">
+                                -
+                            </button>
+                            <span class="font-mono text-sm font-black w-7 text-center text-slate-100">
+                                {{ getCardCountInDeck(selectedCard.card_set_id) }}
+                            </span>
+                            <button 
+                                @click="addCardToDeck(selectedCard, 1)"
+                                :disabled="getCardCountInDeck(selectedCard.card_set_id) >= 4 || userDeckCount >= 50"
+                                class="w-8 h-8 bg-slate-800 hover:bg-emerald-700 disabled:opacity-30 text-slate-200 font-bold rounded-xl transition-colors flex items-center justify-center">
+                                +
+                            </button>
+                            <button 
+                                @click="setPlaysetInDeck(selectedCard)"
+                                title="Adicionar 4 cópias ao deck"
+                                :disabled="getCardCountInDeck(selectedCard.card_set_id) >= 4 || userDeckCount >= 50"
+                                :class="getCardCountInDeck(selectedCard.card_set_id) >= 4 ? 'bg-amber-600 text-slate-950 font-black' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'"
+                                class="px-2.5 h-8 text-xs font-mono font-bold rounded-xl transition-colors flex items-center justify-center">
+                                +4x
+                            </button>
+                        </div>
+                        
+                        <!-- Leader change option -->
+                        <div v-else-if="selectedCard.card_set_id !== selectedBuilderLeader.card_set_id" class="shrink-0">
+                            <button 
+                                @click="selectBuilderLeader(selectedCard); closeDetails()"
+                                class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs rounded-xl shadow transition-colors">
+                                👑 Trocar para este Líder
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Collection Quick Tracker in Card Modal (Only on Minha Coleção tab) -->
                     <div v-if="currentTab === 'collection'" class="bg-slate-950/70 border border-slate-800 p-3.5 rounded-2xl flex items-center justify-between gap-3 shadow-inner">
                         <div class="flex flex-col">
                             <span class="text-[10px] font-mono uppercase font-bold text-slate-400">Minha Coleção ({{ activeProfile.name }})</span>
-                            <span class="text-xs font-bold" :class="getCardOwned(selectedCard) >= 4 ? 'text-emerald-400' : getCardOwned(selectedCard) > 0 ? 'text-amber-400' : 'text-slate-500'">
+                            <span v-if="getCardSpoilerInfo(selectedCard)" class="text-xs font-bold text-purple-400 flex items-center gap-1">
+                                ⏳ Lançamento: {{ getCardSpoilerInfo(selectedCard).formattedDate }} (Não Lançada)
+                            </span>
+                            <span v-else class="text-xs font-bold" :class="getCardOwned(selectedCard) >= 4 ? 'text-emerald-400' : getCardOwned(selectedCard) > 0 ? 'text-amber-400' : 'text-slate-500'">
                                 {{ getCardOwned(selectedCard) >= 4 ? 'Playset Completo (4x+)' : getCardOwned(selectedCard) > 0 ? `Possui ${getCardOwned(selectedCard)} cópia(s)` : 'Nenhuma cópia registrada' }}
                             </span>
                         </div>
-                        <div class="flex items-center gap-1.5 shrink-0">
+                        <div v-if="getCardSpoilerInfo(selectedCard)" class="flex items-center gap-1.5 px-3 py-1.5 bg-purple-950/40 border border-purple-900/40 rounded-xl text-purple-300 text-[11px] font-mono font-bold">
+                            <svg class="w-3.5 h-3.5 text-purple-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                            <span>Bloqueado</span>
+                        </div>
+                        <div v-else class="flex items-center gap-1.5 shrink-0">
                             <button 
                                 @click="decrementCardOwned(selectedCard, 1)"
                                 :disabled="getCardOwned(selectedCard) === 0"
@@ -2537,7 +2664,7 @@
                     const bannedStarters = new Set((currentMode.banned_starter_decks || banlistData.value.banned_starter_decks || []).map(i => i.toUpperCase().trim()));
                     const whitelisted = new Set((currentMode.whitelisted_cards || banlistData.value.whitelisted_cards || []).map(i => i.toUpperCase().trim()));
 
-                    if (bannedCards.has(cid)) return 'Banida individualmente';
+                    if (bannedCards.has(cid)) return 'Carta banida';
 
                     const cPrefix = cid.includes('-') ? cid.split('-')[0] : cid;
                     if (!whitelisted.has(cid)) {
@@ -2546,6 +2673,47 @@
                     }
 
                     return '';
+                };
+
+                // --- Spoiler Sets Configuration & Lifecycle Management ---
+                const SPOILER_SETS_CONFIG = {
+                    'OP18': { releaseDate: '2026-11-20', formattedDate: '20/11/2026', name: 'OP18' },
+                    'OP-18': { releaseDate: '2026-11-20', formattedDate: '20/11/2026', name: 'OP18' },
+                    'EB05': { releaseDate: '2026-10-30', formattedDate: '30/10/2026', name: 'EB05' },
+                    'EB-05': { releaseDate: '2026-10-30', formattedDate: '30/10/2026', name: 'EB05' },
+                };
+
+                const getCardSpoilerInfo = (cardOrId) => {
+                    if (!cardOrId) return null;
+                    const cid = (typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.id || '')).toUpperCase().trim();
+                    const setCode = (typeof cardOrId === 'object' && cardOrId.set_id ? cardOrId.set_id : cid.split('-')[0]).toUpperCase().trim();
+                    const cleanPrefix = cid.split('-')[0].toUpperCase();
+
+                    const config = SPOILER_SETS_CONFIG[setCode] || SPOILER_SETS_CONFIG[cleanPrefix];
+                    if (!config) return null;
+
+                    // Regra: "quando as cartas da OP18 e da EB05 começarem a aparecer nos dados do POPULAR DECK podemos retirar TODAS as restrições"
+                    const cleanSet = config.name;
+                    const isPresentInPopularDecks = (availableMetaSets.value || []).some(s => {
+                        const sClean = (s.value || s.code || '').replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                        return sClean === cleanSet && (s.deck_count || 0) > 0;
+                    });
+
+                    if (isPresentInPopularDecks) {
+                        return null; // Restrições retiradas porque já apareceram nos decks populares
+                    }
+
+                    const todayStr = new Date().toISOString().split('T')[0];
+                    if (todayStr >= config.releaseDate) {
+                        return null; // Restrições retiradas pois passou da data oficial de lançamento
+                    }
+
+                    return {
+                        isSpoiler: true,
+                        releaseDate: config.releaseDate,
+                        formattedDate: config.formattedDate,
+                        setName: config.name
+                    };
                 };
 
                 // Fetch database files & Dynamically integrate Limitless Meta cards
@@ -3633,11 +3801,19 @@
                     }
                 };
 
-                // Image Fallback and Resolver System (Strictly Prioritizes High-Res English Western Base Card Artwork with CORS)
+                // Image Fallback and Resolver System (Hybrid Spoilers + Web CDN Auto-Transition)
                 const getCardImage = (card) => {
                     if (!card) return 'https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/placeholder.png';
                     
+                    let directImg = card.card_image || card.image;
+                    if (directImg && (directImg.startsWith('./') || directImg.startsWith('optcg_data/') || directImg.includes('/card_images/'))) {
+                        return directImg;
+                    }
+
                     let cid = (card.card_set_id || card.card_id || card.id || '').toUpperCase().trim();
+                    if (cid && (cid.startsWith('OP18-') || cid.startsWith('EB05-'))) {
+                        return `./optcg_data/card_images/${cid}.png`;
+                    }
                     
                     // 1. Primary: High-res Western English WebP artwork on Limitless CDN (Fully supports CORS and Fast CDN delivery)
                     if (cid && cid !== 'UNKNOWN' && cid.includes('-')) {
@@ -3645,7 +3821,6 @@
                         return `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_EN.webp`;
                     }
                     
-                    let directImg = card.image || card.card_image;
                     if (directImg && !directImg.includes('placeholder')) {
                         if (directImg.includes('optcgapi.com')) {
                             const m = directImg.match(/([A-Z0-9]+-[A-Z0-9]+)/i);
@@ -3674,6 +3849,7 @@
                     }
                     
                     const setCode = cid.split('-')[0];
+                    const localImg = `./optcg_data/card_images/${cid}.png`;
                     const cdnEn = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_EN.webp`;
                     const optcgApi = `https://www.optcgapi.com/media/static/Card_Images/${cid}.jpg`;
                     const optcgApiAlt = `https://www.optcgapi.com/media/static/Card_Images/${cid}_p1.jpg`;
@@ -3682,10 +3858,12 @@
                     const cdnJp = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_JP.webp`;
                     const cdnRaw = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}.webp`;
 
-                    // Hierarchy: English 1st -> English 2nd -> English 3rd -> English 4th -> Japanese only if unreleased in English
-                    if (!currentSrc.includes(cdnEn) && !currentSrc.includes('_EN.webp') && !currentSrc.includes('optcgapi.com') && !currentSrc.includes('onepiece-cardgame.com') && !currentSrc.includes('_JP.webp')) {
+                    // Hierarchy: English Web CDN -> Local Preview -> OPTCG API -> Official Web -> Japanese Web -> SVG Fallback
+                    if (!currentSrc.includes(cdnEn) && !currentSrc.includes('_EN.webp') && !currentSrc.includes('/card_images/') && !currentSrc.includes('optcgapi.com') && !currentSrc.includes('onepiece-cardgame.com') && !currentSrc.includes('_JP.webp')) {
                         imgEl.src = cdnEn;
-                    } else if (currentSrc.includes('_EN.webp')) {
+                    } else if (currentSrc.includes('_EN.webp') && (setCode === 'OP18' || setCode === 'EB05')) {
+                        imgEl.src = localImg;
+                    } else if (currentSrc.includes('_EN.webp') || currentSrc.includes('/card_images/')) {
                         imgEl.src = optcgApi;
                     } else if (currentSrc.includes(optcgApi) && !currentSrc.includes('_p1')) {
                         imgEl.src = optcgApiAlt;
@@ -3694,12 +3872,10 @@
                     } else if (currentSrc.includes('en.onepiece-cardgame.com')) {
                         imgEl.src = asiaEn;
                     } else if (currentSrc.includes('asia-en.onepiece-cardgame.com')) {
-                        // All English sources exhausted -> fallback to Japanese if card is JP-exclusive/unreleased
                         imgEl.src = cdnJp;
                     } else if (currentSrc.includes('_JP.webp')) {
                         imgEl.src = cdnRaw;
                     } else {
-                        // 3.1 — Fallback: verso da carta OPTCG como imagem padrão
                         imgEl.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='280' viewBox='0 0 200 280'%3E%3Crect width='200' height='280' rx='12' fill='%230f172a'/%3E%3Crect x='6' y='6' width='188' height='268' rx='9' fill='none' stroke='%23334155' stroke-width='2'/%3E%3Ccircle cx='100' cy='130' r='54' fill='none' stroke='%23f59e0b' stroke-width='2.5'/%3E%3Cpath d='M100 90 L100 170 M68 110 L132 150 M68 150 L132 110' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='100' cy='130' r='10' fill='%23f59e0b'/%3E%3Ctext x='100' y='230' text-anchor='middle' fill='%23475569' font-size='11' font-family='monospace' font-weight='bold'%3EONE PIECE%3C/text%3E%3Ctext x='100' y='248' text-anchor='middle' fill='%23334155' font-size='9' font-family='monospace'%3ECARD GAME%3C/text%3E%3C/svg%3E";
                         imgEl.style.opacity = '0.6';
                     }
@@ -3843,17 +4019,12 @@
                     }
                 };
                 
-                // --- LocalStorage Deck Persistence ---
+                // --- LocalStorage Deck Persistence via OPTCG_STORAGE ---
                 const LS_KEY = 'optcg_saved_decks';
                 const MAX_SAVED_DECKS = 5;
 
                 const loadSavedDecks = () => {
-                    try {
-                        const raw = localStorage.getItem(LS_KEY);
-                        savedDecks.value = raw ? JSON.parse(raw) : [];
-                    } catch (e) {
-                        savedDecks.value = [];
-                    }
+                    savedDecks.value = window.OPTCG_STORAGE ? window.OPTCG_STORAGE.get(LS_KEY, []) : [];
                 };
 
                 const saveDeckToStorage = () => {
@@ -3877,17 +4048,15 @@
                     
                     const existing = savedDecks.value.filter(d => d.id !== deckData.id);
                     if (existing.length >= MAX_SAVED_DECKS) {
-                        existing.shift(); // Remove oldest if at limit
+                        existing.shift();
                     }
                     savedDecks.value = [...existing, deckData];
                     
-                    try {
-                        localStorage.setItem(LS_KEY, JSON.stringify(savedDecks.value));
-                        savedDeckNameInput.value = '';
-                        alert(`Deck '${name}' salvo com sucesso!`);
-                    } catch (e) {
-                        alert('Erro ao salvar deck. Tente limpar o armazenamento do navegador.');
+                    if (window.OPTCG_STORAGE) {
+                        window.OPTCG_STORAGE.set(LS_KEY, savedDecks.value);
                     }
+                    savedDeckNameInput.value = '';
+                    alert(`Deck '${name}' salvo com sucesso!`);
                 };
 
                 const loadDeckFromStorage = (deck) => {
@@ -3918,9 +4087,9 @@
 
                 const deleteSavedDeck = (deckId) => {
                     savedDecks.value = savedDecks.value.filter(d => d.id !== deckId);
-                    try {
-                        localStorage.setItem(LS_KEY, JSON.stringify(savedDecks.value));
-                    } catch (e) {}
+                    if (window.OPTCG_STORAGE) {
+                        window.OPTCG_STORAGE.set(LS_KEY, savedDecks.value);
+                    }
                 };
 
                 // 2.4 — Export all saved decks as a JSON backup file
@@ -3982,54 +4151,46 @@
                 });
 
                 const loadCollectionProfiles = () => {
-                    try {
-                        const raw = localStorage.getItem(PROFILES_KEY);
-                        if (raw) {
-                            collectionProfiles.value = JSON.parse(raw);
-                        }
-                    } catch (e) {
-                        collectionProfiles.value = [];
-                    }
+                    const loaded = window.OPTCG_STORAGE ? window.OPTCG_STORAGE.get(PROFILES_KEY, []) : [];
+                    collectionProfiles.value = Array.isArray(loaded) && loaded.length > 0 ? loaded : [{
+                        id: 'default',
+                        name: 'Coleção Principal',
+                        createdAt: new Date().toISOString()
+                    }];
 
-                    if (!collectionProfiles.value || collectionProfiles.value.length === 0) {
-                        collectionProfiles.value = [{
-                            id: 'default',
-                            name: 'Coleção Principal',
-                            createdAt: new Date().toISOString()
-                        }];
+                    if (!loaded || loaded.length === 0) {
                         saveCollectionProfiles();
                     }
 
-                    const savedActiveId = localStorage.getItem(ACTIVE_PROFILE_KEY);
+                    const savedActiveId = window.OPTCG_STORAGE ? window.OPTCG_STORAGE.get(ACTIVE_PROFILE_KEY, null) : null;
                     if (savedActiveId && collectionProfiles.value.some(p => p.id === savedActiveId)) {
                         activeProfileId.value = savedActiveId;
                     } else {
                         activeProfileId.value = collectionProfiles.value[0].id;
-                        localStorage.setItem(ACTIVE_PROFILE_KEY, activeProfileId.value);
+                        if (window.OPTCG_STORAGE) {
+                            window.OPTCG_STORAGE.set(ACTIVE_PROFILE_KEY, activeProfileId.value);
+                        }
                     }
 
                     loadActiveCollection();
                 };
 
                 const saveCollectionProfiles = () => {
-                    try {
-                        localStorage.setItem(PROFILES_KEY, JSON.stringify(collectionProfiles.value));
-                    } catch (e) {}
-                };
-
-                const loadActiveCollection = () => {
-                    try {
-                        const raw = localStorage.getItem(COLLECTION_PREFIX + activeProfileId.value);
-                        userCardCollection.value = raw ? JSON.parse(raw) : {};
-                    } catch (e) {
-                        userCardCollection.value = {};
+                    if (window.OPTCG_STORAGE) {
+                        window.OPTCG_STORAGE.set(PROFILES_KEY, collectionProfiles.value);
                     }
                 };
 
+                const loadActiveCollection = () => {
+                    const key = COLLECTION_PREFIX + activeProfileId.value;
+                    userCardCollection.value = window.OPTCG_STORAGE ? window.OPTCG_STORAGE.get(key, {}) : {};
+                };
+
                 const saveActiveCollection = () => {
-                    try {
-                        localStorage.setItem(COLLECTION_PREFIX + activeProfileId.value, JSON.stringify(userCardCollection.value));
-                    } catch (e) {}
+                    const key = COLLECTION_PREFIX + activeProfileId.value;
+                    if (window.OPTCG_STORAGE) {
+                        window.OPTCG_STORAGE.set(key, userCardCollection.value);
+                    }
                 };
 
                 const createProfile = () => {
@@ -4044,7 +4205,9 @@
                     saveCollectionProfiles();
                     
                     activeProfileId.value = newId;
-                    localStorage.setItem(ACTIVE_PROFILE_KEY, newId);
+                    if (window.OPTCG_STORAGE) {
+                        window.OPTCG_STORAGE.set(ACTIVE_PROFILE_KEY, newId);
+                    }
                     userCardCollection.value = {};
                     saveActiveCollection();
 
@@ -4056,7 +4219,9 @@
                 const switchProfile = (id) => {
                     if (activeProfileId.value === id) return;
                     activeProfileId.value = id;
-                    localStorage.setItem(ACTIVE_PROFILE_KEY, id);
+                    if (window.OPTCG_STORAGE) {
+                        window.OPTCG_STORAGE.set(ACTIVE_PROFILE_KEY, id);
+                    }
                     loadActiveCollection();
                     collectionCurrentPage.value = 1;
                 };
@@ -4087,15 +4252,17 @@
                         return;
                     }
                     const idToDelete = activeProfileId.value;
-                    try {
-                        localStorage.removeItem(COLLECTION_PREFIX + idToDelete);
-                    } catch (e) {}
+                    if (window.OPTCG_STORAGE) {
+                        window.OPTCG_STORAGE.remove(COLLECTION_PREFIX + idToDelete);
+                    }
 
                     collectionProfiles.value = collectionProfiles.value.filter(p => p.id !== idToDelete);
                     saveCollectionProfiles();
 
                     activeProfileId.value = collectionProfiles.value[0].id;
-                    localStorage.setItem(ACTIVE_PROFILE_KEY, activeProfileId.value);
+                    if (window.OPTCG_STORAGE) {
+                        window.OPTCG_STORAGE.set(ACTIVE_PROFILE_KEY, activeProfileId.value);
+                    }
                     loadActiveCollection();
                     collectionCurrentPage.value = 1;
                 };
@@ -4110,7 +4277,11 @@
 
                 const setCardOwned = (cardOrId, qty) => {
                     if (!cardOrId) return;
-                    const cid = (typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '')).toUpperCase();
+                    if (getCardSpoilerInfo(cardOrId)) {
+                        console.warn('Cannot add unreleased spoiler cards to collection.');
+                        return;
+                    }
+                    const cid = (typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '')).toUpperCase().trim();
                     if (!cid) return;
                     const parsed = Math.max(0, parseInt(qty) || 0);
                     if (parsed === 0) {
@@ -4388,7 +4559,9 @@
                         saveCollectionProfiles();
 
                         activeProfileId.value = newId;
-                        localStorage.setItem(ACTIVE_PROFILE_KEY, newId);
+                        if (window.OPTCG_STORAGE) {
+                            window.OPTCG_STORAGE.set(ACTIVE_PROFILE_KEY, newId);
+                        }
                         userCardCollection.value = { ...incomingColl };
                         saveActiveCollection();
                         alert(`Novo perfil "${name}" criado com sucesso com ${Object.keys(incomingColl).length} tipos de cartas!`);
@@ -4527,7 +4700,7 @@
                     return found ? found.quantity : 0;
                 };
 
-                const addCardToDeck = (card) => {
+                const addCardToDeck = (card, count = 1) => {
                     if (!card || isCardBanned(card)) {
                         const reason = getBanReasonText(card);
                         alert(`Esta carta está banida e não pode ser adicionada ao deck!\n${reason ? `Motivo: ${reason}` : ''}`);
@@ -4538,15 +4711,25 @@
                         return;
                     }
 
+                    const availableSlots = 50 - userDeckCount.value;
                     const found = userDeck.value.find(item => item.card.card_set_id === card.card_set_id);
-                    if (found) {
-                        if (found.quantity >= 4) {
-                            alert("Você já tem 4 cópias desta carta!");
-                            return;
+                    const currentQty = found ? found.quantity : 0;
+                    const qtyToAdd = typeof count === 'number' ? count : 1;
+                    const maxCanAdd = Math.min(4 - currentQty, availableSlots, qtyToAdd);
+
+                    if (maxCanAdd <= 0) {
+                        if (currentQty >= 4) {
+                            alert("Você já tem 4 cópias desta carta no deck!");
+                        } else {
+                            alert("Seu deck já atingiu o limite de 50 cartas!");
                         }
-                        found.quantity++;
+                        return;
+                    }
+
+                    if (found) {
+                        found.quantity += maxCanAdd;
                     } else {
-                        userDeck.value.push({ card, quantity: 1 });
+                        userDeck.value.push({ card, quantity: maxCanAdd });
                     }
 
                     // 2.1 — Verificação reativa de pares banidos após adicionar carta
@@ -4561,6 +4744,16 @@
                                 break;
                             }
                         }
+                    }
+                };
+
+                const setPlaysetInDeck = (card) => {
+                    if (!card) return;
+                    const found = userDeck.value.find(item => item.card.card_set_id === card.card_set_id);
+                    const currentQty = found ? found.quantity : 0;
+                    const needed = 4 - currentQty;
+                    if (needed > 0) {
+                        addCardToDeck(card, needed);
                     }
                 };
 
@@ -5618,6 +5811,7 @@
                     userDeckCount,
                     getCardCountInDeck,
                     addCardToDeck,
+                    setPlaysetInDeck,
                     removeCardFromDeck,
                     builderDeckStats,
                     selectBuilderLeader,
@@ -5646,6 +5840,7 @@
                     isCardBanned,
                     getBanReasonText,
                     bannedPairToast,
+                    getCardSpoilerInfo,
 
                     // Multi-Profile & Collection Exports
                     collectionProfiles,
