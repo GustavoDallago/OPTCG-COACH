@@ -43,7 +43,7 @@
     },
     {
         "inventory_price": 11.5,
-        "market_price": 11.62,
+        "market_price": 11.61,
         "card_name": "Dereshi! (Premium Card Collection -Best Selection Vol. 4-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Main] Look at 5 cards from the top of your deck; reveal up to 2 cards with a [Trigger] other than [Dereshi!] and add them to your hand. Then, place the rest at the bottom of your deck in any order.\n[Trigger] Draw 1 card.",
@@ -63,7 +63,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Dereshi_Premium_Card_Collection_-Best_Selection_Vol._4-_img.jpg"
     },
     {
-        "inventory_price": 1.5,
+        "inventory_price": 1.49,
         "market_price": 3.1,
         "card_name": "El Thor (Premium Card Collection -Best Selection Vol. 2-)",
         "set_name": "One Piece Promotion Cards",
@@ -84,8 +84,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/El_Thor_Premium_Card_Collection_-Best_Selection_Vol._2-_img.jpg"
     },
     {
-        "inventory_price": 7.42,
-        "market_price": 15.44,
+        "inventory_price": 7.25,
+        "market_price": 15.09,
         "card_name": "The Billion-fold World Trichiliocosm (Premium Card Collection -Best Selection Vol. 2-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, if you have 8 or more rested cards, that card gains an additional +2000 power during this battle.\n[Trigger] K.O. up to 1 of your opponent's rested Characters with a cost of 3 or less.",
@@ -106,7 +106,7 @@
     },
     {
         "inventory_price": 4.99,
-        "market_price": 6.58,
+        "market_price": 6.57,
         "card_name": "Fire Fist (Premium Card Collection -Best Selection Vol. 2-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Main] Give up to 1 of your opponent's Characters -4000 power during this turn. Then, if you have 2 or less Life cards, K.O. up to 1 of your opponent's Characters with 0 power or less.\n[Trigger] Activate this card's [Main] effect.",
@@ -127,7 +127,7 @@
     },
     {
         "inventory_price": 4.99,
-        "market_price": 5.2,
+        "market_price": 5.19,
         "card_name": "Radical Beam!! (Premium Card Collection -Best Selection Vol. 1-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, if you have 2 or less Life cards, that card gains an additional +2000 power.\n\nThis card has been officially errata'd.",
@@ -148,7 +148,7 @@
     },
     {
         "inventory_price": 4.43,
-        "market_price": 6.31,
+        "market_price": 6.32,
         "card_name": "More Pizza!! (Premium Card Collection -Best Selection Vol. 4-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Main] Look at 5 cards from the top of your deck; reveal up to 1 [Supernovas] type card other than [More Pizza!!] and add it to your hand. Then, place the rest at the bottom of your deck in any order.\n[Trigger] Draw 1 card.",
@@ -252,8 +252,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Thunder_Bolt_Premium_Card_Collection_-Best_Selection_Vol._1-_img.jpg"
     },
     {
-        "inventory_price": 6.7,
-        "market_price": 6.95,
+        "inventory_price": 6.71,
+        "market_price": 6.98,
         "card_name": "I'm Gonna Be King of the Pirates!!",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Main] Your Leader gains +1000 power for each of your Characters during this turn.\n[Trigger] Up to 1 of your Leader or Character cards gains +1000 power during this turn.",
@@ -400,7 +400,7 @@
     },
     {
         "inventory_price": 1.54,
-        "market_price": 1.67,
+        "market_price": 1.66,
         "card_name": "New Genesis (Starter Deck 11: Uta Deck Battle)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Main] If your Leader is [Uta], look at 3 cards from the top of your deck; reveal up to 1 [FILM] type card other than [New Genesis] and add it to your hand. Then, place the rest at the bottom of your deck in any order and set up to 1 of your DON!! cards as active.",
@@ -421,7 +421,7 @@
     },
     {
         "inventory_price": 0.42,
-        "market_price": 0.48,
+        "market_price": 0.5,
         "card_name": "The World's Continuation (Starter Deck 11: Uta Deck Battle)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Counter] If your Leader is [Uta], you may return any number of Characters on your field to the owner's hand. Up to 1 of your Leader or Character cards gains +2000 power during this battle for every returned Character.",
@@ -436,7 +436,7 @@
         "sub_types": "FILM Music",
         "counter_amount": 0,
         "attribute": null,
-        "date_scraped": "2026-08-21",
+        "date_scraped": "2026-08-22",
         "card_image_id": "P-059",
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/The_Worlds_Continuation_Starter_Deck_11_Uta_Deck_Battle_img.jpg"
     },
@@ -483,8 +483,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/I_Smell_Adventure_Ahead_Promotion_Pack_2022_img.jpg"
     },
     {
-        "inventory_price": 38.74,
-        "market_price": 39.93,
+        "inventory_price": 37.91,
+        "market_price": 39.69,
         "card_name": "Color of the Supreme King Haki (Premium Card Collection -6 assort vol.1-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Counter] Up to 1 of your Characters or [Silvers Rayleigh] gains +2000 power during this battle. Then, you may rest 1 of your DON!! cards. If you do, give your opponent's Leader and all of their Characters 1000 power during this turn.",
@@ -546,7 +546,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Ice_Age_Premium_Card_Collection_-Best_Selection_Vol._1-_img.jpg"
     },
     {
-        "inventory_price": 0.47,
+        "inventory_price": 0.51,
         "market_price": 0.63,
         "card_name": "I'm invincible (Starter Deck 11: Uta Deck Battle)",
         "set_name": "One Piece Promotion Cards",
@@ -882,7 +882,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Gum-Gum_Jet_Pistol_Online_Regional_2024_Winner_img.jpg"
     },
     {
-        "inventory_price": 0.2,
+        "inventory_price": 0.07,
         "market_price": 0.22,
         "card_name": "Because the Side of Justice Will Be Whichever Side Wins!! (Tournament Pack 2025 Vol. 4)",
         "set_name": "One Piece Promotion Cards",
@@ -903,7 +903,7 @@
         "card_image": null
     },
     {
-        "inventory_price": 8.39,
+        "inventory_price": 8.5,
         "market_price": 8.69,
         "card_name": "Because the Side of Justice Will Be Whichever Side Wins!! (Winner Pack 2025 Vol. 4)",
         "set_name": "One Piece Promotion Cards",
@@ -945,7 +945,7 @@
         "card_image": null
     },
     {
-        "inventory_price": 0.51,
+        "inventory_price": 0.68,
         "market_price": 0.8,
         "card_name": "Monkey.D.Luffy (Sealed Battle 2024 Vol. 2)",
         "set_name": "One Piece Promotion Cards",
@@ -987,7 +987,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Monkey.D.Luffy_English_Version_2nd_Anniversary_Set_img.jpg"
     },
     {
-        "inventory_price": 65.3,
+        "inventory_price": 65.29,
         "market_price": 72.39,
         "card_name": "Marshall.D.Teach (English Version 2nd Anniversary Set)",
         "set_name": "One Piece Promotion Cards",
@@ -1051,7 +1051,7 @@
     },
     {
         "inventory_price": 58.98,
-        "market_price": 141.69,
+        "market_price": 141.77,
         "card_name": "Roronoa Zoro - OP01-001 (Alternate Art)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[DON!! x1] [Your Turn] All of your Characters gain +1000 power.",
@@ -1092,7 +1092,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Enel_Sound_Loader_Vol._2_img.jpg"
     },
     {
-        "inventory_price": 124.97,
+        "inventory_price": 124.99,
         "market_price": 141.65,
         "card_name": "Shanks (English Version 2nd Anniversary Set)",
         "set_name": "One Piece Promotion Cards",
@@ -1176,7 +1176,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Boa_Hancock_2025_PSA_Magazine_Promo_img.jpg"
     },
     {
-        "inventory_price": 120.0,
+        "inventory_price": 118.0,
         "market_price": 145.19,
         "card_name": "Shanks (2025 PSA Magazine Promo)",
         "set_name": "One Piece Promotion Cards",
@@ -1302,7 +1302,7 @@
         "card_image": null
     },
     {
-        "inventory_price": 43.67,
+        "inventory_price": 42.76,
         "market_price": 140.05,
         "card_name": "Monkey.D.Luffy (2nd Anniversary Tournament)",
         "set_name": "One Piece Promotion Cards",
@@ -1533,7 +1533,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/EustassCaptainKid_Premium_Card_Collection_-Leader_Collection-_img.jpg"
     },
     {
-        "inventory_price": 0.5,
+        "inventory_price": 0.59,
         "market_price": 0.76,
         "card_name": "Sakazuki (Pirates Party Vol. 7)",
         "set_name": "One Piece Promotion Cards",
@@ -1828,7 +1828,7 @@
     },
     {
         "inventory_price": 19.99,
-        "market_price": 34.27,
+        "market_price": 34.46,
         "card_name": "Monkey.D.Luffy (Premium Card Collection -Best Selection Vol. 3-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Give up to 1 rested DON!! card to your Leader or 1 of your Characters.[When Attacking] If you have a Character with a cost of 8 or more on your field, draw 1 card and trash 1 card from your hand.",
@@ -1848,7 +1848,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Monkey.D.Luffy_Premium_Card_Collection_-Best_Selection_Vol._3-_img.jpg"
     },
     {
-        "inventory_price": 10.2,
+        "inventory_price": 10.19,
         "market_price": 12.75,
         "card_name": "Laffitte (Premium Card Collection -Best Selection Vol. 4-)",
         "set_name": "One Piece Promotion Cards",
@@ -2037,8 +2037,8 @@
         "card_image": null
     },
     {
-        "inventory_price": 2.61,
-        "market_price": 2.52,
+        "inventory_price": 1.99,
+        "market_price": 2.49,
         "card_name": "Dr. Hogback (Premium Card Collection -Best Selection Vol. 3-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] You may return 2 cards from your trash to the bottom of your deck in any order: Add up to 1 \"Thriller Bark Pirates\" type card other than [Dr. Hogback] from your trash to your hand.",
@@ -2121,7 +2121,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Tashigi_Premium_Card_Collection_-BANDAI_CARD_GAMES_Fest._23-24_Edition-_img.jpg"
     },
     {
-        "inventory_price": 2.1,
+        "inventory_price": 2.25,
         "market_price": 2.54,
         "card_name": "Kaku (Winner Pack 2025 Vol. 1)",
         "set_name": "One Piece Promotion Cards",
@@ -2583,7 +2583,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Tashigi_CS_2023_Celebration_Pack_img.jpg"
     },
     {
-        "inventory_price": 2.4,
+        "inventory_price": 2.39,
         "market_price": 2.8,
         "card_name": "Mansherry (Judge Pack Vol. 4)",
         "set_name": "One Piece Promotion Cards",
@@ -2605,7 +2605,7 @@
     },
     {
         "inventory_price": 111.11,
-        "market_price": 174.6,
+        "market_price": 177.57,
         "card_name": "Monkey.D.Luffy (091) (Online Regional 2024 Vol. 3)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[When Attacking] Trash up to 1 of your opponent's Characters with a cost of 2 or less. Then, place any number of Character cards with a cost of 4 or more from your trash at the bottom of your deck in any order. This Character gains +1000 power during this turn for every 3 cards placed at the bottom of your deck.",
@@ -4180,7 +4180,7 @@
     },
     {
         "inventory_price": 1.59,
-        "market_price": 2.2,
+        "market_price": 2.17,
         "card_name": "Building Snake (Premium Card Collection -Best Selection Vol. 4-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Activate: Main] You may place this Character at the bottom of the owner's deck: Give up to 1 of your opponent's Characters 3000 power during this turn.",
@@ -4284,7 +4284,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Nico_Robin_Premium_Card_Collection_-ONE_PIECE_FILM_RED_Edition-_img.jpg"
     },
     {
-        "inventory_price": 16.08,
+        "inventory_price": 16.06,
         "market_price": 17.99,
         "card_name": "Yamato (Premium Card Collection -Best Selection Vol. 4-)",
         "set_name": "One Piece Promotion Cards",
@@ -4327,7 +4327,7 @@
     },
     {
         "inventory_price": 4.59,
-        "market_price": 5.03,
+        "market_price": 5.01,
         "card_name": "Koby (Event Pack Vol. 7)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Opponent's Turn] Give this Character -3000 power.\n[When Attacking] If your Leader has the \"Navy\" type, your Leader's base power becomes 7000 until the end of your opponent's next turn.",
@@ -4474,7 +4474,7 @@
     },
     {
         "inventory_price": 1.98,
-        "market_price": 2.26,
+        "market_price": 2.21,
         "card_name": "Uta (Welcome Pack Vol. 2)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Look at 5 cards from the top of your deck; reveal up to 1 \"Red-Haired Pirates\" type card and add it to your hand. Then, place the rest at the bottom of your deck in any order.",
@@ -4516,7 +4516,7 @@
     },
     {
         "inventory_price": 39.99,
-        "market_price": 94.96,
+        "market_price": 93.56,
         "card_name": "Monkey.D.Luffy (Winner Pack Vol. 5)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Rush] (This card can attack on the turn in which it is played.)[DON!! x2] [When Attacking] Your opponent cannot activate [Blocker] during this battle.",
@@ -4600,7 +4600,7 @@
     },
     {
         "inventory_price": 150.0,
-        "market_price": 186.57,
+        "market_price": 183.83,
         "card_name": "Tony Tony.Chopper (Gift Collection 2023)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)",
@@ -4620,7 +4620,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Tony_Tony.Chopper_Gift_Collection_2023_img.jpg"
     },
     {
-        "inventory_price": 28.0,
+        "inventory_price": 27.99,
         "market_price": 37.5,
         "card_name": "Tony Tony.Chopper (Winner Pack 2024 Oct.-Dec.)",
         "set_name": "One Piece Promotion Cards",
@@ -4663,7 +4663,7 @@
     },
     {
         "inventory_price": 0.7,
-        "market_price": 1.09,
+        "market_price": 1.13,
         "card_name": "Brook (Tournament Pack Vol. 4)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Give up to 2 rested DON!! cards to your Leader or 1 of your Characters.",
@@ -4705,7 +4705,7 @@
     },
     {
         "inventory_price": 11.49,
-        "market_price": 15.58,
+        "market_price": 15.31,
         "card_name": "Shanks (Premium Card Collection -ONE PIECE FILM RED Edition-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": null,
@@ -4788,7 +4788,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Sabo_CS_2024_Event_Pack_img.jpg"
     },
     {
-        "inventory_price": 102.0,
+        "inventory_price": 100.69,
         "market_price": 111.65,
         "card_name": "Nami (Gift Collection 2023)",
         "set_name": "One Piece Promotion Cards",
@@ -4894,7 +4894,7 @@
     },
     {
         "inventory_price": 12.0,
-        "market_price": 14.69,
+        "market_price": 14.57,
         "card_name": "Franky (Gift Collection 2023)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[DON!! x1] This Character can also attack your opponent's active Characters.",
@@ -4936,7 +4936,7 @@
     },
     {
         "inventory_price": 4.99,
-        "market_price": 8.57,
+        "market_price": 8.37,
         "card_name": "Jinbe (Gift Collection 2023)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[DON!! x1] [When Attacking] Up to 1 of your Leader or Character cards other than this card gains +1000 power during this turn.",
@@ -4977,8 +4977,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Tony_Tony.Chopper_Tournament_Pack_2024_Oct.-Dec._img.jpg"
     },
     {
-        "inventory_price": 38.11,
-        "market_price": 56.13,
+        "inventory_price": 36.84,
+        "market_price": 55.12,
         "card_name": "Shanks (004) (English Version 2nd Anniversary Set)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "Give all of your opponent's Characters 1000 power.[Rush] (This card can attack on the turn in which it is played.)",
@@ -5020,7 +5020,7 @@
     },
     {
         "inventory_price": 6.99,
-        "market_price": 12.57,
+        "market_price": 12.44,
         "card_name": "Franky - ST01-010 (Alternate Art)",
         "set_name": "One Piece Promotion Cards",
         "card_text": null,
@@ -5125,7 +5125,7 @@
     },
     {
         "inventory_price": 9.99,
-        "market_price": 10.36,
+        "market_price": 10.34,
         "card_name": "Bepo (Winner Pack Vol. 7)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[DON!! x1][When Attacking] K.O. up to 1 of your opponent's Characters with 3000 power or less.",
@@ -5229,7 +5229,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Curly.Dadan_Premium_Card_Collection_-Best_Selection_Vol._1-_img.jpg"
     },
     {
-        "inventory_price": 19.0,
+        "inventory_price": 17.34,
         "market_price": 41.73,
         "card_name": "Nami (2025 New Year Event)",
         "set_name": "One Piece Promotion Cards",
@@ -5356,7 +5356,7 @@
     },
     {
         "inventory_price": 49.95,
-        "market_price": 59.51,
+        "market_price": 58.77,
         "card_name": "Monkey.D.Luffy (Premium Card Collection -ONE PIECE FILM RED Edition-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": null,
@@ -5481,7 +5481,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Tony_Tony.Chopper_Premium_Card_Collection_-ONE_PIECE_FILM_RED_Edition-_img.jpg"
     },
     {
-        "inventory_price": 11.0,
+        "inventory_price": 9.0,
         "market_price": 10.44,
         "card_name": "Koala (CS 25-26 Event Pack)",
         "set_name": "One Piece Promotion Cards",
@@ -5545,7 +5545,7 @@
     },
     {
         "inventory_price": 0.25,
-        "market_price": 0.38,
+        "market_price": 0.39,
         "card_name": "Benn.Beckman (One Piece Film Red)",
         "set_name": "One Piece Promotion Cards",
         "card_text": null,
@@ -5565,7 +5565,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Benn.Beckman_One_Piece_Film_Red_img.jpg"
     },
     {
-        "inventory_price": 3.85,
+        "inventory_price": 4.5,
         "market_price": 6.07,
         "card_name": "Sunny-Kun (One Piece Film Red)",
         "set_name": "One Piece Promotion Cards",
@@ -5923,7 +5923,7 @@
     },
     {
         "inventory_price": 14.99,
-        "market_price": 22.29,
+        "market_price": 22.21,
         "card_name": "Monkey.D.Luffy - P-006 (Retail Promo)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[DON!! x2] [Your Turn] This Character gains +2000 power.",
@@ -6027,8 +6027,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Nami_Premium_Card_Collection_-ONE_PIECE_FILM_RED_Edition-_img.jpg"
     },
     {
-        "inventory_price": 14.0,
-        "market_price": 15.71,
+        "inventory_price": 15.96,
+        "market_price": 15.67,
         "card_name": "Brook (Premium Card Collection -ONE PIECE FILM RED Edition-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Give up to 2 rested DON!! cards to your Leader or 1 of your Characters.",
@@ -6279,7 +6279,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/General_Franky_CS_2023_Event_Pack_img.jpg"
     },
     {
-        "inventory_price": 2.0,
+        "inventory_price": 1.93,
         "market_price": 2.56,
         "card_name": "Jozu (Judge)",
         "set_name": "One Piece Promotion Cards",
@@ -6321,7 +6321,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Jinbe_Premium_Card_Collection_-ONE_PIECE_FILM_RED_Edition-_img.jpg"
     },
     {
-        "inventory_price": 2.9,
+        "inventory_price": 2.54,
         "market_price": 3.71,
         "card_name": "Baccarat (Judge Pack Vol. 4)",
         "set_name": "One Piece Promotion Cards",
@@ -6358,7 +6358,7 @@
         "sub_types": "Revolutionary Army",
         "counter_amount": 1000,
         "attribute": "Special",
-        "date_scraped": "2026-08-21",
+        "date_scraped": "2026-08-22",
         "card_image_id": "OP05-004",
         "card_image": null
     },
@@ -7917,8 +7917,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Monkey.D.Luffy_2nd_Anniversary_Stamped_Promo_img.jpg"
     },
     {
-        "inventory_price": 7.68,
-        "market_price": 9.09,
+        "inventory_price": 7.67,
+        "market_price": 9.14,
         "card_name": "Boa Hancock (Sealed Battle 2024 Vol. 2)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Your Turn] If you have 5 or less cards in your hand, all of your [Kuja Pirates] type Characters gain +1000 power.",
@@ -8023,7 +8023,7 @@
     },
     {
         "inventory_price": 5.99,
-        "market_price": 8.37,
+        "market_price": 8.35,
         "card_name": "Portgas.D.Ace (Premium Card Collection -Best Selection Vol. 3-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Activate:Main] You may return this Character to the owner's hand: Look at 5 cards from the top of your deck and place them as the top or bottom of the deck in any order.",
@@ -8148,7 +8148,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Portgas.D.Ace_Tournament_Pack_2024_Oct.-Dec._img.jpg"
     },
     {
-        "inventory_price": 45.01,
+        "inventory_price": 42.89,
         "market_price": 65.32,
         "card_name": "Boa Hancock (Gift Collection 2023)",
         "set_name": "One Piece Promotion Cards",
@@ -8253,8 +8253,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Trafalgar_Law_Gift_Collection_2023_img.jpg"
     },
     {
-        "inventory_price": 0.99,
-        "market_price": 1.84,
+        "inventory_price": 1.47,
+        "market_price": 1.79,
         "card_name": "Pacifista (Premium Card Collection -Best Selection Vol. 1-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": null,
@@ -8295,7 +8295,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Charlotte_Pudding_Winner_Pack_2025_Vol._1_img.jpg"
     },
     {
-        "inventory_price": 7.76,
+        "inventory_price": 7.71,
         "market_price": 12.56,
         "card_name": "Buggy (Judge Pack Vol. 5)",
         "set_name": "One Piece Promotion Cards",
@@ -8337,7 +8337,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Crocodile_Winner_Pack_Vol._5_img.jpg"
     },
     {
-        "inventory_price": 0.63,
+        "inventory_price": 0.68,
         "market_price": 0.73,
         "card_name": "Dracule Mihawk (Tournament Pack Vol. 4)",
         "set_name": "One Piece Promotion Cards",
@@ -8947,7 +8947,7 @@
     },
     {
         "inventory_price": 2.0,
-        "market_price": 2.65,
+        "market_price": 2.66,
         "card_name": "Sentomaru (Premium Card Collection -BANDAI CARD GAMES Fest. 23-24 Edition-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[DON!! x1] [Activate: Main] [Once Per Turn] (2) (You may rest the specified number of DON!! cards in your cost area.): Play up to 1 [Pacifista] with a cost of 4 or less from your deck, then shuffle your deck.",
@@ -8967,7 +8967,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Sentomaru_Premium_Card_Collection_-BANDAI_CARD_GAMES_Fest._23-24_Edition-_img.jpg"
     },
     {
-        "inventory_price": 23.54,
+        "inventory_price": 23.49,
         "market_price": 28.55,
         "card_name": "Roronoa Zoro (Premium Card Collection -Live Action Edition-)",
         "set_name": "One Piece Promotion Cards",
@@ -9067,7 +9067,7 @@
         "sub_types": "Heart Pirates The Seven Warlords of the Sea",
         "counter_amount": 0,
         "attribute": "Slash",
-        "date_scraped": "2026-08-20",
+        "date_scraped": "2026-08-22",
         "card_image_id": "ST03-008_pr10",
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Trafalgar_Law_-_ST03-008_CS_2024_Event_Pack_img.jpg"
     },
@@ -9177,7 +9177,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Trafalgar_Law_Offline_Regional_Finalist_Card_Set_2025_Vol.2_img.jpg"
     },
     {
-        "inventory_price": 1.5,
+        "inventory_price": 1.99,
         "market_price": 1.8,
         "card_name": "Jinbe (Event Pack Vol. 1)",
         "set_name": "One Piece Promotion Cards",
@@ -9324,7 +9324,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Ulti_Judge_Pack_Vol._3_img.jpg"
     },
     {
-        "inventory_price": 13.49,
+        "inventory_price": 13.5,
         "market_price": 24.73,
         "card_name": "Perona (Judge Pack Vol. 2)",
         "set_name": "One Piece Promotion Cards",
@@ -9681,7 +9681,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Crocodile_ST15_-_ST20_Release_Event_Pack_img.jpg"
     },
     {
-        "inventory_price": 24.72,
+        "inventory_price": 24.67,
         "market_price": 28.93,
         "card_name": "Nami (Premium Card Collection -Live Action Edition-)",
         "set_name": "One Piece Promotion Cards",
@@ -9828,7 +9828,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Sentomaru_Tournament_Pack_Vol._3_Winner_img.jpg"
     },
     {
-        "inventory_price": 2.89,
+        "inventory_price": 3.58,
         "market_price": 3.58,
         "card_name": "Shanks (Premium Card Collection -Live Action Edition-)",
         "set_name": "One Piece Promotion Cards",
@@ -10038,7 +10038,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Trafalgar_Law_Offline_Regional_2024_Vol._2_Finalist_img.jpg"
     },
     {
-        "inventory_price": 3.46,
+        "inventory_price": 3.42,
         "market_price": 4.01,
         "card_name": "Crocodile (Judge Pack Vol. 6)",
         "set_name": "One Piece Promotion Cards",
@@ -10963,7 +10963,7 @@
     },
     {
         "inventory_price": 3.0,
-        "market_price": 2.78,
+        "market_price": 2.76,
         "card_name": "Dracule Mihawk (Illustration Box Vol.4)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] If you have 2 or less Characters, play up to 1 [Muggy Kingdom] type or \"Slash\" attribute Character card with a cost of 4 or less other than [Dracule Mihawk] from your hand rested.",
@@ -11026,7 +11026,7 @@
     },
     {
         "inventory_price": 3.49,
-        "market_price": 4.74,
+        "market_price": 4.77,
         "card_name": "Baby 5 (Premium Card Collection -Best Selection Vol. 3-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[End of Your Turn] You may trash this Character: Set up to 2 of your DON!! cards as active.",
@@ -11041,7 +11041,7 @@
         "sub_types": "Donquixote Pirates",
         "counter_amount": 2000,
         "attribute": "Special",
-        "date_scraped": "2026-08-21",
+        "date_scraped": "2026-08-22",
         "card_image_id": "OP04-032",
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Baby_5_Premium_Card_Collection_-Best_Selection_Vol._3-_img.jpg"
     },
@@ -11109,7 +11109,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Roronoa_Zoro_Winner_Pack_2025_Vol._3_img.jpg"
     },
     {
-        "inventory_price": 4.0,
+        "inventory_price": 4.5,
         "market_price": 5.07,
         "card_name": "Monkey.D.Luffy (Starter Deck 11: Uta Deck Battle)",
         "set_name": "One Piece Promotion Cards",
@@ -11194,7 +11194,7 @@
     },
     {
         "inventory_price": 0.99,
-        "market_price": 4.14,
+        "market_price": 4.16,
         "card_name": "Jewelry Bonney (Tournament Pack Vol. 3) [Participant]",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Activate:Main] (1) (You may rest the specified number of DON!! cards in your cost area.) You may rest this card: Look at 5 cards from the top of your deck; reveal up to 1 [Supernovas] type card and add it to your hand. Then, place the rest at the bottom of your deck in any order.",
@@ -11424,7 +11424,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Viola_Judge_Pack_Vol._4_img.jpg"
     },
     {
-        "inventory_price": 3.1,
+        "inventory_price": 3.24,
         "market_price": 3.76,
         "card_name": "Monkey.D.Luffy (Welcome Pack Vol. 2)",
         "set_name": "One Piece Promotion Cards",
@@ -11509,7 +11509,7 @@
     },
     {
         "inventory_price": 89.99,
-        "market_price": 111.53,
+        "market_price": 111.52,
         "card_name": "Monkey.D.Luffy (Gen Con 2023)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[When Attacking] If you have 2 or more rested Characters, this Character gains +1000 power during this turn.",
@@ -12054,7 +12054,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Jinbe_CS_2024_Event_Pack_img.jpg"
     },
     {
-        "inventory_price": 7.85,
+        "inventory_price": 7.84,
         "market_price": 8.85,
         "card_name": "Okiku (Winner Pack Vol. 4)",
         "set_name": "One Piece Promotion Cards",
@@ -12075,7 +12075,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Okiku_Winner_Pack_Vol._4_img.jpg"
     },
     {
-        "inventory_price": 2.4,
+        "inventory_price": 2.39,
         "market_price": 2.84,
         "card_name": "Ryuma (Judge Pack Vol. 4)",
         "set_name": "One Piece Promotion Cards",
@@ -12112,13 +12112,13 @@
         "sub_types": "Kid Pirates Supernovas",
         "counter_amount": 0,
         "attribute": "Special",
-        "date_scraped": "2026-08-21",
+        "date_scraped": "2026-08-22",
         "card_image_id": "ST02-013",
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/EustassCaptainKid_CS_2024_Celebration_Pack_img.jpg"
     },
     {
-        "inventory_price": 200.0,
-        "market_price": 79.05,
+        "inventory_price": 175.0,
+        "market_price": 93.55,
         "card_name": "Yamato (CS 2023 Celebration Pack)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Activate:Main] You may rest this Character: Rest 1 of your opponent's Characters with a cost of 2 or less.",
@@ -12133,12 +12133,12 @@
         "sub_types": "Land of Wano",
         "counter_amount": 0,
         "attribute": "Strike",
-        "date_scraped": "2026-08-03",
+        "date_scraped": "2026-08-22",
         "card_image_id": "P-008_pr1",
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Yamato_CS_2023_Celebration_Pack_img.jpg"
     },
     {
-        "inventory_price": 14.47,
+        "inventory_price": 14.28,
         "market_price": 17.46,
         "card_name": "Tony Tony.Chopper (ST15 - ST20 Release Event Pack)",
         "set_name": "One Piece Promotion Cards",
@@ -12433,7 +12433,7 @@
     },
     {
         "inventory_price": 2.18,
-        "market_price": 2.57,
+        "market_price": 2.55,
         "card_name": "Pearl (Store Championship Participation Pack Vol. 2)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)",
@@ -12789,7 +12789,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Roronoa_Zoro_Treasure_Cup_2024_img.jpg"
     },
     {
-        "inventory_price": 20.0,
+        "inventory_price": 19.72,
         "market_price": 33.56,
         "card_name": "Portgas.D.Ace (Judge Pack Vol. 6)",
         "set_name": "One Piece Promotion Cards",
@@ -12832,7 +12832,7 @@
     },
     {
         "inventory_price": 0.5,
-        "market_price": 1.26,
+        "market_price": 1.22,
         "card_name": "Killer (Promotion Pack 2023)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)[DON!! x1] [On Block] If you have 3 or more Characters, draw 1 card.",
@@ -13756,7 +13756,7 @@
     },
     {
         "inventory_price": 5.0,
-        "market_price": 9.09,
+        "market_price": 8.97,
         "card_name": "Monkey.D.Luffy (041)",
         "set_name": "One Piece Promotion Cards",
         "card_text": null,
@@ -13840,7 +13840,7 @@
     },
     {
         "inventory_price": 3.49,
-        "market_price": 5.38,
+        "market_price": 5.3,
         "card_name": "Ulti (Premium Card Collection -Best Selection Vol. 3-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] DON!! -1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play up to 1 [Page One] card with a cost of 4 or less from your hand.",
@@ -13861,7 +13861,7 @@
     },
     {
         "inventory_price": 13.5,
-        "market_price": 14.32,
+        "market_price": 14.41,
         "card_name": "Charlotte Katakuri (Winner Pack 2025 Vol. 3)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Activate:Main] You may trash this Character: If your Leader has the {Big Mom Pirates} type, play up to 1 [Charlotte Katakuri] from your hand with a cost of 3 or more that is equal to or less than the number of DON!! cards on your opponent's field.",
@@ -13965,8 +13965,8 @@
         "card_image": null
     },
     {
-        "inventory_price": 41.85,
-        "market_price": 46.99,
+        "inventory_price": 42.89,
+        "market_price": 46.12,
         "card_name": "Yamato (Event Pack Vol. 3)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] You may place all cards in your hand at the bottom of your deck in any order. If you do, draw cards equal to the number you placed at the bottom of your deck.",
@@ -14050,7 +14050,7 @@
     },
     {
         "inventory_price": 5.38,
-        "market_price": 5.52,
+        "market_price": 5.5,
         "card_name": "Roronoa Zoro (Welcome Pack Vol. 2)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] You may return 1 or more DON!! cards from your field to your DON!! deck: Add up to 1 DON!! card from your DON!! deck and set it as active.",
@@ -14155,7 +14155,7 @@
     },
     {
         "inventory_price": 1.17,
-        "market_price": 1.52,
+        "market_price": 1.53,
         "card_name": "X.Drake (Premium Card Collection -Best Selection Vol. 2-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] DON!! -1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Your opponent trashes 1 card from their hand.",
@@ -15814,7 +15814,7 @@
     },
     {
         "inventory_price": 4.43,
-        "market_price": 5.27,
+        "market_price": 5.13,
         "card_name": "Monkey.D.Luffy (Illustration Box Vol.3)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Activate: Main]You may trash this Character: If you have 2 or less Life cards, K.O. up to 1 of your opponent's Characters with a cost of 4 or less. Then, draw 1 card.[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 4 or less.",
@@ -15834,8 +15834,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Monkey.D.Luffy_Illustration_Box_Vol.3_img.jpg"
     },
     {
-        "inventory_price": 3.49,
-        "market_price": 4.97,
+        "inventory_price": 3.39,
+        "market_price": 4.9,
         "card_name": "Roronoa Zoro (Illustration Box Vol.3)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Trigger] If your Leader has the [Egghead] type, rest up to 1 of your opponent's Leader or Character cards.",
@@ -15918,7 +15918,7 @@
         "card_image": null
     },
     {
-        "inventory_price": 17.86,
+        "inventory_price": 17.85,
         "market_price": 21.02,
         "card_name": "Kikunojo (Premium Card Collection -Best Selection Vol. 2-)",
         "set_name": "One Piece Promotion Cards",
@@ -15939,7 +15939,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Kikunojo_Premium_Card_Collection_-Best_Selection_Vol._2-_img.jpg"
     },
     {
-        "inventory_price": 5.48,
+        "inventory_price": 5.47,
         "market_price": 6.54,
         "card_name": "Jinbe (Winner Pack 2025 Vol. 3)",
         "set_name": "One Piece Promotion Cards",
@@ -16044,7 +16044,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Charlotte_Pudding_Winner_Pack_2024_Oct.-Dec._img.jpg"
     },
     {
-        "inventory_price": 1.9,
+        "inventory_price": 1.89,
         "market_price": 1.99,
         "card_name": "Wyper (Winner Pack 2025 Vol. 2)",
         "set_name": "One Piece Promotion Cards",
@@ -16129,7 +16129,7 @@
     },
     {
         "inventory_price": 5.0,
-        "market_price": 6.64,
+        "market_price": 6.74,
         "card_name": "O-Nami (Welcome Pack Vol. 2)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Up to 1 of your Leader or Character cards gains [Banish] during this turn.(When this card deals damage, the target card is trashed without activating its Trigger.)[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 5 or less.",
@@ -16192,7 +16192,7 @@
     },
     {
         "inventory_price": 2.93,
-        "market_price": 3.32,
+        "market_price": 3.34,
         "card_name": "Kouzuki Momonosuke (Event Pack Vol. 4)",
         "set_name": "One Piece Promotion Cards",
         "card_text": null,
@@ -16360,7 +16360,7 @@
     },
     {
         "inventory_price": 2.38,
-        "market_price": 2.55,
+        "market_price": 2.53,
         "card_name": "Charlotte Amande (Premium Card Collection -Best Selection Vol. 1-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Activate:Main] [Once Per Turn] You may trash 1 card with a [Trigger] from your hand: Rest up to 1 of your opponent's Characters with a cost of 2 or less.",
@@ -16381,7 +16381,7 @@
     },
     {
         "inventory_price": 144.99,
-        "market_price": 237.43,
+        "market_price": 234.83,
         "card_name": "Roronoa Zoro (CS 2024 Event Pack)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 4 or less.",
@@ -16906,7 +16906,7 @@
     },
     {
         "inventory_price": 24.83,
-        "market_price": 34.32,
+        "market_price": 33.18,
         "card_name": "Roronoa Zoro (Learn Together Deck Set - Set Sail Event)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "If you have less Life cards than your opponent, this Character gains [Rush].[Trigger] You may trash 1 card from your hand: If your Leader has the \"Supernovas\" type, play this card.",
@@ -17032,7 +17032,7 @@
     },
     {
         "inventory_price": 2.79,
-        "market_price": 2.87,
+        "market_price": 2.9,
         "card_name": "Shirahoshi (ST15 - ST20 Release Event Pack)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Draw 3 cards and trash 2 cards from your hand.[Trigger] Play this card.",
@@ -17074,7 +17074,7 @@
     },
     {
         "inventory_price": 21.0,
-        "market_price": 27.34,
+        "market_price": 27.43,
         "card_name": "Monkey.D.Luffy (Learn Together Deck Set - Set Sail Event)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Look at 5 cards from the top of your deck; reveal up to 1 \"Supernovas\" type card other than [Monkey.D.Luffy] and add it to your hand. Then, place the rest at the bottom of your deck in any order.",
@@ -18418,7 +18418,7 @@
     },
     {
         "inventory_price": 2.85,
-        "market_price": 3.11,
+        "market_price": 3.23,
         "card_name": "Gol.D.Roger (Store Tournament 2025 Vol. 4)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] If either you or your opponent has 10 DON!! cards on the field, your Leader gains +2000 power until the end of your opponent's next End Phase.",
@@ -18460,7 +18460,7 @@
     },
     {
         "inventory_price": 0.99,
-        "market_price": 1.77,
+        "market_price": 1.75,
         "card_name": "Boa Hancock (OP15 Release Event)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Give up to 1-rested DON!! card to your Leader or 1 of your Characters.[Trigger] Play up to 1 yellow Character card with 5000 power or less and a [Trigger] from your hand.",
@@ -18481,7 +18481,7 @@
     },
     {
         "inventory_price": 0.75,
-        "market_price": 0.94,
+        "market_price": 0.93,
         "card_name": "Donquixote Rosinante (Illustration Box Vol.6)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Look at 5 cards from the top of your deck; reveal up to 1 [Trafalgar Law] and add it to your hand. Then, place the rest at the bottom of your deck in any order.",
@@ -18522,8 +18522,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Girl_OP14_Release_Event_img.jpg"
     },
     {
-        "inventory_price": 0.98,
-        "market_price": 1.79,
+        "inventory_price": 0.94,
+        "market_price": 1.75,
         "card_name": "Monkey.D.Luffy (Store Tournament 2025 Vol. 4)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[End of Your Turn] You may turn 1 card from the top of your Life cards face-up: Set up to 1 of your {Egghead} type Characters as active.[Trigger] Draw 1 card and K.O. up to 1 of your opponent's Characters with a cost of 2 or less.",
@@ -18543,8 +18543,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Monkey.D.Luffy_Store_Tournament_2025_Vol._4_img.jpg"
     },
     {
-        "inventory_price": 9.9,
-        "market_price": 11.51,
+        "inventory_price": 9.96,
+        "market_price": 11.33,
         "card_name": "Monkey.D.Luffy (Tin Pack Set Vol. 2)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Give up to 1 rested DON!! card to your Leader or 1 of your Characters.\n[When Attacking] If you have a Character with a cost of 8 or more on your field, draw 1 card and trash 1 card from your hand.",
@@ -18564,7 +18564,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Monkey.D.Luffy_Tin_Pack_Set_Vol._2_img.jpg"
     },
     {
-        "inventory_price": 0.59,
+        "inventory_price": 0.57,
         "market_price": 0.59,
         "card_name": "Sabo (Illustration Box Vol.5)",
         "set_name": "One Piece Promotion Cards",
@@ -18586,7 +18586,7 @@
     },
     {
         "inventory_price": 1.62,
-        "market_price": 1.79,
+        "market_price": 1.81,
         "card_name": "Portgas.D.Ace (Illustration Box Vol.5)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "If your Leader's type includes \"Whitebeard Pirates\", this Character gains [Rush].(This card can attack on the turn in which it is played.)[Once Per Turn] If this Character would be removed from the field by your opponent's effect, you may give this Character 2000 power during this turn instead.",
@@ -18669,7 +18669,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Tony_Tony.Chopper_Store_Tournament_2025_Vol._4_img.jpg"
     },
     {
-        "inventory_price": 47.98,
+        "inventory_price": 47.97,
         "market_price": 51.88,
         "card_name": "Monkey.D.Luffy (Event Pack Vol. 8)",
         "set_name": "One Piece Promotion Cards",
@@ -18711,8 +18711,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Sabo_Store_Tournament_2025_Vol._4_img.jpg"
     },
     {
-        "inventory_price": 1.0,
-        "market_price": 2.05,
+        "inventory_price": 0.99,
+        "market_price": 2.0,
         "card_name": "Portgas.D.Ace (Tin Pack Set Vol. 2)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Activate:Main] You may return this Character to the owner's hand: Look at 5 cards from the top of your deck and place them as the top or bottom of the deck in any order.",
@@ -18733,7 +18733,7 @@
     },
     {
         "inventory_price": 5.15,
-        "market_price": 6.12,
+        "market_price": 6.09,
         "card_name": "Marshall.D.Teach (Event Pack Vol. 8)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[When Attacking] Negate the effects of your opponent's Leader and all of their Characters during this turn.",
@@ -18754,7 +18754,7 @@
     },
     {
         "inventory_price": 1.69,
-        "market_price": 2.27,
+        "market_price": 2.24,
         "card_name": "Nami - P-117",
         "set_name": "One Piece Promotion Cards",
         "card_text": "Under the rules of this game, you can only include \"East Blue\" type cards in your deck and when your deck is reduced to 0, you win the game instead of losing.\n[DON!! x1] When this Leader's attack deals damage to your opponent's Life, you may trash 1 card from the top of your deck.",
@@ -18796,7 +18796,7 @@
     },
     {
         "inventory_price": 6.3,
-        "market_price": 7.31,
+        "market_price": 7.3,
         "card_name": "Shanks (Event Pack Vol. 8)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play]/[When Attacking] Your opponent cannot activate [Blocker] during this turn.",
@@ -18837,8 +18837,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Ulti_CS_25-26_Event_Pack_img.jpg"
     },
     {
-        "inventory_price": 2.64,
-        "market_price": 2.64,
+        "inventory_price": 2.9,
+        "market_price": 2.66,
         "card_name": "Monkey.D.Luffy - ST10-006 (3rd Anniversary Treasure Campaign Pack)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Rush] (This card can attack on the turn in which it is played.)[Once Per Turn] When your opponent activates a [Blocker], K.O. up to 1 of your opponent's Characters with 8000 power or less.",
@@ -18880,7 +18880,7 @@
     },
     {
         "inventory_price": 0.78,
-        "market_price": 1.47,
+        "market_price": 1.43,
         "card_name": "But Ace Here Said You Deserved It!! (3rd Anniversary Treasure Campaign Pack)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Main] You may rest 4 of your DON!! cards: Give up to 1 of your opponent's Characters 3000 power during this turn. Then, K.O. up to 1 of your opponent's Characters with 3000 power or less.\n[Counter] Your Leader gains +3000 power during this battle.",
@@ -18964,7 +18964,7 @@
     },
     {
         "inventory_price": 5.15,
-        "market_price": 6.35,
+        "market_price": 6.4,
         "card_name": "Buggy (Event Pack Vol. 8)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)\n[On Play] If you do not have 5 Characters with a cost of 5 or more, place this Character at the bottom of the owner's deck.",
@@ -19000,7 +19000,7 @@
         "sub_types": "Straw Hat Crew",
         "counter_amount": 1000,
         "attribute": "Slash",
-        "date_scraped": "2026-08-21",
+        "date_scraped": "2026-08-22",
         "card_image_id": "P-045_pr1",
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Roronoa_Zoro_OP-06_Pre-Release_Tournament_Participant_img.jpg"
     },
@@ -19131,8 +19131,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Nami_Heroines_Battle_Pack_img.jpg"
     },
     {
-        "inventory_price": 0.32,
-        "market_price": 0.34,
+        "inventory_price": 0.17,
+        "market_price": 0.33,
         "card_name": "Baby 5 (Tournament Pack 2026 Vol. 1)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Trigger] If your Leader is multicolored, draw 2 cards.",
@@ -19152,7 +19152,7 @@
         "card_image": null
     },
     {
-        "inventory_price": 5.98,
+        "inventory_price": 5.97,
         "market_price": 6.1,
         "card_name": "Kouzuki Hiyori (Winner Pack 2026 Vol. 1)",
         "set_name": "One Piece Promotion Cards",
@@ -19278,7 +19278,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Yamato_Illustration_Box_Vol.2_img.jpg"
     },
     {
-        "inventory_price": 1.99,
+        "inventory_price": 1.75,
         "market_price": 2.19,
         "card_name": "Morley (Winner Pack 2026 Vol. 1)",
         "set_name": "One Piece Promotion Cards",
@@ -19446,7 +19446,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Monkey.D.Luffy_Tournament_Pack_2026_Vol._2_img.jpg"
     },
     {
-        "inventory_price": 4.41,
+        "inventory_price": 3.99,
         "market_price": 8.61,
         "card_name": "Uta (Premium Card Collection -ONE PIECE FILM RED Edition-)",
         "set_name": "One Piece Promotion Cards",
@@ -19468,7 +19468,7 @@
     },
     {
         "inventory_price": 33.1,
-        "market_price": 28.7,
+        "market_price": 29.65,
         "card_name": "Electrical Luna (Premium Card Collection -Best Selection Vol. 5-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Main] All of your opponent's rested Characters with a cost of 7 or less will not become active in your opponent's next Refresh Phase.\n[Trigger] Rest up to 1 of your opponent's Characters.",
@@ -19510,7 +19510,7 @@
     },
     {
         "inventory_price": 9.0,
-        "market_price": 10.26,
+        "market_price": 10.11,
         "card_name": "Nami (Welcome Pack 2026 Vol.1)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Look at 5 cards from the top of your deck; reveal up to 1 \"Straw Hat Crew\" type card other than [Nami] and add it to your hand. Then, place the rest at the bottom of your deck in any order.\n[Trigger] Play this card.",
@@ -19530,8 +19530,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Nami_Welcome_Pack_2026_Vol.1_img.jpg"
     },
     {
-        "inventory_price": 2.98,
-        "market_price": 3.47,
+        "inventory_price": 2.99,
+        "market_price": 3.4,
         "card_name": "Jewelry Bonney (Heroines Battle Pack)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[DON!!x2] [Opponent's Turn] This Character gains [Blocker] and +2000 power.[Trigger] K.O up to 1 of your opponent's Characters with a cost of 3 or less.",
@@ -19573,7 +19573,7 @@
     },
     {
         "inventory_price": 9.99,
-        "market_price": 10.21,
+        "market_price": 10.17,
         "card_name": "Sabo (Winner Pack 2026 Vol. 2)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "If your Leader has the {Revolutionary Army} type, this Character gains [Blocker] and +4 cost.\n[On Play] You may add 1 card from the top or bottom of your Life cards to your hand: Give up to 1 rested DON!! card to your Leader or 1 of your Characters.",
@@ -19593,8 +19593,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Sabo_Winner_Pack_2026_Vol._2_img.jpg"
     },
     {
-        "inventory_price": 17.69,
-        "market_price": 18.7,
+        "inventory_price": 18.69,
+        "market_price": 18.6,
         "card_name": "Baby 5 (Premium Card Collection -Best Selection Vol. 5-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Trigger] If your Leader is multicolored, draw 2 cards.",
@@ -19651,7 +19651,7 @@
         "sub_types": "Revolutionary Army Impel Down",
         "counter_amount": 0,
         "attribute": null,
-        "date_scraped": "2026-08-21",
+        "date_scraped": "2026-08-22",
         "card_image_id": "OP12-098",
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Hair_Removal_Fist_Premium_Card_Collection_-Best_Selection_Vol._5-_img.jpg"
     },
@@ -19699,7 +19699,7 @@
     },
     {
         "inventory_price": 13.74,
-        "market_price": 13.74,
+        "market_price": 13.77,
         "card_name": "Tony Tony.Chopper (Judge Pack Vol. 7)",
         "set_name": "One Piece Promotion Cards",
         "card_text": null,
@@ -19866,7 +19866,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Nami_-_OP01-016_Alternate_Art_img.jpg"
     },
     {
-        "inventory_price": 7.24,
+        "inventory_price": 5.99,
         "market_price": 7.61,
         "card_name": "Roronoa Zoro (Welcome Pack 2026 Vol.1)",
         "set_name": "One Piece Promotion Cards",
@@ -19930,7 +19930,7 @@
     },
     {
         "inventory_price": 0.25,
-        "market_price": 0.36,
+        "market_price": 0.35,
         "card_name": "Portgas.D.Ace (Tournament Pack 2026 Vol. 2)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] Draw 2 cards and place 2 cards from your hand at the top or bottom of your deck in any order. Then, give up to 1 rested DON!! card to your Leader.",
@@ -20055,8 +20055,8 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Sanji_Welcome_Pack_2026_Vol.1_img.jpg"
     },
     {
-        "inventory_price": 0.66,
-        "market_price": 2.41,
+        "inventory_price": 0.59,
+        "market_price": 2.39,
         "card_name": "Blaze Slice (Premium Card Collection -Best Selection Vol. 5-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Main] / [Counter] Up to 1 of your Leader or Character cards gains +1000 power during this turn. Then, if your opponent has 2 or less Life cards, rest up to 1 of your opponent's Characters with a cost of 4 or less.\n[Trigger] Rest up to 1 of your opponent's Characters with a cost of 4 or less.",
@@ -20076,7 +20076,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Blaze_Slice_Premium_Card_Collection_-Best_Selection_Vol._5-_img.jpg"
     },
     {
-        "inventory_price": 38.0,
+        "inventory_price": 39.98,
         "market_price": 59.21,
         "card_name": "Girl (OP14 Release Event Winner)",
         "set_name": "One Piece Promotion Cards",
@@ -20098,7 +20098,7 @@
     },
     {
         "inventory_price": 22.47,
-        "market_price": 29.52,
+        "market_price": 28.85,
         "card_name": "Charlotte Linlin (Premium Card Collection -6 assort vol.1-)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "If your Leader has the \"Big Mom Pirates\" type, this Character gains [Rush].\n[On Your Opponent's Attack] [Once Per Turn] DON!! 5: Choose a cost and reveal 1 card from the top of your opponent's deck. If the revealed card has the chosen cost, up to 1 of your Leader gains +2000 power during this turn.",
@@ -20161,7 +20161,7 @@
     },
     {
         "inventory_price": 89.99,
-        "market_price": 118.81,
+        "market_price": 116.61,
         "card_name": "Portgas.D.Ace (Japanese Version 3rd Anniversary Set)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "If your Leader's type includes \"Whitebeard Pirates\", this Character gains [Rush].(This card can attack on the turn in which it is played.)[Once Per Turn] If this Character would be removed from the field by your opponent's effect, you may give this Character 2000 power during this turn instead.",
@@ -20244,7 +20244,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Charlotte_Pudding_Regional_Participation_Pack_2026_Vol.1_img.jpg"
     },
     {
-        "inventory_price": 119.99,
+        "inventory_price": 119.96,
         "market_price": 119.76,
         "card_name": "Charlotte Katakuri (Japanese Version 3rd Anniversary Set)",
         "set_name": "One Piece Promotion Cards",
@@ -20644,7 +20644,7 @@
     },
     {
         "inventory_price": 109.99,
-        "market_price": 132.36,
+        "market_price": 130.45,
         "card_name": "Roronoa Zoro (114)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)\n[End of Your Turn] If you have any active DON!! cards, set this Character as active.",
@@ -20664,7 +20664,7 @@
         "card_image": null
     },
     {
-        "inventory_price": 50.76,
+        "inventory_price": 45.97,
         "market_price": 77.93,
         "card_name": "Sanji (One Piece Japanese Version 2nd Anniversary Set)",
         "set_name": "One Piece Promotion Cards",
@@ -20727,7 +20727,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Jewelry_Bonney_Heroines_Battle_Winner_Pack_img.jpg"
     },
     {
-        "inventory_price": 29.97,
+        "inventory_price": 29.99,
         "market_price": 37.93,
         "card_name": "Roronoa Zoro (113) (Regional Participation Pack 2026 Vol.1)",
         "set_name": "One Piece Promotion Cards",
@@ -20875,7 +20875,7 @@
     },
     {
         "inventory_price": 159.99,
-        "market_price": 202.41,
+        "market_price": 204.38,
         "card_name": "Perona (Japanese Version 3rd Anniversary Set)",
         "set_name": "One Piece Promotion Cards",
         "card_text": "[On Play] If your Leader has the (Slash) attribute, look at 5 cards from the top of your deck; reveal up to 1 (Slash) attribute card or green Event and add it to your hand. Then, place the rest at the bottom of your deck in any order.",
@@ -21693,7 +21693,7 @@
         "card_image": "https://www.optcgapi.com/media/static/Card_Images/Spandine_Offline_Regional_Finalist_Card_Set_2025_Vol.1_img.jpg"
     },
     {
-        "inventory_price": 24.0,
+        "inventory_price": 23.99,
         "market_price": 28.9,
         "card_name": "Urouge (Offline Regional Finalist Card Set 2025 Vol.1)",
         "set_name": "One Piece Promotion Cards",
