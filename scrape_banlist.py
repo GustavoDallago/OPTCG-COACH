@@ -36,15 +36,18 @@ DEFAULT_EN = {
     ]
 }
 
-def atomic_save_json(data: Any, filepath: str, indent: int = 4) -> bool:
-    """Saves JSON data atomically using a temporary file and atomic replace."""
+def atomic_save_json(data: Any, filepath: str, indent: Optional[int] = None) -> bool:
+    """Saves JSON data atomically using a temporary file and atomic replace in compact format."""
     dirname = os.path.dirname(filepath)
     if dirname and not os.path.exists(dirname):
         os.makedirs(dirname, exist_ok=True)
     tmp_file = f"{filepath}.tmp_{os.getpid()}_{int(time.time()*1000)}"
     try:
         with open(tmp_file, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=indent, ensure_ascii=False)
+            if indent is not None:
+                json.dump(data, f, indent=indent, ensure_ascii=False)
+            else:
+                json.dump(data, f, separators=(',', ':'), ensure_ascii=False)
         os.replace(tmp_file, filepath)
         return True
     except Exception as e:

@@ -29,10 +29,11 @@ ENDPOINTS: Dict[str, str] = {
     "don_cards": "/api/allDonCards/"
 }
 
-def atomic_save_json(data: Any, filepath: str, indent: int = 4) -> bool:
+def atomic_save_json(data: Any, filepath: str, indent: Optional[int] = None) -> bool:
     """
     Saves JSON data atomically using a temporary file and atomic replace.
     Prevents corrupt or empty JSON files if process terminates unexpectedly.
+    Uses compact formatting by default to save storage and network bandwidth.
     """
     dirname = os.path.dirname(filepath)
     if dirname and not os.path.exists(dirname):
@@ -41,7 +42,10 @@ def atomic_save_json(data: Any, filepath: str, indent: int = 4) -> bool:
     tmp_file = f"{filepath}.tmp_{os.getpid()}_{int(time.time()*1000)}"
     try:
         with open(tmp_file, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=indent, ensure_ascii=False)
+            if indent is not None:
+                json.dump(data, f, indent=indent, ensure_ascii=False)
+            else:
+                json.dump(data, f, separators=(',', ':'), ensure_ascii=False)
         os.replace(tmp_file, filepath)
         return True
     except Exception as e:
@@ -51,6 +55,26 @@ def atomic_save_json(data: Any, filepath: str, indent: int = 4) -> bool:
                 os.remove(tmp_file)
             except Exception:
                 pass
+        return False
+
+def compress_and_save_image(img_bytes: bytes, target_webp_path: str) -> bool:
+    """
+    Compresses raw image bytes into an optimized WebP image (max height 800px, 82% quality).
+    Reduces file size by ~90-95% compared to uncompressed PNG.
+    """
+    try:
+        from PIL import Image
+        import io
+        with Image.open(io.BytesIO(img_bytes)) as img:
+            img = img.convert("RGB")
+            if img.height > 800:
+                ratio = 800.0 / img.height
+                new_size = (int(img.width * ratio), 800)
+                img = img.resize(new_size, Image.Resampling.LANCZOS)
+            img.save(target_webp_path, "WEBP", quality=82, method=6)
+            return True
+    except Exception as e:
+        print(f"Notice: Pillow WebP compression fallback: {e}")
         return False
 
 def fetch_data(endpoint: str, retries: int = 3) -> Any:
@@ -131,21 +155,22 @@ def get_or_download_spoiler_image(cid: str, prefix: str) -> str:
     Hybrid Image Lifecycle Strategy:
     1. Checks if Limitless CDN already has the official image on the web.
        - If yes (HTTP 200), use CDN URL and remove local file if present (auto-cleanup).
-    2. If not on CDN yet, downloads high-res preview image to optcg_data/card_images/ so cards render immediately.
+    2. If not on CDN yet, downloads preview image and converts to optimized WebP in optcg_data/card_images/.
     """
     cdn_url = f"https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/{prefix}/{cid}_EN.webp"
-    local_filename = f"{cid}.png"
-    local_path = os.path.join(IMG_DIR, local_filename)
+    local_webp = os.path.join(IMG_DIR, f"{cid}.webp")
+    local_png = os.path.join(IMG_DIR, f"{cid}.png")
 
     try:
         r_cdn = requests.head(cdn_url, timeout=4)
         if r_cdn.status_code == 200:
-            if os.path.exists(local_path):
-                try:
-                    os.remove(local_path)
-                    print(f"Cleaned up local file {local_path} (now available on Limitless CDN).")
-                except Exception:
-                    pass
+            for old_f in [local_webp, local_png]:
+                if os.path.exists(old_f):
+                    try:
+                        os.remove(old_f)
+                        print(f"Cleaned up local file {old_f} (now available on Limitless CDN).")
+                    except Exception:
+                        pass
             return cdn_url
     except Exception:
         pass
@@ -153,23 +178,35 @@ def get_or_download_spoiler_image(cid: str, prefix: str) -> str:
     if not os.path.exists(IMG_DIR):
         os.makedirs(IMG_DIR, exist_ok=True)
 
-    if not os.path.exists(local_path):
-        kaizoku_url = f"https://cdn.cardkaizoku.com/cards_en/{prefix}/{cid}.png"
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Referer': 'https://www.cardkaizoku.com/'
-        }
-        try:
-            r = requests.get(kaizoku_url, headers=headers, timeout=15)
-            if r.status_code == 200:
-                with open(local_path, "wb") as fp:
-                    fp.write(r.content)
-                print(f"Downloaded local spoiler image: {local_path}")
-        except Exception as e:
-            print(f"Notice: Could not download spoiler image for {cid}: {e}")
+    if os.path.exists(local_webp):
+        return f"./optcg_data/card_images/{cid}.webp"
 
-    if os.path.exists(local_path):
-        return f"./optcg_data/card_images/{local_filename}"
+    kaizoku_url = f"https://cdn.cardkaizoku.com/cards_en/{prefix}/{cid}.png"
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Referer': 'https://www.cardkaizoku.com/'
+    }
+    try:
+        r = requests.get(kaizoku_url, headers=headers, timeout=15)
+        if r.status_code == 200:
+            if compress_and_save_image(r.content, local_webp):
+                print(f"Saved optimized local spoiler image (WebP): {local_webp}")
+                if os.path.exists(local_png):
+                    try:
+                        os.remove(local_png)
+                    except Exception:
+                        pass
+            else:
+                with open(local_png, "wb") as fp:
+                    fp.write(r.content)
+                print(f"Downloaded local spoiler image (PNG fallback): {local_png}")
+    except Exception as e:
+        print(f"Notice: Could not download spoiler image for {cid}: {e}")
+
+    if os.path.exists(local_webp):
+        return f"./optcg_data/card_images/{cid}.webp"
+    if os.path.exists(local_png):
+        return f"./optcg_data/card_images/{cid}.png"
 
     return cdn_url
 

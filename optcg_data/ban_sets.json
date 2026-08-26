@@ -1,8 +1,1 @@
-{
-    "banned_sets": [
-        "OP01",
-        "OP02",
-        "OP03",
-        "OP04"
-    ]
-}
+{"banned_sets":["OP01","OP02","OP03","OP04"]}

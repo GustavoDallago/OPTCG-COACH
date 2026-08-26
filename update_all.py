@@ -40,15 +40,18 @@ def rotate_log(max_lines: int = 1000) -> None:
     except Exception as e:
         print(f"[Log] Error rotating log: {e}")
 
-def atomic_save_json(data: Any, filepath: str, indent: int = 2) -> bool:
-    """Saves JSON data atomically using a temporary file and atomic replace."""
+def atomic_save_json(data: Any, filepath: str, indent: Optional[int] = None) -> bool:
+    """Saves JSON data atomically using a temporary file and atomic replace in compact format."""
     dirname = os.path.dirname(filepath)
     if dirname and not os.path.exists(dirname):
         os.makedirs(dirname, exist_ok=True)
     tmp_file = f"{filepath}.tmp_{os.getpid()}_{int(time.time()*1000)}"
     try:
         with open(tmp_file, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=indent, ensure_ascii=False)
+            if indent is not None:
+                json.dump(data, f, indent=indent, ensure_ascii=False)
+            else:
+                json.dump(data, f, separators=(',', ':'), ensure_ascii=False)
         os.replace(tmp_file, filepath)
         return True
     except Exception as e:
@@ -99,7 +102,7 @@ def fix_meta_decks_tracked() -> None:
             if leaders:
                 total = sum(l.get("deck_count", 0) for l in leaders)
                 data["decks_tracked"] = total
-                if atomic_save_json(data, filepath, indent=4):
+                if atomic_save_json(data, filepath):
                     updated_count += 1
         except Exception as e:
             log(f"Error processing {filepath}: {e}")
@@ -134,7 +137,7 @@ def generate_manifest() -> None:
         "available_meta_sets": available,
         "total_sets": len(available)
     }
-    if atomic_save_json(manifest, "optcg_data/manifest.json", indent=2):
+    if atomic_save_json(manifest, "optcg_data/manifest.json"):
         log(f"manifest.json generated: {len(available)} sets available.")
     else:
         log("Failed to write manifest.json")

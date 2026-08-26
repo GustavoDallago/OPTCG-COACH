@@ -849,7 +849,7 @@
                                                 <span>Testar no Builder</span>
                                             </button>
                                             <button 
-                                                @click="copyBuildTxt(build.deck_txt)"
+                                                @click="copyBuildTxt(build, selectedMetaLeader)"
                                                 class="px-2.5 py-1.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 text-amber-400 font-bold rounded-lg text-[11px] transition-colors flex items-center justify-center gap-1">
                                                 <span>TXT</span>
                                             </button>
@@ -3375,77 +3375,116 @@
                             }
                         });
 
-                        // Helper to get CORS-safe URL for Canvas drawing (resolves GitHub Pages CORS restriction)
-                        const getCorsSafeUrl = (src) => {
-                            if (!src || src.startsWith('data:') || src.startsWith('blob:')) return src;
-                            return `https://wsrv.nl/?url=${encodeURIComponent(src)}&output=webp`;
+                        // Helper to check if a URL is a local/relative asset
+                        const isLocalAssetUrl = (src) => {
+                            if (!src) return false;
+                            return src.startsWith('./') || src.startsWith('optcg_data/') || src.startsWith('/') || src.startsWith('data:') || src.startsWith('blob:');
                         };
 
-                        // Image loader with universal CORS proxy and graceful fallback
-                        const loadCardImg = (card, isLdr = false) => {
-                            return new Promise((resolve) => {
-                                if (!card) return resolve({ img: null, card, isLeader: isLdr });
-                                const cid = (card.card_set_id || card.card_id || card.id || '').toUpperCase().trim();
-                                let rawSrc = getCardImage(card);
-                                if (!rawSrc && cid && cid.includes('-')) {
-                                    const setCode = cid.split('-')[0];
-                                    rawSrc = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_EN.webp`;
+                        // Helper to get CORS-safe URL for Canvas drawing (resolves cross-origin taint on external images)
+                        const getCorsSafeUrl = (src, proxyIdx = 0) => {
+                            if (!src || isLocalAssetUrl(src)) return src;
+                            const clean = src.trim();
+                            if (proxyIdx === 0) return `https://wsrv.nl/?url=${encodeURIComponent(clean)}&output=webp&n=-1`;
+                            if (proxyIdx === 1) return `https://images.weserv.nl/?url=${encodeURIComponent(clean)}&output=webp`;
+                            return `https://api.allorigins.win/raw?url=${encodeURIComponent(clean)}`;
+                        };
+
+                        // Returns all prioritized candidate URLs for a card (direct, spoilers, Limitless EN, OPTCG API, Bandai EN, Asia, JP)
+                        const getCandidateUrls = (c) => {
+                            if (!c) return [];
+                            const list = [];
+                            const directImg = c.card_image || c.image;
+                            const cid = (c.card_set_id || c.card_id || c.id || c.don_id || '').toUpperCase().trim();
+                            
+                            if (directImg && !directImg.includes('placeholder')) {
+                                list.push(directImg);
+                            }
+                            if (cid && cid.includes('-')) {
+                                const setCode = cid.split('-')[0].trim();
+                                if (setCode === 'OP18' || setCode === 'EB05') {
+                                    list.push(`./optcg_data/card_images/${cid}.webp`);
+                                    list.push(`./optcg_data/card_images/${cid}.png`);
                                 }
-                                if (!rawSrc) return resolve({ img: null, card, isLeader: isLdr });
+                                list.push(`https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_EN.webp`);
+                                list.push(`https://www.optcgapi.com/media/static/Card_Images/${cid}.jpg`);
+                                list.push(`https://www.optcgapi.com/media/static/Card_Images/${cid}_p1.jpg`);
+                                list.push(`https://en.onepiece-cardgame.com/images/cardlist/card/${cid}.png`);
+                                list.push(`https://asia-en.onepiece-cardgame.com/images/cardlist/card/${cid}.png`);
+                                list.push(`https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_JP.webp`);
+                                list.push(`https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}.webp`);
+                            }
+                            return [...new Set(list.filter(Boolean))];
+                        };
 
-                                const img = new Image();
-                                img.crossOrigin = 'anonymous';
-                                let finished = false;
+                        // Attempt to load a single URL source with proxy fallback & timeout
+                        const tryLoadImageSource = (rawUrl) => {
+                            return new Promise((resolve) => {
+                                const isLocal = isLocalAssetUrl(rawUrl);
+                                const maxProxies = isLocal ? 1 : 2;
 
-                                const timer = setTimeout(() => {
-                                    if (!finished) {
-                                        finished = true;
-                                        resolve({ img: null, card, isLeader: isLdr });
+                                const attempt = (pIdx) => {
+                                    const img = new Image();
+                                    if (!isLocal) {
+                                        img.crossOrigin = 'anonymous';
                                     }
-                                }, 5000);
+                                    let done = false;
 
-                                img.onload = () => {
-                                    if (!finished) {
-                                        finished = true;
+                                    const timer = setTimeout(() => {
+                                        if (!done) {
+                                            done = true;
+                                            if (!isLocal && pIdx + 1 < maxProxies) {
+                                                attempt(pIdx + 1);
+                                            } else {
+                                                resolve(null);
+                                            }
+                                        }
+                                    }, 4000);
+
+                                    img.onload = () => {
+                                        if (!done) {
+                                            done = true;
+                                            clearTimeout(timer);
+                                            resolve(img);
+                                        }
+                                    };
+
+                                    img.onerror = () => {
+                                        if (!done) {
+                                            done = true;
+                                            clearTimeout(timer);
+                                            if (!isLocal && pIdx + 1 < maxProxies) {
+                                                attempt(pIdx + 1);
+                                            } else {
+                                                resolve(null);
+                                            }
+                                        }
+                                    };
+
+                                    try {
+                                        img.src = isLocal ? rawUrl : getCorsSafeUrl(rawUrl, pIdx);
+                                    } catch (e) {
                                         clearTimeout(timer);
-                                        resolve({ img, card, isLeader: isLdr });
+                                        resolve(null);
                                     }
                                 };
 
-                                img.onerror = () => {
-                                    // Fallback: try raw direct URL if proxy had any temporary hiccup
-                                    if (!finished) {
-                                        const directImg = new Image();
-                                        directImg.crossOrigin = 'anonymous';
-                                        let retryTimer = setTimeout(() => {
-                                            if (!finished) {
-                                                finished = true;
-                                                clearTimeout(timer);
-                                                resolve({ img: null, card, isLeader: isLdr });
-                                            }
-                                        }, 2500);
-                                        directImg.onload = () => {
-                                            if (!finished) {
-                                                finished = true;
-                                                clearTimeout(timer);
-                                                clearTimeout(retryTimer);
-                                                resolve({ img: directImg, card, isLeader: isLdr });
-                                            }
-                                        };
-                                        directImg.onerror = () => {
-                                            if (!finished) {
-                                                finished = true;
-                                                clearTimeout(timer);
-                                                clearTimeout(retryTimer);
-                                                resolve({ img: null, card, isLeader: isLdr });
-                                            }
-                                        };
-                                        directImg.src = rawSrc;
-                                    }
-                                };
-
-                                img.src = getCorsSafeUrl(rawSrc);
+                                attempt(0);
                             });
+                        };
+
+                        // Robust card image loader with mirror cascade and graceful fallback
+                        const loadCardImg = async (card, isLdr = false) => {
+                            if (!card) return { img: null, card, isLeader: isLdr };
+                            const candidates = getCandidateUrls(card);
+
+                            for (const src of candidates) {
+                                const loadedImg = await tryLoadImageSource(src);
+                                if (loadedImg && loadedImg.naturalWidth > 0) {
+                                    return { img: loadedImg, card, isLeader: isLdr };
+                                }
+                            }
+                            return { img: null, card, isLeader: isLdr };
                         };
 
 
@@ -3749,7 +3788,7 @@
 
                 const loadSampleBuildToBuilder = (build, leader) => {
                     if (!build || !build.deck_txt) {
-                        importMetaBuildToBuilder(leader);
+                        if (leader) importMetaBuildToBuilder(leader);
                         return;
                     }
 
@@ -3765,7 +3804,7 @@
                             ? leader.archetype_code.split('||')[1] 
                             : (leader.card_color || 'Multi');
                         leaderObj = {
-                            card_name: leader.name,
+                            card_name: leader.name || leaderCardId,
                             card_set_id: leaderCardId,
                             card_type: 'Leader',
                             card_color: lColor,
@@ -3785,6 +3824,8 @@
 
                     selectedBuilderLeader.value = leaderObj;
                     userDeck.value = [];
+                    const placingLabel = build.placing === 1 ? '1º Lugar (Campeão)' : `#${build.placing} Lugar`;
+                    savedDeckNameInput.value = `${build.player_name || 'Top'} - ${leaderObj.card_name} (${placingLabel})`;
 
                     const lines = build.deck_txt.split('\n');
                     for (const l of lines) {
@@ -3793,11 +3834,11 @@
                         const match = trimmed.match(/^(\d+)\s*x?\s*([A-Za-z0-9\-]+)/);
                         if (match) {
                             const qty = parseInt(match[1]);
-                            const cid = match[2].toUpperCase();
+                            const cid = match[2].toUpperCase().trim();
                             if (cid === leaderCardId || isCardBanned(cid)) {
                                 continue;
                             }
-                            let foundCard = allCards.find(c => c.card_set_id && c.card_set_id.toUpperCase() === cid);
+                            let foundCard = allCards.find(c => c.card_set_id && c.card_set_id.toUpperCase().trim() === cid);
                             if (foundCard && isCardBanned(foundCard)) continue;
 
                             if (!foundCard) {
@@ -3812,7 +3853,7 @@
                                     rarity: 'UC'
                                 };
                             }
-                            userDeck.value.push({ card: foundCard, quantity: qty });
+                            userDeck.value.push({ card: foundCard, quantity: Math.min(qty, 4) });
                         }
                     }
 
@@ -3820,12 +3861,24 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 };
 
-                const copyBuildTxt = (txt) => {
+                const copyBuildTxt = (build, leader) => {
+                    const txt = typeof build === 'string' ? build : (build?.deck_txt || '');
+                    if (!txt) return;
+
+                    const lName = leader ? leader.name : '';
+                    const playerName = typeof build === 'object' && build?.player_name ? build.player_name : 'Jogador Top';
+                    const placingText = typeof build === 'object' && build?.placing ? (build.placing === 1 ? '1º Lugar (Campeão)' : `#${build.placing} Lugar`) : 'Top Placement';
+                    const tourneyName = typeof build === 'object' && build?.tournament_name ? build.tournament_name : lName;
+
+                    exportModalTitle.value = `${playerName} (${placingText}) - ${tourneyName}`;
+                    exportModalText.value = txt;
+                    showExportModal.value = true;
+
                     if (navigator.clipboard && navigator.clipboard.writeText) {
                         navigator.clipboard.writeText(txt).then(() => {
                             copiedToast.value = true;
                             setTimeout(() => { copiedToast.value = false; }, 2500);
-                        });
+                        }).catch(() => {});
                     }
                 };
 
@@ -3841,7 +3894,7 @@
 
                     let cid = (card.card_set_id || card.card_id || card.id || card.don_id || '').toUpperCase().trim();
                     if (cid && (cid.startsWith('OP18-') || cid.startsWith('EB05-'))) {
-                        return `./optcg_data/card_images/${cid}.png`;
+                        return `./optcg_data/card_images/${cid}.webp`;
                     }
                     
                     // 1. Direct Image URL (Preserves exact individual artwork for AA, Manga, SP, Promos, Reprints, and Base cards)
@@ -3871,7 +3924,8 @@
                     }
                     
                     const setCode = cid.split('-')[0];
-                    const localImg = `./optcg_data/card_images/${cid}.png`;
+                    const localImgWebp = `./optcg_data/card_images/${cid}.webp`;
+                    const localImgPng = `./optcg_data/card_images/${cid}.png`;
                     const cdnEn = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_EN.webp`;
                     const optcgApi = `https://www.optcgapi.com/media/static/Card_Images/${cid}.jpg`;
                     const optcgApiAlt = `https://www.optcgapi.com/media/static/Card_Images/${cid}_p1.jpg`;
@@ -3880,11 +3934,15 @@
                     const cdnJp = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}_JP.webp`;
                     const cdnRaw = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cid}.webp`;
 
-                    // Hierarchy: Direct (optcgapi) -> English Limitless CDN -> Official Web -> Japanese Web -> SVG Fallback
+                    // Hierarchy: Local WebP -> Local PNG -> Direct (optcgapi) -> English Limitless CDN -> Official Web -> Japanese Web -> SVG Fallback
                     if (currentSrc.includes('optcgapi.com') || currentSrc.includes('/card_images/')) {
-                        imgEl.src = cdnEn;
+                        if (currentSrc.endsWith('.webp') && (setCode === 'OP18' || setCode === 'EB05')) {
+                            imgEl.src = localImgPng;
+                        } else {
+                            imgEl.src = cdnEn;
+                        }
                     } else if (currentSrc.includes('_EN.webp') && (setCode === 'OP18' || setCode === 'EB05')) {
-                        imgEl.src = localImg;
+                        imgEl.src = localImgWebp;
                     } else if (currentSrc.includes('_EN.webp')) {
                         imgEl.src = officialEn;
                     } else if (currentSrc.includes('en.onepiece-cardgame.com')) {
@@ -5869,6 +5927,8 @@
 
                     downloadExportTxtFile,
                     importMetaBuildToBuilder,
+                    loadSampleBuildToBuilder,
+                    copyBuildTxt,
 
                     // Deck Builder exports
                     selectedBuilderLeader,
