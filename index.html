@@ -74,7 +74,7 @@
     <div id="app" v-cloak class="flex flex-col min-h-screen">
         
         <!-- TOAST NOTIFICATIONS CONTAINER -->
-        <div class="fixed top-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0">
+        <div class="fixed top-5 right-5 z-[9999] flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0">
             <div 
                 v-for="toast in toasts" 
                 :key="toast.id" 
@@ -174,13 +174,13 @@
                         class="px-2.5 py-2 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs md:text-sm font-semibold transition-all duration-200 text-center flex items-center justify-center">
                         Montar Deck
                     </button>
-                    <button 
+                    <!-- <button 
                         @click="switchTab('collection')"
                         :class="currentTab === 'collection' ? 'bg-amber-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'"
                         class="px-2.5 py-2 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs md:text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-1 sm:gap-1.5 text-center">
                         <svg class="w-3.5 h-3.5 shrink-0 hidden xs:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                         <span>Minha Coleção</span>
-                    </button>
+                    </button> -->
                 </nav>
             </div>
         </header>
@@ -574,32 +574,32 @@
                             </div>
                         </div>
 
-                        <!-- Top #1 Dominant Leader Banner -->
-                        <div v-if="topMetaLeader && !metaSearchQuery" class="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-slate-900 border border-amber-500/30 rounded-2xl p-5 flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg">
+                        <!-- Top #1 Dominant Leader Banner (Storytelling Hero Spotlight) -->
+                        <div v-if="topMetaLeader && !metaSearchQuery" class="bg-gradient-to-r from-amber-500/10 via-slate-900/90 to-slate-950 border border-amber-500/30 rounded-2xl p-5 sm:p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-5 shadow-lg">
                             <div class="flex items-center gap-4">
-                                <div class="w-14 sm:w-16 aspect-[2.5/3.5] rounded-xl overflow-hidden bg-slate-950 border border-amber-500/40 flex-shrink-0 relative shadow-md">
+                                <div class="w-14 sm:w-16 aspect-[2.5/3.5] rounded-xl overflow-hidden bg-slate-950 border border-amber-500/40 shrink-0 relative shadow-md">
                                     <img :src="topMetaLeader.image" :alt="topMetaLeader.name" class="w-full h-full object-cover object-center" loading="lazy">
                                 </div>
                                 <div>
                                     <div class="flex flex-wrap items-center gap-2">
-                                        <span class="bg-amber-500 text-slate-950 font-black text-[10px] uppercase px-2 py-0.5 rounded shadow">#1 MAIOR PRESENÇA NO META</span>
-                                        <span class="text-xs text-amber-400 font-mono font-bold">{{ topMetaLeader.deck_count }} Decks ({{ topMetaLeader.share_percentage }}%)</span>
-                                        <span v-if="topMetaLeader.overall_winrate" class="text-xs text-emerald-400 font-mono font-bold">• {{ topMetaLeader.overall_winrate }}% WR</span>
+                                        <span class="bg-amber-500 text-slate-950 font-black text-[10px] uppercase px-2 py-0.5 rounded shadow-sm">#1 O Mais Famoso do Formato</span>
+                                        <span class="text-xs text-amber-400 font-mono font-bold">{{ topMetaLeader.deck_count }} Decks ({{ topMetaLeader.share_percentage }}% Share)</span>
+                                        <span v-if="topMetaLeader.overall_winrate" class="text-xs text-emerald-400 font-mono font-bold">• {{ topMetaLeader.overall_winrate }}% Win Rate</span>
                                     </div>
-                                    <h3 class="text-lg font-black text-slate-100 mt-1">{{ topMetaLeader.name }}</h3>
-                                    <p class="text-xs text-slate-400">Líder com maior volume de listas e presenças em torneios neste formato ({{ topMetaLeader.deck_count }} decks mapeados).</p>
+                                    <h3 class="text-lg sm:text-xl font-black text-slate-100 mt-1">{{ topMetaLeader.name }}</h3>
+                                    <p class="text-xs text-slate-400 mt-0.5 max-w-xl">O arquétipo mais vitorioso e representativo do cenário competitivo atual ({{ topMetaLeader.deck_count }} listas mapeadas em torneios oficiais).</p>
                                 </div>
                             </div>
-                            <div class="flex gap-2 flex-shrink-0">
+                            <div class="flex items-center gap-2 shrink-0 self-end md:self-center">
                                 <button 
                                     @click="selectLeader(topMetaLeader)" 
-                                    class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs transition-all shadow-md">
-                                    Ver Build & Ratios
+                                    class="tap-press px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold rounded-xl text-xs transition-all shadow-sm">
+                                    Ver Ratios & Lista
                                 </button>
                                 <button 
                                     @click="importMetaBuildToBuilder(topMetaLeader)" 
-                                    class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs transition-all shadow-md">
-                                    Montar Deck
+                                    class="tap-press px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold rounded-xl text-xs transition-all shadow-md">
+                                    Copiar para Builder
                                 </button>
                             </div>
                         </div>
@@ -983,77 +983,217 @@
                             <input type="file" accept=".json" class="hidden" @change="importSavedDecks">
                         </label>
                     </div>
-                    <p class="text-[10px] text-slate-600">Máximo de {{ 5 }} decks salvos localmente.</p>
+                    <p class="text-[10px] text-slate-600">Máximo de 5 decks salvos localmente.</p>
                 </div>
-
-                <!-- 1. Leader Selection (If no leader selected) -->
-                <div v-if="!selectedBuilderLeader" class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-md flex flex-col gap-6">
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-200">
-                            Selecione o Líder do seu Deck
-                        </h2>
-                        <p class="text-xs text-slate-400 mt-1">Escolha um líder para filtrar automaticamente as cores permitidas de cartas no deck.</p>
-                    </div>
-
-                    <!-- Search leader -->
-                    <div class="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-                        <div class="max-w-md w-full relative">
-                            <input 
-                                v-model="leaderSearchQuery"
-                                type="text" 
-                                placeholder="Buscar líder pelo nome ou ID..."
-                                class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 pl-3 pr-10 text-sm focus:outline-none focus:border-amber-500 text-slate-300">
+                <div class="bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-md">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+                        <div>
+                            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-500">Jornada do Construtor de Deck</span>
+                            <h3 class="text-base sm:text-lg font-black text-slate-100 mt-0.5">Monte, Teste e Valide sua Estratégia em 3 Passos</h3>
                         </div>
                         <button 
                             @click="openImportModal"
-                            class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow shrink-0">
-                            Importar de Texto (TXT)
+                            class="tap-press px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 shadow-sm self-start sm:self-auto">
+                            <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l4-4m0 0l4 4m-4-4v12"/></svg>
+                            <span>Importar Deck (TXT)</span>
                         </button>
                     </div>
 
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                    <!-- 3-Step Timeline (Dynamic Progression) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+                        <!-- Step 1: Escolha o Líder -->
                         <div 
-                            v-for="leader in availableLeaders"
-                            :key="leader.card_set_id + leader.card_name"
-                            @click="selectBuilderLeader(leader)"
-                            class="bg-slate-950 border border-slate-800 hover:border-amber-500/50 rounded-2xl overflow-hidden hover:-translate-y-1 transition-all duration-300 cursor-pointer shadow-md flex flex-col h-full group">
-                            
-                            <div class="relative w-full aspect-[2.5/3.5] bg-slate-900 overflow-hidden flex items-center justify-center">
-                                <div v-if="!leader.imageError" class="relative w-full h-full">
-                                    <img 
-                                        :src="getCardImage(leader)" 
-                                        :alt="leader.card_name" 
-                                        @error="handleCardImgError($event, leader.card_set_id); leader.imageError = true"
-                                        class="w-full h-full object-cover" loading="lazy">
+                            @click="selectedBuilderLeader ? changeLeader() : null"
+                            :class="!selectedBuilderLeader ? 'bg-amber-500/10 border-amber-500/40 text-amber-400' : 'bg-emerald-500/10 border-emerald-500/30 cursor-pointer hover:border-emerald-400'"
+                            class="border p-3 rounded-xl flex items-center gap-3 shadow-sm transition-all">
+                            <span 
+                                :class="!selectedBuilderLeader ? 'bg-amber-500 text-slate-950' : 'bg-emerald-500 text-slate-950'"
+                                class="w-7 h-7 rounded-lg font-black text-xs flex items-center justify-center shrink-0">
+                                <span v-if="!selectedBuilderLeader">1</span>
+                                <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                            </span>
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-center justify-between gap-1">
+                                    <p class="text-xs font-black text-slate-100">1. Escolha o Líder</p>
+                                    <span v-if="selectedBuilderLeader" class="text-[9px] text-emerald-400 font-mono font-bold">Trocar</span>
                                 </div>
-                                <div v-else class="w-full h-full p-4 flex flex-col justify-between items-center text-center bg-slate-950 text-slate-400 select-none">
-                                    <span class="text-[10px] font-mono">{{ leader.card_set_id }}</span>
-                                    <span class="text-xs font-bold line-clamp-2">{{ leader.card_name }}</span>
-                                    <span class="text-[10px] text-red-500 font-bold">Líder</span>
-                                </div>
-                                <div class="absolute top-2 left-2 flex gap-1 z-10">
-                                    <span 
-                                        v-for="color in getColors(leader.card_color)"
-                                        :class="getColorClass(color)"
-                                        class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded shadow">
-                                        {{ translateColor(color) }}
-                                    </span>
-                                </div>
-                                <!-- Banned Badge in Leader Modal -->
-                                <div v-if="isCardBanned(leader)" class="absolute top-2 right-2 max-w-[65%] bg-rose-600 text-white border border-rose-400/60 px-1.5 py-0.5 rounded text-[8px] font-mono font-black text-center truncate shadow-md z-10" :title="getBanReasonText(leader)">
-                                    BANIDA
-                                </div>
-                                <!-- Spoiler Badge in Leader Modal -->
-                                <div v-else-if="getCardSpoilerInfo(leader)" class="absolute bottom-2 left-2 right-2 bg-purple-950/95 text-purple-200 border border-purple-500/60 px-1.5 py-0.5 rounded text-[8px] font-mono font-black text-center truncate shadow-md z-10">
-                                    Lançamento: {{ getCardSpoilerInfo(leader).formattedDate }}
-                                </div>
+                                <p class="text-[10px] text-slate-400 truncate">
+                                    {{ selectedBuilderLeader ? selectedBuilderLeader.card_name : 'Define as cores e identidade do deck' }}
+                                </p>
                             </div>
-                            <div class="p-3 bg-slate-900 flex-grow flex flex-col justify-between">
-                                <h3 class="font-bold text-xs text-slate-200 group-hover:text-amber-500 line-clamp-1">{{ leader.card_name }}</h3>
-                                <div class="flex justify-between items-center mt-1">
-                                    <span class="text-[9px] font-mono text-slate-500">ID: {{ leader.card_set_id }}</span>
-                                    <span v-if="isCardBanned(leader)" class="text-[8px] font-bold text-rose-400">Banido</span>
-                                    <span v-else-if="getCardSpoilerInfo(leader)" class="text-[8px] font-bold text-purple-400">Spoiler</span>
+                        </div>
+
+                        <!-- Step 2: Monte as 50 Cartas -->
+                        <div 
+                            :class="selectedBuilderLeader ? (userDeckCount === 50 ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-amber-500/10 border-amber-500/40') : 'bg-slate-950/40 border-slate-800/60 opacity-60'"
+                            class="border p-3 rounded-xl flex items-center gap-3 shadow-sm transition-all">
+                            <span 
+                                :class="selectedBuilderLeader ? (userDeckCount === 50 ? 'bg-emerald-500 text-slate-950' : 'bg-amber-500 text-slate-950') : 'bg-slate-800 text-slate-400'"
+                                class="w-7 h-7 rounded-lg font-bold text-xs flex items-center justify-center shrink-0">
+                                <span v-if="userDeckCount !== 50">2</span>
+                                <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                            </span>
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-center justify-between gap-1">
+                                    <p class="text-xs font-bold text-slate-200">2. Monte as 50 Cartas</p>
+                                    <span v-if="selectedBuilderLeader" class="text-[9px] font-mono font-bold" :class="userDeckCount === 50 ? 'text-emerald-400' : 'text-amber-400'">{{ userDeckCount }}/50</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400 truncate">
+                                    {{ selectedBuilderLeader ? (userDeckCount === 50 ? 'Deck completo de 50 cartas' : `Faltam ${50 - userDeckCount > 0 ? 50 - userDeckCount : 0} cartas`) : 'Ajuste a curva e os +2k counters' }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Simule contra o Meta -->
+                        <div 
+                            @click="selectedBuilderLeader && userDeckCount > 0 ? runDeckAnalysis() : null"
+                            :class="selectedBuilderLeader && userDeckCount === 50 ? 'bg-gradient-to-r from-amber-500/20 to-amber-500/10 border-amber-500 cursor-pointer hover:bg-amber-500/30' : 'bg-slate-950/40 border-slate-800/60 opacity-60'"
+                            class="border p-3 rounded-xl flex items-center gap-3 shadow-sm transition-all">
+                            <span 
+                                :class="selectedBuilderLeader && userDeckCount === 50 ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-800 text-slate-400'"
+                                class="w-7 h-7 rounded-lg font-bold text-xs flex items-center justify-center shrink-0">3</span>
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-center justify-between gap-1">
+                                    <p class="text-xs font-bold" :class="selectedBuilderLeader && userDeckCount === 50 ? 'text-amber-300 font-black' : 'text-slate-300'">3. Simule contra o Meta</p>
+                                    <span v-if="selectedBuilderLeader && userDeckCount === 50" class="text-[9px] bg-amber-500 text-slate-950 font-black px-1.5 py-0.2 rounded font-mono">PRONTO</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400 truncate">Matchups, mulligan e curva de Don</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1. Leader Selection (If no leader selected) -->
+                <div v-if="!selectedBuilderLeader" class="flex flex-col gap-6">
+                    
+                    <!-- Leader Selection Box -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 shadow-md flex flex-col gap-5">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                                    <span>Passo 1: Selecione o Líder</span>
+                                    <span class="text-xs bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-mono font-normal">
+                                        {{ availableLeaders.length }} líderes
+                                    </span>
+                                </h2>
+                                <p class="text-xs text-slate-400 mt-0.5">Clique em um líder abaixo para abrir o acervo de cartas compatíveis.</p>
+                            </div>
+
+                            <!-- Search Input -->
+                            <div class="w-full md:w-72 relative">
+                                <input 
+                                    v-model="leaderSearchQuery" 
+                                    type="text" 
+                                    placeholder="Buscar líder por nome ou ID..."
+                                    class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 pl-3 pr-10 text-xs focus:outline-none focus:border-amber-500 text-slate-300 transition-colors">
+                                <button 
+                                    v-if="leaderSearchQuery" 
+                                    @click="leaderSearchQuery = ''" 
+                                    class="absolute right-3 top-2 text-slate-500 hover:text-slate-300">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Color Filter Pills -->
+                        <div class="flex items-center gap-1.5 flex-wrap border-t border-slate-800/80 pt-4">
+                            <span class="text-[10px] font-mono uppercase font-bold text-slate-500 mr-1">Cor:</span>
+                            <button 
+                                @click="builderLeaderColorFilter = ''" 
+                                :class="!builderLeaderColorFilter ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-950 hover:bg-slate-800 text-slate-400 border border-slate-800'"
+                                class="tap-press text-[11px] px-2.5 py-1 rounded-lg transition-colors">
+                                Todas
+                            </button>
+                            <button 
+                                @click="builderLeaderColorFilter = 'Red'" 
+                                :class="builderLeaderColorFilter === 'Red' ? 'bg-red-700 text-white font-bold' : 'bg-slate-950 hover:bg-slate-800 text-red-400 border border-slate-800'"
+                                class="tap-press text-[11px] px-2.5 py-1 rounded-lg transition-colors">
+                                Vermelho
+                            </button>
+                            <button 
+                                @click="builderLeaderColorFilter = 'Green'" 
+                                :class="builderLeaderColorFilter === 'Green' ? 'bg-emerald-700 text-white font-bold' : 'bg-slate-950 hover:bg-slate-800 text-emerald-400 border border-slate-800'"
+                                class="tap-press text-[11px] px-2.5 py-1 rounded-lg transition-colors">
+                                Verde
+                            </button>
+                            <button 
+                                @click="builderLeaderColorFilter = 'Blue'" 
+                                :class="builderLeaderColorFilter === 'Blue' ? 'bg-blue-700 text-white font-bold' : 'bg-slate-950 hover:bg-slate-800 text-blue-400 border border-slate-800'"
+                                class="tap-press text-[11px] px-2.5 py-1 rounded-lg transition-colors">
+                                Azul
+                            </button>
+                            <button 
+                                @click="builderLeaderColorFilter = 'Purple'" 
+                                :class="builderLeaderColorFilter === 'Purple' ? 'bg-purple-700 text-white font-bold' : 'bg-slate-950 hover:bg-slate-800 text-purple-400 border border-slate-800'"
+                                class="tap-press text-[11px] px-2.5 py-1 rounded-lg transition-colors">
+                                Roxo
+                            </button>
+                            <button 
+                                @click="builderLeaderColorFilter = 'Black'" 
+                                :class="builderLeaderColorFilter === 'Black' ? 'bg-slate-700 text-white font-bold' : 'bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800'"
+                                class="tap-press text-[11px] px-2.5 py-1 rounded-lg transition-colors">
+                                Preto
+                            </button>
+                            <button 
+                                @click="builderLeaderColorFilter = 'Yellow'" 
+                                :class="builderLeaderColorFilter === 'Yellow' ? 'bg-yellow-600 text-slate-950 font-bold' : 'bg-slate-950 hover:bg-slate-800 text-yellow-400 border border-slate-800'"
+                                class="tap-press text-[11px] px-2.5 py-1 rounded-lg transition-colors">
+                                Amarelo
+                            </button>
+                            <button 
+                                @click="builderLeaderColorFilter = 'Multi'" 
+                                :class="builderLeaderColorFilter === 'Multi' ? 'bg-gradient-to-r from-amber-500 to-indigo-500 text-white font-bold' : 'bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800'"
+                                class="tap-press text-[11px] px-2.5 py-1 rounded-lg transition-colors">
+                                Duas Cores (Multi)
+                            </button>
+                        </div>
+
+                        <!-- Leaders Grid -->
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
+                            <div 
+                                v-for="leader in availableLeaders"
+                                :key="leader.card_set_id + leader.card_name"
+                                @click="selectBuilderLeader(leader)"
+                                class="tap-press bg-slate-950 border border-slate-800 hover:border-amber-500/60 rounded-2xl overflow-hidden hover:-translate-y-1 transition-all duration-300 cursor-pointer shadow-md flex flex-col h-full group">
+                                
+                                <div class="relative w-full aspect-[2.5/3.5] bg-slate-900 overflow-hidden flex items-center justify-center">
+                                    <div v-if="!leader.imageError" class="relative w-full h-full">
+                                        <img 
+                                            :src="getCardImage(leader)" 
+                                            :alt="leader.card_name" 
+                                            @error="handleCardImgError($event, leader.card_set_id); leader.imageError = true"
+                                            class="w-full h-full object-cover" loading="lazy">
+                                    </div>
+                                    <div v-else class="w-full h-full p-4 flex flex-col justify-between items-center text-center bg-slate-950 text-slate-400 select-none">
+                                        <span class="text-[10px] font-mono">{{ leader.card_set_id }}</span>
+                                        <span class="text-xs font-bold line-clamp-2">{{ leader.card_name }}</span>
+                                        <span class="text-[10px] text-red-500 font-bold">Líder</span>
+                                    </div>
+                                    <div class="absolute top-2 left-2 flex gap-1 z-10">
+                                        <span 
+                                            v-for="color in getColors(leader.card_color)"
+                                            :key="color"
+                                            :class="getColorClass(color)"
+                                            class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded shadow">
+                                            {{ translateColor(color) }}
+                                        </span>
+                                    </div>
+                                    <!-- Banned Badge in Leader Modal -->
+                                    <div v-if="isCardBanned(leader)" class="absolute top-2 right-2 max-w-[65%] bg-rose-600 text-white border border-rose-400/60 px-1.5 py-0.5 rounded text-[8px] font-mono font-black text-center truncate shadow-md z-10" :title="getBanReasonText(leader)">
+                                        BANIDA
+                                    </div>
+                                    <!-- Spoiler Badge in Leader Modal -->
+                                    <div v-else-if="getCardSpoilerInfo(leader)" class="absolute bottom-2 left-2 right-2 bg-purple-950/95 text-purple-200 border border-purple-500/60 px-1.5 py-0.5 rounded text-[8px] font-mono font-black text-center truncate shadow-md z-10">
+                                        Lançamento: {{ getCardSpoilerInfo(leader).formattedDate }}
+                                    </div>
+                                </div>
+                                <div class="p-3 bg-slate-900 flex-grow flex flex-col justify-between">
+                                    <h3 class="font-bold text-xs text-slate-200 group-hover:text-amber-500 line-clamp-1">{{ leader.card_name }}</h3>
+                                    <div class="flex justify-between items-center mt-1">
+                                        <span class="text-[9px] font-mono text-slate-500">ID: {{ leader.card_set_id }}</span>
+                                        <span v-if="isCardBanned(leader)" class="text-[8px] font-bold text-rose-400">Banido</span>
+                                        <span v-else-if="getCardSpoilerInfo(leader)" class="text-[8px] font-bold text-purple-400">Spoiler</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1061,10 +1201,62 @@
                 </div>
 
                 <!-- 2. Active Deck Builder Screen -->
-                <div v-else class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <div v-if="selectedBuilderLeader" class="flex flex-col gap-6">
                     
-                    <!-- LEFT COLUMN (Lg: 7 cols): Card Pool Selector -->
-                    <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-xl p-4 md:p-6 shadow-md flex flex-col gap-4">
+                    <!-- Active Deck & Leader Context Header -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-md">
+                        <div class="flex items-center gap-3.5">
+                            <div class="relative w-12 h-14 rounded-xl overflow-hidden border-2 border-amber-500/60 bg-slate-950 shadow-md shrink-0 cursor-pointer" @click="openDetails(selectedBuilderLeader)" title="Ver detalhes do Líder">
+                                <img :src="getCardImage(selectedBuilderLeader)" :alt="selectedBuilderLeader.card_name" @error="handleCardImgError($event, getLeaderCardId(selectedBuilderLeader))" class="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h2 class="text-lg font-black text-slate-100">{{ selectedBuilderLeader.card_name }}</h2>
+                                    <span v-for="color in getColors(selectedBuilderLeader.card_color)" :key="color" :class="getColorClass(color)" class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded shadow-sm">
+                                        {{ translateColor(color) }}
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-3 mt-1 text-xs">
+                                    <span class="text-slate-400 font-mono text-[11px]">ID: {{ selectedBuilderLeader.card_set_id }}</span>
+                                    <span class="text-slate-600 font-bold">•</span>
+                                    <span :class="userDeckCount === 50 ? 'text-emerald-400 font-bold' : (userDeckCount > 50 ? 'text-rose-400 font-bold' : 'text-amber-400 font-medium')">
+                                        <span class="font-mono font-bold">{{ userDeckCount }}/50</span> Cartas
+                                        <span v-if="userDeckCount < 50" class="text-slate-400 font-normal ml-1">(faltam {{ 50 - userDeckCount }})</span>
+                                        <span v-else-if="userDeckCount === 50" class="text-emerald-400 font-bold ml-1">• Deck Completo</span>
+                                        <span v-else class="text-rose-400 font-bold ml-1">(+{{ userDeckCount - 50 }} excedentes)</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Action Controls -->
+                        <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap shrink-0">
+                            <button 
+                                @click="changeLeader" 
+                                class="tap-press px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold rounded-xl border border-slate-700 transition-colors">
+                                Trocar Líder
+                            </button>
+                            <button 
+                                @click="clearDeck" 
+                                :disabled="userDeckCount === 0" 
+                                class="tap-press px-3 py-1.5 bg-slate-800 hover:bg-rose-900/40 text-slate-300 hover:text-rose-300 text-xs font-semibold rounded-xl border border-slate-700 transition-colors disabled:opacity-40">
+                                Limpar
+                            </button>
+                            <button 
+                                @click="runDeckAnalysis" 
+                                :disabled="userDeckCount === 0 || isAnalyzing" 
+                                class="tap-press px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold text-xs rounded-xl shadow-md flex items-center gap-1.5 transition-all disabled:opacity-40">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                <span>Analisar Combate</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Builder Dual Columns Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        
+                        <!-- LEFT COLUMN (Lg: 7 cols): Card Pool Selector -->
+                        <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-6 shadow-md flex flex-col gap-4">
                         
                         <!-- Header & Selector filters -->
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-800/80">
@@ -1974,20 +2166,19 @@
                     </svg>
                 </button>
 
-                <!-- Modal Body -->
-                <div class="p-5 sm:p-7 md:p-8 flex flex-col gap-6 overflow-y-auto">
-                    
+                <!-- Modal Header & Narrative Tabs (Pinned at Top) -->
+                <div class="px-5 sm:px-7 pt-5 sm:pt-6 pb-3 border-b border-slate-800/80 flex flex-col gap-4 bg-slate-900 shrink-0 z-10">
                     <!-- Title Banner with View Mode Switcher and Social Actions -->
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
-                        <div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div class="pr-10 sm:pr-0">
                             <span class="text-xs font-mono font-bold text-amber-500 uppercase tracking-widest">Relatório Analítico de Combate</span>
-                            <h2 class="text-2xl font-black text-slate-100 flex items-center gap-2 mt-1">
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-100 flex items-center gap-2 mt-0.5">
                                 Análise do Deck: {{ selectedBuilderLeader.card_name }}
                             </h2>
-                            <p class="text-xs text-slate-400 mt-1">Simulado com base nas estatísticas reais dos Decks Populares (Set: {{ metaSet }}).</p>
+                            <p class="text-xs text-slate-400 mt-0.5">Simulado com base nas estatísticas reais dos Decks Populares (Set: {{ metaSet }}).</p>
                         </div>
                         
-                        <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap shrink-0 pr-8 sm:pr-0">
+                        <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap shrink-0">
                             <!-- Share Link Action -->
                             <button 
                                 @click="shareDeckUrl"
@@ -2023,361 +2214,341 @@
                         </div>
                     </div>
 
-                    <!-- Meta Data Warning (if meta was not scraped) -->
-                    <div v-if="metaDataUnavailable" class="bg-amber-950/30 border border-amber-800/60 p-4 rounded-2xl text-amber-200 text-xs flex flex-col gap-1">
-                    <p><strong>Aviso</strong>: O arquivo de dados dos decks populares <code>meta_{{ metaSet }}.json</code> não foi localizado. Os matchups simulados abaixo usarão uma estimativa matemática baseada em arquétipos universais.</p>
+                    <!-- Narrative 3-Chapter Navigation Tabs (Fully visible, horizontal swipeable without scrollbar clipping) -->
+                    <div class="flex items-center gap-2 pt-1 pb-1 overflow-x-auto no-scrollbar">
+                        <button 
+                            @click="analysisTab = 'summary'"
+                            :class="analysisTab === 'summary' ? 'bg-amber-500 text-slate-950 font-bold shadow-md' : 'text-slate-400 hover:text-slate-200 bg-slate-950/60 border border-slate-800'"
+                            class="tap-press px-4 py-2 text-xs rounded-xl transition-all flex items-center gap-2 whitespace-nowrap shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>1. Resumo & Veredito</span>
+                        </button>
+                        <button 
+                            @click="analysisTab = 'matchups'"
+                            :class="analysisTab === 'matchups' ? 'bg-amber-500 text-slate-950 font-bold shadow-md' : 'text-slate-400 hover:text-slate-200 bg-slate-950/60 border border-slate-800'"
+                            class="tap-press px-4 py-2 text-xs rounded-xl transition-all flex items-center gap-2 whitespace-nowrap shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            <span>2. Simulador de Matchups ({{ (analysisResults.matchups || []).length }})</span>
+                        </button>
+                        <button 
+                            @click="analysisTab = 'tactics'"
+                            :class="analysisTab === 'tactics' ? 'bg-amber-500 text-slate-950 font-bold shadow-md' : 'text-slate-400 hover:text-slate-200 bg-slate-950/60 border border-slate-800'"
+                            class="tap-press px-4 py-2 text-xs rounded-xl transition-all flex items-center gap-2 whitespace-nowrap shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                            <span>3. Manual Tático & Don</span>
+                        </button>
+                    </div>
                 </div>
 
-                    <!-- Row 1: Consistency Scores -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        
-                        <!-- Meta Alignment -->
-                        <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
-                            <div>
-                                <span class="text-[10px] uppercase font-bold text-slate-500">Alinhamento com os Decks Populares</span>
-                                <h3 class="text-3xl font-black font-mono text-amber-500 mt-2">{{ analysisResults.alignment.toFixed(1) }}%</h3>
-                                <p class="text-xs text-slate-400 mt-2">O quanto as cartas do seu deck combinam com as listas populares do meta.</p>
-                            </div>
-                            <div class="w-full bg-slate-900 rounded-full h-2 mt-4 border border-slate-800 overflow-hidden">
-                                <div class="bg-amber-500 h-full rounded-full" :style="{ width: analysisResults.alignment + '%' }"></div>
-                            </div>
-                        </div>
+                <!-- Modal Body (Scrollable content) -->
+                <div class="p-5 sm:p-7 md:p-8 flex-1 overflow-y-auto flex flex-col gap-6">
 
-                        <!-- Defesa -->
-                        <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
-                            <div>
-                                <span class="text-[10px] uppercase font-bold text-slate-500">Capacidade Defensiva</span>
-                                <div class="flex items-baseline gap-2 mt-2">
-                                    <span class="text-lg font-black" :class="getDefenseStatusClass(analysisResults.stats)">
-                                        {{ getDefenseLabel(analysisResults.stats) }}
-                                    </span>
-                                </div>
-                                <p class="text-xs text-slate-400 mt-2">Avalia o total de counters +2000 e blockers para conter decks rápidos.</p>
-                            </div>
-                            <div class="text-xs font-mono text-slate-500 border-t border-slate-800/80 pt-3 mt-4 flex justify-between">
-                                <span>Counters +2K: {{ analysisResults.stats.counter_2000_count }}</span>
-                                <span>Blockers: {{ analysisResults.stats.blockers_count }}</span>
-                            </div>
-                        </div>
-
-                        <!-- Remoções -->
-                        <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
-                            <div>
-                                <span class="text-[10px] uppercase font-bold text-slate-500">Controle de Mesa</span>
-                                <div class="flex items-baseline gap-2 mt-2">
-                                    <span class="text-lg font-black" :class="getRemovalStatusClass(analysisResults.stats)">
-                                        {{ getRemovalLabel(analysisResults.stats) }}
-                                    </span>
-                                </div>
-                                <p class="text-xs text-slate-400 mt-2">Capacidade de remover cartas grandes do adversário (eventos e K.O.).</p>
-                            </div>
-                            <div class="text-xs font-mono text-slate-500 border-t border-slate-800/80 pt-3 mt-4 flex justify-between">
-                                <span>Remoções: {{ analysisResults.stats.removal_count }}</span>
-                                <span>Curva Média: {{ calculateAverageCost(analysisResults.stats) }}</span>
-                            </div>
-                        </div>
-
+                    <!-- Meta Data Warning (if meta was not scraped) -->
+                    <div v-if="metaDataUnavailable" class="bg-amber-950/30 border border-amber-800/60 p-4 rounded-2xl text-amber-200 text-xs flex flex-col gap-1">
+                        <p><strong>Aviso</strong>: O arquivo de dados dos decks populares <code>meta_{{ metaSet }}.json</code> não foi localizado. Os matchups simulados usarão uma estimativa matemática baseada em arquétipos universais.</p>
                     </div>
 
-                    <!-- Row 1.5: Deck Play Guide, Difficulty & Ideal Curve -->
-                    <div v-if="analysisResults.deckPlayGuide" class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl flex flex-col gap-5">
-                        
-                        <!-- Header -->
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
-                            <div>
-                                <span class="text-[10px] uppercase font-bold text-amber-500 tracking-wider">Manual de Pilotagem & Estratégia</span>
-                                <h3 class="text-base font-black text-slate-100 flex items-center gap-2 mt-0.5">
-                                    <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                                    <span>Como Jogar com o Deck & Curva Ideal</span>
-                                </h3>
-                            </div>
-                            <span class="text-[10px] font-mono text-slate-500 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
-                                Análise Especializada do Líder
-                            </span>
-                        </div>
-
-                        <!-- Top Highlights: Difficulty & Turn Preference -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- TAB 1: RESUMO & VEREDITO -->
+                    <div v-if="analysisTab === 'summary'" class="flex flex-col gap-6 animate-fade-in">
+                        <!-- Consistency Scores -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                             
-                            <!-- Difficulty Card -->
-                            <div class="bg-slate-900/70 border border-slate-800/90 p-4 rounded-xl flex flex-col justify-between gap-2.5">
-                                <div class="flex items-center justify-between flex-wrap gap-2">
-                                    <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Dificuldade de Pilotagem</span>
-                                    <span :class="analysisResults.deckPlayGuide.difficulty_badge_class" class="px-2.5 py-0.5 rounded text-[11px] font-black border font-mono flex items-center gap-1.5">
-                                        <span>{{ analysisResults.deckPlayGuide.difficulty_level }}</span>
-                                        <span class="text-amber-400 font-normal">{{ analysisResults.deckPlayGuide.difficulty_stars }}</span>
-                                    </span>
+                            <!-- Meta Alignment -->
+                            <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-slate-500">Alinhamento com os Decks Populares</span>
+                                    <h3 class="text-3xl font-black font-mono text-amber-500 mt-2">{{ analysisResults.alignment.toFixed(1) }}%</h3>
+                                    <p class="text-xs text-slate-400 mt-2">O quanto as cartas do seu deck combinam com as listas populares do meta.</p>
                                 </div>
-                                <p class="text-slate-300 text-xs leading-relaxed font-medium">
-                                    {{ analysisResults.deckPlayGuide.difficulty_desc }}
-                                </p>
-                            </div>
-
-                            <!-- Turn Preference & Curve Ratio Card -->
-                            <div class="bg-slate-900/70 border border-slate-800/90 p-4 rounded-xl flex flex-col justify-between gap-2.5">
-                                <div class="flex items-center justify-between flex-wrap gap-2">
-                                    <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Curva Natural do Deck</span>
-                                    <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 rounded text-[11px] font-bold font-mono">
-                                        {{ analysisResults.deckPlayGuide.turn_preference }}
-                                    </span>
+                                <div class="w-full bg-slate-900 rounded-full h-2 mt-4 border border-slate-800 overflow-hidden">
+                                    <div class="bg-amber-500 h-full rounded-full" :style="{ width: analysisResults.alignment + '%' }"></div>
                                 </div>
-                                <p class="text-slate-300 text-xs leading-relaxed font-medium">
-                                    {{ analysisResults.deckPlayGuide.turn_preference_reason }}
-                                </p>
                             </div>
-                        </div>
 
-                        <!-- Win Condition Banner -->
-                        <div class="bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-950 border border-amber-500/30 p-4 rounded-xl flex flex-col gap-1.5 shadow-sm">
-                            <div class="flex items-center gap-2">
-                                <span class="bg-amber-500 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded shadow">
-                                    Condição de Vitória
-                                </span>
-                                <span class="text-xs font-bold text-slate-200">{{ analysisResults.deckPlayGuide.win_condition_title }}</span>
-                            </div>
-                            <p class="text-slate-300 text-xs leading-relaxed font-medium mt-1">
-                                {{ analysisResults.deckPlayGuide.win_condition_desc }}
-                            </p>
-                        </div>
-
-                        <!-- Step-by-Step Ideal Curve Progression (Pro Mode) -->
-                        <div v-if="analysisViewMode === 'pro'" class="flex flex-col gap-2.5">
-                            <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Sequência Ideal de Don (Turno a Turno)</span>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
-                                <div 
-                                    v-for="(step, sIdx) in analysisResults.deckPlayGuide.ideal_curve_steps" 
-                                    :key="sIdx"
-                                    class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl flex flex-col justify-between gap-2 hover:border-slate-700 transition-colors">
-                                    <div class="flex items-center justify-between gap-1 border-b border-slate-800/60 pb-1.5">
-                                        <span class="font-black text-xs text-slate-100 font-mono">{{ step.turn }}</span>
-                                        <span 
-                                            :class="step.color === 'emerald' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : (step.color === 'amber' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-purple-500/10 text-purple-400 border-purple-500/20')"
-                                            class="text-[9px] font-bold font-mono px-1.5 py-0.5 rounded border">
-                                            {{ step.don }}
+                            <!-- Defesa -->
+                            <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-slate-500">Capacidade Defensiva</span>
+                                    <div class="flex items-baseline gap-2 mt-2">
+                                        <span class="text-lg font-black" :class="getDefenseStatusClass(analysisResults.stats)">
+                                            {{ getDefenseLabel(analysisResults.stats) }}
                                         </span>
                                     </div>
-                                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tight">{{ step.tag }}</span>
-                                    <p class="text-slate-300 text-[11px] leading-snug font-medium flex-1">
-                                        {{ step.action }}
-                                    </p>
+                                    <p class="text-xs text-slate-400 mt-2">Avalia o total de counters +2000 e blockers para conter decks rápidos.</p>
+                                </div>
+                                <div class="text-xs font-mono text-slate-500 border-t border-slate-800/80 pt-3 mt-4 flex justify-between">
+                                    <span>Counters +2K: {{ analysisResults.stats.counter_2000_count }}</span>
+                                    <span>Blockers: {{ analysisResults.stats.blockers_count }}</span>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- 3 Pilares Estratégicos de Pilotagem (Pro Mode) -->
-                        <div v-if="analysisViewMode === 'pro'" class="flex flex-col gap-2.5 border-t border-slate-900 pt-4">
-                            <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Como Pilotar o Deck (Passo a Passo por Fases)</span>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs leading-relaxed">
-                                <div 
-                                    v-for="(pillar, pIdx) in analysisResults.deckPlayGuide.piloting_pillars" 
-                                    :key="pillar.phase"
-                                    class="bg-slate-900/50 border border-slate-800/80 p-3.5 rounded-xl flex flex-col gap-2">
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-5 h-5 rounded-lg bg-slate-800 border border-slate-700 text-[10px] font-bold font-mono text-amber-400 flex items-center justify-center shrink-0">{{ pIdx + 1 }}</span>
-                                        <span class="font-bold text-xs text-slate-200">{{ pillar.phase }}</span>
+                            <!-- Remoções -->
+                            <div class="bg-slate-950/50 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-slate-500">Controle de Mesa</span>
+                                    <div class="flex items-baseline gap-2 mt-2">
+                                        <span class="text-lg font-black" :class="getRemovalStatusClass(analysisResults.stats)">
+                                            {{ getRemovalLabel(analysisResults.stats) }}
+                                        </span>
                                     </div>
-                                    <p class="text-slate-300 text-[11px] leading-relaxed font-medium">
-                                        {{ pillar.text }}
-                                    </p>
+                                    <p class="text-xs text-slate-400 mt-2">Capacidade de remover cartas grandes do adversário (eventos e K.O.).</p>
+                                </div>
+                                <div class="text-xs font-mono text-slate-500 border-t border-slate-800/80 pt-3 mt-4 flex justify-between">
+                                    <span>Remoções: {{ analysisResults.stats.removal_count }}</span>
+                                    <span>Curva Média: {{ calculateAverageCost(analysisResults.stats) }} Don</span>
                                 </div>
                             </div>
+
                         </div>
 
-                    </div>
-                    <!-- Cost Curve Chart (Pro Mode) -->
-                    <div v-if="analysisViewMode === 'pro'" class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl flex flex-col gap-4">
-                        <!-- Chart Header & Summary Metrics -->
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
-                            <div>
-                                <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Perfil de Curva de Don</span>
-                                <h3 class="text-sm font-bold text-amber-400 flex items-center gap-1.5 mt-0.5">
-                                    <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                                    <span>Curva de Custo & Distribuição de Cartas</span>
-                                </h3>
-                            </div>
+                        <!-- Strategic Highlights Card -->
+                        <div v-if="analysisResults.deckPlayGuide" class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl flex flex-col gap-5">
                             
-                            <!-- Badges / Metrics -->
-                            <div class="flex items-center flex-wrap gap-2 text-[11px] font-mono">
-                                <span class="bg-amber-500/10 border border-amber-500/20 text-amber-400 px-2.5 py-1 rounded-lg font-bold">
-                                    Custo Médio: {{ calculateAverageCost(analysisResults.stats) }} Don
-                                </span>
-                                <span class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2 py-1 rounded-lg flex items-center gap-1">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
-                                    <span>Early (0-3): {{ (analysisResults.stats.cost_distribution[0] || 0) + (analysisResults.stats.cost_distribution[1] || 0) + (analysisResults.stats.cost_distribution[2] || 0) + (analysisResults.stats.cost_distribution[3] || 0) }}x ({{ Math.round((((analysisResults.stats.cost_distribution[0] || 0) + (analysisResults.stats.cost_distribution[1] || 0) + (analysisResults.stats.cost_distribution[2] || 0) + (analysisResults.stats.cost_distribution[3] || 0)) / (analysisResults.stats.total_cards || 50)) * 100) }}%)</span>
-                                </span>
-                                <span class="bg-amber-500/10 border border-amber-500/20 text-amber-400 px-2 py-1 rounded-lg flex items-center gap-1">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span>
-                                    <span>Mid (4-6): {{ (analysisResults.stats.cost_distribution[4] || 0) + (analysisResults.stats.cost_distribution[5] || 0) + (analysisResults.stats.cost_distribution[6] || 0) }}x ({{ Math.round((((analysisResults.stats.cost_distribution[4] || 0) + (analysisResults.stats.cost_distribution[5] || 0) + (analysisResults.stats.cost_distribution[6] || 0)) / (analysisResults.stats.total_cards || 50)) * 100) }}%)</span>
-                                </span>
-                                <span class="bg-purple-500/10 border border-purple-500/20 text-purple-400 px-2 py-1 rounded-lg flex items-center gap-1">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-purple-400 inline-block"></span>
-                                    <span>Late (7+): {{ (analysisResults.stats.cost_distribution[7] || 0) + (analysisResults.stats.cost_distribution[8] || 0) + (analysisResults.stats.cost_distribution[9] || 0) + (analysisResults.stats.cost_distribution[10] || 0) }}x ({{ Math.round((((analysisResults.stats.cost_distribution[7] || 0) + (analysisResults.stats.cost_distribution[8] || 0) + (analysisResults.stats.cost_distribution[9] || 0) + (analysisResults.stats.cost_distribution[10] || 0)) / (analysisResults.stats.total_cards || 50)) * 100) }}%)</span>
-                                </span>
+                            <!-- Win Condition Banner (Hero) -->
+                            <div class="bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-950 border border-amber-500/30 p-4 sm:p-5 rounded-xl flex flex-col gap-1.5 shadow-sm">
+                                <div class="flex items-center gap-2">
+                                    <span class="bg-amber-500 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded shadow">
+                                        Condição de Vitória
+                                    </span>
+                                    <span class="text-xs sm:text-sm font-black text-slate-100">{{ analysisResults.deckPlayGuide.win_condition_title }}</span>
+                                </div>
+                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium mt-1">
+                                    {{ analysisResults.deckPlayGuide.win_condition_desc }}
+                                </p>
+                            </div>
+
+                            <!-- Highlights: Difficulty & Turn Preference -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Difficulty Card -->
+                                <div class="bg-slate-900/70 border border-slate-800/90 p-4 rounded-xl flex flex-col justify-between gap-2.5">
+                                    <div class="flex items-center justify-between flex-wrap gap-2">
+                                        <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Dificuldade de Pilotagem</span>
+                                        <span :class="analysisResults.deckPlayGuide.difficulty_badge_class" class="px-2.5 py-0.5 rounded text-[11px] font-black border font-mono flex items-center gap-1.5">
+                                            <span>{{ analysisResults.deckPlayGuide.difficulty_level }}</span>
+                                            <span class="text-amber-400 font-normal">{{ analysisResults.deckPlayGuide.difficulty_stars }}</span>
+                                        </span>
+                                    </div>
+                                    <p class="text-slate-300 text-xs leading-relaxed font-medium">
+                                        {{ analysisResults.deckPlayGuide.difficulty_desc }}
+                                    </p>
+                                </div>
+
+                                <!-- Turn Preference & Curve Ratio Card -->
+                                <div class="bg-slate-900/70 border border-slate-800/90 p-4 rounded-xl flex flex-col justify-between gap-2.5">
+                                    <div class="flex items-center justify-between flex-wrap gap-2">
+                                        <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Curva Natural do Deck</span>
+                                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 rounded text-[11px] font-bold font-mono">
+                                            {{ analysisResults.deckPlayGuide.turn_preference }}
+                                        </span>
+                                    </div>
+                                    <p class="text-slate-300 text-xs leading-relaxed font-medium">
+                                        {{ analysisResults.deckPlayGuide.turn_preference_reason }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Bar Chart Area -->
-                        <div class="flex items-end justify-between gap-1.5 sm:gap-2.5 h-36 mt-1 pt-4 pb-1">
-                            <div 
-                                v-for="cost in 11" 
-                                :key="cost-1" 
-                                class="flex-grow flex flex-col items-center gap-1.5 group h-full justify-end relative">
+                        <!-- Cost Curve Chart (Pro Mode) -->
+                        <div v-if="analysisViewMode === 'pro'" class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl flex flex-col gap-4">
+                            <!-- Chart Header & Summary Metrics -->
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Perfil de Curva de Don</span>
+                                    <h3 class="text-sm font-bold text-amber-400 flex items-center gap-1.5 mt-0.5">
+                                        <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                                        <span>Curva de Custo & Distribuição de Cartas</span>
+                                    </h3>
+                                </div>
                                 
-                                <!-- Floating Tooltip on Hover -->
-                                <div class="opacity-0 group-hover:opacity-100 transition-all pointer-events-none absolute -top-9 z-20 bg-slate-900 border border-amber-500/40 text-amber-300 text-[10px] font-mono px-2 py-0.5 rounded shadow-xl whitespace-nowrap">
-                                    {{ analysisResults.stats.cost_distribution[cost-1] }} cartas ({{ Math.round(((analysisResults.stats.cost_distribution[cost-1] || 0) / (analysisResults.stats.total_cards || 50)) * 100) }}%)
+                                <!-- Badges / Metrics -->
+                                <div class="flex items-center flex-wrap gap-2 text-[11px] font-mono">
+                                    <span class="bg-amber-500/10 border border-amber-500/20 text-amber-400 px-2.5 py-1 rounded-lg font-bold">
+                                        Custo Médio: {{ calculateAverageCost(analysisResults.stats) }} Don
+                                    </span>
+                                    <span class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2 py-1 rounded-lg flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+                                        <span>Early (0-3): {{ (analysisResults.stats.cost_distribution[0] || 0) + (analysisResults.stats.cost_distribution[1] || 0) + (analysisResults.stats.cost_distribution[2] || 0) + (analysisResults.stats.cost_distribution[3] || 0) }}x</span>
+                                    </span>
+                                    <span class="bg-amber-500/10 border border-amber-500/20 text-amber-400 px-2 py-1 rounded-lg flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span>
+                                        <span>Mid (4-6): {{ (analysisResults.stats.cost_distribution[4] || 0) + (analysisResults.stats.cost_distribution[5] || 0) + (analysisResults.stats.cost_distribution[6] || 0) }}x</span>
+                                    </span>
+                                    <span class="bg-purple-500/10 border border-purple-500/20 text-purple-400 px-2 py-1 rounded-lg flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-purple-400 inline-block"></span>
+                                        <span>Late (7+): {{ (analysisResults.stats.cost_distribution[7] || 0) + (analysisResults.stats.cost_distribution[8] || 0) + (analysisResults.stats.cost_distribution[9] || 0) + (analysisResults.stats.cost_distribution[10] || 0) }}x</span>
+                                    </span>
                                 </div>
+                            </div>
 
-                                <!-- Always Visible Quantity Number Above Bar -->
-                                <span 
-                                    :class="(analysisResults.stats.cost_distribution[cost-1] > 0) ? 'text-amber-400 font-black text-xs' : 'text-slate-600 text-[10px]'"
-                                    class="font-mono transition-colors">
-                                    {{ analysisResults.stats.cost_distribution[cost-1] > 0 ? analysisResults.stats.cost_distribution[cost-1] : '-' }}
-                                </span>
-
-                                <!-- Gradient Colored Bar -->
+                            <!-- Bar Chart Area -->
+                            <div class="flex items-end justify-between gap-1.5 sm:gap-2.5 h-36 mt-1 pt-4 pb-1">
                                 <div 
-                                    :style="{ height: getCostBarHeight(analysisResults.stats.cost_distribution[cost-1]) }"
-                                    :class="(analysisResults.stats.cost_distribution[cost-1] > 0) 
-                                        ? ((cost - 1 <= 3) ? 'bg-gradient-to-t from-emerald-600/80 via-emerald-500 to-emerald-400 group-hover:from-emerald-400 group-hover:to-emerald-300 shadow-md shadow-emerald-500/10' : ((cost - 1 <= 6) ? 'bg-gradient-to-t from-amber-600/80 via-amber-500 to-amber-400 group-hover:from-amber-400 group-hover:to-amber-300 shadow-md shadow-amber-500/10' : 'bg-gradient-to-t from-purple-600/80 via-purple-500 to-purple-400 group-hover:from-purple-400 group-hover:to-purple-300 shadow-md shadow-purple-500/10')) 
-                                        : 'bg-slate-800/40 border-t border-slate-700/40'"
-                                    class="w-full rounded-t-md transition-all min-h-[4px] relative">
-                                </div>
-
-                                <!-- X-Axis Bottom Label (Cost badge) -->
-                                <span 
-                                    :class="(cost - 1 <= 3) ? 'bg-emerald-950/60 border-emerald-800/50 text-emerald-400 group-hover:border-emerald-500' : ((cost - 1 <= 6) ? 'bg-amber-950/60 border-amber-800/50 text-amber-400 group-hover:border-amber-500' : 'bg-purple-950/60 border-purple-800/50 text-purple-400 group-hover:border-purple-500')"
-                                    class="text-[10px] font-mono font-bold border px-1.5 py-0.5 rounded shadow-sm transition-colors text-center w-full max-w-[36px]">
-                                    {{ cost-1 }}
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Footer Legend -->
-                        <div class="flex items-center justify-between flex-wrap gap-2 text-[10px] text-slate-400 border-t border-slate-900 pt-3">
-                            <div class="flex items-center gap-4 flex-wrap">
-                                <div class="flex items-center gap-1.5">
-                                    <span class="w-2.5 h-2.5 rounded-sm bg-emerald-500"></span>
-                                    <span>Early Game (0-3 Don)</span>
-                                </div>
-                                <div class="flex items-center gap-1.5">
-                                    <span class="w-2.5 h-2.5 rounded-sm bg-amber-500"></span>
-                                    <span>Mid Game (4-6 Don)</span>
-                                </div>
-                                <div class="flex items-center gap-1.5">
-                                    <span class="w-2.5 h-2.5 rounded-sm bg-purple-500"></span>
-                                    <span>Late Game / Boss (7-10 Don)</span>
-                                </div>
-                            </div>
-                            <span class="text-slate-500 font-mono">Passe o mouse nas barras para ver detalhes</span>
-                        </div>
-                    </div>
-
-                    <!-- Row 2.5: Structural Improvements (Meta Independent - Pro Mode) -->
-                    <div v-if="analysisViewMode === 'pro'" class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl flex flex-col gap-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                            <div>
-                                <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Fundamentos do Deckbuilding</span>
-                                <h3 class="text-sm font-bold text-amber-500 flex items-center gap-1.5 mt-0.5">
-                                    Sugestões de Melhoria Estrutural (Gerais & Universais)
-                                </h3>
-                            </div>
-                            <span class="text-[10px] text-slate-500 font-mono">Regras de Ouro independentes do Meta</span>
-                        </div>
-
-                        <div v-if="analysisResults.structuralSuggestions && analysisResults.structuralSuggestions.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div 
-                                v-for="sug in analysisResults.structuralSuggestions" 
-                                :key="sug.title"
-                                class="bg-slate-900/60 border border-slate-800/80 p-3.5 rounded-xl flex flex-col gap-2">
-                                <div class="flex items-start gap-3">
-                                    <span v-if="sug.icon" class="text-xl shrink-0">{{ sug.icon }}</span>
-                                    <div>
-                                        <h4 class="font-bold text-xs text-slate-200">{{ sug.title }}</h4>
-                                        <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">{{ sug.text }}</p>
+                                    v-for="cost in 11" 
+                                    :key="cost-1" 
+                                    class="flex-grow flex flex-col items-center gap-1.5 group h-full justify-end relative">
+                                    
+                                    <!-- Floating Tooltip on Hover -->
+                                    <div class="opacity-0 group-hover:opacity-100 transition-all pointer-events-none absolute -top-9 z-20 bg-slate-900 border border-amber-500/40 text-amber-300 text-[10px] font-mono px-2 py-0.5 rounded shadow-xl whitespace-nowrap">
+                                        {{ analysisResults.stats.cost_distribution[cost-1] }} cartas ({{ Math.round(((analysisResults.stats.cost_distribution[cost-1] || 0) / (analysisResults.stats.total_cards || 50)) * 100) }}%)
                                     </div>
-                                </div>
-                                <!-- Card Recommendations -->
-                                <div v-if="sug.cards && sug.cards.length > 0" class="flex flex-col gap-1.5 mt-1 border-t border-slate-800/60 pt-2">
-                                    <span class="text-[9px] uppercase font-bold text-amber-500/80 tracking-wider">Cartas Sugeridas:</span>
-                                    <div class="flex gap-2 overflow-x-auto pb-1">
-                                        <div 
-                                            v-for="rc in sug.cards" 
-                                            :key="rc.card_set_id"
-                                            class="shrink-0 w-16 flex flex-col items-center gap-0.5 group cursor-pointer"
-                                            @click="openDetails(rc)"
-                                            :title="'Ver detalhes: ' + rc.card_name">
-                                            <div class="w-16 h-[88px] rounded-lg overflow-hidden border border-slate-700 group-hover:border-amber-500 transition-colors shadow-sm">
-                                                <img 
-                                                    v-if="rc.card_image" 
-                                                    :src="rc.card_image" 
-                                                    :alt="rc.card_name"
-                                                    class="w-full h-full object-cover" loading="lazy">
-                                                <div v-else class="w-full h-full bg-slate-950 flex items-center justify-center text-[8px] text-slate-500 font-mono text-center p-1">{{ rc.card_set_id }}</div>
-                                            </div>
-                                            <span class="text-[8px] text-slate-500 font-mono text-center line-clamp-1 w-full group-hover:text-amber-500 transition-colors">{{ rc.card_set_id }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Substitution Suggestion if deck is full -->
-                                <div v-if="sug.replacementCard && userDeckCount >= 50" class="mt-2 bg-slate-950/40 border border-slate-800/60 p-2 rounded-xl flex items-center justify-between gap-3">
-                                    <div class="flex items-start gap-2.5 min-w-0">
-                                        <svg class="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                                        <div class="min-w-0">
-                                            <div class="text-[8px] uppercase font-black text-amber-500/80 tracking-wider">Sugestão de Substituição:</div>
-                                            <div class="text-[10px] text-slate-400 mt-0.5 leading-relaxed truncate">
-                                                Para adicionar, sugerimos tirar 1x
-                                                <span 
-                                                    class="text-slate-200 font-bold hover:underline cursor-pointer"
-                                                    @click="openDetails(sug.replacementCard)">
-                                                    {{ sug.replacementCard.card_name }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Thumbnail -->
+
+                                    <!-- Quantity Number Above Bar -->
+                                    <span 
+                                        :class="(analysisResults.stats.cost_distribution[cost-1] > 0) ? 'text-amber-400 font-black text-xs' : 'text-slate-600 text-[10px]'"
+                                        class="font-mono transition-colors">
+                                        {{ analysisResults.stats.cost_distribution[cost-1] > 0 ? analysisResults.stats.cost_distribution[cost-1] : '-' }}
+                                    </span>
+
+                                    <!-- Gradient Colored Bar -->
                                     <div 
-                                        class="shrink-0 w-7 h-10 rounded border border-slate-700 hover:border-amber-500 cursor-pointer overflow-hidden shadow-sm"
-                                        @click="openDetails(sug.replacementCard)"
-                                        :title="'Ver detalhes de ' + sug.replacementCard.card_name">
-                                        <img 
-                                            :src="getCardImage(sug.replacementCard)" 
-                                            :alt="sug.replacementCard.card_name" 
-                                            @error="handleCardImgError($event, sug.replacementCard.card_set_id)"
-                                            class="w-full h-full object-cover" loading="lazy">
+                                        :style="{ height: getCostBarHeight(analysisResults.stats.cost_distribution[cost-1]) }"
+                                        :class="(analysisResults.stats.cost_distribution[cost-1] > 0) 
+                                            ? ((cost - 1 <= 3) ? 'bg-gradient-to-t from-emerald-600/80 via-emerald-500 to-emerald-400 group-hover:from-emerald-400 group-hover:to-emerald-300 shadow-md shadow-emerald-500/10' : ((cost - 1 <= 6) ? 'bg-gradient-to-t from-amber-600/80 via-amber-500 to-amber-400 group-hover:from-amber-400 group-hover:to-amber-300 shadow-md shadow-amber-500/10' : 'bg-gradient-to-t from-purple-600/80 via-purple-500 to-purple-400 group-hover:from-purple-400 group-hover:to-purple-300 shadow-md shadow-purple-500/10')) 
+                                            : 'bg-slate-800/40 border-t border-slate-700/40'"
+                                        class="w-full rounded-t-md transition-all min-h-[4px] relative">
+                                    </div>
+
+                                    <!-- X-Axis Bottom Label -->
+                                    <span 
+                                        :class="(cost - 1 <= 3) ? 'bg-emerald-950/60 border-emerald-800/50 text-emerald-400 group-hover:border-emerald-500' : ((cost - 1 <= 6) ? 'bg-amber-950/60 border-amber-800/50 text-amber-400 group-hover:border-amber-500' : 'bg-purple-950/60 border-purple-800/50 text-purple-400 group-hover:border-purple-500')"
+                                        class="text-[10px] font-mono font-bold border px-1.5 py-0.5 rounded shadow-sm transition-colors text-center w-full max-w-[36px]">
+                                        {{ cost-1 }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Footer Legend -->
+                            <div class="flex items-center justify-between flex-wrap gap-2 text-[10px] text-slate-400 border-t border-slate-900 pt-3">
+                                <div class="flex items-center gap-4 flex-wrap">
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="w-2.5 h-2.5 rounded-sm bg-emerald-500"></span>
+                                        <span>Early Game (0-3 Don)</span>
+                                    </div>
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="w-2.5 h-2.5 rounded-sm bg-amber-500"></span>
+                                        <span>Mid Game (4-6 Don)</span>
+                                    </div>
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="w-2.5 h-2.5 rounded-sm bg-purple-500"></span>
+                                        <span>Late Game / Boss (7-10 Don)</span>
+                                    </div>
+                                </div>
+                                <span class="text-slate-500 font-mono">Passe o mouse nas barras para ver detalhes</span>
+                            </div>
+                        </div>
+
+                        <!-- Structural Improvements (Pro Mode) -->
+                        <div v-if="analysisViewMode === 'pro'" class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl flex flex-col gap-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Fundamentos do Deckbuilding</span>
+                                    <h3 class="text-sm font-bold text-amber-500 flex items-center gap-1.5 mt-0.5">
+                                        Sugestões de Melhoria Estrutural (Gerais & Universais)
+                                    </h3>
+                                </div>
+                                <span class="text-[10px] text-slate-500 font-mono">Regras de Ouro independentes do Meta</span>
+                            </div>
+
+                            <div v-if="analysisResults.structuralSuggestions && analysisResults.structuralSuggestions.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div 
+                                    v-for="sug in analysisResults.structuralSuggestions" 
+                                    :key="sug.title"
+                                    class="bg-slate-900/60 border border-slate-800/80 p-3.5 rounded-xl flex flex-col gap-2">
+                                    <div class="flex items-start gap-3">
+                                        <span v-if="sug.icon" class="text-xl shrink-0">{{ sug.icon }}</span>
+                                        <div>
+                                            <h4 class="font-bold text-xs text-slate-200">{{ sug.title }}</h4>
+                                            <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">{{ sug.text }}</p>
+                                        </div>
+                                    </div>
+                                    <!-- Card Recommendations -->
+                                    <div v-if="sug.cards && sug.cards.length > 0" class="flex flex-col gap-1.5 mt-1 border-t border-slate-800/60 pt-2">
+                                        <span class="text-[9px] uppercase font-bold text-amber-500/80 tracking-wider">Cartas Sugeridas:</span>
+                                        <div class="flex gap-2 overflow-x-auto pb-1">
+                                            <div 
+                                                v-for="rc in sug.cards" 
+                                                :key="rc.card_set_id"
+                                                class="shrink-0 w-16 flex flex-col items-center gap-0.5 group cursor-pointer"
+                                                @click="openDetails(rc)"
+                                                :title="'Ver detalhes: ' + rc.card_name">
+                                                <div class="w-16 h-[88px] rounded-lg overflow-hidden border border-slate-700 group-hover:border-amber-500 transition-colors shadow-sm">
+                                                    <img 
+                                                        v-if="rc.card_image" 
+                                                        :src="rc.card_image" 
+                                                        :alt="rc.card_name"
+                                                        class="w-full h-full object-cover" loading="lazy">
+                                                    <div v-else class="w-full h-full bg-slate-950 flex items-center justify-center text-[8px] text-slate-500 font-mono text-center p-1">{{ rc.card_set_id }}</div>
+                                                </div>
+                                                <span class="text-[8px] text-slate-500 font-mono text-center line-clamp-1 w-full group-hover:text-amber-500 transition-colors">{{ rc.card_set_id }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Substitution Suggestion if deck is full -->
+                                    <div v-if="sug.replacementCard && userDeckCount >= 50" class="mt-2 bg-slate-950/40 border border-slate-800/60 p-2 rounded-xl flex items-center justify-between gap-3">
+                                        <div class="flex items-start gap-2.5 min-w-0">
+                                            <svg class="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                                            <div class="min-w-0">
+                                                <div class="text-[8px] uppercase font-black text-amber-500/80 tracking-wider">Sugestão de Substituição:</div>
+                                                <div class="text-[10px] text-slate-400 mt-0.5 leading-relaxed truncate">
+                                                    Para adicionar, sugerimos tirar 1x
+                                                    <span 
+                                                        class="text-slate-200 font-bold hover:underline cursor-pointer"
+                                                        @click="openDetails(sug.replacementCard)">
+                                                        {{ sug.replacementCard.card_name }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Thumbnail -->
+                                        <div 
+                                            class="shrink-0 w-7 h-10 rounded border border-slate-700 hover:border-amber-500 cursor-pointer overflow-hidden shadow-sm"
+                                            @click="openDetails(sug.replacementCard)"
+                                            :title="'Ver detalhes de ' + sug.replacementCard.card_name">
+                                            <img 
+                                                :src="getCardImage(sug.replacementCard)" 
+                                                :alt="sug.replacementCard.card_name" 
+                                                @error="handleCardImgError($event, sug.replacementCard.card_set_id)"
+                                                class="w-full h-full object-cover" loading="lazy">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div v-else class="bg-emerald-950/20 border border-emerald-800/40 p-4 rounded-xl flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0 text-emerald-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-xs text-emerald-400">Estrutura de Deck Balanceada</h4>
-                                <p class="text-[11px] text-slate-300 mt-0.5">Seu deck cumpre com excelência todos os pilares recomendados de deckbuilding (buscadores, counters +2000, blockers e remoções).</p>
+                            <div v-else class="bg-emerald-950/20 border border-emerald-800/40 p-4 rounded-xl flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0 text-emerald-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-xs text-emerald-400">Estrutura de Deck Balanceada</h4>
+                                    <p class="text-[11px] text-slate-300 mt-0.5">Seu deck cumpre com excelência todos os pilares recomendados de deckbuilding (buscadores, counters +2000, blockers e remoções).</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Row 3: Meta Matchups Table/List -->
-                    <div class="flex flex-col gap-4">
-                        <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Simulador de Combates contra os Decks Populares</span>
-                        
+                    <!-- TAB 2: SIMULADOR DE MATCHUPS -->
+                    <div v-if="analysisTab === 'matchups'" class="flex flex-col gap-6 animate-fade-in">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-amber-500 tracking-wider">Simulador de Combate Real</span>
+                                <h3 class="text-base font-bold text-slate-100 mt-0.5">Confrontos Simulados contra os Decks Populares ({{ metaSet }})</h3>
+                            </div>
+                            <span class="text-xs text-slate-400 font-mono">{{ (analysisResults.matchups || []).length }} Líderes Mapeados</span>
+                        </div>
+
                         <div class="flex flex-col gap-3">
                             <div 
                                 v-for="opp in analysisResults.matchups" 
                                 :key="opp.opponent_id"
-                                class="bg-slate-950/30 border border-slate-800 rounded-xl p-4 flex flex-col gap-3 hover:border-slate-700 transition-colors">
+                                class="bg-slate-950/40 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col gap-3 hover:border-slate-700 transition-colors">
                                 
                                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                                     <!-- Opponent Details -->
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full overflow-hidden bg-slate-900 flex items-center justify-center border border-slate-800 shrink-0">
+                                        <div class="w-11 h-11 rounded-xl overflow-hidden bg-slate-900 flex items-center justify-center border border-slate-800 shrink-0 shadow-sm">
                                             <img :src="getCardImage({image: opp.image, card_set_id: opp.opponent_id})" :alt="opp.opponent_name" @error="handleCardImgError($event, opp.opponent_id)" class="w-full h-full object-cover object-top scale-[1.3]" loading="lazy">
                                         </div>
                                         <div>
-                                            <h4 class="font-bold text-sm text-slate-200">{{ opp.opponent_name }}</h4>
+                                            <h4 class="font-bold text-sm text-slate-100">{{ opp.opponent_name }}</h4>
                                             <span class="text-[10px] font-mono text-slate-500">ID Líder: {{ opp.opponent_id }} | Meta Share: {{ opp.share }}%</span>
                                         </div>
                                     </div>
@@ -2393,18 +2564,18 @@
                                         
                                         <span 
                                             :class="getStatusBadgeClass(opp.status)"
-                                            class="px-2.5 py-1 text-xs font-bold rounded-lg border">
+                                            class="px-3 py-1 text-xs font-bold rounded-xl border font-mono">
                                             {{ opp.status }}
                                         </span>
                                     </div>
                                 </div>
 
                                 <!-- Dynamic Recommendation Tips -->
-                                <div class="text-xs text-slate-300 font-medium border-t border-slate-800/80 pt-2.5 mt-1">
-                                    <div class="flex items-center gap-1 text-amber-500 font-semibold mb-1">
+                                <div class="text-xs text-slate-300 font-medium border-t border-slate-800/80 pt-3 mt-1">
+                                    <div class="flex items-center gap-1 text-amber-500 font-bold mb-1">
                                         Dica de Combate:
                                     </div>
-                                    <ul class="list-disc list-inside text-slate-400 text-[11px] leading-relaxed">
+                                    <ul class="list-disc list-inside text-slate-400 text-[11.5px] leading-relaxed">
                                         <li v-for="tip in opp.recommendations" :key="tip">{{ tip }}</li>
                                     </ul>
                                 </div>
@@ -2413,8 +2584,8 @@
                                 <div class="border-t border-slate-800/50 pt-2 flex justify-start">
                                     <button 
                                         @click="opp.showGuide = !opp.showGuide"
-                                        class="text-[10px] text-amber-500 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors uppercase tracking-wider">
-                                        <span>{{ opp.showGuide ? 'Recolher Guia de Matchup' : 'Ver Guia de Matchup Passo a Passo' }}</span>
+                                        class="tap-press text-[11px] text-amber-500 hover:text-amber-400 font-bold flex items-center gap-1.5 transition-colors uppercase tracking-wider">
+                                        <span>{{ opp.showGuide ? 'Recolher Guia Tático' : 'Ver Estratégia Detalhada de Curva & Bloqueio' }}</span>
                                         <svg 
                                             :class="opp.showGuide ? 'rotate-180' : ''" 
                                             class="w-3.5 h-3.5 transform transition-transform" 
@@ -2426,222 +2597,198 @@
                                     </button>
                                 </div>
 
-                                <!-- Collapsible Combat Guide Panel -->
-                                <div 
-                                    v-if="opp.showGuide" 
-                                    class="bg-slate-950/80 border border-slate-800/60 rounded-xl p-4 flex flex-col gap-4 text-xs mt-1 animate-fade-in">
+                                <!-- Collapsible Combat Guide Body -->
+                                <div v-if="opp.showGuide && opp.guide" class="flex flex-col gap-3 pt-2 animate-slide-up">
                                     
-                                    <div class="grid grid-cols-1 gap-3">
-                                        <!-- Tactical Posture Banner -->
-                                        <div v-if="opp.guide.tactical_badge" class="bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 p-3.5 rounded-xl border border-slate-800 flex flex-col gap-1.5 shadow-sm">
-                                            <div class="flex items-center gap-2">
-                                                <span 
-                                                    :class="opp.guide.tactical_type === 'aggro' ? 'bg-rose-500 text-slate-950 font-black' : (opp.guide.tactical_type === 'control' ? 'bg-amber-500 text-slate-950 font-black' : 'bg-blue-500 text-white font-bold')"
-                                                    class="text-[10px] uppercase px-2 py-0.5 rounded shadow">
-                                                    {{ opp.guide.tactical_badge }}
-                                                </span>
-                                                <span class="text-xs font-bold text-slate-200">Postura de Combate Recomendada</span>
-                                            </div>
-                                            <p class="text-slate-300 text-xs leading-relaxed font-medium mt-0.5">{{ opp.guide.tactical_message }}</p>
-                                        </div>
-
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <!-- Turn Preference -->
-                                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-2">
-                                                <div class="flex items-center justify-between flex-wrap gap-1">
-                                                    <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Preferência de Turno (Curva de Don)</span>
-                                                    <span v-if="opp.guide.user_avg_cost" class="text-[9px] font-mono font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
-                                                        Seu Deck: {{ opp.guide.user_avg_cost }} Don ({{ opp.guide.user_odd_count }} Ímpares / {{ opp.guide.user_even_count }} Pares) | Oponente: {{ opp.guide.opp_avg_cost }} Don ({{ opp.guide.opp_odd_count }} Ímpares / {{ opp.guide.opp_even_count }} Pares)
-                                                    </span>
-                                                </div>
-                                                <div v-if="opp.guide.turn_scenarios" class="flex flex-col gap-2">
-                                                    <!-- Option 1: Drop Cheio -->
-                                                    <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1 hover:border-slate-700/80 transition-colors">
-                                                        <div class="flex items-center justify-between gap-2">
-                                                            <span class="text-xs font-bold text-emerald-400 font-mono">{{ opp.guide.turn_scenarios.option1_label }}</span>
-                                                            <span class="text-[9px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-bold whitespace-nowrap shrink-0">{{ opp.guide.turn_scenarios.option1_badge }}</span>
-                                                        </div>
-                                                        <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.turn_scenarios.option1_desc }}</p>
-                                                    </div>
-
-                                                    <!-- Option 2: Don Aberto / Reativo -->
-                                                    <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1 hover:border-slate-700/80 transition-colors">
-                                                        <div class="flex items-center justify-between gap-2">
-                                                            <span class="text-xs font-bold text-amber-400 font-mono">{{ opp.guide.turn_scenarios.option2_label }}</span>
-                                                            <span class="text-[9px] font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-bold whitespace-nowrap shrink-0">{{ opp.guide.turn_scenarios.option2_badge }}</span>
-                                                        </div>
-                                                        <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.turn_scenarios.option2_desc }}</p>
-                                                    </div>
-                                                </div>
-                                                <div v-else class="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/60">
-                                                    <span class="text-xs font-bold text-emerald-400 block">{{ opp.guide.turn_preference_title || opp.guide.turn_preference }}</span>
-                                                    <p v-if="opp.guide.turn_preference_desc" class="text-slate-300 mt-1 leading-relaxed text-xs">{{ opp.guide.turn_preference_desc }}</p>
-                                                </div>
-
-                                                <!-- Opponent Curve Scenarios (Stacked Full Width) -->
-                                                <div v-if="opp.guide.opp_curve_scenarios" class="flex flex-col gap-2 border-t border-slate-800/80 pt-3">
-                                                    <span class="text-[9px] uppercase font-bold text-amber-500/90 tracking-wider">Curva do Oponente & Bloqueio</span>
-                                                    <div class="flex flex-col gap-2">
-                                                        <!-- Melhor Curva para o Líder Oponente -->
-                                                        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1 hover:border-slate-700/80 transition-colors">
-                                                            <div class="flex items-center justify-between gap-2">
-                                                                <span class="text-xs font-bold text-indigo-400 font-mono">{{ opp.guide.opp_curve_scenarios.ideal_label }}</span>
-                                                                <span class="text-[9px] font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded font-bold whitespace-nowrap shrink-0">{{ opp.guide.opp_curve_scenarios.ideal_badge }}</span>
-                                                            </div>
-                                                            <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.opp_curve_scenarios.ideal_desc }}</p>
-                                                        </div>
-
-                                                        <!-- Tática de Bloqueio -->
-                                                        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1 hover:border-slate-700/80 transition-colors">
-                                                            <div class="flex items-center justify-between gap-2">
-                                                                <span class="text-xs font-bold text-rose-400 font-mono">{{ opp.guide.opp_curve_scenarios.steal_label }}</span>
-                                                                <span class="text-[9px] font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded font-bold whitespace-nowrap shrink-0">{{ opp.guide.opp_curve_scenarios.steal_badge }}</span>
-                                                            </div>
-                                                            <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.opp_curve_scenarios.steal_desc }}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div v-else-if="opp.guide.opp_curve_strategy" class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40 text-[11px]">
-                                                    <span class="text-amber-400 font-bold block text-[10px] uppercase">Curva Ideal do Oponente & Bloqueio:</span>
-                                                    <p class="text-slate-300 mt-0.5 leading-snug">{{ opp.guide.opp_curve_strategy }}</p>
-                                                </div>
-                                            </div>
-
-                                            <!-- Starting Hand & Mulligan + Don Strategy -->
-                                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-3 justify-between">
-                                                <!-- Mulligan Section -->
-                                                <div class="flex flex-col gap-2">
-                                                    <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Mão Inicial & Guia de Mulligan (Composição Ideal)</span>
-                                                    <div v-if="opp.guide.hand_composition" class="grid grid-cols-2 gap-1.5 text-[11px]">
-                                                        <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800/60 flex flex-col hover:border-slate-700/60 transition-colors">
-                                                            <span class="text-[10px] font-bold text-blue-400 flex items-center gap-1">
-                                                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 inline-block"></span>
-                                                                <span>Buscadores:</span>
-                                                            </span>
-                                                            <span class="text-slate-200 font-medium text-[10.5px] leading-tight mt-0.5">{{ opp.guide.hand_composition.searchers }}</span>
-                                                        </div>
-                                                        <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800/60 flex flex-col hover:border-slate-700/60 transition-colors">
-                                                            <span class="text-[10px] font-bold text-amber-400 flex items-center gap-1">
-                                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span>
-                                                                <span>Atacantes:</span>
-                                                            </span>
-                                                            <span class="text-slate-200 font-medium text-[10.5px] leading-tight mt-0.5">{{ opp.guide.hand_composition.attackers }}</span>
-                                                        </div>
-                                                        <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800/60 flex flex-col hover:border-slate-700/60 transition-colors">
-                                                            <span class="text-[10px] font-bold text-emerald-400 flex items-center gap-1">
-                                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
-                                                                <span>Defesa (+2k / Block):</span>
-                                                            </span>
-                                                            <span class="text-slate-200 font-medium text-[10.5px] leading-tight mt-0.5">{{ opp.guide.hand_composition.defenses }}</span>
-                                                        </div>
-                                                        <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800/60 flex flex-col hover:border-slate-700/60 transition-colors">
-                                                            <span class="text-[10px] font-bold text-rose-400 flex items-center gap-1">
-                                                                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 inline-block"></span>
-                                                                <span>Bricks (Custo 7+):</span>
-                                                            </span>
-                                                            <span class="text-slate-200 font-medium text-[10.5px] leading-tight mt-0.5">{{ opp.guide.hand_composition.bricks }}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bg-slate-950/50 p-2.5 rounded-lg border border-slate-800/60">
-                                                        <p class="text-slate-300 font-medium leading-relaxed text-xs">{{ opp.guide.mulligan_tips }}</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Don Strategy by Phases -->
-                                                <div v-if="opp.guide.don_strategy" class="flex flex-col gap-2 border-t border-slate-800/80 pt-3">
-                                                    <span class="text-[9px] uppercase font-bold text-amber-500/90 tracking-wider">Fases de Jogo (Curva de Don)</span>
-                                                    <div class="flex flex-col gap-1.5 text-xs leading-relaxed">
-                                                        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/60 flex flex-col gap-0.5 hover:border-slate-700/60 transition-colors">
-                                                            <span class="font-bold text-emerald-400 font-mono text-[11px] flex items-center gap-1">
-                                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
-                                                                <span>Early Game (1-4 Don)</span>
-                                                            </span>
-                                                            <p class="text-slate-300 text-[11px] leading-snug">{{ opp.guide.don_strategy.early }}</p>
-                                                        </div>
-                                                        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/60 flex flex-col gap-0.5 hover:border-slate-700/60 transition-colors">
-                                                            <span class="font-bold text-amber-400 font-mono text-[11px] flex items-center gap-1">
-                                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span>
-                                                                <span>Mid Game (5-8 Don)</span>
-                                                            </span>
-                                                            <p class="text-slate-300 text-[11px] leading-snug">{{ opp.guide.don_strategy.mid }}</p>
-                                                        </div>
-                                                        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/60 flex flex-col gap-0.5 hover:border-slate-700/60 transition-colors">
-                                                            <span class="font-bold text-purple-400 font-mono text-[11px] flex items-center gap-1">
-                                                                <span class="w-1.5 h-1.5 rounded-full bg-purple-400 inline-block"></span>
-                                                                <span>Late Game (9-10 Don)</span>
-                                                            </span>
-                                                            <p class="text-slate-300 text-[11px] leading-snug">{{ opp.guide.don_strategy.late }}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    <!-- Key Counter Cards Section -->
-                                    <div v-if="opp.guide.key_counter_cards && opp.guide.key_counter_cards.length > 0" class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-3">
-                                        <div class="flex items-center justify-between">
-                                            <span class="text-[9px] uppercase font-bold text-amber-500 tracking-wider">Cartas-Chave Recomendadas contra {{ opp.opponent_name }}</span>
-                                            <span class="text-[9px] text-slate-400 font-mono">Análise Dinâmica do Meta</span>
-                                        </div>
-                                        
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                                            <div 
-                                                v-for="kcard in opp.guide.key_counter_cards" 
-                                                :key="kcard.card_id"
-                                                class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 flex items-start gap-3 hover:border-slate-700 transition-colors">
-                                                
-                                                <!-- Card Thumbnail -->
-                                                <div 
-                                                    class="w-10 h-14 rounded-lg border border-slate-800 overflow-hidden shrink-0 bg-slate-900 shadow-sm cursor-pointer hover:border-amber-500 transition-colors"
-                                                    @click="openDetails(kcard)"
-                                                    :title="'Ver detalhes: ' + kcard.card_name">
-                                                    <img 
-                                                        v-if="kcard.image" 
-                                                        :src="kcard.image" 
-                                                        :alt="kcard.card_name" 
-                                                        @error="handleCardImgError($event, kcard.card_id)"
-                                                        class="w-full h-full object-cover" loading="lazy">
-                                                    <div v-else class="w-full h-full flex items-center justify-center text-[7px] text-slate-500 text-center font-mono p-0.5">{{ kcard.card_id }}</div>
-                                                </div>
-
-                                                <!-- Card Info & Dynamic Status -->
-                                                <div class="flex flex-col gap-1 min-w-0 flex-1">
-                                                    <div class="flex items-center justify-between gap-1">
-                                                        <span 
-                                                            class="font-bold text-xs text-slate-200 truncate hover:underline cursor-pointer"
-                                                            @click="openDetails(kcard)">
-                                                            {{ kcard.card_name }}
-                                                        </span>
-                                                        <span class="text-[9px] font-mono text-slate-500 shrink-0">{{ kcard.card_id }}</span>
-                                                    </div>
-                                                    
-                                                    <!-- Status Badge -->
-                                                    <div class="flex items-center gap-1.5 mt-0.5">
-                                                        <span 
-                                                            v-if="kcard.in_deck" 
-                                                            class="px-2 py-0.5 text-[9px] font-bold rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-                                                            <span>Presente no Deck</span>
-                                                            <span class="text-emerald-300 font-mono">({{ kcard.user_qty }}x)</span>
-                                                        </span>
-                                                        <span 
-                                                            v-else 
-                                                            class="px-2 py-0.5 text-[9px] font-bold rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
-                                                            <span>Recomendada</span>
-                                                            <span class="text-amber-300 font-mono">(+{{ kcard.winrate_boost }}% Win Rate)</span>
-                                                        </span>
-                                                    </div>
-
-                                                    <!-- Contextual Tip -->
-                                                    <p class="text-[10px] text-slate-400 leading-snug font-medium mt-1">{{ kcard.tip }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <!-- Tactical Strategy Summary Banner -->
+                                    <div class="bg-gradient-to-r from-amber-500/10 via-slate-900 to-slate-950 p-3 rounded-xl border border-amber-500/20">
+                                        <span class="text-[9px] uppercase font-bold text-amber-400 tracking-wider">Resumo Tático do Confronto:</span>
+                                        <p class="text-slate-300 text-xs leading-relaxed font-medium mt-0.5">{{ opp.guide.tactical_message }}</p>
                                     </div>
 
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <!-- Turn Preference -->
+                                        <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-2">
+                                            <div class="flex items-center justify-between flex-wrap gap-1">
+                                                <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Preferência de Turno</span>
+                                                <span v-if="opp.guide.user_avg_cost" class="text-[9px] font-mono font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                                                    Você: {{ opp.guide.user_avg_cost }}D | Oponente: {{ opp.guide.opp_avg_cost }}D
+                                                </span>
+                                            </div>
+                                            <div v-if="opp.guide.turn_scenarios" class="flex flex-col gap-2">
+                                                <!-- Option 1 -->
+                                                <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1">
+                                                    <div class="flex items-center justify-between gap-2">
+                                                        <span class="text-xs font-bold text-emerald-400 font-mono">{{ opp.guide.turn_scenarios.option1_label }}</span>
+                                                        <span class="text-[9px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-bold">{{ opp.guide.turn_scenarios.option1_badge }}</span>
+                                                    </div>
+                                                    <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.turn_scenarios.option1_desc }}</p>
+                                                </div>
+
+                                                <!-- Option 2 -->
+                                                <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1">
+                                                    <div class="flex items-center justify-between gap-2">
+                                                        <span class="text-xs font-bold text-amber-400 font-mono">{{ opp.guide.turn_scenarios.option2_label }}</span>
+                                                        <span class="text-[9px] font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-bold">{{ opp.guide.turn_scenarios.option2_badge }}</span>
+                                                    </div>
+                                                    <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.turn_scenarios.option2_desc }}</p>
+                                                </div>
+                                            </div>
+                                            <div v-else class="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/60">
+                                                <span class="text-xs font-bold text-emerald-400 block">{{ opp.guide.turn_preference_title || opp.guide.turn_preference }}</span>
+                                                <p v-if="opp.guide.turn_preference_desc" class="text-slate-300 mt-1 leading-relaxed text-xs">{{ opp.guide.turn_preference_desc }}</p>
+                                            </div>
+
+                                            <!-- Opponent Curve Scenarios -->
+                                            <div v-if="opp.guide.opp_curve_scenarios" class="flex flex-col gap-2 border-t border-slate-800/80 pt-3">
+                                                <span class="text-[9px] uppercase font-bold text-amber-500/90 tracking-wider">Curva do Oponente & Bloqueio</span>
+                                                <div class="flex flex-col gap-2">
+                                                    <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1">
+                                                        <div class="flex items-center justify-between gap-2">
+                                                            <span class="text-xs font-bold text-indigo-400 font-mono">{{ opp.guide.opp_curve_scenarios.ideal_label }}</span>
+                                                            <span class="text-[9px] font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded font-bold">{{ opp.guide.opp_curve_scenarios.ideal_badge }}</span>
+                                                        </div>
+                                                        <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.opp_curve_scenarios.ideal_desc }}</p>
+                                                    </div>
+
+                                                    <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1">
+                                                        <div class="flex items-center justify-between gap-2">
+                                                            <span class="text-xs font-bold text-rose-400 font-mono">{{ opp.guide.opp_curve_scenarios.steal_label }}</span>
+                                                            <span class="text-[9px] font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded font-bold">{{ opp.guide.opp_curve_scenarios.steal_badge }}</span>
+                                                        </div>
+                                                        <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.opp_curve_scenarios.steal_desc }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Key Counter Cards Section -->
+                                        <div v-if="opp.guide.key_counter_cards && opp.guide.key_counter_cards.length > 0" class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-[9px] uppercase font-bold text-amber-500 tracking-wider">Cartas-Chave contra {{ opp.opponent_name }}</span>
+                                                <span class="text-[9px] text-slate-400 font-mono">Meta Dinâmico</span>
+                                            </div>
+                                            
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                                <div 
+                                                    v-for="kcard in opp.guide.key_counter_cards" 
+                                                    :key="kcard.card_id"
+                                                    class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 flex items-start gap-3 hover:border-slate-700 transition-colors">
+                                                    
+                                                    <!-- Card Thumbnail -->
+                                                    <div 
+                                                        class="w-10 h-14 rounded-lg border border-slate-800 overflow-hidden shrink-0 bg-slate-900 shadow-sm cursor-pointer hover:border-amber-500 transition-colors"
+                                                        @click="openDetails(kcard)"
+                                                        :title="'Ver detalhes: ' + kcard.card_name">
+                                                        <img 
+                                                            v-if="kcard.image" 
+                                                            :src="kcard.image" 
+                                                            :alt="kcard.card_name" 
+                                                            @error="handleCardImgError($event, kcard.card_id)"
+                                                            class="w-full h-full object-cover" loading="lazy">
+                                                        <div v-else class="w-full h-full flex items-center justify-center text-[7px] text-slate-500 text-center font-mono p-0.5">{{ kcard.card_id }}</div>
+                                                    </div>
+
+                                                    <!-- Card Info & Dynamic Status -->
+                                                    <div class="flex flex-col gap-1 min-w-0 flex-1">
+                                                        <div class="flex items-center justify-between gap-1">
+                                                            <span 
+                                                                class="font-bold text-xs text-slate-200 truncate hover:underline cursor-pointer"
+                                                                @click="openDetails(kcard)">
+                                                                {{ kcard.card_name }}
+                                                            </span>
+                                                            <span class="text-[9px] font-mono text-slate-500 shrink-0">{{ kcard.card_id }}</span>
+                                                        </div>
+                                                        
+                                                        <!-- Status Badge -->
+                                                        <div class="flex items-center gap-1.5 mt-0.5">
+                                                            <span 
+                                                                v-if="kcard.in_deck" 
+                                                                class="px-2 py-0.5 text-[9px] font-bold rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+                                                                <span>No Deck</span>
+                                                                <span class="text-emerald-300 font-mono">({{ kcard.user_qty }}x)</span>
+                                                            </span>
+                                                            <span 
+                                                                v-else 
+                                                                class="px-2 py-0.5 text-[9px] font-bold rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
+                                                                <span>Recomendada</span>
+                                                                <span class="text-amber-300 font-mono">(+{{ kcard.winrate_boost }}% WR)</span>
+                                                            </span>
+                                                        </div>
+
+                                                        <!-- Contextual Tip -->
+                                                        <p class="text-[10px] text-slate-400 leading-snug font-medium mt-1">{{ kcard.tip }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <!-- TAB 3: MANUAL TÁTICO & DON -->
+                    <div v-if="analysisTab === 'tactics'" class="flex flex-col gap-6 animate-fade-in">
+                        <div v-if="analysisResults.deckPlayGuide" class="flex flex-col gap-6">
+                            
+                            <!-- Step-by-Step Ideal Curve Progression -->
+                            <div class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl flex flex-col gap-4">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-slate-800/80 pb-3">
+                                    <div>
+                                        <span class="text-[10px] uppercase font-bold text-amber-500 tracking-wider">Sequência de Don Ideal</span>
+                                        <h3 class="text-sm font-bold text-slate-100 mt-0.5">Plano de Curva Turno a Turno</h3>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-slate-500 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                                        Drop Cheio sem Desperdício
+                                    </span>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+                                    <div 
+                                        v-for="(step, sIdx) in analysisResults.deckPlayGuide.ideal_curve_steps" 
+                                        :key="sIdx"
+                                        class="bg-slate-900/60 border border-slate-800/80 p-3.5 rounded-xl flex flex-col justify-between gap-2.5 hover:border-slate-700 transition-colors">
+                                        <div class="flex items-center justify-between gap-1 border-b border-slate-800/60 pb-1.5">
+                                            <span class="font-black text-xs text-slate-100 font-mono">{{ step.turn }}</span>
+                                            <span 
+                                                :class="step.color === 'emerald' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : (step.color === 'amber' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-purple-500/10 text-purple-400 border-purple-500/20')"
+                                                class="text-[9px] font-bold font-mono px-2 py-0.5 rounded border">
+                                                {{ step.don }}
+                                            </span>
+                                        </div>
+                                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tight">{{ step.tag }}</span>
+                                        <p class="text-slate-300 text-xs leading-snug font-medium flex-1">
+                                            {{ step.action }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3 Pilares Estratégicos de Pilotagem -->
+                            <div class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl flex flex-col gap-4">
+                                <div class="border-b border-slate-800/80 pb-3">
+                                    <span class="text-[10px] uppercase font-bold text-amber-500 tracking-wider">Metodologia de Vitória</span>
+                                    <h3 class="text-sm font-bold text-slate-100 mt-0.5">Como Pilotar o Deck (Passo a Passo por Fases)</h3>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
+                                    <div 
+                                        v-for="(pillar, pIdx) in analysisResults.deckPlayGuide.piloting_pillars" 
+                                        :key="pillar.phase"
+                                        class="bg-slate-900/50 border border-slate-800/80 p-4 rounded-xl flex flex-col gap-2.5">
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-6 h-6 rounded-lg bg-slate-800 border border-slate-700 text-xs font-bold font-mono text-amber-400 flex items-center justify-center shrink-0">{{ pIdx + 1 }}</span>
+                                            <span class="font-bold text-xs text-slate-200">{{ pillar.phase }}</span>
+                                        </div>
+                                        <p class="text-slate-300 text-xs leading-relaxed font-medium">
+                                            {{ pillar.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>
@@ -3032,11 +3179,13 @@
                 // --- Deck Builder State ---
                 const selectedBuilderLeader = ref(null);
                 const leaderSearchQuery = ref('');
+                const builderLeaderColorFilter = ref('');
                 const builderSearchQuery = ref('');
                 const builderCardType = ref('');
                 const builderCardCost = ref('');
                 const userDeck = ref([]); // array of { card: cardObj, quantity: number }
                 const showDeckAnalysis = ref(false);
+                const analysisTab = ref('summary'); // 'summary' | 'matchups' | 'tactics'
                 const analysisResults = ref({ stats: {}, alignment: 0, matchups: [] });
                 const showImportModal = ref(false);
                 const importText = ref('');
@@ -4645,24 +4794,34 @@
                 };
 
                 const loadDeckFromStorage = (deck) => {
+                    if (!deck) return;
                     const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
                     
                     // Find leader
-                    const leaderObj = allCards.find(c => c.card_type === 'Leader' && c.card_set_id === deck.leaderId) || {
-                        card_name: deck.leaderName,
-                        card_set_id: deck.leaderId,
+                    const targetLeaderId = (deck.leaderId || '').toUpperCase().trim();
+                    const leaderObj = allCards.find(c => (c.card_type || '').toLowerCase() === 'leader' && (c.card_set_id || '').toUpperCase().trim() === targetLeaderId) || {
+                        card_name: deck.leaderName || 'Líder',
+                        card_set_id: deck.leaderId || 'UNKNOWN',
                         card_type: 'Leader',
-                        card_color: deck.leaderColor || 'Multi',
+                        card_color: deck.leaderColor || 'Red',
                         card_image: deck.leaderImage || '',
                         rarity: 'L'
                     };
                     selectedBuilderLeader.value = leaderObj;
                     
                     // Restore cards
-                    userDeck.value = deck.cards.map(saved => {
-                        const found = allCards.find(c => c.card_set_id === saved.id);
-                        const cardObj = found || { card_name: saved.id, card_set_id: saved.id, card_type: 'Character', card_color: leaderObj.card_color, card_image: '', rarity: 'UC' };
-                        return { card: cardObj, quantity: saved.qty };
+                    userDeck.value = (deck.cards || []).map(saved => {
+                        const targetCardId = (saved.id || '').toUpperCase().trim();
+                        const found = allCards.find(c => (c.card_set_id || '').toUpperCase().trim() === targetCardId);
+                        const cardObj = found || { 
+                            card_name: saved.name || saved.id, 
+                            card_set_id: saved.id, 
+                            card_type: 'Character', 
+                            card_color: leaderObj.card_color, 
+                            card_image: '', 
+                            rarity: 'C' 
+                        };
+                        return { card: cardObj, quantity: Number(saved.qty) || 1 };
                     }).filter(item => item.quantity > 0);
                     
                     showSavedDecksPanel.value = false;
@@ -5317,12 +5476,23 @@
                         }
                     }
                     
+                    let filtered = unique;
+                    if (builderLeaderColorFilter.value) {
+                        if (builderLeaderColorFilter.value === 'Multi') {
+                            filtered = filtered.filter(l => l.card_color && l.card_color.includes('/'));
+                        } else {
+                            filtered = filtered.filter(l => l.card_color && l.card_color.includes(builderLeaderColorFilter.value));
+                        }
+                    }
+
                     if (leaderSearchQuery.value) {
                         const q = leaderSearchQuery.value.toLowerCase().trim();
-                        return unique.filter(l => l.card_name.toLowerCase().includes(q) || l.card_set_id.toLowerCase().includes(q));
+                        filtered = filtered.filter(l => l.card_name.toLowerCase().includes(q) || l.card_set_id.toLowerCase().includes(q));
                     }
-                    return unique;
+                    return filtered;
                 });
+
+                const isAnalyzing = ref(false);
 
                 const selectBuilderLeader = (leader) => {
                     if (isCardBanned(leader)) return;
@@ -5335,18 +5505,25 @@
                     userDeck.value = [];
                 };
 
+                const clearDeck = () => {
+                    userDeck.value = [];
+                };
+
                 // Filter card pool based on selected leader colors
                 const filteredBuilderPool = computed(() => {
                     if (!selectedBuilderLeader.value) return [];
-                    const leaderColors = getColors(selectedBuilderLeader.value.card_color);
+                    const rawColors = getColors(selectedBuilderLeader.value.card_color);
+                    const leaderColors = rawColors.map(c => String(c || '').toLowerCase().trim()).filter(Boolean);
                     
                     const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
                     
                     // Filtra apenas cartas da mesma cor e que NÃO sejam do tipo Leader ou DON!!
                     let pool = allCards.filter(c => {
-                        if (c.card_type === 'Leader' || c.card_type === 'DON!!') return false;
+                        if (!c) return false;
+                        const cType = (c.card_type || '').toLowerCase().trim();
+                        if (cType === 'leader' || cType === 'don!!' || cType === 'don') return false;
                         
-                        const cardColors = getColors(c.card_color);
+                        const cardColors = getColors(c.card_color).map(cl => String(cl || '').toLowerCase().trim()).filter(Boolean);
                         // Verifica se alguma cor da carta bate com as cores do líder
                         return cardColors.some(cc => leaderColors.includes(cc));
                     });
@@ -5355,8 +5532,9 @@
                     let unique = [];
                     const seen = new Set();
                     for (const c of pool) {
-                        if (!seen.has(c.card_set_id) && !isCardBanned(c)) {
-                            seen.add(c.card_set_id);
+                        const cid = (c.card_set_id || '').toUpperCase().trim();
+                        if (cid && !seen.has(cid) && !isCardBanned(c)) {
+                            seen.add(cid);
                             unique.push(c);
                         }
                     }
@@ -5364,17 +5542,18 @@
                     // Filtro de Texto
                     if (builderSearchQuery.value) {
                         const q = builderSearchQuery.value.toLowerCase().trim();
-                        unique = unique.filter(c => c.card_name.toLowerCase().includes(q) || c.card_set_id.toLowerCase().includes(q));
+                        unique = unique.filter(c => (c.card_name || '').toLowerCase().includes(q) || (c.card_set_id || '').toLowerCase().includes(q));
                     }
 
                     // Filtro de Tipo
                     if (builderCardType.value) {
-                        unique = unique.filter(c => c.card_type === builderCardType.value);
+                        const targetType = builderCardType.value.toLowerCase().trim();
+                        unique = unique.filter(c => (c.card_type || '').toLowerCase().trim() === targetType);
                     }
 
                     // Filtro de Custo
                     if (builderCardCost.value) {
-                        unique = unique.filter(c => c.card_cost === builderCardCost.value);
+                        unique = unique.filter(c => String(c.card_cost || '').trim() === String(builderCardCost.value).trim());
                     }
 
                     return unique;
@@ -5382,13 +5561,14 @@
 
                 // Count total cards in user deck
                 const userDeckCount = computed(() => {
-                    return userDeck.value.reduce((acc, item) => acc + item.quantity, 0);
+                    return (userDeck.value || []).reduce((acc, item) => acc + (Number(item.quantity) || 0), 0);
                 });
 
                 // Get quantity of a specific card in the deck
                 const getCardCountInDeck = (cardId) => {
-                    const found = userDeck.value.find(item => item.card.card_set_id === cardId);
-                    return found ? found.quantity : 0;
+                    const targetId = (cardId || '').toUpperCase().trim();
+                    const found = (userDeck.value || []).find(item => item && item.card && (item.card.card_set_id || '').toUpperCase().trim() === targetId);
+                    return found ? (Number(found.quantity) || 0) : 0;
                 };
 
                 const addCardToDeck = (card, count = 1) => {
@@ -5403,7 +5583,8 @@
                     }
 
                     const availableSlots = 50 - userDeckCount.value;
-                    const found = userDeck.value.find(item => item.card.card_set_id === card.card_set_id);
+                    const cardId = (card.card_set_id || '').toUpperCase().trim();
+                    const found = userDeck.value.find(item => item && item.card && (item.card.card_set_id || '').toUpperCase().trim() === cardId);
                     const currentQty = found ? found.quantity : 0;
                     const qtyToAdd = typeof count === 'number' ? count : 1;
                     const maxCanAdd = Math.min(4 - currentQty, availableSlots, qtyToAdd);
@@ -5440,7 +5621,8 @@
 
                 const setPlaysetInDeck = (card) => {
                     if (!card) return;
-                    const found = userDeck.value.find(item => item.card.card_set_id === card.card_set_id);
+                    const cardId = (card.card_set_id || '').toUpperCase().trim();
+                    const found = userDeck.value.find(item => item && item.card && (item.card.card_set_id || '').toUpperCase().trim() === cardId);
                     const currentQty = found ? found.quantity : 0;
                     const needed = 4 - currentQty;
                     if (needed > 0) {
@@ -5449,7 +5631,8 @@
                 };
 
                 const removeCardFromDeck = (cardId) => {
-                    const foundIdx = userDeck.value.findIndex(item => item.card.card_set_id === cardId);
+                    const targetId = (cardId || '').toUpperCase().trim();
+                    const foundIdx = userDeck.value.findIndex(item => item && item.card && (item.card.card_set_id || '').toUpperCase().trim() === targetId);
                     if (foundIdx !== -1) {
                         if (userDeck.value[foundIdx].quantity > 1) {
                             userDeck.value[foundIdx].quantity--;
@@ -5470,14 +5653,15 @@
                         cost_distribution: { 0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0 }
                     };
 
-                    for (const item of userDeck.value) {
-                        const qty = item.quantity;
+                    for (const item of (userDeck.value || [])) {
+                        if (!item || !item.card) continue;
+                        const qty = Number(item.quantity) || 1;
                         stats.total_cards += qty;
 
                         // Custo
                         try {
                             const cost = parseInt(item.card.card_cost || 0);
-                            if (cost >= 0 && cost <= 10) {
+                            if (!isNaN(cost) && cost >= 0 && cost <= 10) {
                                 stats.cost_distribution[cost] += qty;
                             }
                         } catch(e){}
@@ -5491,13 +5675,14 @@
 
                         // Blockers
                         const text = (item.card.card_text || '').toLowerCase();
-                        if (text.includes('[blocker]')) {
+                        if (text.includes('[blocker]') || text.includes('blocker')) {
                             stats.blockers_count += qty;
                         }
 
                         // Removals
-                        const isEvent = item.card.card_type.toLowerCase() === 'event';
-                        const hasKO = text.includes('k.o.') || text.includes('trash') || text.includes('place');
+                        const cType = (item.card.card_type || '').toLowerCase();
+                        const isEvent = cType === 'event';
+                        const hasKO = text.includes('k.o.') || text.includes('trash') || text.includes('place') || text.includes('bottom of');
                         if (isEvent && hasKO) {
                             stats.removal_count += qty;
                         }
@@ -6918,11 +7103,13 @@
                     // Deck Builder exports
                     selectedBuilderLeader,
                     leaderSearchQuery,
+                    builderLeaderColorFilter,
                     builderSearchQuery,
                     builderCardType,
                     builderCardCost,
                     userDeck,
                     showDeckAnalysis,
+                    analysisTab,
                     analysisResults,
                     availableLeaders,
                     filteredBuilderPool,
@@ -6934,7 +7121,9 @@
                     builderDeckStats,
                     selectBuilderLeader,
                     changeLeader,
+                    clearDeck,
                     runDeckAnalysis,
+                    isAnalyzing,
                     getCostCurveCount,
                     showImportModal,
                     importText,
