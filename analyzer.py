@@ -762,7 +762,7 @@ def generate_dynamic_combat_guide(
     elif user_prefers_first and not opp_prefers_first:
         pref_title = "Escolha PRIMEIRO (Ímpar - 1, 3, 5, 7, 9 Don!!)"
         pref_desc = f"Seu deck é mais ágil em custos ímpares (Média: {user_avg_cost} Don), enquanto {opp_display_name} prefere a curva par (Média: {opp_avg_cost} Don). Ir PRIMEIRO ativa seu plano de drop cheio sem desperdício de Don."
-        opp_strategy = f"Curva ideal de {opp_display_name}: SEGUNDO (Média {opp_avg_cost} Don). 💡 Tática de Bloqueio (Roubar Curva): Se optar por ir 2º, você atrasa os drops pares do oponente, mas precisará adaptar seus custos."
+        opp_strategy = f"Curva ideal de {opp_display_name}: SEGUNDO (Média {opp_avg_cost} Don). Tática de Bloqueio (Roubar Curva): Se optar por ir 2º, você atrasa os drops pares do oponente, mas precisará adaptar seus custos."
         turn_scenarios = {
             "option1_label": "Opção 1: Ímpar",
             "option1_badge": "1º Turno (Ímpar - Drop Cheio)",
@@ -774,7 +774,7 @@ def generate_dynamic_combat_guide(
     else:
         pref_title = "Escolha SEGUNDO (Par - 2, 4, 6, 8, 10 Don!!)"
         pref_desc = f"Seu deck performa melhor na curva par (Média: {user_avg_cost} Don, {even_count} cartas pares). Ir SEGUNDO dá +1 carta na mão e permite responder imediatamente à pressão de {opp_display_name} (Média: {opp_avg_cost} Don)."
-        opp_strategy = f"Curva ideal de {opp_display_name}: PRIMEIRO (Média {opp_avg_cost} Don). 💡 Tática de Bloqueio: Ir 1º desestrutura o início rápido dele, mas exige cartas de custo 1 e 3 na mão."
+        opp_strategy = f"Curva ideal de {opp_display_name}: PRIMEIRO (Média {opp_avg_cost} Don). Tática de Bloqueio: Ir 1º desestrutura o início rápido dele, mas exige cartas de custo 1 e 3 na mão."
         turn_scenarios = {
             "option1_label": "Opção 1: Par",
             "option1_badge": "2º Turno (Par - Drop Cheio)",
@@ -848,11 +848,11 @@ def generate_dynamic_combat_guide(
     proactive_mention = " + ".join(proactive_items) if proactive_items else "peças de ataque proativo"
 
     if is_aggro:
-        mulligan = f"🚨 Prioridade contra Agressividade ({opp_display_name}): Mantenha {('Buscador (' + top_searcher.get('card_name') + ')') if top_searcher else (('Drop inicial (' + top_early.get('card_name') + ')') if top_early else 'drops rápidos')} e defesas ({defense_mention}). MULLIGAN IMEDIATO se a mão vier {('com 2+ cópias de ' + top_boss.get('card_name') + ' (Bricks)') if top_boss else 'pesada'} ou sem nenhuma resposta para os turnos 1 a 3."
+        mulligan = f"Prioridade contra Agressividade ({opp_display_name}): Mantenha {('Buscador (' + top_searcher.get('card_name') + ')') if top_searcher else (('Drop inicial (' + top_early.get('card_name') + ')') if top_early else 'drops rápidos')} e defesas ({defense_mention}). Mulligan imediato se a mão vier {('com 2+ cópias de ' + top_boss.get('card_name') + ' (Bricks)') if top_boss else 'pesada'} ou sem nenhuma resposta para os turnos 1 a 3."
     elif is_big:
-        mulligan = f"🛡️ Prioridade contra Controle ({opp_display_name}): Garanta {proactive_mention} para pressionar a vida do oponente antes do turno 10. MULLIGAN IMEDIATO se a mão for puramente defensiva/passiva ou contiver cartas mortas sem presença de mesa inicial."
+        mulligan = f"Prioridade contra Controle ({opp_display_name}): Garanta {proactive_mention} para pressionar a vida do oponente antes do turno 10. Mulligan imediato se a mão for puramente defensiva/passiva ou contiver cartas mortas sem presença de mesa inicial."
     else:
-        mulligan = f"🔄 Prioridade para Ritmo ({opp_display_name}): Busque curva balanceada {('com ' + top_early.get('card_name')) if top_early else 'de custo baixo'} e {top_mid.get('card_name') if top_mid else 'custo médio'}. Dê Mulligan se a mão não tiver nenhuma jogada para os dois primeiros turnos."
+        mulligan = f"Prioridade para Ritmo ({opp_display_name}): Busque curva balanceada {('com ' + top_early.get('card_name')) if top_early else 'de custo baixo'} e {top_mid.get('card_name') if top_mid else 'custo médio'}. Dê Mulligan se a mão não tiver nenhuma jogada para os dois primeiros turnos."
 
     # Don curve strategy
     if is_aggro:
