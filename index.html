@@ -1954,27 +1954,191 @@
 
                     </div>
 
-                    <!-- Row 2: Cost Curve Bar Chart -->
-                    <div class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl">
-                        <span class="text-[10px] uppercase font-bold text-slate-500">Curva de Custo (Distribuição)</span>
-                        <div class="flex items-end justify-between gap-2 h-28 mt-4">
+                    <!-- Row 1.5: Deck Play Guide, Difficulty & Ideal Curve -->
+                    <div v-if="analysisResults.deckPlayGuide" class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl flex flex-col gap-5">
+                        
+                        <!-- Header -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-amber-500 tracking-wider">Manual de Pilotagem & Estratégia</span>
+                                <h3 class="text-base font-black text-slate-100 flex items-center gap-2 mt-0.5">
+                                    <span>📘 Como Jogar com o Deck & Curva Ideal</span>
+                                </h3>
+                            </div>
+                            <span class="text-[10px] font-mono text-slate-500 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                                Análise Especializada do Líder
+                            </span>
+                        </div>
+
+                        <!-- Top Highlights: Difficulty & Turn Preference -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            
+                            <!-- Difficulty Card -->
+                            <div class="bg-slate-900/70 border border-slate-800/90 p-4 rounded-xl flex flex-col justify-between gap-2.5">
+                                <div class="flex items-center justify-between flex-wrap gap-2">
+                                    <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Dificuldade de Pilotagem</span>
+                                    <span :class="analysisResults.deckPlayGuide.difficulty_badge_class" class="px-2.5 py-0.5 rounded text-[11px] font-black border font-mono flex items-center gap-1.5">
+                                        <span>{{ analysisResults.deckPlayGuide.difficulty_level }}</span>
+                                        <span class="text-amber-400 font-normal">{{ analysisResults.deckPlayGuide.difficulty_stars }}</span>
+                                    </span>
+                                </div>
+                                <p class="text-slate-300 text-xs leading-relaxed font-medium">
+                                    {{ analysisResults.deckPlayGuide.difficulty_desc }}
+                                </p>
+                            </div>
+
+                            <!-- Turn Preference & Curve Ratio Card -->
+                            <div class="bg-slate-900/70 border border-slate-800/90 p-4 rounded-xl flex flex-col justify-between gap-2.5">
+                                <div class="flex items-center justify-between flex-wrap gap-2">
+                                    <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Curva Natural do Deck</span>
+                                    <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 rounded text-[11px] font-bold font-mono">
+                                        {{ analysisResults.deckPlayGuide.turn_preference }}
+                                    </span>
+                                </div>
+                                <p class="text-slate-300 text-xs leading-relaxed font-medium">
+                                    {{ analysisResults.deckPlayGuide.turn_preference_reason }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Win Condition Banner -->
+                        <div class="bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-950 border border-amber-500/30 p-4 rounded-xl flex flex-col gap-1.5 shadow-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-amber-500 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded shadow">
+                                    🎯 Condição de Vitória (Win Condition)
+                                </span>
+                                <span class="text-xs font-bold text-slate-200">{{ analysisResults.deckPlayGuide.win_condition_title }}</span>
+                            </div>
+                            <p class="text-slate-300 text-xs leading-relaxed font-medium mt-1">
+                                {{ analysisResults.deckPlayGuide.win_condition_desc }}
+                            </p>
+                        </div>
+
+                        <!-- Step-by-Step Ideal Curve Progression -->
+                        <div class="flex flex-col gap-2.5">
+                            <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Sequência Ideal de Don (Turno a Turno)</span>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+                                <div 
+                                    v-for="(step, sIdx) in analysisResults.deckPlayGuide.ideal_curve_steps" 
+                                    :key="sIdx"
+                                    class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl flex flex-col justify-between gap-2 hover:border-slate-700 transition-colors">
+                                    <div class="flex items-center justify-between gap-1 border-b border-slate-800/60 pb-1.5">
+                                        <span class="font-black text-xs text-slate-100 font-mono">{{ step.turn }}</span>
+                                        <span 
+                                            :class="step.color === 'emerald' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : (step.color === 'amber' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-purple-500/10 text-purple-400 border-purple-500/20')"
+                                            class="text-[9px] font-bold font-mono px-1.5 py-0.5 rounded border">
+                                            {{ step.don }}
+                                        </span>
+                                    </div>
+                                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tight">{{ step.tag }}</span>
+                                    <p class="text-slate-300 text-[11px] leading-snug font-medium flex-1">
+                                        {{ step.action }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3 Pilares Estratégicos de Pilotagem (Passo a Passo) -->
+                        <div class="flex flex-col gap-2.5 border-t border-slate-900 pt-4">
+                            <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Como Pilotar o Deck (Passo a Passo por Fases)</span>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs leading-relaxed">
+                                <div 
+                                    v-for="pillar in analysisResults.deckPlayGuide.piloting_pillars" 
+                                    :key="pillar.phase"
+                                    class="bg-slate-900/50 border border-slate-800/80 p-3.5 rounded-xl flex flex-col gap-2">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-base">{{ pillar.icon }}</span>
+                                        <span class="font-bold text-xs text-slate-200">{{ pillar.phase }}</span>
+                                    </div>
+                                    <p class="text-slate-300 text-[11px] leading-relaxed font-medium">
+                                        {{ pillar.text }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="bg-slate-950/50 border border-slate-800 p-6 rounded-2xl flex flex-col gap-4">
+                        <!-- Chart Header & Summary Metrics -->
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Perfil de Curva de Don</span>
+                                <h3 class="text-sm font-bold text-amber-400 flex items-center gap-1.5 mt-0.5">
+                                    <span>📊 Curva de Custo & Distribuição de Cartas</span>
+                                </h3>
+                            </div>
+                            
+                            <!-- Badges / Metrics -->
+                            <div class="flex items-center flex-wrap gap-2 text-[11px] font-mono">
+                                <span class="bg-amber-500/10 border border-amber-500/20 text-amber-400 px-2.5 py-1 rounded-lg font-bold">
+                                    Custo Médio: {{ calculateAverageCost(analysisResults.stats) }} Don
+                                </span>
+                                <span class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2 py-1 rounded-lg">
+                                    🌱 Early (0-3): {{ (analysisResults.stats.cost_distribution[0] || 0) + (analysisResults.stats.cost_distribution[1] || 0) + (analysisResults.stats.cost_distribution[2] || 0) + (analysisResults.stats.cost_distribution[3] || 0) }}x ({{ Math.round((((analysisResults.stats.cost_distribution[0] || 0) + (analysisResults.stats.cost_distribution[1] || 0) + (analysisResults.stats.cost_distribution[2] || 0) + (analysisResults.stats.cost_distribution[3] || 0)) / (analysisResults.stats.total_cards || 50)) * 100) }}%)
+                                </span>
+                                <span class="bg-amber-500/10 border border-amber-500/20 text-amber-400 px-2 py-1 rounded-lg">
+                                    ⚔️ Mid (4-6): {{ (analysisResults.stats.cost_distribution[4] || 0) + (analysisResults.stats.cost_distribution[5] || 0) + (analysisResults.stats.cost_distribution[6] || 0) }}x ({{ Math.round((((analysisResults.stats.cost_distribution[4] || 0) + (analysisResults.stats.cost_distribution[5] || 0) + (analysisResults.stats.cost_distribution[6] || 0)) / (analysisResults.stats.total_cards || 50)) * 100) }}%)
+                                </span>
+                                <span class="bg-purple-500/10 border border-purple-500/20 text-purple-400 px-2 py-1 rounded-lg">
+                                    👑 Late (7+): {{ (analysisResults.stats.cost_distribution[7] || 0) + (analysisResults.stats.cost_distribution[8] || 0) + (analysisResults.stats.cost_distribution[9] || 0) + (analysisResults.stats.cost_distribution[10] || 0) }}x ({{ Math.round((((analysisResults.stats.cost_distribution[7] || 0) + (analysisResults.stats.cost_distribution[8] || 0) + (analysisResults.stats.cost_distribution[9] || 0) + (analysisResults.stats.cost_distribution[10] || 0)) / (analysisResults.stats.total_cards || 50)) * 100) }}%)
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Bar Chart Area -->
+                        <div class="flex items-end justify-between gap-1.5 sm:gap-2.5 h-36 mt-1 pt-4 pb-1">
                             <div 
                                 v-for="cost in 11" 
                                 :key="cost-1" 
-                                class="flex-grow flex flex-col items-center gap-2 group h-full justify-end">
-                                <!-- Bar value on hover -->
-                                <span class="opacity-0 group-hover:opacity-100 text-[10px] font-mono text-amber-500 transition-opacity">
-                                    {{ analysisResults.stats.cost_distribution[cost-1] }}
+                                class="flex-grow flex flex-col items-center gap-1.5 group h-full justify-end relative">
+                                
+                                <!-- Floating Tooltip on Hover -->
+                                <div class="opacity-0 group-hover:opacity-100 transition-all pointer-events-none absolute -top-9 z-20 bg-slate-900 border border-amber-500/40 text-amber-300 text-[10px] font-mono px-2 py-0.5 rounded shadow-xl whitespace-nowrap">
+                                    {{ analysisResults.stats.cost_distribution[cost-1] }} cartas ({{ Math.round(((analysisResults.stats.cost_distribution[cost-1] || 0) / (analysisResults.stats.total_cards || 50)) * 100) }}%)
+                                </div>
+
+                                <!-- Always Visible Quantity Number Above Bar -->
+                                <span 
+                                    :class="(analysisResults.stats.cost_distribution[cost-1] > 0) ? 'text-amber-400 font-black text-xs' : 'text-slate-600 text-[10px]'"
+                                    class="font-mono transition-colors">
+                                    {{ analysisResults.stats.cost_distribution[cost-1] > 0 ? analysisResults.stats.cost_distribution[cost-1] : '-' }}
                                 </span>
-                                <!-- Bar -->
+
+                                <!-- Gradient Colored Bar -->
                                 <div 
                                     :style="{ height: getCostBarHeight(analysisResults.stats.cost_distribution[cost-1]) }"
-                                    class="w-full bg-slate-800 group-hover:bg-amber-600 rounded-t transition-all min-h-[4px]">
+                                    :class="(analysisResults.stats.cost_distribution[cost-1] > 0) 
+                                        ? ((cost - 1 <= 3) ? 'bg-gradient-to-t from-emerald-600/80 via-emerald-500 to-emerald-400 group-hover:from-emerald-400 group-hover:to-emerald-300 shadow-md shadow-emerald-500/10' : ((cost - 1 <= 6) ? 'bg-gradient-to-t from-amber-600/80 via-amber-500 to-amber-400 group-hover:from-amber-400 group-hover:to-amber-300 shadow-md shadow-amber-500/10' : 'bg-gradient-to-t from-purple-600/80 via-purple-500 to-purple-400 group-hover:from-purple-400 group-hover:to-purple-300 shadow-md shadow-purple-500/10')) 
+                                        : 'bg-slate-800/40 border-t border-slate-700/40'"
+                                    class="w-full rounded-t-md transition-all min-h-[4px] relative">
                                 </div>
-                                <span class="text-[10px] font-mono text-slate-500 font-bold bg-slate-900 border border-slate-800 px-1 rounded">
+
+                                <!-- X-Axis Bottom Label (Cost badge) -->
+                                <span 
+                                    :class="(cost - 1 <= 3) ? 'bg-emerald-950/60 border-emerald-800/50 text-emerald-400 group-hover:border-emerald-500' : ((cost - 1 <= 6) ? 'bg-amber-950/60 border-amber-800/50 text-amber-400 group-hover:border-amber-500' : 'bg-purple-950/60 border-purple-800/50 text-purple-400 group-hover:border-purple-500')"
+                                    class="text-[10px] font-mono font-bold border px-1.5 py-0.5 rounded shadow-sm transition-colors text-center w-full max-w-[36px]">
                                     {{ cost-1 }}
                                 </span>
                             </div>
+                        </div>
+
+                        <!-- Footer Legend -->
+                        <div class="flex items-center justify-between flex-wrap gap-2 text-[10px] text-slate-400 border-t border-slate-900 pt-3">
+                            <div class="flex items-center gap-4 flex-wrap">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-sm bg-emerald-500"></span>
+                                    <span>Early Game (0-3 Don)</span>
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-sm bg-amber-500"></span>
+                                    <span>Mid Game (4-6 Don)</span>
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-sm bg-purple-500"></span>
+                                    <span>Late Game / Boss (7-10 Don)</span>
+                                </div>
+                            </div>
+                            <span class="text-slate-500 font-mono">Passe o mouse nas barras para ver detalhes</span>
                         </div>
                     </div>
 
@@ -1990,7 +2154,7 @@
                             <span class="text-[10px] text-slate-500 font-mono">Regras de Ouro independentes do Meta</span>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div v-if="analysisResults.structuralSuggestions && analysisResults.structuralSuggestions.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div 
                                 v-for="sug in analysisResults.structuralSuggestions" 
                                 :key="sug.title"
@@ -2052,6 +2216,13 @@
                                             class="w-full h-full object-cover" loading="lazy">
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div v-else class="bg-emerald-950/20 border border-emerald-800/40 p-4 rounded-xl flex items-center gap-3">
+                            <span class="text-2xl">✅</span>
+                            <div>
+                                <h4 class="font-bold text-xs text-emerald-400">Estrutura de Deck Balanceada</h4>
+                                <p class="text-[11px] text-slate-300 mt-0.5">Seu deck cumpre com excelência todos os pilares recomendados de deckbuilding (buscadores, counters +2000, blockers e remoções).</p>
                             </div>
                         </div>
                     </div>
@@ -2143,39 +2314,114 @@
 
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <!-- Turn Preference -->
-                                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60">
-                                                <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Preferência de Turno (Curva de Don)</span>
-                                                <p class="font-bold text-slate-200 mt-1.5 leading-relaxed text-xs">
-                                                    {{ opp.guide.turn_preference }}
-                                                </p>
+                                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-2">
+                                                <div class="flex items-center justify-between flex-wrap gap-1">
+                                                    <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Preferência de Turno (Curva de Don)</span>
+                                                    <span v-if="opp.guide.user_avg_cost" class="text-[9px] font-mono font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                                                        Seu Deck: {{ opp.guide.user_avg_cost }} Don ({{ opp.guide.user_odd_count }} Ímpares / {{ opp.guide.user_even_count }} Pares) | Oponente: {{ opp.guide.opp_avg_cost }} Don ({{ opp.guide.opp_odd_count }} Ímpares / {{ opp.guide.opp_even_count }} Pares)
+                                                    </span>
+                                                </div>
+                                                <div v-if="opp.guide.turn_scenarios" class="flex flex-col gap-2">
+                                                    <!-- Option 1: Drop Cheio -->
+                                                    <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1 hover:border-slate-700/80 transition-colors">
+                                                        <div class="flex items-center justify-between gap-2">
+                                                            <span class="text-xs font-bold text-emerald-400 font-mono">{{ opp.guide.turn_scenarios.option1_label }}</span>
+                                                            <span class="text-[9px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-bold whitespace-nowrap shrink-0">{{ opp.guide.turn_scenarios.option1_badge }}</span>
+                                                        </div>
+                                                        <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.turn_scenarios.option1_desc }}</p>
+                                                    </div>
+
+                                                    <!-- Option 2: Don Aberto / Reativo -->
+                                                    <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1 hover:border-slate-700/80 transition-colors">
+                                                        <div class="flex items-center justify-between gap-2">
+                                                            <span class="text-xs font-bold text-amber-400 font-mono">{{ opp.guide.turn_scenarios.option2_label }}</span>
+                                                            <span class="text-[9px] font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-bold whitespace-nowrap shrink-0">{{ opp.guide.turn_scenarios.option2_badge }}</span>
+                                                        </div>
+                                                        <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.turn_scenarios.option2_desc }}</p>
+                                                    </div>
+                                                </div>
+                                                <div v-else class="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/60">
+                                                    <span class="text-xs font-bold text-emerald-400 block">{{ opp.guide.turn_preference_title || opp.guide.turn_preference }}</span>
+                                                    <p v-if="opp.guide.turn_preference_desc" class="text-slate-300 mt-1 leading-relaxed text-xs">{{ opp.guide.turn_preference_desc }}</p>
+                                                </div>
+
+                                                <!-- Opponent Curve Scenarios (Stacked Full Width) -->
+                                                <div v-if="opp.guide.opp_curve_scenarios" class="flex flex-col gap-2 border-t border-slate-800/80 pt-3">
+                                                    <span class="text-[9px] uppercase font-bold text-amber-500/90 tracking-wider">🎯 Curva do Oponente & Tática de Bloqueio</span>
+                                                    <div class="flex flex-col gap-2">
+                                                        <!-- Melhor Curva para o Líder Oponente -->
+                                                        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1 hover:border-slate-700/80 transition-colors">
+                                                            <div class="flex items-center justify-between gap-2">
+                                                                <span class="text-xs font-bold text-indigo-400 font-mono">{{ opp.guide.opp_curve_scenarios.ideal_label }}</span>
+                                                                <span class="text-[9px] font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded font-bold whitespace-nowrap shrink-0">{{ opp.guide.opp_curve_scenarios.ideal_badge }}</span>
+                                                            </div>
+                                                            <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.opp_curve_scenarios.ideal_desc }}</p>
+                                                        </div>
+
+                                                        <!-- Tática de Bloqueio -->
+                                                        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 flex flex-col gap-1 hover:border-slate-700/80 transition-colors">
+                                                            <div class="flex items-center justify-between gap-2">
+                                                                <span class="text-xs font-bold text-rose-400 font-mono">{{ opp.guide.opp_curve_scenarios.steal_label }}</span>
+                                                                <span class="text-[9px] font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded font-bold whitespace-nowrap shrink-0">{{ opp.guide.opp_curve_scenarios.steal_badge }}</span>
+                                                            </div>
+                                                            <p class="text-slate-300 text-xs leading-relaxed">{{ opp.guide.opp_curve_scenarios.steal_desc }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-else-if="opp.guide.opp_curve_strategy" class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40 text-[11px]">
+                                                    <span class="text-amber-400 font-bold block text-[10px] uppercase">🎯 Curva Ideal do Oponente & Bloqueio:</span>
+                                                    <p class="text-slate-300 mt-0.5 leading-snug">{{ opp.guide.opp_curve_strategy }}</p>
+                                                </div>
                                             </div>
 
-                                            <!-- Starting Hand & Mulligan -->
-                                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60">
-                                                <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Mão Inicial & Guia de Mulligan</span>
-                                                <p class="text-slate-300 mt-1.5 font-medium leading-relaxed text-xs">{{ opp.guide.mulligan_tips }}</p>
-                                            </div>
-                                        </div>
+                                            <!-- Starting Hand & Mulligan + Don Strategy -->
+                                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-3 justify-between">
+                                                <!-- Mulligan Section -->
+                                                <div class="flex flex-col gap-2">
+                                                    <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Mão Inicial & Guia de Mulligan (Composição Ideal)</span>
+                                                    <div v-if="opp.guide.hand_composition" class="grid grid-cols-2 gap-1.5 text-[11px]">
+                                                        <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800/60 flex flex-col hover:border-slate-700/60 transition-colors">
+                                                            <span class="text-[10px] font-bold text-blue-400">🔍 Buscadores:</span>
+                                                            <span class="text-slate-200 font-medium text-[10.5px] leading-tight mt-0.5">{{ opp.guide.hand_composition.searchers }}</span>
+                                                        </div>
+                                                        <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800/60 flex flex-col hover:border-slate-700/60 transition-colors">
+                                                            <span class="text-[10px] font-bold text-amber-400">⚔️ Atacantes de Curva:</span>
+                                                            <span class="text-slate-200 font-medium text-[10.5px] leading-tight mt-0.5">{{ opp.guide.hand_composition.attackers }}</span>
+                                                        </div>
+                                                        <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800/60 flex flex-col hover:border-slate-700/60 transition-colors">
+                                                            <span class="text-[10px] font-bold text-emerald-400">🛡️ Defesa (+2k / Block):</span>
+                                                            <span class="text-slate-200 font-medium text-[10.5px] leading-tight mt-0.5">{{ opp.guide.hand_composition.defenses }}</span>
+                                                        </div>
+                                                        <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800/60 flex flex-col hover:border-slate-700/60 transition-colors">
+                                                            <span class="text-[10px] font-bold text-rose-400">🧱 Bricks (Custo 7+):</span>
+                                                            <span class="text-slate-200 font-medium text-[10.5px] leading-tight mt-0.5">{{ opp.guide.hand_composition.bricks }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bg-slate-950/50 p-2.5 rounded-lg border border-slate-800/60">
+                                                        <p class="text-slate-300 font-medium leading-relaxed text-xs">{{ opp.guide.mulligan_tips }}</p>
+                                                    </div>
+                                                </div>
 
-                                        <!-- Don Strategy -->
-                                        <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-2">
-                                            <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Melhores Cartas por Fase de Jogo (Curva de Don)</span>
-                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-1 text-[11px] leading-relaxed">
-                                                <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
-                                                    <span class="font-bold text-emerald-400 font-mono text-xs">Early Game (1-4 Don)</span>
-                                                    <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.early }}</p>
-                                                </div>
-                                                <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
-                                                    <span class="font-bold text-amber-400 font-mono text-xs">Mid Game (5-8 Don)</span>
-                                                    <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.mid }}</p>
-                                                </div>
-                                                <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/40">
-                                                    <span class="font-bold text-purple-400 font-mono text-xs">Late Game (9-10 Don)</span>
-                                                    <p class="text-slate-300 mt-1">{{ opp.guide.don_strategy.late }}</p>
+                                                <!-- Don Strategy by Phases -->
+                                                <div v-if="opp.guide.don_strategy" class="flex flex-col gap-2 border-t border-slate-800/80 pt-3">
+                                                    <span class="text-[9px] uppercase font-bold text-amber-500/90 tracking-wider">⚡ Fases de Jogo contra este Oponente (Curva de Don)</span>
+                                                    <div class="flex flex-col gap-1.5 text-xs leading-relaxed">
+                                                        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/60 flex flex-col gap-0.5 hover:border-slate-700/60 transition-colors">
+                                                            <span class="font-bold text-emerald-400 font-mono text-[11px]">🌱 Early Game (1-4 Don)</span>
+                                                            <p class="text-slate-300 text-[11px] leading-snug">{{ opp.guide.don_strategy.early }}</p>
+                                                        </div>
+                                                        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/60 flex flex-col gap-0.5 hover:border-slate-700/60 transition-colors">
+                                                            <span class="font-bold text-amber-400 font-mono text-[11px]">⚔️ Mid Game (5-8 Don)</span>
+                                                            <p class="text-slate-300 text-[11px] leading-snug">{{ opp.guide.don_strategy.mid }}</p>
+                                                        </div>
+                                                        <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/60 flex flex-col gap-0.5 hover:border-slate-700/60 transition-colors">
+                                                            <span class="font-bold text-purple-400 font-mono text-[11px]">👑 Late Game (9-10 Don)</span>
+                                                            <p class="text-slate-300 text-[11px] leading-snug">{{ opp.guide.don_strategy.late }}</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
                                     <!-- Key Counter Cards Section -->
                                     <div v-if="opp.guide.key_counter_cards && opp.guide.key_counter_cards.length > 0" class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/60 flex flex-col gap-3">
@@ -2238,11 +2484,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- General Strategy -->
-                                    <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/60">
-                                        <span class="text-[9px] uppercase font-bold text-slate-500 tracking-wider">Como funciona o Matchup (Estratégia Geral)</span>
-                                        <p class="text-slate-300 mt-1.5 leading-relaxed font-medium">{{ opp.guide.matchup_explanation }}</p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -4997,6 +5238,8 @@
                     const userMidDrops = [];   // Personagens de Custo 4-6
                     let oddCostCount = 0;
                     let evenCostCount = 0;
+                    let userTotalCost = 0;
+                    let userTotalCards = 0;
 
                     for (const item of userDeck.value) {
                         const card = item.card;
@@ -5004,9 +5247,13 @@
                         const cost = parseInt(card.card_cost || 0);
                         const counter = parseInt(card.counter_amount || 0);
                         const type = (card.card_type || '').toLowerCase();
+                        const qty = item.quantity || 1;
 
-                        if (cost % 2 === 1) oddCostCount += item.quantity;
-                        else if (cost > 0) evenCostCount += item.quantity;
+                        userTotalCost += cost * qty;
+                        userTotalCards += qty;
+
+                        if (cost % 2 === 1) oddCostCount += qty;
+                        else if (cost > 0) evenCostCount += qty;
 
                         // Busca buscadores (Custo 1-2 que buscam/olham topo do deck)
                         if (cost <= 2 && (text.includes("look") || text.includes("reveal") || text.includes("search") || text.includes("add"))) {
@@ -5044,6 +5291,8 @@
                         }
                     }
 
+                    const userAvgCost = userTotalCards > 0 ? (userTotalCost / userTotalCards).toFixed(1) : "3.5";
+
                     // Ordena listas por relevância (menor custo para buscas/blockers, maior poder para atacantes/bosses)
                     userSearchers.sort((a, b) => parseInt(a.card_cost || 0) - parseInt(b.card_cost || 0));
                     userBlockers.sort((a, b) => parseInt(a.card_cost || 0) - parseInt(b.card_cost || 0));
@@ -5055,6 +5304,7 @@
 
                     // 2. Calcula matchups contra os oponentes do Meta
                     const matchups = [];
+                    const allCardsPool = [...setCards.value, ...starterCards.value, ...promoCards.value];
                     
                     // Oponentes (Líderes de meta)
                     const metaLeaders = metaData.value.leaders.length > 0 
@@ -5160,96 +5410,331 @@
                             tacticalMessage = "Este líder manipula a mesa virando ou retornando peças. Postura recomendada: JOGO CADENCIADO E VALOR. Faça trocas vantajosas, evite deixar personagens de suporte virados (rested) sem proteção e mantenha Don ativo no turno dele para eventos defensivos.";
                         }
 
-                        // B) Preferência de Turno Dinâmica (Curva de Don do Deck vs Oponente)
-                        let turnPrefTitle = "";
-                        let turnPrefReason = "";
-                        const isOddFavored = oddCostCount >= evenCostCount;
+                        // Análise de Custo e Curva do Deck do Oponente
+                        const oppCards = opp ? getActiveLeaderCards(opp) : [];
+                        let oppTotalCost = 0;
+                        let oppTotalCards = 0;
+                        let oppOddCount = 0;
+                        let oppEvenCount = 0;
+                        const oppSearchers = [];
+                        const oppEarlyDrops = [];
+                        const oppMidDrops = [];
+                        const oppBosses = [];
+
+                        if (oppCards && oppCards.length > 0) {
+                            for (const mc of oppCards) {
+                                const mcId = getMetaCardId(mc);
+                                const fullCard = allCardsPool.find(c => c.card_set_id && c.card_set_id.toUpperCase() === mcId) || mc;
+                                const cost = parseInt(fullCard.card_cost || mc.card_cost || 0);
+                                const power = parseInt(fullCard.card_power || mc.card_power || 0);
+                                const text = (fullCard.card_text || mc.card_text || '').toLowerCase();
+                                
+                                let qty = 3;
+                                if (mc.copies_recommendation) {
+                                    const m = mc.copies_recommendation.match(/(\d+)\s*x/i);
+                                    if (m) qty = parseInt(m[1]);
+                                } else if (mc.inclusion_percentage) {
+                                    qty = mc.inclusion_percentage >= 70 ? 4 : (mc.inclusion_percentage >= 40 ? 3 : 2);
+                                }
+
+                                oppTotalCost += cost * qty;
+                                oppTotalCards += qty;
+
+                                if (cost % 2 === 1) oppOddCount += qty;
+                                else if (cost > 0) oppEvenCount += qty;
+
+                                if (cost <= 2 && (text.includes("look") || text.includes("reveal") || text.includes("search") || text.includes("add"))) {
+                                    oppSearchers.push({ ...fullCard, card_cost: cost, card_power: power });
+                                } else if (cost >= 1 && cost <= 3) {
+                                    oppEarlyDrops.push({ ...fullCard, card_cost: cost, card_power: power });
+                                } else if (cost >= 4 && cost <= 6) {
+                                    oppMidDrops.push({ ...fullCard, card_cost: cost, card_power: power });
+                                } else if (cost >= 7) {
+                                    oppBosses.push({ ...fullCard, card_cost: cost, card_power: power });
+                                }
+                            }
+                        }
+
+                        const oppAvgCost = oppTotalCards > 0 
+                            ? (oppTotalCost / oppTotalCards).toFixed(1) 
+                            : (isAggro ? "2.8" : (isBigChar ? "4.8" : "3.6"));
+                        if (oppTotalCards === 0) {
+                            oppOddCount = isAggro ? 28 : 20;
+                            oppEvenCount = isAggro ? 22 : 30;
+                        }
+
+                        // B) Preferência de Turno Dinâmica (Curva de Don do Deck vs Oponente + Roubo de Curva)
+                        const userPrefersFirst = oddCostCount >= evenCostCount;
+                        const oppPrefersFirst = oppOddCount >= oppEvenCount;
 
                         const topSearcher = userSearchers[0];
                         const topBlocker = userBlockers[0];
                         const top2k = user2kCounters[0];
+                        const topEarly = userEarlyDrops[0];
                         const topMid = userMidDrops[0];
                         const topBoss = userBosses[0];
                         const topRemoval = userRemovals[0];
 
-                        if (isOddFavored) {
-                            const drop1 = topSearcher || userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 1);
-                            const drop3 = userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 3) || userEarlyDrops[0];
-                            const bossOdd = userBosses.find(c => parseInt(c.card_cost || 0) % 2 === 1) || topBoss;
+                        const oppTopEarly = oppSearchers[0] || oppEarlyDrops[0];
+                        const oppTopMid = oppMidDrops[0];
+                        const oppTopBoss = oppBosses[0];
 
-                            turnPrefTitle = "Primeiro (Ímpar - 1, 3, 5, 7, 9 Don!!)";
-                            let curveDrops = [];
-                            if (drop1) curveDrops.push(`T1: ${drop1.card_name}`);
-                            if (drop3) curveDrops.push(`T2: ${drop3.card_name}`);
-                            if (bossOdd) curveDrops.push(`Late: ${bossOdd.card_name}`);
+                        // Sequências de Curva do Usuário
+                        const drop1 = topSearcher || userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 1);
+                        const drop3 = userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 3) || userEarlyDrops[0];
+                        const drop5 = userMidDrops.find(c => parseInt(c.card_cost || 0) === 5) || topMid;
+                        const bossOdd = userBosses.find(c => parseInt(c.card_cost || 0) % 2 === 1) || topBoss;
+                        const user1stList = [];
+                        if (drop1) user1stList.push(`T1: ${drop1.card_name}`);
+                        if (drop3) user1stList.push(`T2: ${drop3.card_name}`);
+                        if (drop5) user1stList.push(`T3: ${drop5.card_name}`);
+                        if (bossOdd) user1stList.push(`Late: ${bossOdd.card_name}`);
+                        const user1stStr = user1stList.join(' ➔ ') || '1 ➔ 3 ➔ 5 ➔ 7 Don';
 
-                            turnPrefReason = `Seu deck possui predominância de custos ímpares (${oddCostCount} cartas). Ir primeiro encaixa com perfeição sua curva ideal (${curveDrops.join(' ➔ ')}) sem deixar Don ocioso${isAggro ? ' e quebra a curva agressiva do oponente' : ''}.`;
+                        const drop2 = userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 2) || topSearcher || topBlocker;
+                        const drop4 = userMidDrops.find(c => parseInt(c.card_cost || 0) === 4) || topMid;
+                        const drop6 = userMidDrops.find(c => parseInt(c.card_cost || 0) === 6) || topMid;
+                        const bossEven = userBosses.find(c => parseInt(c.card_cost || 0) % 2 === 0) || topBoss;
+                        const user2ndList = [];
+                        if (drop2) user2ndList.push(`T1: ${drop2.card_name}`);
+                        if (drop4) user2ndList.push(`T2: ${drop4.card_name}`);
+                        if (drop6) user2ndList.push(`T3: ${drop6.card_name}`);
+                        if (bossEven) user2ndList.push(`Late: ${bossEven.card_name}`);
+                        const user2ndStr = user2ndList.join(' ➔ ') || '2 ➔ 4 ➔ 6 ➔ 8 Don';
+
+                        let turnPrefTitle = "";
+                        let turnPrefReason = "";
+                        let oppCurveStrategy = "";
+                        let turnScenarios = null;
+                        let oppCurveScenarios = null;
+
+                        if (oppPrefersFirst) {
+                            oppCurveScenarios = {
+                                ideal_label: `Melhor Curva para ${opp.name}`,
+                                ideal_badge: "1º Turno (Ímpar)",
+                                ideal_desc: `Curva ideal de ${opp.name}: PRIMEIRO (Média: ${oppAvgCost} Don, ${oppOddCount} cartas ímpares)${oppTopEarly ? ' para descer ' + oppTopEarly.card_name + ' no Turno 1/2' : ''} e acelerar o desenvolvimento de campo sem desperdício de Don.`,
+                                steal_label: "Tática de Bloqueio (Roubar Curva)",
+                                steal_badge: "Escolha ir 1º para bloquear",
+                                steal_desc: `Se você escolher ir PRIMEIRO, você rouba a curva do oponente, quebrando a sequência rápida de ${opp.name} e forçando-o a jogar no 2º turno com Don desfavorável no início.`
+                            };
                         } else {
-                            const drop2 = userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 2) || topSearcher || topBlocker;
-                            const drop4 = userMidDrops.find(c => parseInt(c.card_cost || 0) === 4) || topMid;
-                            const bossEven = userBosses.find(c => parseInt(c.card_cost || 0) % 2 === 0) || topBoss;
-
-                            turnPrefTitle = "Segundo (Par - 2, 4, 6, 8, 10 Don!!)";
-                            let curveDrops = [];
-                            if (drop2) curveDrops.push(`T1: ${drop2.card_name}`);
-                            if (drop4) curveDrops.push(`T2: ${drop4.card_name}`);
-                            if (bossEven) curveDrops.push(`Late: ${bossEven.card_name}`);
-
-                            turnPrefReason = `Seu deck possui predominância de custos pares (${evenCostCount} cartas). Ir segundo garante +1 carta comprada e curva de Don sincronizada (${curveDrops.join(' ➔ ')})${isAggro ? ', garantindo 2 Don imediatos para defesas' : ''}.`;
+                            oppCurveScenarios = {
+                                ideal_label: `Melhor Curva para ${opp.name}`,
+                                ideal_badge: "2º Turno (Par)",
+                                ideal_desc: `Curva ideal de ${opp.name}: SEGUNDO (Média: ${oppAvgCost} Don, ${oppEvenCount} cartas pares)${oppTopMid ? ' para descer ' + oppTopMid.card_name : ''} e aproveitar a compra extra inicial.`,
+                                steal_label: "Tática de Bloqueio (Roubar Curva)",
+                                steal_badge: "Escolha ir 2º para bloquear",
+                                steal_desc: `Se você escolher ir SEGUNDO, você atrasa a descida do drop par do oponente${oppTopMid ? ' (' + oppTopMid.card_name + ')' : ''} em 1 rodada inteira, mas precisará adaptar seus custos para aproveitar o Don livre.`
+                            };
                         }
 
-                        // C) Mão Inicial & Mulligan Específico contra este Oponente
+                        if (userPrefersFirst && oppPrefersFirst) {
+                            turnPrefTitle = "Disputa de Turno! Escolha PRIMEIRO (Ímpar - 1, 3, 5, 7, 9 Don!!)";
+                            turnPrefReason = `Seu deck (Média: ${userAvgCost} Don, ${oddCostCount} cartas ímpares) e o deck de ${opp.name} (Média: ${oppAvgCost} Don) disputam a mesma curva inicial. Escolher ir PRIMEIRO garante seu tempo de jogo ideal (${user1stStr}) e ROUBA A CURVA DO ADVERSÁRIO, forçando ${opp.name} a jogar no 2º turno com Don ocioso nos turnos 1 e 2.`;
+                            oppCurveStrategy = `Curva ideal de ${opp.name}: PRIMEIRO (Média ${oppAvgCost} Don)${oppTopEarly ? ' para descer ' + oppTopEarly.card_name : ''}. Ao pegar o 1º turno para você, você quebra a sequência de Don ideal dele.`;
+                            turnScenarios = {
+                                option1_label: "Opção 1: Ímpar",
+                                option1_badge: "1º Turno (Ímpar - Drop Cheio)",
+                                option1_desc: `Seu deck é mais ágil em custos ímpares (Média: ${userAvgCost} Don, ${oddCostCount} cartas ímpares), enquanto ${opp.name} (Média: ${oppAvgCost} Don) disputa a mesma curva. Ir PRIMEIRO ativa seu plano de drop cheio (${user1stStr}) e ROUBA A CURVA DO ADVERSÁRIO, forçando ${opp.name} a jogar no 2º turno com Don ocioso.`,
+                                option2_label: "Opção 2: Par",
+                                option2_badge: "2º Turno (Par - Don Aberto / Reativo)",
+                                option2_desc: `Se você quiser jogar de forma reativa com 1 Don em pé para Eventos de Counter ou bater 6k no Líder, escolher o 2º Turno (2, 4, 6, 8 Don) encaixa suas peças de 1, 3 e 5 Don com 1 Don livre todo turno!`
+                            };
+                        } else if (!userPrefersFirst && !oppPrefersFirst) {
+                            turnPrefTitle = "Disputa de Turno! Escolha SEGUNDO (Par - 2, 4, 6, 8, 10 Don!!)";
+                            turnPrefReason = `Ambos os decks possuem custos pares predominantes (Seu Deck: Média ${userAvgCost} Don | Oponente: Média ${oppAvgCost} Don). Escolha ir SEGUNDO para sincronizar seus custos pares (${user2ndStr}), receber +1 carta de compra inicial E ROUBAR A CURVA DO ADVERSÁRIO, impedindo que ${opp.name} faça o drop de custo 4 no Turno 2.`;
+                            oppCurveStrategy = `Curva ideal de ${opp.name}: SEGUNDO (Média ${oppAvgCost} Don)${oppTopMid ? ' para descer ' + oppTopMid.card_name : ''}. Ao escolher ir 2º, você força o oponente a ir 1º com Don desfavorável no início.`;
+                            turnScenarios = {
+                                option1_label: "Opção 1: Par",
+                                option1_badge: "2º Turno (Par - Drop Cheio)",
+                                option1_desc: `Ambos os decks possuem custos pares predominantes (Seu Deck: Média ${userAvgCost} Don | Oponente: Média ${oppAvgCost} Don). Escolha ir SEGUNDO para sincronizar seus custos pares (${user2ndStr}), receber +1 carta de compra inicial E ROUBAR A CURVA DO ADVERSÁRIO, impedindo o drop de 4 Don no Turno 2 de ${opp.name}.`,
+                                option2_label: "Opção 2: Ímpar",
+                                option2_badge: "1º Turno (Ímpar - Don Aberto / Reativo)",
+                                option2_desc: `Se você quiser jogar no 1º Turno (1, 3, 5, 7 Don), você desce suas cartas de custo par (2, 4 e 6 Don) e sobra exatamente 1 Don ativo para Eventos Defensivos ou bater com Don anexado no Líder!`
+                            };
+                        } else if (userPrefersFirst && !oppPrefersFirst) {
+                            turnPrefTitle = "Escolha PRIMEIRO (Ímpar - 1, 3, 5, 7, 9 Don!!)";
+                            turnPrefReason = `Seu deck é mais ágil em custos ímpares (Média: ${userAvgCost} Don), enquanto ${opp.name} prefere a curva par (Média: ${oppAvgCost} Don). Ir PRIMEIRO ativa seu plano de drop cheio (${user1stStr}) sem desperdício de Don.`;
+                            oppCurveStrategy = `Curva ideal de ${opp.name}: SEGUNDO (Média ${oppAvgCost} Don) para descer ${oppTopMid ? oppTopMid.card_name : 'drops pares'}. 💡 TÁTICA DE BLOQUEIO (ROUBAR CURVA): Se você escolher ir SEGUNDO, você atrasa a descida do drop par do oponente em 1 rodada, mas precisará adaptar seus custos.`;
+                            turnScenarios = {
+                                option1_label: "Opção 1: Ímpar",
+                                option1_badge: "1º Turno (Ímpar - Drop Cheio)",
+                                option1_desc: `Seu deck é mais ágil em custos ímpares (Média: ${userAvgCost} Don), enquanto ${opp.name} prefere a curva par (Média: ${oppAvgCost} Don). Ir PRIMEIRO ativa seu plano de drop cheio (${user1stStr}) sem desperdício de Don.`,
+                                option2_label: "Opção 2: Par",
+                                option2_badge: "2º Turno (Par - Don Aberto / Reativo)",
+                                option2_desc: `Se você quiser jogar de forma reativa com 1 Don em pé para Eventos ou bater 6k no Líder, escolher o 2º Turno (2, 4, 6, 8 Don) encaixa suas peças de 1, 3 e 5 Don com 1 Don livre todo turno!`
+                            };
+                        } else {
+                            turnPrefTitle = "Escolha SEGUNDO (Par - 2, 4, 6, 8, 10 Don!!)";
+                            turnPrefReason = `Seu deck performa melhor na curva par (Média: ${userAvgCost} Don, ${evenCostCount} cartas pares). Ir SEGUNDO dá +1 compra e encaixa seus drops de 2, 4 e 6 Don (${user2ndStr}), além de permitir responder de imediato à agressão de ${opp.name} (Média: ${oppAvgCost} Don).`;
+                            oppCurveStrategy = `Curva ideal de ${opp.name}: PRIMEIRO (Média ${oppAvgCost} Don) para acelerar ${oppTopEarly ? oppTopEarly.card_name : 'pressão inicial'}. 💡 TÁTICA DE BLOQUEIO: Se quiser roubar o 1º turno do oponente, você desestrutura o início rápido dele, mas precisará de cartas de custo 1 e 3 na mão.`;
+                            turnScenarios = {
+                                option1_label: "Opção 1: Par",
+                                option1_badge: "2º Turno (Par - Drop Cheio)",
+                                option1_desc: `Seu deck performa melhor na curva par (Média: ${userAvgCost} Don, ${evenCostCount} cartas pares). Ir SEGUNDO dá +1 compra e encaixa seus drops de 2, 4 e 6 Don (${user2ndStr}), além de permitir responder de imediato à agressão de ${opp.name} (Média: ${oppAvgCost} Don).`,
+                                option2_label: "Opção 2: Ímpar",
+                                option2_badge: "1º Turno (Ímpar - Don Aberto / Reativo)",
+                                option2_desc: `Se você optar pelo 1º Turno (1, 3, 5, 7 Don), você quebra o início rápido de ${opp.name} e desce seus drops pares de 2, 4 e 6 Don com 1 Don ativo de folga para Eventos de Counter ou ataque com o Líder!`
+                            };
+                        }
+
+                        // C) Mão Inicial & Mulligan Específico contra este Oponente (Composição Ideal)
+                        const handSearcherStr = topSearcher ? `1x ${topSearcher.card_name} (Garante fluxo)` : `0x (Sem buscador 1-2)`;
+                        
+                        let handAttackerStr = "";
+                        if (topEarly && topMid) {
+                            if (isAggro) {
+                                handAttackerStr = `1-2x ${topEarly.card_name} (Contestar atacantes virados)`;
+                            } else if (isBigChar) {
+                                handAttackerStr = `1-2x ${topMid.card_name} (Pressão direta na Vida)`;
+                            } else {
+                                handAttackerStr = `1x ${topEarly.card_name} + 1x ${topMid.card_name}`;
+                            }
+                        } else if (topEarly) {
+                            handAttackerStr = `1-2x ${topEarly.card_name} (Ataque proativo)`;
+                        } else if (topMid) {
+                            handAttackerStr = `1-2x ${topMid.card_name} (Presença de campo)`;
+                        } else {
+                            handAttackerStr = `0x (Sem atacantes de custo 1-6 no deck)`;
+                        }
+
+                        let handDefenseStr = "";
+                        if (topBlocker && top2k) {
+                            if (isAggro) {
+                                handDefenseStr = `1-2x ${topBlocker.card_name} + 1-2x ${top2k.card_name}`;
+                            } else if (isBigChar) {
+                                handDefenseStr = `1x ${top2k.card_name} + ${topRemoval ? '1x ' + topRemoval.card_name : '1x ' + topBlocker.card_name}`;
+                            } else {
+                                handDefenseStr = `1x ${topBlocker.card_name} + 1x ${top2k.card_name}`;
+                            }
+                        } else if (topBlocker) {
+                            if (isAggro) {
+                                handDefenseStr = `2x ${topBlocker.card_name} (Proteção de mesa)`;
+                            } else {
+                                handDefenseStr = `1-2x ${topBlocker.card_name} (Controle de dano)`;
+                            }
+                        } else if (top2k) {
+                            if (isAggro) {
+                                handDefenseStr = `2x ${top2k.card_name} (Sem blocker: foco em +2000)`;
+                            } else {
+                                handDefenseStr = `1-2x ${top2k.card_name} (Counter de emergência)`;
+                            }
+                        } else {
+                            handDefenseStr = `0x (Sem Blockers e sem Counters +2000 no deck!)`;
+                        }
+
+                        const handBrickStr = topBoss 
+                            ? `Máximo 0-1x ${topBoss.card_name} (2+ = Mão travada/Brick)` 
+                            : `0x (Deck ágil sem cartas de custo 7+)`;
+
+                        const handComposition = {
+                            searchers: handSearcherStr,
+                            attackers: handAttackerStr,
+                            defenses: handDefenseStr,
+                            bricks: handBrickStr
+                        };
+
                         let mulliganAdvice = "";
+                        const defenseItems = [];
+                        if (top2k) defenseItems.push(`+2000 Counter (${top2k.card_name})`);
+                        if (topBlocker) defenseItems.push(`Blocker (${topBlocker.card_name})`);
+                        const defenseMention = defenseItems.length > 0 ? defenseItems.join(' / ') : 'suas defesas disponíveis';
+
+                        const proactiveItems = [];
+                        if (topSearcher) proactiveItems.push(`Buscador (${topSearcher.card_name})`);
+                        if (topEarly) proactiveItems.push(`Drop inicial (${topEarly.card_name})`);
+                        if (topMid) proactiveItems.push(`Atacante de curva (${topMid.card_name})`);
+                        const proactiveMention = proactiveItems.length > 0 ? proactiveItems.join(' + ') : 'peças de ataque proativo';
 
                         if (isAggro) {
-                            let keepList = [];
-                            if (topSearcher) keepList.push(`Buscador (${topSearcher.card_name})`);
-                            if (topBlocker) keepList.push(`Blocker (${topBlocker.card_name})`);
-                            if (top2k) keepList.push(`Counter +2000 (${top2k.card_name})`);
-
-                            mulliganAdvice = `Prioridade contra Agressividade: Mantenha ${keepList.length > 0 ? keepList.join(' e ') : 'suas cartas de custo 1-2 e defesas'}. Se a mão vier pesada com apenas cartas de custo 5+, faça Mulligan imediatamente para não sofrer pressão letal rápida.`;
+                            mulliganAdvice = `🚨 Prioridade contra Agressividade (${opp.name}): Mantenha ${topSearcher ? 'Buscador (' + topSearcher.card_name + ')' : (topEarly ? 'Drop inicial (' + topEarly.card_name + ')' : 'drops rápidos')} e defesas (${defenseMention}). MULLIGAN IMEDIATO se a mão vier ${topBoss ? 'com 2+ cópias de ' + topBoss.card_name + ' (Bricks)' : 'pesada'} ou sem nenhuma resposta para os turnos 1 a 3.`;
                         } else if (isBigChar) {
-                            let keepList = [];
-                            if (topSearcher) keepList.push(`Buscador (${topSearcher.card_name})`);
-                            if (topMid) keepList.push(`Atacante de curva (${topMid.card_name})`);
-                            if (topRemoval) keepList.push(`Remoção (${topRemoval.card_name})`);
-
-                            mulliganAdvice = `Prioridade contra Controle: Garanta peças de ataque proativo (${keepList.length > 0 ? keepList.join(' + ') : 'buscadores e atacantes de custo médio'}) para pressionar a vida do oponente antes do turno 10. Mãos puramente defensivas devem levar Mulligan.`;
+                            mulliganAdvice = `🛡️ Prioridade contra Controle (${opp.name}): Garanta ${proactiveMention} para pressionar a vida do oponente antes do turno 10. MULLIGAN IMEDIATO se a mão for puramente defensiva/passiva ou contiver cartas mortas sem presença de mesa inicial.`;
                         } else {
-                            let keepList = [];
-                            if (topSearcher || userEarlyDrops[0]) keepList.push(`Drop inicial (${(topSearcher || userEarlyDrops[0]).card_name})`);
-                            if (topMid) keepList.push(`Peça de meio de jogo (${topMid.card_name})`);
-
-                            mulliganAdvice = `Prioridade para Jogo de Ritmo: Busque ${keepList.length > 0 ? keepList.join(' e ') : 'uma curva equilibrada de custos baixos e médios'} para garantir trocas eficientes de recursos desde o início.`;
+                            mulliganAdvice = `🔄 Prioridade para Ritmo (${opp.name}): Busque curva balanceada ${topEarly ? 'com ' + topEarly.card_name : 'de custo baixo'} e ${topMid ? topMid.card_name : 'custo médio'}. Dê Mulligan se a mão não tiver nenhuma jogada para os dois primeiros turnos.`;
                         }
 
-                        // D) Estratégia de Curva de Don (Cartas Exatas do Deck)
+                        // D) Estratégia de Curva de Don (Cartas Exatas do Deck por Fase)
                         let earlyStr = "";
-                        if (topSearcher && topBlocker) {
-                            earlyStr = `Baixar seu buscador ${topSearcher.card_name} (${topSearcher.card_set_id}) para estruturar a mão e posicionar seu blocker ${topBlocker.card_name} (${topBlocker.card_set_id}).`;
-                        } else if (topSearcher) {
-                            earlyStr = `Baixar ${topSearcher.card_name} (${topSearcher.card_set_id}) para filtrar seu deck e buscar atacantes e defesas.`;
-                        } else if (userEarlyDrops[0]) {
-                            earlyStr = `Baixar ${userEarlyDrops[0].card_name} (${userEarlyDrops[0].card_set_id}) para estabelecer presença de campo inicial.`;
-                        } else {
-                            earlyStr = `Acoplar Don no Líder para ataques eficientes e segurar Don para eventos defensivos.`;
-                        }
-                        if (isAggro) earlyStr += " Evite ataques fracos na vida do oponente que apenas entreguem cartas de Trigger na mão dele.";
-
                         let midStr = "";
-                        if (topMid && topRemoval) {
-                            midStr = `Desenvolver ${topMid.card_name} (${topMid.card_set_id}) na mesa e utilizar ${topRemoval.card_name} (${topRemoval.card_set_id}) para controlar atacantes inimigos virados.`;
-                        } else if (topMid) {
-                            midStr = `Estabelecer ${topMid.card_name} (${topMid.card_set_id}) para ditar o ritmo de mesa e pressionar personagens adversários virados.`;
-                        } else {
-                            midStr = `Use seus personagens intermediários para limpar a mesa adversária e manter defesas em prontidão.`;
-                        }
-
                         let lateStr = "";
-                        if (topBoss) {
-                            lateStr = `Descer seu Boss ${topBoss.card_name} (${topBoss.card_set_id}) para desferir ataques pesados (8000+ poder) e usar o Don restante no Líder para fechar a partida.`;
+
+                        if (isAggro) {
+                            if (topEarly && topBlocker) {
+                                earlyStr = `Baixar ${topEarly.card_name} (${topEarly.card_set_id}) e posicionar seu blocker ${topBlocker.card_name} (${topBlocker.card_set_id}) para disputar a mesa. Ataque apenas personagens virados de ${opp.name} e evite dar dano na vida que aumente a mão adversária.`;
+                            } else if (topEarly) {
+                                earlyStr = `Baixar ${topEarly.card_name} (${topEarly.card_set_id}) para contestar os primeiros atacantes de ${opp.name}. Ataque apenas personagens virados dele e evite dar dano na vida que aumente a mão adversária.`;
+                            } else if (topBlocker) {
+                                earlyStr = `Posicionar seu blocker ${topBlocker.card_name} (${topBlocker.card_set_id}) para conter os primeiros ataques rápidos de ${opp.name}.`;
+                            } else {
+                                earlyStr = `Utilizar Don no Líder para trocas vantajosas contra os primeiros atacantes virados de ${opp.name} e preservar seus pontos de vida.`;
+                            }
+
+                            if (topMid && topRemoval) {
+                                midStr = `Estabelecer ${topMid.card_name} (${topMid.card_set_id}) e utilizar ${topRemoval.card_name} (${topRemoval.card_set_id}) para limpar atacantes virados, neutralizando a ofensiva inimiga.`;
+                            } else if (topMid) {
+                                midStr = `Desenvolver ${topMid.card_name} (${topMid.card_set_id}) com poder 5000+ para controlar a mesa e punir personagens virados de ${opp.name}.`;
+                            } else if (topRemoval) {
+                                midStr = `Usar ${topRemoval.card_name} (${topRemoval.card_set_id}) para remover peças-chave adversárias e desacelerar a pressão.`;
+                            } else {
+                                midStr = `Usar seus personagens intermediários e o Don no Líder para manter a mesa limpa e conter a agressividade.`;
+                            }
+
+                            if (topBoss) {
+                                lateStr = `Descer seu Boss ${topBoss.card_name} (${topBoss.card_set_id}) com 8000+ de poder e usar Don no Líder para aplicar ataques pesados decisivos na vida, aproveitando que a mão de ${opp.name} estará esgotada.`;
+                            } else {
+                                lateStr = `Distribuir Don nos atacantes estabelecidos e no Líder para ataques com 7000-8000+ de poder para finalizar a partida enquanto o oponente está sem recursos.`;
+                            }
+                        } else if (isBigChar) {
+                            if (topSearcher && topEarly) {
+                                earlyStr = `Baixar ${topSearcher.card_name} (${topSearcher.card_set_id}) para filtrar a mão e desenvolver ${topEarly.card_name} (${topEarly.card_set_id}) para iniciar pressão direta na vida de ${opp.name} antes que ele tenha Don para os chefes de late game.`;
+                            } else if (topSearcher) {
+                                earlyStr = `Baixar ${topSearcher.card_name} (${topSearcher.card_set_id}) para filtrar sua mão e buscar seus atacantes e remoções antes do late game de ${opp.name}.`;
+                            } else if (topEarly) {
+                                earlyStr = `Baixar ${topEarly.card_name} (${topEarly.card_set_id}) para iniciar pressão proativa na vida de ${opp.name} nos primeiros turnos.`;
+                            } else {
+                                earlyStr = `Acoplar Don no Líder para atacar a vida de ${opp.name} e forçar o oponente a queimar cartas da mão se defendendo.`;
+                            }
+
+                            if (topMid && topRemoval) {
+                                midStr = `Colocar ${topMid.card_name} (${topMid.card_set_id}) em campo para forçar o oponente a gastar cartas da mão se defendendo, guardando ${topRemoval.card_name} (${topRemoval.card_set_id}) para responder ao primeiro Boss que ${opp.name} descer.`;
+                            } else if (topMid) {
+                                midStr = `Desenvolver ${topMid.card_name} (${topMid.card_set_id}) para manter pressão contínua na vida de ${opp.name} antes dos turnos 8 a 10.`;
+                            } else if (topRemoval) {
+                                midStr = `Guardar ${topRemoval.card_name} (${topRemoval.card_set_id}) para responder de imediato aos personagens gigantes que ${opp.name} colocar em campo.`;
+                            } else {
+                                midStr = `Pressionar com ataques médios sucessivos para forçar o oponente a entrar no late game com a vida zerada ou poucos recursos na mão.`;
+                            }
+
+                            if (topBoss) {
+                                lateStr = `Descer seu Boss ${topBoss.card_name} (${topBoss.card_set_id}) de impacto para confrontar os monstros de ${opp.name} e focar todo o Don restante em golpes letais antes que ele recupere o controle total.`;
+                            } else {
+                                lateStr = `Alocar todo o Don restante nos atacantes e no Líder para buscar a vitória letal antes que os chefes pesados de ${opp.name} dominem a partida.`;
+                            }
                         } else {
-                            lateStr = `Distribuir Don nos seus atacantes estabelecidos e no Líder para ataques em massa difíceis de defender com a mão.`;
+                            if (topSearcher && topEarly) {
+                                earlyStr = `Desenvolver ${topSearcher.card_name} (${topSearcher.card_set_id}) para consistência e ${topEarly.card_name} (${topEarly.card_set_id}) para presença de mesa inicial.`;
+                            } else if (topSearcher) {
+                                earlyStr = `Desenvolver ${topSearcher.card_name} (${topSearcher.card_set_id}) para estruturar a mão e garantir fluxo de cartas para os turnos médios.`;
+                            } else if (topEarly) {
+                                earlyStr = `Baixar ${topEarly.card_name} (${topEarly.card_set_id}) para estabelecer presença de campo nos primeiros turnos.`;
+                            } else {
+                                earlyStr = `Distribuir Don no Líder para trocas eficientes e segurar Don ativo para eventos defensivos.`;
+                            }
+
+                            if (topMid && topRemoval) {
+                                midStr = `Realizar trocas vantajosas na mesa com ${topMid.card_name} (${topMid.card_set_id}) e utilizar ${topRemoval.card_name} (${topRemoval.card_set_id}) para quebrar o ritmo de ${opp.name}.`;
+                            } else if (topMid) {
+                                midStr = `Desenvolver ${topMid.card_name} (${topMid.card_set_id}) para ditar o ritmo de mesa e pressionar peças adversárias.`;
+                            } else {
+                                midStr = `Manter seus atacantes intermediários ativos para trocas de recursos equilibradas e preservar Don para respostas.`;
+                            }
+
+                            if (topBoss) {
+                                lateStr = `Descer seu Boss ${topBoss.card_name} (${topBoss.card_set_id}) e alocar Don estrategicamente para finalizar a partida com sobrecarga de poder.`;
+                            } else {
+                                lateStr = `Alocar Don estrategicamente nos atacantes estabelecidos e no Líder para aplicar ataques múltiplos difíceis de defender.`;
+                            }
                         }
 
                         // E) Motor de Pontuação Dinâmico de Cartas-Chave por Mecânica do Oponente
@@ -5466,7 +5951,19 @@
                             tactical_badge: tacticalBadge,
                             tactical_type: tacticalType,
                             tactical_message: tacticalMessage,
+                            user_avg_cost: userAvgCost,
+                            opp_avg_cost: oppAvgCost,
+                            user_odd_count: oddCostCount,
+                            user_even_count: evenCostCount,
+                            opp_odd_count: oppOddCount,
+                            opp_even_count: oppEvenCount,
+                            turn_preference_title: turnPrefTitle,
+                            turn_preference_desc: turnPrefReason,
+                            turn_scenarios: turnScenarios,
+                            opp_curve_strategy: oppCurveStrategy,
+                            opp_curve_scenarios: oppCurveScenarios,
                             turn_preference: `${turnPrefTitle} - ${turnPrefReason}`,
+                            hand_composition: handComposition,
                             mulligan_tips: mulliganAdvice,
                             don_strategy: { early: earlyStr, mid: midStr, late: lateStr },
                             matchup_explanation: tacticalMessage,
@@ -5621,14 +6118,6 @@
                             cards: find2kCounters(),
                             replacementCard: getBestReplacementCandidate('2k')
                         });
-                    } else {
-                        structuralSuggestions.push({
-                            icon: '',
-                            title: 'Ótima Cota Defensiva (+2000)',
-                            text: `Você tem ${stats.counter_2000_count} cartas com Counter +2000, garantindo uma sólida margem de sobrevivência.`,
-                            cards: [],
-                            replacementCard: null
-                        });
                     }
 
                     // c) Blockers
@@ -5650,14 +6139,6 @@
                             text: 'Nenhuma carta de busca inicial (Custo 1-2) foi encontrada. Adicionar de 4 a 8 buscadores melhora muito a consistência de compra.',
                             cards: findSearchers(),
                             replacementCard: getBestReplacementCandidate('searcher')
-                        });
-                    } else {
-                        structuralSuggestions.push({
-                            icon: '',
-                            title: 'Consistência Inicial Garantida',
-                            text: `Identificados buscadores de custo baixo para acelerar a estruturação do seu jogo nos primeiros turnos.`,
-                            cards: [],
-                            replacementCard: null
                         });
                     }
 
@@ -5741,11 +6222,195 @@
                         }
                     }
 
+                    // --- 4. GERAÇÃO DO GUIA DE PILOTAGEM DO DECK (DIFICULDADE, CURVA IDEAL & COMO JOGAR) ---
+                    const lName = (selectedBuilderLeader.value.card_name || '').toLowerCase();
+                    const lId = (selectedBuilderLeader.value.card_set_id || '').toUpperCase();
+                    const lText = (selectedBuilderLeader.value.card_text || '').toLowerCase();
+                    const lColor = (selectedBuilderLeader.value.card_color || '').toLowerCase();
+
+                    // A) Nível de Dificuldade
+                    let diffLevel = "Intermediário";
+                    let diffBadgeClass = "bg-amber-500/10 text-amber-400 border-amber-500/30";
+                    let diffStars = "★★★☆☆";
+                    let diffDesc = "Foco em desenvolvimento consistente de curva de Don, trocas vantajosas na mesa e transição equilibrada entre o meio de jogo e a entrada dos chefes.";
+
+                    if (lName.includes("teach") || lName.includes("sakazuki") || lName.includes("nami") || lName.includes("moria") || (lText.includes("trash") && lText.includes("cost"))) {
+                        diffLevel = "Especialista";
+                        diffBadgeClass = "bg-purple-500/10 text-purple-400 border-purple-500/30";
+                        diffStars = "★★★★★";
+                        diffDesc = "Altíssima complexidade tática. Exige planejamento com 2 a 3 turnos de antecedência, gerenciamento refinado de recursos na lixeira e conhecimento aprofundado do meta adversário.";
+                    } else if (lName.includes("enel") || lName.includes("katakuri") || lName.includes("bonney") || lName.includes("doflamingo") || lName.includes("law") || lName.includes("kuzan") || lName.includes("loki") || (lColor.includes("/") && stats.removal_count >= 6)) {
+                        diffLevel = "Avançado";
+                        diffBadgeClass = "bg-indigo-500/10 text-indigo-400 border-indigo-500/30";
+                        diffStars = "★★★★☆";
+                        diffDesc = "Exige gestão precisa de pontos de vida, sequenciamento rigoroso de Don e antecipação das janelas de contra-ataque do oponente.";
+                    } else if (lName.includes("zoro") || lName.includes("betty") || lName.includes("arlong") || (stats.counter_2000_count < 6 && stats.cost_distribution[1] >= 8)) {
+                        diffLevel = "Iniciante / Acessível";
+                        diffBadgeClass = "bg-emerald-500/10 text-emerald-400 border-emerald-500/30";
+                        diffStars = "★★☆☆☆";
+                        diffDesc = "Plano de jogo proativo e agressivo. Foco em atacar constantemente a vida do oponente sem necessidade de sequenciamentos excessivamente intrincados.";
+                    }
+
+                    // B) Condição de Vitória (Win Condition)
+                    let winCondTitle = "";
+                    let winCondDesc = "";
+
+                    if (lName.includes("mihawk") || lText.includes("slash") || lText.includes("sword")) {
+                        winCondTitle = "Domínio de Mesa com Espadachins & Golpes Pesados";
+                        winCondDesc = `Dracule Mihawk vence estabelecendo combatentes de alto poder e utilizando remoções cirúrgicas para manter a mesa limpa. No Late Game, a pressão massiva de ataques com 8000-10000 de poder do Líder e dos seus Bosses (${userBosses[0] ? userBosses[0].card_name : '8000+ poder'}) esgota completamente os recursos defensivos do adversário.`;
+                    } else if (lName.includes("shanks")) {
+                        winCondTitle = "Pressão Contínua & Redução de Poder";
+                        winCondDesc = "Desgastar a vida do oponente nos primeiros turnos enquanto debufa personagens inimigos, finalizando com a avalanche de poder dos Piratas do Ruivo.";
+                    } else if (lName.includes("enel") || lName.includes("katakuri")) {
+                        winCondTitle = "Controle de Vida & Sobrevivência Eterna";
+                        winCondDesc = "Manipular a pilha de Vida com triggers poderosos, estendendo a partida até o turno 10 para dominar o campo com monstros amarelos pesados.";
+                    } else if (lName.includes("luffy")) {
+                        winCondTitle = "Aceleração de Don & Impacto Explosivo";
+                        winCondDesc = "Acelerar Don mais rápido que o oponente para descer ameaças gigantes turnos antes do esperado, aplicando ataques devastadores na vida.";
+                    } else if (lName.includes("teach") || lName.includes("sakazuki") || lName.includes("moria")) {
+                        winCondTitle = "Exaustão de Recursos & Controle Absoluto";
+                        winCondDesc = "Reduzir custos e triturar as ameaças inimigas continuamente, deixando o adversário sem cartas na mão e sem campo para se defender.";
+                    } else {
+                        winCondTitle = "Controle Cadenciado & Vantagem de Recursos";
+                        winCondDesc = `Vencer através de trocas vantajosas no campo, preservação de vida com seus ${stats.counter_2000_count}x Counters +2000 e finalização massiva no Late Game com ${userBosses[0] ? userBosses[0].card_name : 'seus personagens de alto poder'}.`;
+                    }
+
+                    // C) Sequência da Curva Ideal Passo a Passo
+                    const idealCurveSteps = [];
+                    const userPrefersFirstCurve = oddCostCount >= evenCostCount;
+
+                    if (userPrefersFirstCurve) {
+                        const t1Card = userSearchers[0] || userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 1);
+                        idealCurveSteps.push({
+                            turn: "Turno 1",
+                            don: "1 Don",
+                            tag: "Filtro & Consistência",
+                            color: "emerald",
+                            action: t1Card ? `Baixar buscador ${t1Card.card_name} (${t1Card.card_set_id}) para estruturar a mão inicial e buscar atacantes.` : "Passar o turno e preservar recursos de mão."
+                        });
+
+                        const t2Card = userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 3) || userEarlyDrops[0];
+                        idealCurveSteps.push({
+                            turn: "Turno 2",
+                            don: "3 Don",
+                            tag: "Presença & Pressão",
+                            color: "emerald",
+                            action: t2Card ? `Desenvolver ${t2Card.card_name} (${t2Card.card_set_id}) ou acoplar 1-2 Don no Líder para aplicar primeiro ataque de 6000-7000 de poder.` : "Acoplar 2 Don no Líder para aplicar ataque de 7000 na Vida do oponente."
+                        });
+
+                        const t3Card = userMidDrops.find(c => parseInt(c.card_cost || 0) === 5) || userMidDrops[0];
+                        idealCurveSteps.push({
+                            turn: "Turno 3",
+                            don: "5 Don",
+                            tag: "Pico de Mid Game",
+                            color: "amber",
+                            action: t3Card ? `Descer atacante de impacto ${t3Card.card_name} (${t3Card.card_set_id}) para ditar o ritmo de mesa e contestar peças viradas.` : "Desenvolver combatentes intermediários e aplicar ataques sólidos."
+                        });
+
+                        const t4Card = userBosses.find(c => parseInt(c.card_cost || 0) === 7) || userMidDrops[0];
+                        idealCurveSteps.push({
+                            turn: "Turno 4",
+                            don: "7 Don",
+                            tag: "Transição para Bosses",
+                            color: "amber",
+                            action: t4Card ? `Descer ${t4Card.card_name} (${t4Card.card_set_id}) e utilizar Don restante para remoções ou ataques com o Líder.` : "Consolidar múltiplos atacantes em campo e realizar trocas favoráveis."
+                        });
+
+                        const t5Card = userBosses.find(c => parseInt(c.card_cost || 0) >= 8) || userBosses[0];
+                        idealCurveSteps.push({
+                            turn: "Turno 5+",
+                            don: "9-10 Don",
+                            tag: "Late Game & Letal",
+                            color: "purple",
+                            action: t5Card ? `Descer Boss definitivo ${t5Card.card_name} (${t5Card.card_set_id}) (${t5Card.card_power || '8000+'} poder) e focar o Don restante no Líder para fechar a partida.` : "Alocar Don massivamente nos atacantes e no Líder para sobrecarregar a defesa adversária e buscar a vitória letal."
+                        });
+                    } else {
+                        const t1Card = userBlockers[0] || userEarlyDrops.find(c => parseInt(c.card_cost || 0) === 2);
+                        idealCurveSteps.push({
+                            turn: "Turno 1",
+                            don: "2 Don",
+                            tag: "Desenvolvimento & Compra Extra",
+                            color: "emerald",
+                            action: t1Card ? `Baixar ${t1Card.card_name} (${t1Card.card_set_id}) ou acoplar 2 Don no Líder para ataque inicial forte de 7000 poder (+1 compra inicial do 2º turno).` : "Acoplar 2 Don no Líder para aplicar ataque inicial de 7000 de poder."
+                        });
+
+                        const t2Card = userMidDrops.find(c => parseInt(c.card_cost || 0) === 4) || userMidDrops[0];
+                        idealCurveSteps.push({
+                            turn: "Turno 2",
+                            don: "4 Don",
+                            tag: "Drop Perfeito de 4 Don",
+                            color: "emerald",
+                            action: t2Card ? `Descer no tempo perfeito ${t2Card.card_name} (${t2Card.card_set_id}) para estabelecer presença dominante de 5000+ poder.` : "Desenvolver personagens de custo 4 para ditar o ritmo da mesa."
+                        });
+
+                        const t3Card = userMidDrops.find(c => parseInt(c.card_cost || 0) === 6) || userMidDrops[0];
+                        idealCurveSteps.push({
+                            turn: "Turno 3",
+                            don: "6 Don",
+                            tag: "Controle de Mesa",
+                            color: "amber",
+                            action: t3Card ? `Descer ${t3Card.card_name} (${t3Card.card_set_id}) e manter Don ativo para respostas/eventos defensivos.` : "Realizar trocas vantajosas na mesa e manter atacantes ativos."
+                        });
+
+                        const t4Card = userBosses.find(c => parseInt(c.card_cost || 0) === 8) || userBosses[0];
+                        idealCurveSteps.push({
+                            turn: "Turno 4",
+                            don: "8 Don",
+                            tag: "Pico de Chefes",
+                            color: "amber",
+                            action: t4Card ? `Descer Boss ${t4Card.card_name} (${t4Card.card_set_id}) com alto poder de ataque e impacto no campo.` : "Colocar peças pesadas em campo para forçar o oponente a gastar a mão."
+                        });
+
+                        const t5Card = userBosses.find(c => parseInt(c.card_cost || 0) >= 9) || userBosses[0];
+                        idealCurveSteps.push({
+                            turn: "Turno 5+",
+                            don: "10 Don",
+                            tag: "Ataques Finais Letais",
+                            color: "purple",
+                            action: t5Card ? `Descer ${t5Card.card_name} (${t5Card.card_set_id}) e alocar todo o Don restante para desferir múltiplos ataques letais de 8000-10000 de poder.` : "Alocação total de 10 Don para sobrecarregar a mão do adversário e finalizar o jogo."
+                        });
+                    }
+
+                    // D) 3 Pilares Estratégicos de Pilotagem
+                    const pilotingPillars = [
+                        {
+                            phase: "Fase 1: Abertura & Consistência (Turnos 1 a 3)",
+                            icon: "🔍",
+                            text: `Utilize ${userSearchers[0] ? userSearchers[0].card_name : 'seus buscadores de custo baixo'} para filtrar a mão e garantir a chegada dos atacantes de curva. Não queime seus ${stats.counter_2000_count}x Counters +2000 em ataques fracos do início; tome 1 ou 2 danos de vida para abastecer a mão com novas opções.`
+                        },
+                        {
+                            phase: "Fase 2: Trocas & Domínio de Campo (Turnos 4 a 6)",
+                            icon: "⚔️",
+                            text: `Priorize atacar personagens virados (rested) do oponente com seus atacantes de ${userMidDrops[0] ? userMidDrops[0].card_name : '5000-6000 poder'} em vez de bater na vida desnecessariamente. Use ${userRemovals[0] ? userRemovals[0].card_name : 'suas remoções'} para neutralizar ameaças críticas sem precisar gastar múltiplos ataques.`
+                        },
+                        {
+                            phase: "Fase 3: Finalização & Pressão Letal (Turnos 7+)",
+                            icon: "👑",
+                            text: `Coloque seu Boss ${userBosses[0] ? userBosses[0].card_name : 'principal'} na mesa. Quando o adversário estiver com 0 ou 1 de vida, concentre o Don disponível nos seus atacantes mais fortes e no Líder (7000 a 9000+ de poder) para tornar a defesa impossível através da mão.`
+                        }
+                    ];
+
+                    const deckPlayGuide = {
+                        difficulty_level: diffLevel,
+                        difficulty_badge_class: diffBadgeClass,
+                        difficulty_stars: diffStars,
+                        difficulty_desc: diffDesc,
+                        win_condition_title: winCondTitle,
+                        win_condition_desc: winCondDesc,
+                        turn_preference: userPrefersFirstCurve ? "1º Turno (Ímpar - 1, 3, 5, 7, 9 Don)" : "2º Turno (Par - 2, 4, 6, 8, 10 Don)",
+                        turn_preference_reason: userPrefersFirstCurve 
+                            ? `Seu deck possui ${oddCostCount} cartas de custo ímpar vs ${evenCostCount} pares, encaixando com máxima eficiência a progressão de 1, 3, 5, 7 e 9 Don.`
+                            : `Seu deck possui ${evenCostCount} cartas de custo par vs ${oddCostCount} ímpares, aproveitando a compra extra e os picos de 2, 4, 6 e 8 Don.`,
+                        ideal_curve_steps: idealCurveSteps,
+                        piloting_pillars: pilotingPillars
+                    };
+
                     analysisResults.value = {
                         stats,
                         alignment,
                         matchups,
-                        structuralSuggestions
+                        structuralSuggestions,
+                        deckPlayGuide
                     };
                     
                     showDeckAnalysis.value = true;
@@ -5792,10 +6457,11 @@
                 };
 
                 const getCostBarHeight = (count) => {
-                    if (!count) return "0%";
-                    // Encontra o custo mais frequente para escalar o gráfico a 100% de altura
-                    const max = Math.max(1, ...Object.values(analysisResults.value.stats.cost_distribution));
-                    return (count / max * 100) + "%";
+                    if (!count || count <= 0) return "4px";
+                    const dist = (analysisResults.value && analysisResults.value.stats && analysisResults.value.stats.cost_distribution) ? analysisResults.value.stats.cost_distribution : {};
+                    const values = Object.values(dist);
+                    const max = Math.max(1, ...values);
+                    return Math.max(10, Math.round((count / max) * 100)) + "%";
                 };
 
                 const getWinrateColorClass = (winrate) => {

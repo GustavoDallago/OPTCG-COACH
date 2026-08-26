@@ -148,18 +148,27 @@ class TestDeckAnalyzer(unittest.TestCase):
         self.assertIn("🚨 Oponente Agressivo", guide_aggro["tactical_badge"])
         self.assertIn("Otama", guide_aggro["mulligan_tips"])
         self.assertIn("Early Game", guide_aggro["don_strategy"]["early"])
+        self.assertIn("user_avg_cost", guide_aggro)
+        self.assertIn("opp_avg_cost", guide_aggro)
+        self.assertIn("hand_composition", guide_aggro)
+        self.assertIn("searchers", guide_aggro["hand_composition"])
+        self.assertIn("bricks", guide_aggro["hand_composition"])
+        self.assertTrue(len(guide_aggro["opp_curve_strategy"]) > 0)
 
         # Test Control opponent
         opp_control = {"name": "Marshall.D.Teach (Black)", "leader_card_id": "OP09-081"}
         meta_cards = [
-            {"card_id": "OP17-095", "card_name": "Zoro", "inclusion_percentage": 100.0},
-            {"card_id": "OP17-056", "card_name": "Sanji", "inclusion_percentage": 90.0}
+            {"card_id": "OP17-095", "card_name": "Zoro", "inclusion_percentage": 100.0, "card_cost": "5"},
+            {"card_id": "OP17-056", "card_name": "Sanji", "inclusion_percentage": 90.0, "card_cost": "4"}
         ]
         guide_control = generate_dynamic_combat_guide(user_deck, opp_control, leader_meta_cards=meta_cards)
         self.assertEqual(guide_control["tactical_type"], "control")
         self.assertIn("🛡️ Oponente de Controle", guide_control["tactical_badge"])
         self.assertIn("Zoro", guide_control["mulligan_tips"])
         self.assertTrue(len(guide_control["key_counter_cards"]) > 0)
+        self.assertIn("searchers", guide_control["hand_composition"])
+        self.assertIn("bricks", guide_control["hand_composition"])
+        self.assertIn("opp_curve_strategy", guide_control)
 
         zoro_entry = next((c for c in guide_control["key_counter_cards"] if c["card_id"] == "OP17-095"), None)
         self.assertIsNotNone(zoro_entry)
@@ -169,6 +178,15 @@ class TestDeckAnalyzer(unittest.TestCase):
         self.assertIsNotNone(sanji_entry)
         self.assertFalse(sanji_entry["in_deck"])
         self.assertTrue(sanji_entry["winrate_boost"] > 0)
+
+        # Test Deck without Blockers and without 2k counters
+        deck_no_defense = [
+            {"card_name": "Luffy", "card_set_id": "OP01-001", "card_cost": "4", "card_power": "6000", "card_type": "Character"},
+            {"card_name": "Zoro", "card_set_id": "OP01-025", "card_cost": "3", "card_power": "5000", "card_type": "Character"}
+        ]
+        guide_no_def = generate_dynamic_combat_guide(deck_no_defense, opp_control)
+        self.assertNotIn("Blocker (Blocker)", guide_no_def["hand_composition"]["defenses"])
+        self.assertIn("0x (Sem Blockers", guide_no_def["hand_composition"]["defenses"])
 
     def test_banned_pairs_and_copy_limit_violations(self):
         """Tests that illegal card pairs and over-copy limits are correctly detected."""

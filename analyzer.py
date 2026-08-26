@@ -73,11 +73,23 @@ class KeyCounterCard(TypedDict):
     status_badge: str
     tip: str
 
+class HandComposition(TypedDict):
+    searchers: str
+    attackers: str
+    defenses: str
+    bricks: str
+
 class CombatGuideReport(TypedDict):
     tactical_badge: str
     tactical_type: str
     tactical_message: str
+    user_avg_cost: str
+    opp_avg_cost: str
+    turn_preference_title: str
+    turn_preference_desc: str
+    opp_curve_strategy: str
     turn_preference: str
+    hand_composition: HandComposition
     mulligan_tips: str
     don_strategy: Dict[str, str]
     matchup_explanation: str
@@ -594,7 +606,7 @@ def generate_dynamic_combat_guide(
     is_big = any(k in opp_name for k in ["teach", "kaido", "enel", "linlin", "luffy", "sabo", "sakazuki", "kuzan"])
     opp_type = 'aggro' if is_aggro else ('control' if is_big else 'tempo')
 
-    # Categorize user cards
+    # Categorize user cards and compute user average cost
     searchers = []
     blockers = []
     bosses = []
@@ -604,22 +616,28 @@ def generate_dynamic_combat_guide(
     mid_drops = []
     odd_count = 0
     even_count = 0
+    user_total_cost = 0
+    user_total_cards = 0
 
     user_deck_set_map: Dict[str, int] = {}
     for c in user_deck_cards:
         cid = (c.get("card_set_id") or c.get("card_id") or "").strip().upper()
+        qty = int(c.get("quantity", 1))
         if cid:
-            user_deck_set_map[cid] = user_deck_set_map.get(cid, 0) + int(c.get("quantity", 1))
+            user_deck_set_map[cid] = user_deck_set_map.get(cid, 0) + qty
 
         txt = (c.get("card_text") or "").lower()
         cost = int(c.get("card_cost") or 0)
         counter = int(c.get("counter_amount") or 0)
         ctype = (c.get("card_type") or "").lower()
 
+        user_total_cost += cost * qty
+        user_total_cards += qty
+
         if cost % 2 == 1:
-            odd_count += 1
+            odd_count += qty
         elif cost > 0:
-            even_count += 1
+            even_count += qty
 
         if cost <= 2 and any(k in txt for k in ["look", "search", "reveal", "add"]):
             searchers.append(c)
@@ -636,11 +654,43 @@ def generate_dynamic_combat_guide(
         if 4 <= cost <= 6 and ctype == "character":
             mid_drops.append(c)
 
+    user_avg_cost = f"{user_total_cost / user_total_cards:.1f}" if user_total_cards > 0 else "3.5"
+
     searchers.sort(key=lambda x: int(x.get("card_cost") or 0))
     blockers.sort(key=lambda x: int(x.get("card_cost") or 0))
     early_drops.sort(key=lambda x: int(x.get("card_power") or 0), reverse=True)
     mid_drops.sort(key=lambda x: int(x.get("card_power") or 0), reverse=True)
     bosses.sort(key=lambda x: int(x.get("card_power") or 0), reverse=True)
+
+    # Opponent cost and curve analysis
+    opp_meta = leader_meta_cards or []
+    opp_total_cost = 0
+    opp_total_cards = 0
+    opp_odd_count = 0
+    opp_even_count = 0
+    opp_early_drops = []
+    opp_mid_drops = []
+
+    for mc in opp_meta:
+        c_cost = int(mc.get("card_cost") or 0)
+        c_qty = int(mc.get("avg_copies") or 3)
+        opp_total_cost += c_cost * c_qty
+        opp_total_cards += c_qty
+        if c_cost % 2 == 1:
+            opp_odd_count += c_qty
+        elif c_cost > 0:
+            opp_even_count += c_qty
+        if 1 <= c_cost <= 3:
+            opp_early_drops.append(mc)
+        elif 4 <= c_cost <= 6:
+            opp_mid_drops.append(mc)
+
+    if opp_total_cards > 0:
+        opp_avg_cost = f"{opp_total_cost / opp_total_cards:.1f}"
+    else:
+        opp_avg_cost = "2.8" if is_aggro else ("4.8" if is_big else "3.6")
+        opp_odd_count = 28 if is_aggro else 20
+        opp_even_count = 22 if is_aggro else 30
 
     # Posture recommendation
     if is_aggro:
@@ -653,33 +703,225 @@ def generate_dynamic_combat_guide(
         badge = "🔄 Oponente de Ritmo (Manipulação & Recursos)"
         msg = "Este líder manipula a mesa virando ou retornando peças. Postura recomendada: JOGO CADENCIADO E VALOR. Faça trocas vantajosas e evite deixar personagens virados sem proteção."
 
-    # Turn preference analysis
+    # Turn preference & steal-curve analysis
     top_searcher = searchers[0] if searchers else None
     top_blocker = blockers[0] if blockers else None
     top_2k = counters_2k[0] if counters_2k else None
+    top_early = early_drops[0] if early_drops else None
     top_mid = mid_drops[0] if mid_drops else None
     top_boss = bosses[0] if bosses else None
     top_removal = removals[0] if removals else None
 
-    if odd_count >= even_count:
-        pref_title = "Primeiro (Ímpar - 1, 3, 5, 7, 9 Don!!)"
-        pref_desc = f"Seu deck possui predominância de custos ímpares ({odd_count} cartas). Ir primeiro encaixa com perfeição sua curva ideal sem deixar Don ocioso."
+    user_prefers_first = odd_count >= even_count
+    opp_prefers_first = opp_odd_count >= opp_even_count
+
+    if opp_prefers_first:
+        opp_curve_scenarios = {
+            "ideal_label": f"Melhor Curva para {opp_display_name}",
+            "ideal_badge": "1º Turno (Ímpar)",
+            "ideal_desc": f"Curva ideal de {opp_display_name}: PRIMEIRO (Média: {opp_avg_cost} Don, {opp_odd_count} cartas ímpares){' para descer ' + top_early.get('card_name') + ' no Turno 1/2' if top_early else ''} e acelerar o desenvolvimento de campo sem desperdício de Don.",
+            "steal_label": "Tática de Bloqueio (Roubar Curva)",
+            "steal_badge": "Escolha ir 1º para bloquear",
+            "steal_desc": f"Se você escolher ir PRIMEIRO, você rouba a curva do oponente, quebrando a sequência rápida de {opp_display_name} e forçando-o a jogar no 2º turno com Don desfavorável no início."
+        }
     else:
-        pref_title = "Segundo (Par - 2, 4, 6, 8, 10 Don!!)"
-        pref_desc = f"Seu deck possui predominância de custos pares ({even_count} cartas). Ir segundo garante +1 carta comprada e curva de Don sincronizada."
+        opp_curve_scenarios = {
+            "ideal_label": f"Melhor Curva para {opp_display_name}",
+            "ideal_badge": "2º Turno (Par)",
+            "ideal_desc": f"Curva ideal de {opp_display_name}: SEGUNDO (Média: {opp_avg_cost} Don, {opp_even_count} cartas pares){' para descer ' + top_mid.get('card_name') + ' no tempo perfeito' if top_mid else ''} e aproveitar a compra extra inicial.",
+            "steal_label": "Tática de Bloqueio (Roubar Curva)",
+            "steal_badge": "Escolha ir 2º para bloquear",
+            "steal_desc": f"Se você escolher ir SEGUNDO, você atrasa a descida do drop par do oponente{' (' + top_mid.get('card_name') + ')' if top_mid else ''} em 1 rodada inteira, mas precisará adaptar seus custos para aproveitar o Don livre."
+        }
+
+    turn_scenarios = {}
+    if user_prefers_first and opp_prefers_first:
+        pref_title = "Disputa de Turno! Escolha PRIMEIRO (Ímpar - 1, 3, 5, 7, 9 Don!!)"
+        pref_desc = f"Seu deck (Média: {user_avg_cost} Don, {odd_count} cartas ímpares) e o de {opp_display_name} (Média: {opp_avg_cost} Don) disputam a mesma curva inicial. Escolha PRIMEIRO para garantir seu tempo de jogo e ROUBAR A CURVA DO ADVERSÁRIO, forçando {opp_display_name} a jogar no 2º turno com Don ocioso."
+        opp_strategy = f"Curva ideal de {opp_display_name}: PRIMEIRO (Média {opp_avg_cost} Don). Ao pegar o 1º turno, você impede a aceleração de custos ímpares do oponente."
+        turn_scenarios = {
+            "option1_label": "Opção 1: Ímpar",
+            "option1_badge": "1º Turno (Ímpar - Drop Cheio)",
+            "option1_desc": f"Seu deck é mais ágil em custos ímpares (Média: {user_avg_cost} Don, {odd_count} cartas ímpares), enquanto {opp_display_name} (Média: {opp_avg_cost} Don) disputa a mesma curva. Ir PRIMEIRO ativa seu plano de drop cheio e ROUBA A CURVA DO ADVERSÁRIO, forçando {opp_display_name} a jogar no 2º turno com Don ocioso.",
+            "option2_label": "Opção 2: Par",
+            "option2_badge": "2º Turno (Par - Don Aberto / Reativo)",
+            "option2_desc": "Se você quiser jogar de forma reativa com 1 Don em pé para Eventos de Counter ou bater 6k no Líder, escolher o 2º Turno (2, 4, 6, 8 Don) encaixa suas peças de 1, 3 e 5 Don com 1 Don livre todo turno!"
+        }
+    elif not user_prefers_first and not opp_prefers_first:
+        pref_title = "Disputa de Turno! Escolha SEGUNDO (Par - 2, 4, 6, 8, 10 Don!!)"
+        pref_desc = f"Ambos os decks possuem custos pares predominantes (Seu Deck: Média {user_avg_cost} Don | Oponente: Média {opp_avg_cost} Don). Escolha SEGUNDO para sincronizar seus custos pares, receber +1 carta de compra inicial E ROUBAR A CURVA DO ADVERSÁRIO, impedindo a jogada de 4 Don no turno 2 de {opp_display_name}."
+        opp_strategy = f"Curva ideal de {opp_display_name}: SEGUNDO (Média {opp_avg_cost} Don). Escolher o 2º turno força o oponente a jogar fora da curva par favorita dele."
+        turn_scenarios = {
+            "option1_label": "Opção 1: Par",
+            "option1_badge": "2º Turno (Par - Drop Cheio)",
+            "option1_desc": f"Ambos os decks possuem custos pares predominantes (Seu Deck: Média {user_avg_cost} Don | Oponente: Média {opp_avg_cost} Don). Escolha ir SEGUNDO para sincronizar seus custos pares, receber +1 carta de compra inicial E ROUBAR A CURVA DO ADVERSÁRIO, impedindo o drop de 4 Don no Turno 2 de {opp_display_name}.",
+            "option2_label": "Opção 2: Ímpar",
+            "option2_badge": "1º Turno (Ímpar - Don Aberto / Reativo)",
+            "option2_desc": "Se você quiser jogar no 1º Turno (1, 3, 5, 7 Don), você desce suas cartas de custo par (2, 4 e 6 Don) e sobra exatamente 1 Don ativo para Eventos Defensivos ou bater com Don anexado no Líder!"
+        }
+    elif user_prefers_first and not opp_prefers_first:
+        pref_title = "Escolha PRIMEIRO (Ímpar - 1, 3, 5, 7, 9 Don!!)"
+        pref_desc = f"Seu deck é mais ágil em custos ímpares (Média: {user_avg_cost} Don), enquanto {opp_display_name} prefere a curva par (Média: {opp_avg_cost} Don). Ir PRIMEIRO ativa seu plano de drop cheio sem desperdício de Don."
+        opp_strategy = f"Curva ideal de {opp_display_name}: SEGUNDO (Média {opp_avg_cost} Don). 💡 Tática de Bloqueio (Roubar Curva): Se optar por ir 2º, você atrasa os drops pares do oponente, mas precisará adaptar seus custos."
+        turn_scenarios = {
+            "option1_label": "Opção 1: Ímpar",
+            "option1_badge": "1º Turno (Ímpar - Drop Cheio)",
+            "option1_desc": f"Seu deck é mais ágil em custos ímpares (Média: {user_avg_cost} Don), enquanto {opp_display_name} prefere a curva par (Média: {opp_avg_cost} Don). Ir PRIMEIRO ativa seu plano de drop cheio sem desperdício de Don.",
+            "option2_label": "Opção 2: Par",
+            "option2_badge": "2º Turno (Par - Don Aberto / Reativo)",
+            "option2_desc": "Se você quiser jogar de forma reativa com 1 Don em pé para Eventos ou bater 6k no Líder, escolher o 2º Turno (2, 4, 6, 8 Don) encaixa suas peças de 1, 3 e 5 Don com 1 Don livre todo turno!"
+        }
+    else:
+        pref_title = "Escolha SEGUNDO (Par - 2, 4, 6, 8, 10 Don!!)"
+        pref_desc = f"Seu deck performa melhor na curva par (Média: {user_avg_cost} Don, {even_count} cartas pares). Ir SEGUNDO dá +1 carta na mão e permite responder imediatamente à pressão de {opp_display_name} (Média: {opp_avg_cost} Don)."
+        opp_strategy = f"Curva ideal de {opp_display_name}: PRIMEIRO (Média {opp_avg_cost} Don). 💡 Tática de Bloqueio: Ir 1º desestrutura o início rápido dele, mas exige cartas de custo 1 e 3 na mão."
+        turn_scenarios = {
+            "option1_label": "Opção 1: Par",
+            "option1_badge": "2º Turno (Par - Drop Cheio)",
+            "option1_desc": f"Seu deck performa melhor na curva par (Média: {user_avg_cost} Don, {even_count} cartas pares). Ir SEGUNDO dá +1 compra e encaixa seus drops de 2, 4 e 6 Don, além de permitir responder de imediato à agressão de {opp_display_name} (Média: {opp_avg_cost} Don).",
+            "option2_label": "Opção 2: Ímpar",
+            "option2_badge": "1º Turno (Ímpar - Don Aberto / Reativo)",
+            "option2_desc": "Se você optar pelo 1º Turno (1, 3, 5, 7 Don), você quebra o início rápido de {opp_display_name} e desce seus drops pares de 2, 4 e 6 Don com 1 Don ativo de folga para Eventos de Counter ou ataque com o Líder!"
+        }
+
+    # Hand Composition
+    hand_searcher_str = f"1x {top_searcher.get('card_name')} (Garante fluxo)" if top_searcher else "0x (Sem buscador 1-2)"
+    
+    if top_early and top_mid:
+        if is_aggro:
+            hand_attacker_str = f"1-2x {top_early.get('card_name')} (Contestar atacantes virados)"
+        elif is_big:
+            hand_attacker_str = f"1-2x {top_mid.get('card_name')} (Pressão direta na Vida)"
+        else:
+            hand_attacker_str = f"1x {top_early.get('card_name')} + 1x {top_mid.get('card_name')}"
+    elif top_early:
+        hand_attacker_str = f"1-2x {top_early.get('card_name')} (Ataque proativo)"
+    elif top_mid:
+        hand_attacker_str = f"1-2x {top_mid.get('card_name')} (Presença de campo)"
+    else:
+        hand_attacker_str = "0x (Sem atacantes de custo 1-6 no deck)"
+
+    if top_blocker and top_2k:
+        if is_aggro:
+            hand_defense_str = f"1-2x {top_blocker.get('card_name')} + 1-2x {top_2k.get('card_name')}"
+        elif is_big:
+            hand_defense_str = f"1x {top_2k.get('card_name')} + {'1x ' + top_removal.get('card_name') if top_removal else '1x ' + top_blocker.get('card_name')}"
+        else:
+            hand_defense_str = f"1x {top_blocker.get('card_name')} + 1x {top_2k.get('card_name')}"
+    elif top_blocker:
+        if is_aggro:
+            hand_defense_str = f"2x {top_blocker.get('card_name')} (Proteção de mesa)"
+        else:
+            hand_defense_str = f"1-2x {top_blocker.get('card_name')} (Controle de dano)"
+    elif top_2k:
+        if is_aggro:
+            hand_defense_str = f"2x {top_2k.get('card_name')} (Sem blocker: foco em +2000)"
+        else:
+            hand_defense_str = f"1-2x {top_2k.get('card_name')} (Counter de emergência)"
+    else:
+        hand_defense_str = "0x (Sem Blockers e sem Counters +2000 no deck!)"
+
+    hand_brick_str = f"Máximo 0-1x {top_boss.get('card_name')} (2+ = Mão travada/Brick)" if top_boss else "0x (Deck ágil sem cartas de custo 7+)"
+
+    hand_comp: HandComposition = {
+        "searchers": hand_searcher_str,
+        "attackers": hand_attacker_str,
+        "defenses": hand_defense_str,
+        "bricks": hand_brick_str
+    }
 
     # Mulligan advice
+    defense_items = []
+    if top_2k:
+        defense_items.append(f"+2000 Counter ({top_2k.get('card_name')})")
+    if top_blocker:
+        defense_items.append(f"Blocker ({top_blocker.get('card_name')})")
+    defense_mention = " / ".join(defense_items) if defense_items else "suas defesas disponíveis"
+
+    proactive_items = []
+    if top_searcher:
+        proactive_items.append(f"Buscador ({top_searcher.get('card_name')})")
+    if top_early:
+        proactive_items.append(f"Drop inicial ({top_early.get('card_name')})")
+    if top_mid:
+        proactive_items.append(f"Atacante de curva ({top_mid.get('card_name')})")
+    proactive_mention = " + ".join(proactive_items) if proactive_items else "peças de ataque proativo"
+
     if is_aggro:
-        mulligan = f"🚨 Prioridade contra Agressividade: Mantenha defesas e cartas de custo baixo (ex: {top_searcher.get('card_name') if top_searcher else 'Buscador'} e {top_2k.get('card_name') if top_2k else '+2000 Counter'}). Se a mão vier pesada, faça Mulligan imediatamente."
+        mulligan = f"🚨 Prioridade contra Agressividade ({opp_display_name}): Mantenha {('Buscador (' + top_searcher.get('card_name') + ')') if top_searcher else (('Drop inicial (' + top_early.get('card_name') + ')') if top_early else 'drops rápidos')} e defesas ({defense_mention}). MULLIGAN IMEDIATO se a mão vier {('com 2+ cópias de ' + top_boss.get('card_name') + ' (Bricks)') if top_boss else 'pesada'} ou sem nenhuma resposta para os turnos 1 a 3."
     elif is_big:
-        mulligan = f"🛡️ Prioridade contra Controle: Garanta peças de ataque proativo (ex: {top_mid.get('card_name') if top_mid else 'Atacante Mid'} e {top_searcher.get('card_name') if top_searcher else 'Buscador'}) para pressionar antes do turno 10."
+        mulligan = f"🛡️ Prioridade contra Controle ({opp_display_name}): Garanta {proactive_mention} para pressionar a vida do oponente antes do turno 10. MULLIGAN IMEDIATO se a mão for puramente defensiva/passiva ou contiver cartas mortas sem presença de mesa inicial."
     else:
-        mulligan = "🔄 Prioridade para Ritmo: Busque curva balanceada de custo baixo e médio para trocas de recursos eficientes."
+        mulligan = f"🔄 Prioridade para Ritmo ({opp_display_name}): Busque curva balanceada {('com ' + top_early.get('card_name')) if top_early else 'de custo baixo'} e {top_mid.get('card_name') if top_mid else 'custo médio'}. Dê Mulligan se a mão não tiver nenhuma jogada para os dois primeiros turnos."
 
     # Don curve strategy
-    early = f"Early Game (1-4 Don): Baixar {top_searcher.get('card_name') if top_searcher else 'buscador/drop inicial'} para estruturar o campo."
-    mid = f"Mid Game (5-8 Don): Estabelecer {top_mid.get('card_name') if top_mid else 'atacante de custo médio'} para controlar a mesa."
-    late = f"Late Game (9-10 Don): Descer {top_boss.get('card_name') if top_boss else 'Boss principal'} para finalizar com alta força."
+    if is_aggro:
+        if top_early and top_blocker:
+            early = f"Early Game (1-4 Don): Baixar {top_early.get('card_name')} ({top_early.get('card_set_id')}) e posicionar seu blocker {top_blocker.get('card_name')} ({top_blocker.get('card_set_id')}) para disputar a mesa. Ataque apenas personagens virados de {opp_display_name} e evite dar dano na vida que aumente a mão adversária."
+        elif top_early:
+            early = f"Early Game (1-4 Don): Baixar {top_early.get('card_name')} ({top_early.get('card_set_id')}) para contestar os primeiros atacantes de {opp_display_name}. Ataque apenas personagens virados dele e evite dar dano na vida que aumente a mão adversária."
+        elif top_blocker:
+            early = f"Early Game (1-4 Don): Posicionar seu blocker {top_blocker.get('card_name')} ({top_blocker.get('card_set_id')}) para conter os primeiros ataques rápidos de {opp_display_name}."
+        else:
+            early = f"Early Game (1-4 Don): Utilizar Don no Líder para trocas vantajosas contra os primeiros atacantes virados de {opp_display_name} e preservar seus pontos de vida."
+
+        if top_mid and top_removal:
+            mid = f"Mid Game (5-8 Don): Estabelecer {top_mid.get('card_name')} ({top_mid.get('card_set_id')}) e usar {top_removal.get('card_name')} ({top_removal.get('card_set_id')}) para limpar atacantes virados, neutralizando a ofensiva inimiga."
+        elif top_mid:
+            mid = f"Mid Game (5-8 Don): Desenvolver {top_mid.get('card_name')} ({top_mid.get('card_set_id')}) com poder 5000+ para controlar a mesa e punir personagens virados de {opp_display_name}."
+        elif top_removal:
+            mid = f"Mid Game (5-8 Don): Usar {top_removal.get('card_name')} ({top_removal.get('card_set_id')}) para remover peças-chave adversárias e desacelerar a pressão."
+        else:
+            mid = f"Mid Game (5-8 Don): Usar seus personagens intermediários e o Don no Líder para manter a mesa limpa e conter a agressividade."
+
+        if top_boss:
+            late = f"Late Game (9-10 Don): Descer seu Boss {top_boss.get('card_name')} ({top_boss.get('card_set_id')}) com 8000+ de poder e usar Don no Líder para aplicar ataques pesados decisivos na vida, aproveitando que a mão de {opp_display_name} estará esgotada."
+        else:
+            late = f"Late Game (9-10 Don): Distribuir Don nos atacantes estabelecidos e no Líder para ataques com 7000-8000+ de poder para finalizar a partida enquanto o oponente está sem recursos."
+    elif is_big:
+        if top_searcher and top_early:
+            early = f"Early Game (1-4 Don): Baixar {top_searcher.get('card_name')} ({top_searcher.get('card_set_id')}) para filtrar a mão e desenvolver {top_early.get('card_name')} ({top_early.get('card_set_id')}) para iniciar pressão direta na vida de {opp_display_name} antes que ele tenha Don para os chefes de late game."
+        elif top_searcher:
+            early = f"Early Game (1-4 Don): Baixar {top_searcher.get('card_name')} ({top_searcher.get('card_set_id')}) para filtrar sua mão e buscar seus atacantes e remoções antes do late game de {opp_display_name}."
+        elif top_early:
+            early = f"Early Game (1-4 Don): Baixar {top_early.get('card_name')} ({top_early.get('card_set_id')}) para iniciar pressão proativa na vida de {opp_display_name} nos primeiros turnos."
+        else:
+            early = f"Early Game (1-4 Don): Acoplar Don no Líder para atacar a vida de {opp_display_name} e forçar o oponente a queimar cartas da mão se defendendo."
+
+        if top_mid and top_removal:
+            mid = f"Mid Game (5-8 Don): Colocar {top_mid.get('card_name')} ({top_mid.get('card_set_id')}) em campo para forçar o oponente a gastar cartas da mão se defendendo, guardando {top_removal.get('card_name')} ({top_removal.get('card_set_id')}) para responder ao primeiro Boss que {opp_display_name} descer."
+        elif top_mid:
+            mid = f"Mid Game (5-8 Don): Desenvolver {top_mid.get('card_name')} ({top_mid.get('card_set_id')}) para manter pressão contínua na vida de {opp_display_name} antes dos turnos 8 a 10."
+        elif top_removal:
+            mid = f"Mid Game (5-8 Don): Guardar {top_removal.get('card_name')} ({top_removal.get('card_set_id')}) para responder de imediato aos personagens gigantes que {opp_display_name} colocar em campo."
+        else:
+            mid = f"Mid Game (5-8 Don): Pressionar com ataques médios sucessivos para forçar o oponente a entrar no late game com a vida zerada ou poucos recursos na mão."
+
+        if top_boss:
+            late = f"Late Game (9-10 Don): Descer seu Boss {top_boss.get('card_name')} ({top_boss.get('card_set_id')}) de impacto para confrontar os monstros de {opp_display_name} e focar todo o Don restante em golpes letais antes que ele recupere o controle total."
+        else:
+            late = f"Late Game (9-10 Don): Alocar todo o Don restante nos atacantes e no Líder para buscar a vitória letal antes que os chefes pesados de {opp_display_name} dominem a partida."
+    else:
+        if top_searcher and top_early:
+            early = f"Early Game (1-4 Don): Desenvolver {top_searcher.get('card_name')} ({top_searcher.get('card_set_id')}) para consistência e {top_early.get('card_name')} ({top_early.get('card_set_id')}) para presença de mesa inicial."
+        elif top_searcher:
+            early = f"Early Game (1-4 Don): Desenvolver {top_searcher.get('card_name')} ({top_searcher.get('card_set_id')}) para estruturar a mão e garantir fluxo de cartas para os turnos médios."
+        elif top_early:
+            early = f"Early Game (1-4 Don): Baixar {top_early.get('card_name')} ({top_early.get('card_set_id')}) para estabelecer presença de campo nos primeiros turnos."
+        else:
+            early = f"Early Game (1-4 Don): Distribuir Don no Líder para trocas eficientes e segurar Don ativo para eventos defensivos."
+
+        if top_mid and top_removal:
+            mid = f"Mid Game (5-8 Don): Realizar trocas vantajosas na mesa com {top_mid.get('card_name')} ({top_mid.get('card_set_id')}) e utilizar {top_removal.get('card_name')} ({top_removal.get('card_set_id')}) para quebrar o ritmo de {opp_display_name}."
+        elif top_mid:
+            mid = f"Mid Game (5-8 Don): Desenvolver {top_mid.get('card_name')} ({top_mid.get('card_set_id')}) para ditar o ritmo de mesa e pressionar peças adversárias."
+        else:
+            mid = f"Mid Game (5-8 Don): Manter seus atacantes intermediários ativos para trocas de recursos equilibradas e preservar Don para respostas."
+
+        if top_boss:
+            late = f"Late Game (9-10 Don): Descer seu Boss {top_boss.get('card_name')} ({top_boss.get('card_set_id')}) e alocar Don estrategicamente para finalizar a partida com sobrecarga de poder."
+        else:
+            late = f"Late Game (9-10 Don): Alocar Don estrategicamente nos atacantes estabelecidos e no Líder para aplicar ataques múltiplos difíceis de defender."
 
     def get_clean_name(n: str) -> str:
         return re.sub(r'\s*\([^)]*\)', '', n).strip().lower()
@@ -908,7 +1150,15 @@ def generate_dynamic_combat_guide(
         "tactical_badge": badge,
         "tactical_type": opp_type,
         "tactical_message": msg,
+        "user_avg_cost": user_avg_cost,
+        "opp_avg_cost": opp_avg_cost,
+        "turn_preference_title": pref_title,
+        "turn_preference_desc": pref_desc,
+        "turn_scenarios": turn_scenarios,
+        "opp_curve_strategy": opp_strategy,
+        "opp_curve_scenarios": opp_curve_scenarios,
         "turn_preference": f"{pref_title} - {pref_desc}",
+        "hand_composition": hand_comp,
         "mulligan_tips": mulligan,
         "don_strategy": {
             "early": early,
