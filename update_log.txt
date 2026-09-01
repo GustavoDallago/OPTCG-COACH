@@ -366,3 +366,21 @@ NameError: name 'Optional' is not defined
 [2026-08-31 09:08:17 UTC] ==========================================
 [2026-08-31 09:08:17 UTC] SUCCESS: All update tasks completed flawlessly!
 [2026-08-31 09:08:17 UTC] ==========================================
+[2026-09-01 08:06:25 UTC] ==========================================
+[2026-09-01 08:06:25 UTC] Starting Full Automatic Update Pipeline...
+[2026-09-01 08:06:25 UTC] ==========================================
+[2026-09-01 08:06:25 UTC] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_optcg_data.py
+[2026-09-01 08:06:36 UTC] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_optcg_data.py
+[2026-09-01 08:06:36 UTC] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_banlist.py
+[2026-09-01 08:06:37 UTC] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_banlist.py
+[2026-09-01 08:06:37 UTC] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_limitless.py --set OP17 --min-players 8
+[2026-09-01 08:10:47 UTC] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_limitless.py --set OP17 --min-players 8
+[2026-09-01 08:10:47 UTC] Recalculating decks_tracked for all meta JSON files...
+[2026-09-01 08:10:47 UTC] Updated decks_tracked in 13 files.
+[2026-09-01 08:10:47 UTC] Generating optcg_data/manifest.json...
+[2026-09-01 08:10:47 UTC] manifest.json generated: 13 sets available.
+[2026-09-01 08:10:47 UTC] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python -m unittest test_deck_analyzer.py
+[2026-09-01 08:10:47 UTC] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python -m unittest test_deck_analyzer.py
+[2026-09-01 08:10:47 UTC] ==========================================
+[2026-09-01 08:10:47 UTC] SUCCESS: All update tasks completed flawlessly!
+[2026-09-01 08:10:47 UTC] ==========================================
