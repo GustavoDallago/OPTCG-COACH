@@ -402,3 +402,21 @@ NameError: name 'Optional' is not defined
 [2026-09-02 07:28:46 UTC] ==========================================
 [2026-09-02 07:28:46 UTC] SUCCESS: All update tasks completed flawlessly!
 [2026-09-02 07:28:46 UTC] ==========================================
+[2026-09-02 17:21:40 UTC] ==========================================
+[2026-09-02 17:21:40 UTC] Starting Full Automatic Update Pipeline...
+[2026-09-02 17:21:40 UTC] ==========================================
+[2026-09-02 17:21:40 UTC] Executing: C:\Python314\python.exe fetch_optcg_data.py
+[2026-09-02 17:22:12 UTC] SUCCESS: C:\Python314\python.exe fetch_optcg_data.py
+[2026-09-02 17:22:12 UTC] Executing: C:\Python314\python.exe scrape_banlist.py
+[2026-09-02 17:22:14 UTC] SUCCESS: C:\Python314\python.exe scrape_banlist.py
+[2026-09-02 17:22:14 UTC] Executing: C:\Python314\python.exe scrape_limitless.py --set OP17 --min-players 8
+[2026-09-02 17:28:12 UTC] SUCCESS: C:\Python314\python.exe scrape_limitless.py --set OP17 --min-players 8
+[2026-09-02 17:28:12 UTC] Recalculating decks_tracked for all meta JSON files...
+[2026-09-02 17:28:12 UTC] Updated decks_tracked in 13 files.
+[2026-09-02 17:28:12 UTC] Generating optcg_data/manifest.json...
+[2026-09-02 17:28:12 UTC] manifest.json generated: 13 sets available.
+[2026-09-02 17:28:12 UTC] Executing: C:\Python314\python.exe -m unittest test_deck_analyzer.py
+[2026-09-02 17:28:13 UTC] SUCCESS: C:\Python314\python.exe -m unittest test_deck_analyzer.py
+[2026-09-02 17:28:13 UTC] ==========================================
+[2026-09-02 17:28:13 UTC] SUCCESS: All update tasks completed flawlessly!
+[2026-09-02 17:28:13 UTC] ==========================================

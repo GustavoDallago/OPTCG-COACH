@@ -236,8 +236,8 @@
                                 @change="onSetIdChange"
                                 class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-slate-300">
                                 <option value="">Todas as Coleções (OP/EB/PRB)</option>
-                                <option v-for="set in sets" :key="set.set_id" :value="set.set_id">
-                                    {{ set.set_name }} ({{ set.set_id }})
+                                <option v-for="set in sortedSets" :key="set.set_id" :value="set.set_id">
+                                    {{ formatSetDisplayName(set) }}
                                 </option>
                             </select>
                         </div>
@@ -250,8 +250,8 @@
                                 @change="onDeckIdChange"
                                 class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-slate-300">
                                 <option value="">Todos os Starter Decks (ST)</option>
-                                <option v-for="deck in decks" :key="deck.structure_deck_id" :value="deck.structure_deck_id">
-                                    {{ deck.structure_deck_name }} ({{ deck.structure_deck_id }})
+                                <option v-for="deck in sortedDecks" :key="deck.structure_deck_id" :value="deck.structure_deck_id">
+                                    {{ formatDeckDisplayName(deck) }}
                                 </option>
                             </select>
                         </div>
@@ -269,7 +269,7 @@
                                 <option value="Purple">Roxo (Purple)</option>
                                 <option value="Black">Preto (Black)</option>
                                 <option value="Yellow">Amarelo (Yellow)</option>
-                                <option value="Multi">Multicolor (Contém "/")</option>
+                                <option value="Multi">Multicolor (2 ou mais cores)</option>
                             </select>
                         </div>
 
@@ -582,7 +582,7 @@
                                 </div>
                                 <div>
                                     <div class="flex flex-wrap items-center gap-2">
-                                        <span class="bg-amber-500 text-slate-950 font-black text-[10px] uppercase px-2 py-0.5 rounded shadow-sm">#1 O Mais Famoso do Formato</span>
+                                        <span class="bg-amber-500 text-slate-950 font-black text-[10px] uppercase px-2 py-0.5 rounded shadow-sm">#1 O Mais Popular do Formato</span>
                                         <span class="text-xs text-amber-400 font-mono font-bold">{{ topMetaLeader.deck_count }} Decks ({{ topMetaLeader.share_percentage }}% Share)</span>
                                         <span v-if="topMetaLeader.overall_winrate" class="text-xs text-emerald-400 font-mono font-bold">• {{ topMetaLeader.overall_winrate }}% Win Rate</span>
                                     </div>
@@ -1653,7 +1653,7 @@
                                 v-model="collectionFilters.setId"
                                 class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amber-500 text-slate-200">
                                 <option value="">Todas</option>
-                                <option v-for="s in sets" :key="s.set_id" :value="s.set_id">{{ s.set_name }} ({{ s.set_id }})</option>
+                                <option v-for="s in sortedSets" :key="s.set_id" :value="s.set_id">{{ formatSetDisplayName(s) }}</option>
                             </select>
                         </div>
 
@@ -1664,7 +1664,7 @@
                                 v-model="collectionFilters.deckId"
                                 class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs focus:outline-none focus:border-amber-500 text-slate-200">
                                 <option value="">Todos</option>
-                                <option v-for="d in decks" :key="d.structure_deck_id" :value="d.structure_deck_id">{{ d.structure_deck_name }} ({{ d.structure_deck_id }})</option>
+                                <option v-for="d in sortedDecks" :key="d.structure_deck_id" :value="d.structure_deck_id">{{ formatDeckDisplayName(d) }}</option>
                             </select>
                         </div>
 
@@ -3117,6 +3117,89 @@
                 const promoCards = ref([]);
                 const donCards = ref([]);
 
+                // --- Chronological Sets and Decks Timeline & Formatted Display ---
+                const SET_TIMELINE_ORDER = {
+                    'OP01': 1.0, 'OP02': 2.0, 'OP03': 3.0, 'OP04': 4.0, 'OP05': 5.0, 'OP06': 6.0, 'OP07': 7.0,
+                    'EB01': 7.5, 'OP08': 8.0, 'OP09': 9.0, 'OP10': 10.0, 'OP11': 11.0, 'EB02': 11.5,
+                    'OP12': 12.0, 'PRB01': 12.3, 'PRB02': 12.6, 'OP13': 13.0, 'OP14': 14.0, 'OP14EB04': 14.0,
+                    'EB03': 14.5, 'OP15': 15.0, 'OP15EB04': 15.0, 'EB04': 15.5, 'OP16': 16.0,
+                    'OP17': 17.0, 'EB05': 17.5, 'OP18': 18.0, 'OP19': 19.0, 'EB06': 19.5, 'OP20': 20.0
+                };
+
+                const getSetSortKey = (s) => {
+                    if (!s) return 999;
+                    const sid = (s.set_id || '').toUpperCase().replace(/[^A-Z0-9]/gi, '');
+                    if (SET_TIMELINE_ORDER[sid]) return SET_TIMELINE_ORDER[sid];
+                    const opM = sid.match(/^OP(\d+)$/);
+                    if (opM) return parseFloat(opM[1]);
+                    const ebM = sid.match(/^EB(\d+)$/);
+                    if (ebM) return parseFloat(ebM[1]) + 0.5;
+                    return 999;
+                };
+
+                const formatSetDisplayName = (s) => {
+                    if (!s) return '';
+                    const sid = (s.set_id || '').trim();
+                    const sname = (s.set_name || '').trim();
+
+                    const cleanCode = sid.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                    const mCode = cleanCode.match(/^(OP\d+|EB\d+|PRB\d+|ST\d+)/);
+                    let displayCode = mCode ? mCode[1] : cleanCode;
+
+                    const mSingle = displayCode.match(/^([A-Z]+)(\d)$/);
+                    if (mSingle) {
+                        displayCode = `${mSingle[1]}0${mSingle[2]}`;
+                    }
+
+                    let cleanName = sname;
+                    cleanName = cleanName.replace(/\s*\((?:OP|EB|PRB|ST)[-\d\s]+\)/gi, '');
+                    cleanName = cleanName.replace(/^(?:Extra\s*Booster\s*:\s*)/gi, '');
+                    cleanName = cleanName.replace(/\s*Spoilers/gi, '');
+                    cleanName = cleanName.trim();
+
+                    return `${displayCode} - ${cleanName}`;
+                };
+
+                const sortedSets = computed(() => {
+                    return [...(sets.value || [])]
+                        .filter(s => s && s.set_id)
+                        .sort((a, b) => getSetSortKey(a) - getSetSortKey(b));
+                });
+
+                const getDeckSortKey = (d) => {
+                    if (!d) return 999;
+                    const did = (d.structure_deck_id || d.deck_id || '').toUpperCase().replace(/[^0-9]/g, '');
+                    return did ? parseInt(did, 10) : 999;
+                };
+
+                const formatDeckDisplayName = (d) => {
+                    if (!d) return '';
+                    const did = (d.structure_deck_id || d.deck_id || '').trim();
+                    const dname = (d.structure_deck_name || d.deck_name || '').trim();
+
+                    const cleanCode = did.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                    const mCode = cleanCode.match(/^(ST\d+)/);
+                    let displayCode = mCode ? mCode[1] : cleanCode;
+
+                    const mSingle = displayCode.match(/^([A-Z]+)(\d)$/);
+                    if (mSingle) {
+                        displayCode = `${mSingle[1]}0${mSingle[2]}`;
+                    }
+
+                    let cleanName = dname;
+                    cleanName = cleanName.replace(/^(?:Starter\s*Deck\s*(?:EX\s*:|\d+\s*:|:)?|Ultra\s*Deck\s*(?:EX\s*:|\d+\s*:|:)?)/gi, '');
+                    cleanName = cleanName.replace(/\s*\((?:ST)[-\d\s]+\)/gi, '');
+                    cleanName = cleanName.trim();
+
+                    return `${displayCode} - ${cleanName}`;
+                };
+
+                const sortedDecks = computed(() => {
+                    return [...(decks.value || [])]
+                        .filter(d => d && (d.structure_deck_id || d.deck_id))
+                        .sort((a, b) => getDeckSortKey(a) - getDeckSortKey(b));
+                });
+
                 // Filters
                 const filters = ref({
                     search: '',
@@ -3285,12 +3368,10 @@
                 };
 
                 // --- Spoiler Sets Configuration & Lifecycle Management ---
-                const SPOILER_SETS_CONFIG = {
-                    'OP18': { releaseDate: '2026-11-20', formattedDate: '20/11/2026', name: 'OP18' },
-                    'OP-18': { releaseDate: '2026-11-20', formattedDate: '20/11/2026', name: 'OP18' },
-                    'EB05': { releaseDate: '2026-10-30', formattedDate: '30/10/2026', name: 'EB05' },
-                    'EB-05': { releaseDate: '2026-10-30', formattedDate: '30/10/2026', name: 'EB05' },
-                };
+                const dynamicSpoilerConfig = ref({
+                    'OP18': { release_date: '2026-11-20', formatted_date: '20/11/2026', name: 'OP18' },
+                    'EB05': { release_date: '2026-10-30', formatted_date: '30/10/2026', name: 'EB05' }
+                });
 
                 const getCardSpoilerInfo = (cardOrId) => {
                     if (!cardOrId) return null;
@@ -3298,30 +3379,48 @@
                     const setCode = (typeof cardOrId === 'object' && cardOrId.set_id ? cardOrId.set_id : cid.split('-')[0]).toUpperCase().trim();
                     const cleanPrefix = cid.split('-')[0].toUpperCase();
 
-                    const config = SPOILER_SETS_CONFIG[setCode] || SPOILER_SETS_CONFIG[cleanPrefix];
-                    if (!config) return null;
+                    const cfgMap = dynamicSpoilerConfig.value || {};
+                    let cfg = cfgMap[cleanPrefix] || cfgMap[setCode] || cfgMap[cleanPrefix.replace('-', '')];
 
-                    // Regra: "quando as cartas da OP18 e da EB05 começarem a aparecer nos dados do POPULAR DECK podemos retirar TODAS as restrições"
-                    const cleanSet = config.name;
+                    // Dynamic fallback for any upcoming future sets not yet in config (OP >= 18, EB >= 5, ST >= 37)
+                    if (!cfg) {
+                        const opM = cleanPrefix.match(/^OP(\d+)$/);
+                        const ebM = cleanPrefix.match(/^EB(\d+)$/);
+                        const stM = cleanPrefix.match(/^ST(\d+)$/);
+                        if ((opM && parseInt(opM[1], 10) >= 18) || (ebM && parseInt(ebM[1], 10) >= 5) || (stM && parseInt(stM[1], 10) >= 37)) {
+                            cfg = {
+                                release_date: '2099-12-31',
+                                formatted_date: 'Em Breve',
+                                name: cleanPrefix
+                            };
+                        }
+                    }
+
+                    if (!cfg) return null;
+
+                    // Regra: "quando as cartas começarem a aparecer nos dados do POPULAR DECK podemos retirar TODAS as restrições"
+                    const cleanSet = (cfg.name || cleanPrefix).replace(/[^A-Z0-9]/gi, '').toUpperCase();
                     const isPresentInPopularDecks = (availableMetaSets.value || []).some(s => {
                         const sClean = (s.value || s.code || '').replace(/[^A-Z0-9]/gi, '').toUpperCase();
-                        return sClean === cleanSet && (s.deck_count || 0) > 0;
+                        return (sClean === cleanSet || sClean === cleanPrefix) && (s.deck_count || 0) > 0;
                     });
 
                     if (isPresentInPopularDecks) {
                         return null; // Restrições retiradas porque já apareceram nos decks populares
                     }
 
+                    const releaseDate = cfg.release_date || cfg.releaseDate;
+                    const formattedDate = cfg.formatted_date || cfg.formattedDate || 'Em Breve';
                     const todayStr = new Date().toISOString().split('T')[0];
-                    if (todayStr >= config.releaseDate) {
+                    if (releaseDate && todayStr >= releaseDate) {
                         return null; // Restrições retiradas pois passou da data oficial de lançamento
                     }
 
                     return {
                         isSpoiler: true,
-                        releaseDate: config.releaseDate,
-                        formattedDate: config.formattedDate,
-                        setName: config.name
+                        releaseDate: releaseDate,
+                        formattedDate: formattedDate,
+                        setName: cfg.name || cleanPrefix
                     };
                 };
 
@@ -3330,7 +3429,7 @@
                     loading.value = true;
                     try {
                         const fetchOpts = { cache: 'no-cache' };
-                        const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes, banlistRes, banSetsRes, banStRes, whitelistRes] = await Promise.all([
+                        const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes, banlistRes, banSetsRes, banStRes, whitelistRes, spoilerCfgRes] = await Promise.all([
                             fetch('./optcg_data/sets.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/set_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/decks.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
@@ -3340,8 +3439,13 @@
                             fetch('./optcg_data/banlist.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
                             fetch('./optcg_data/ban_sets.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
                             fetch('./optcg_data/ban_st.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
-                            fetch('./optcg_data/whitelist.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null)
+                            fetch('./optcg_data/whitelist.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
+                            fetch('./optcg_data/spoiler_config.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null)
                         ]);
+
+                        if (spoilerCfgRes && typeof spoilerCfgRes === 'object') {
+                            dynamicSpoilerConfig.value = { ...dynamicSpoilerConfig.value, ...spoilerCfgRes };
+                        }
 
                         const mergedBanlist = banlistRes || {};
                         if (banSetsRes && banSetsRes.banned_sets) {
@@ -3633,9 +3737,10 @@
                     // Apply color filter
                     if (filters.value.color) {
                         if (filters.value.color === 'Multi') {
-                            list = list.filter(card => card.card_color && card.card_color.includes('/'));
+                            list = list.filter(card => card.card_color && getColors(card.card_color).length > 1);
                         } else {
-                            list = list.filter(card => card.card_color && card.card_color.includes(filters.value.color));
+                            const targetCol = filters.value.color.toLowerCase().trim();
+                            list = list.filter(card => card.card_color && getColors(card.card_color).some(c => c.toLowerCase().trim() === targetCol));
                         }
                     }
 
@@ -3823,7 +3928,7 @@
                 const getLigaOnePieceUrl = U.getLigaOnePieceUrl || (() => 'https://www.ligaonepiece.com.br/');
                 const getLeaderCardId   = U.getLeaderCardId   || (() => 'UNKNOWN');
                 const getMetaCardId     = U.getMetaCardId     || (() => 'UNKNOWN');
-                const getColors         = U.getColors         || ((s) => s ? s.split('/') : []);
+                const getColors         = U.getColors         || ((s) => s ? s.split(/[\s/]+/).map(c => c.trim()).filter(Boolean) : []);
                 const getColorClass     = U.getColorClass     || (() => 'bg-slate-900 text-slate-100');
                 const translateColor    = U.translateColor    || ((c) => c);
                 const isColorCompatible = U.isColorCompatible || (() => false);
@@ -5180,8 +5285,11 @@
                     if (collectionFilters.value.color) {
                         list = list.filter(c => {
                             if (!c.card_color) return false;
-                            if (collectionFilters.value.color === 'Multi') return c.card_color.includes('/');
-                            return c.card_color.split('/').map(col => col.trim()).includes(collectionFilters.value.color);
+                            if (collectionFilters.value.color === 'Multi') {
+                                return getColors(c.card_color).length > 1;
+                            }
+                            const targetCol = collectionFilters.value.color.toLowerCase().trim();
+                            return getColors(c.card_color).some(col => col.toLowerCase().trim() === targetCol);
                         });
                     }
 
@@ -5479,9 +5587,10 @@
                     let filtered = unique;
                     if (builderLeaderColorFilter.value) {
                         if (builderLeaderColorFilter.value === 'Multi') {
-                            filtered = filtered.filter(l => l.card_color && l.card_color.includes('/'));
+                            filtered = filtered.filter(l => l.card_color && getColors(l.card_color).length > 1);
                         } else {
-                            filtered = filtered.filter(l => l.card_color && l.card_color.includes(builderLeaderColorFilter.value));
+                            const targetCol = builderLeaderColorFilter.value.toLowerCase().trim();
+                            filtered = filtered.filter(l => l.card_color && getColors(l.card_color).some(c => c.toLowerCase().trim() === targetCol));
                         }
                     }
 
@@ -7041,7 +7150,11 @@
                     currentTab,
                     loading,
                     sets,
+                    sortedSets,
+                    formatSetDisplayName,
                     decks,
+                    sortedDecks,
+                    formatDeckDisplayName,
                     filters,
                     currentPage,
                     itemsPerPage,
