@@ -176,14 +176,14 @@ def is_dynamic_spoiler_card(c: Dict[str, Any], config_sets: set) -> bool:
     if prefix in config_sets or cset in config_sets:
         return True
 
-    # Auto-detect OP collections >= OP18
+    # Auto-detect OP collections >= OP16 (optcgapi stops before OP16)
     m_op = re.match(r'^OP(\d+)$', prefix)
-    if m_op and int(m_op.group(1)) >= 18:
+    if m_op and int(m_op.group(1)) >= 16:
         return True
 
-    # Auto-detect Extra Boosters >= EB05
+    # Auto-detect Extra Boosters >= EB03
     m_eb = re.match(r'^EB(\d+)$', prefix)
-    if m_eb and int(m_eb.group(1)) >= 5:
+    if m_eb and int(m_eb.group(1)) >= 3:
         return True
 
     # Auto-detect Starter Decks >= ST37
@@ -360,11 +360,20 @@ def map_kaizoku_spoiler_card(c: Dict[str, Any], spoiler_cfg: Optional[Dict[str, 
     prefix = cid.split("-")[0] if "-" in cid else "OP18"
     
     # Resolve metadata from spoiler_config.json with dynamic fallbacks
+    known_sets = {
+        "OP16": ("OP-16", "The Time of Battle (OP16)"),
+        "OP17": ("OP-17", "The World's Strongest Warriors (OP17)"),
+        "EB03": ("EB-03", "Extra Booster: One Piece Heroines Edition (EB03)"),
+        "EB04": ("OP14-EB04", "Extra Booster: Memorial Collection (EB04)"),
+    }
     if prefix in spoiler_cfg:
         cfg = spoiler_cfg[prefix]
         set_id = cfg.get("set_id") or (f"OP-{prefix.replace('OP', '')}" if prefix.startswith("OP") else (f"EB-{prefix.replace('EB', '')}" if prefix.startswith("EB") else prefix))
         release_date = cfg.get("release_date")
         set_name = cfg.get("name") or f"{prefix} Spoilers"
+    elif prefix in known_sets:
+        set_id, set_name = known_sets[prefix]
+        release_date = None
     else:
         if prefix.startswith("OP"):
             set_id = f"OP-{prefix.replace('OP', '')}"
@@ -441,6 +450,13 @@ def clean_card_name(name: str) -> str:
     cleaned = re.sub(r'\s*\[(?:Winner|Finalist|Participant|Judge).*?\]', '', cleaned, flags=re.IGNORECASE)
     return cleaned.strip() or name
 
+def clean_card_text(text: Optional[str]) -> Optional[str]:
+    """Cleans official errata notices and scrap artifacts from card text."""
+    if not text:
+        return text
+    cleaned = re.sub(r'\s*This card has been officially errata\'d\.?', '', text, flags=re.IGNORECASE)
+    return cleaned.strip()
+
 def filter_clean_cards(data: List[Dict[str, Any]], filename: str) -> List[Dict[str, Any]]:
     """
     Deduplicates and filters cards to retain strictly Base Normal cards and regular reprints.
@@ -469,6 +485,7 @@ def filter_clean_cards(data: List[Dict[str, Any]], filename: str) -> List[Dict[s
             else:
                 best = dict(sorted(variants, key=evaluate_base_card_score, reverse=True)[0])
             best["card_name"] = clean_card_name(best.get("card_name", ""))
+            best["card_text"] = clean_card_text(best.get("card_text"))
             result.append(best)
         print(f"Cleaned promo cards: {len(data)} -> {len(result)} (retained unique P-xxx base promos)")
         return result
@@ -485,6 +502,7 @@ def filter_clean_cards(data: List[Dict[str, Any]], filename: str) -> List[Dict[s
         for cid, variants in grouped.items():
             best = dict(sorted(variants, key=evaluate_base_card_score, reverse=True)[0])
             best["card_name"] = clean_card_name(best.get("card_name", ""))
+            best["card_text"] = clean_card_text(best.get("card_text"))
             result.append(best)
         print(f"Cleaned starter cards: {len(data)} -> {len(result)} (retained unique base cards)")
         return result
@@ -506,6 +524,7 @@ def filter_clean_cards(data: List[Dict[str, Any]], filename: str) -> List[Dict[s
         for cid, variants in grouped.items():
             best = dict(sorted(variants, key=evaluate_base_card_score, reverse=True)[0])
             best["card_name"] = clean_card_name(best.get("card_name", ""))
+            best["card_text"] = clean_card_text(best.get("card_text"))
             result.append(best)
         print(f"Cleaned set cards: {len(data)} -> {len(result)} (retained unique base cards)")
         return result

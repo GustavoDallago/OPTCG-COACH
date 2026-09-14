@@ -47,7 +47,7 @@
      */
     function getColors(colorStr) {
         if (!colorStr || colorStr === 'NULL') return [];
-        return colorStr.split(/[\s/]+/).map(c => c.trim()).filter(Boolean);
+        return colorStr.split(/[\s,/]+/).map(c => c.trim()).filter(Boolean);
     }
 
     /**
