@@ -279,13 +279,13 @@
                                 v-model="filters.color"
                                 class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-slate-300">
                                 <option value="">Todas as Cores</option>
-                                <option value="Red">🔴 Vermelho (Red)</option>
-                                <option value="Green">🟢 Verde (Green)</option>
-                                <option value="Blue">🔵 Azul (Blue)</option>
-                                <option value="Purple">🟣 Roxo (Purple)</option>
-                                <option value="Black">⚫ Preto (Black)</option>
-                                <option value="Yellow">🟡 Amarelo (Yellow)</option>
-                                <option value="Multi">🌈 Multicolor</option>
+                                <option value="Red">Vermelho (Red)</option>
+                                <option value="Green">Verde (Green)</option>
+                                <option value="Blue">Azul (Blue)</option>
+                                <option value="Purple">Roxo (Purple)</option>
+                                <option value="Black">Preto (Black)</option>
+                                <option value="Yellow">Amarelo (Yellow)</option>
+                                <option value="Multi">Multicolor</option>
                             </select>
                         </div>
 
@@ -349,11 +349,11 @@
                                     v-model="filters.attribute"
                                     class="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-amber-500 transition-colors text-slate-300">
                                     <option value="">Todos os Atributos</option>
-                                    <option value="Slash">⚔️ Slash</option>
-                                    <option value="Strike">👊 Strike</option>
-                                    <option value="Special">✨ Special</option>
-                                    <option value="Ranged">🎯 Ranged</option>
-                                    <option value="Wisdom">📖 Wisdom</option>
+                                    <option value="Slash">Slash</option>
+                                    <option value="Strike">Strike</option>
+                                    <option value="Special">Special</option>
+                                    <option value="Ranged">Ranged</option>
+                                    <option value="Wisdom">Wisdom</option>
                                 </select>
                             </div>
 
@@ -3641,13 +3641,13 @@
                     return [...vals].sort((a, b) => a - b);
                 });
 
-                // Available counter values from card pool
+                // Available counter values from card pool (official counters are 1000 and 2000)
                 const availableCounters = computed(() => {
                     const pool = [...(setCards.value || []), ...(starterCards.value || []), ...(promoCards.value || [])];
                     const vals = new Set();
                     for (const c of pool) {
                         const cnt = c.counter_amount;
-                        if (cnt !== null && cnt !== undefined && Number(cnt) > 0) {
+                        if (cnt !== null && cnt !== undefined && Number(cnt) > 0 && Number(cnt) <= 2000) {
                             vals.add(Number(cnt));
                         }
                     }

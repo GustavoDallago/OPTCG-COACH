@@ -457,6 +457,20 @@ def clean_card_text(text: Optional[str]) -> Optional[str]:
     cleaned = re.sub(r'\s*This card has been officially errata\'d\.?', '', text, flags=re.IGNORECASE)
     return cleaned.strip()
 
+def clean_card_counter(counter: Any) -> Optional[int]:
+    """Ensures counter value is an official valid integer (1000 or 2000). Discards power confusion (e.g. 4000/5000/6000)."""
+    if counter is None or counter == "" or counter == "NULL":
+        return None
+    try:
+        val = int(counter)
+        if val in [1000, 2000]:
+            return val
+        if val > 2000:
+            return 1000 if val in [3000, 4000] else None
+        return None
+    except (ValueError, TypeError):
+        return None
+
 def filter_clean_cards(data: List[Dict[str, Any]], filename: str) -> List[Dict[str, Any]]:
     """
     Deduplicates and filters cards to retain strictly Base Normal cards and regular reprints.
@@ -486,6 +500,7 @@ def filter_clean_cards(data: List[Dict[str, Any]], filename: str) -> List[Dict[s
                 best = dict(sorted(variants, key=evaluate_base_card_score, reverse=True)[0])
             best["card_name"] = clean_card_name(best.get("card_name", ""))
             best["card_text"] = clean_card_text(best.get("card_text"))
+            best["counter_amount"] = clean_card_counter(best.get("counter_amount"))
             result.append(best)
         print(f"Cleaned promo cards: {len(data)} -> {len(result)} (retained unique P-xxx base promos)")
         return result
@@ -503,6 +518,7 @@ def filter_clean_cards(data: List[Dict[str, Any]], filename: str) -> List[Dict[s
             best = dict(sorted(variants, key=evaluate_base_card_score, reverse=True)[0])
             best["card_name"] = clean_card_name(best.get("card_name", ""))
             best["card_text"] = clean_card_text(best.get("card_text"))
+            best["counter_amount"] = clean_card_counter(best.get("counter_amount"))
             result.append(best)
         print(f"Cleaned starter cards: {len(data)} -> {len(result)} (retained unique base cards)")
         return result
@@ -525,6 +541,7 @@ def filter_clean_cards(data: List[Dict[str, Any]], filename: str) -> List[Dict[s
             best = dict(sorted(variants, key=evaluate_base_card_score, reverse=True)[0])
             best["card_name"] = clean_card_name(best.get("card_name", ""))
             best["card_text"] = clean_card_text(best.get("card_text"))
+            best["counter_amount"] = clean_card_counter(best.get("counter_amount"))
             result.append(best)
         print(f"Cleaned set cards: {len(data)} -> {len(result)} (retained unique base cards)")
         return result
