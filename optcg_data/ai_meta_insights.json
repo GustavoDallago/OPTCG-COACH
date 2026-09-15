@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-14T20:16:24Z",
+  "last_updated": "2026-09-15T15:09:17Z",
   "total_channels": 7,
   "total_insights": 96,
   "videos_by_leader": {
@@ -261,6 +261,16 @@
         "matchups_covered": []
       }
     ],
+    "belo betty": [
+      {
+        "title": "BELO BETTY VOLTOU AO META! Decklist + Combo com Big Mom (One Piece TCG)",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-09-15T15:00:30+00:00",
+        "video_url": "https://www.youtube.com/watch?v=XUBzD-qJd48",
+        "format": "OP17",
+        "matchups_covered": []
+      }
+    ],
     "caesar clown": [
       {
         "title": "CAESAR CLOWN ATUALIZADO: O Palhaço Que Destrói Decks Amarelos (One Piece TCG)",
@@ -313,6 +323,19 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "XUBzD-qJd48",
+      "title": "BELO BETTY VOLTOU AO META! Decklist + Combo com Big Mom (One Piece TCG)",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-09-15T15:00:30+00:00",
+      "video_url": "https://www.youtube.com/watch?v=XUBzD-qJd48",
+      "format": "OP17",
+      "identified_leaders": [
+        "Belo Betty"
+      ],
+      "matchups_covered": [],
+      "summary": "A Belo Betty está de volta ao meta do One Piece Card Game! Trazemos a decklist usada em campeonato, mostrando como combinar o descarte de cartas Revolutionary com o pacote da Big Mom pra fazer seus..."
+    },
     {
       "video_id": "HddTkAoGhbA",
       "title": "Rocks In Top 32! Not A Fraud?! (Utrecht EU Finals - Top 32)",
@@ -832,17 +855,6 @@
       ],
       "matchups_covered": [],
       "summary": "O líder Luffy/Ace do ST-30 finalmente encontrou seu espaço no meta de One Piece TCG? Com as atualizações do ST-31 e da OP-17, esse deck se tornou um verdadeiro \"matador de rogues\" com um ritmo incr..."
-    },
-    {
-      "video_id": "VBlN29noIOE",
-      "title": "Torneio Semanal Captain Logs de One Piece TCG | 01 de Setembro",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-02T12:51:50+00:00",
-      "video_url": "https://www.youtube.com/watch?v=VBlN29noIOE",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "🔗 Links Oficiais do Campeonato:"
     },
     {
       "video_id": "P-mf22LejUE",

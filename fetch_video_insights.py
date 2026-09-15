@@ -213,5 +213,21 @@ def process_channel_videos() -> Dict[str, Any]:
     print(f"\n[Sucesso] {OUTPUT_FILE} gerado com {insights['total_insights']} videos.")
     return insights
 
+EVERGREEN_FILE = "optcg_data/evergreen_strategy_guides.json"
+
+def process_evergreen_guides() -> None:
+    if not os.path.exists(EVERGREEN_FILE):
+        return
+    try:
+        with open(EVERGREEN_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        guides = data.get("guides", [])
+        print(f"\n[Evergreen Guides] Validando {len(guides)} guias fundamentais cadastrados...")
+        valid = [g for g in guides if g.get("title") and g.get("category")]
+        print(f"[Evergreen Guides] {len(valid)} guias estrategicos atemporais prontos para alimentar o Coach IA.")
+    except Exception as e:
+        print(f"[Aviso] Erro ao ler {EVERGREEN_FILE}: {e}")
+
 if __name__ == "__main__":
     process_channel_videos()
+    process_evergreen_guides()
