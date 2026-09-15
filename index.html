@@ -4051,7 +4051,7 @@
                     loading.value = true;
                     try {
                         const fetchOpts = { cache: 'no-cache' };
-                        const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes, banlistRes, banSetsRes, banStRes, whitelistRes, spoilerCfgRes, insightsRes] = await Promise.all([
+                        const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes, banlistRes, banSetsRes, banStRes, whitelistRes, spoilerCfgRes, insightsRes, evergreenRes] = await Promise.all([
                             fetch('./optcg_data/sets.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/set_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
                             fetch('./optcg_data/decks.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
@@ -4063,11 +4063,16 @@
                             fetch('./optcg_data/ban_st.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
                             fetch('./optcg_data/whitelist.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
                             fetch('./optcg_data/spoiler_config.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
-                            fetch('./optcg_data/ai_meta_insights.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null)
+                            fetch('./optcg_data/ai_meta_insights.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
+                            fetch('./optcg_data/evergreen_strategy_guides.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null)
                         ]);
 
                         if (insightsRes && typeof insightsRes === 'object') {
                             videoInsightsData.value = insightsRes;
+                        }
+
+                        if (evergreenRes && typeof evergreenRes === 'object') {
+                            evergreenGuidesData.value = evergreenRes;
                         }
 
                         if (spoilerCfgRes && typeof spoilerCfgRes === 'object') {
@@ -5686,6 +5691,7 @@
                 const isCoachLoading = ref(false);
                 const coachErrorMessage = ref('');
                 const videoInsightsData = ref(null);
+                const evergreenGuidesData = ref(null);
 
                 const coachMessages = ref([
                     {
@@ -5821,6 +5827,18 @@ ${deckList || 'O deck não possui cartas adicionadas ainda.'}`;
                                 ctx += `\n- [${v.channel_name}] ${v.title}${mcups}`;
                             });
                         }
+                    }
+
+                    if (evergreenGuidesData.value && evergreenGuidesData.value.guides) {
+                        ctx += `\n\nPRINCÍPIOS FUNDAMENTAIS DE PILOTAGEM E COMBATE:`;
+                        evergreenGuidesData.value.guides.forEach(g => {
+                            if (g.core_principles && g.core_principles.length > 0) {
+                                ctx += `\n[${g.category || g.title}]:`;
+                                g.core_principles.slice(0, 2).forEach(p => {
+                                    ctx += `\n- ${p}`;
+                                });
+                            }
+                        });
                     }
 
                     return ctx;
