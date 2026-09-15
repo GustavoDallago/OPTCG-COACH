@@ -2341,14 +2341,14 @@
 
         </div>
 
-        <!-- Coach IA Floating Action Button (in Deck Builder when leader is chosen) -->
+        <!-- Coach IA Floating Action Button (in Deck Builder when leader is chosen or in Meta Tab) -->
         <button
-            v-if="currentTab === 'builder' && selectedBuilderLeader"
-            @click="openCoachModal"
+            v-if="(currentTab === 'builder' && selectedBuilderLeader) || currentTab === 'meta'"
+            @click="openCoachModal(currentTab === 'meta' ? 'meta' : 'builder')"
             class="fixed bottom-6 right-6 z-40 px-4 py-3 bg-slate-900/95 hover:bg-slate-800 backdrop-blur-md border border-amber-500/40 hover:border-amber-500 text-amber-400 hover:text-amber-300 font-bold text-xs rounded-2xl shadow-xl flex items-center gap-2 transition-all group animate-fade-in"
-            title="Abrir Coach IA">
+            :title="currentTab === 'meta' ? 'Abrir Coach IA para tirar dúvidas sobre o meta e escolha de cores' : 'Abrir Coach IA para tirar dúvidas sobre seu deck'">
             <svg class="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-            <span>Coach IA</span>
+            <span>{{ currentTab === 'meta' ? 'Coach IA do Meta' : 'Coach IA' }}</span>
         </button>
 
         <!-- DECK ANALYSIS REPORT MODAL -->
@@ -2438,13 +2438,6 @@
                             class="tap-press px-4 py-2 text-xs rounded-xl transition-all flex items-center gap-2 whitespace-nowrap shrink-0">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                             <span>3. Manual Tático & Don</span>
-                        </button>
-                        <button 
-                            @click="analysisTab = 'coach'"
-                            :class="analysisTab === 'coach' ? 'bg-amber-500 text-slate-950 font-bold shadow-md' : 'text-slate-400 hover:text-slate-200 bg-slate-950/60 border border-slate-800'"
-                            class="tap-press px-4 py-2 text-xs rounded-xl transition-all flex items-center gap-2 whitespace-nowrap shrink-0">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                            <span>4. Coach IA</span>
                         </button>
                     </div>
                 </div>
@@ -2744,6 +2737,44 @@
                             <span class="text-xs text-slate-400 font-mono">{{ (analysisResults.matchups || []).length }} Líderes Mapeados</span>
                         </div>
 
+                        <!-- AI Combat Synthesis Status Banner -->
+                        <div class="bg-slate-900/90 border border-slate-800 p-3.5 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0">
+                                    <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <h4 class="text-xs font-bold text-slate-200">Análise Tática Aprofundada com IA</h4>
+                                        <span v-if="aiCombatGuide" class="px-2 py-0.5 text-[9px] font-bold rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Ativa</span>
+                                    </div>
+                                    <p class="text-[11px] text-slate-400 mt-0.5">
+                                        {{ aiCombatGuide ? 'Confrontos enriquecidos com posturas táticas e aprendizados dos vídeos de torneios.' : 'Combine a análise matemática com a inteligência do meta para posturas táticas personalizadas.' }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 shrink-0">
+                                <button 
+                                    v-if="!aiCombatGuide && !isGeneratingAiGuide"
+                                    @click="generateCombatAiGuide(false)"
+                                    class="tap-press text-xs px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl flex items-center gap-1.5 transition-all shadow-sm">
+                                    <span>Aprofundar com IA</span>
+                                </button>
+                                <button 
+                                    v-if="aiCombatGuide && !isGeneratingAiGuide"
+                                    @click="generateCombatAiGuide(true)"
+                                    class="tap-press text-xs px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl flex items-center gap-1 transition-colors"
+                                    title="Atualizar análise da IA">
+                                    <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                    <span>Reatualizar</span>
+                                </button>
+                                <div v-if="isGeneratingAiGuide" class="flex items-center gap-2 text-xs text-amber-400 font-mono">
+                                    <div class="animate-spin rounded-full h-3.5 w-3.5 border-t-2 border-b-2 border-amber-500"></div>
+                                    <span>Analisando meta com IA...</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="flex flex-col gap-3">
                             <div 
                                 v-for="opp in analysisResults.matchups" 
@@ -2999,143 +3030,6 @@
 
                         </div>
                     </div>
-
-                    <!-- TAB 4: COACH IA (INTERACTIVE TACTICAL CHAT) -->
-                    <div v-if="analysisTab === 'coach'" class="flex flex-col gap-4 animate-fade-in flex-1">
-                        <!-- Key Config Toggle & Info Bar -->
-                        <div class="flex items-center justify-between gap-3 bg-slate-950/70 border border-slate-800 p-3 rounded-xl flex-wrap">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full" :class="coachWorkerUrl || coachApiKey ? 'bg-emerald-500' : 'bg-amber-500'"></span>
-                                <span class="text-xs text-slate-300 font-mono">
-                                    {{ coachWorkerUrl ? 'Servidor Conectado (Acesso Livre)' : (coachApiKey ? 'Chave Pessoal Ativa' : 'Aguardando Configuração') }}
-                                </span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <button 
-                                    @click="clearCoachHistory" 
-                                    class="text-xs px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 rounded-lg transition-colors flex items-center gap-1">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                    <span>Limpar</span>
-                                </button>
-                                <button 
-                                    @click="showCoachKeyConfig = !showCoachKeyConfig" 
-                                    class="text-xs px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 rounded-lg transition-colors flex items-center gap-1">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                                    <span>Configurações</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- API Key & Server Settings Box (Collapsible) -->
-                        <div v-if="showCoachKeyConfig" class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col gap-3">
-                            <div>
-                                <h4 class="text-xs font-bold text-slate-200">Configuração de Conexão do Coach IA</h4>
-                                <p class="text-[11px] text-slate-400 mt-0.5">
-                                    Conecte via Servidor Proxy gratuito (Cloudflare Worker) para que os usuários não precisem de chave, ou use sua chave pessoal do Google AI Studio.
-                                </p>
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <div class="flex flex-col gap-1">
-                                    <label class="text-[10px] font-mono text-slate-400 uppercase">Servidor Proxy (Cloudflare Worker):</label>
-                                    <input 
-                                        v-model="coachWorkerUrlInput" 
-                                        type="text" 
-                                        placeholder="https://optcg-coach-api.seu-subdominio.workers.dev" 
-                                        class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 font-mono focus:outline-none focus:border-amber-500">
-                                </div>
-                                <div class="flex flex-col gap-1">
-                                    <div class="flex justify-between items-center">
-                                        <label class="text-[10px] font-mono text-slate-400 uppercase">Chave Pessoal (Google AI Studio):</label>
-                                        <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="text-[10px] text-amber-400 hover:text-amber-300 font-mono underline">
-                                            Obter chave gratuita
-                                        </a>
-                                    </div>
-                                    <input 
-                                        v-model="coachKeyInput" 
-                                        type="password" 
-                                        placeholder="Cole sua chave aqui (AIzaSy...)" 
-                                        class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 font-mono focus:outline-none focus:border-amber-500">
-                                </div>
-                            </div>
-                            <div class="flex gap-2 justify-end pt-1">
-                                <button 
-                                    v-if="coachApiKey || coachWorkerUrl"
-                                    @click="clearCoachApiKey" 
-                                    class="px-2.5 py-1.5 bg-slate-800 hover:bg-rose-900/40 text-slate-400 hover:text-rose-300 text-xs rounded-lg transition-colors"
-                                    title="Remover configurações">
-                                    Remover
-                                </button>
-                                <button 
-                                    @click="saveCoachApiKey" 
-                                    class="px-4 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-lg transition-colors">
-                                    Salvar
-                                </button>
-                            </div>
-                            <p v-if="coachKeySavedFeedback" class="text-xs text-emerald-400 font-medium">Chave configurada com sucesso.</p>
-                        </div>
-
-
-                        <!-- Quick Prompts Chips -->
-                        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
-                            <button 
-                                v-for="prompt in coachQuickPrompts" 
-                                :key="prompt"
-                                @click="sendCoachMessage(prompt)"
-                                :disabled="isCoachLoading"
-                                class="tap-press text-[11px] px-3 py-1.5 bg-slate-950/80 hover:bg-slate-800 text-slate-300 hover:text-amber-400 border border-slate-800 hover:border-amber-500/40 rounded-full whitespace-nowrap transition-all disabled:opacity-50 shrink-0">
-                                <span>{{ prompt }}</span>
-                            </button>
-                        </div>
-
-                        <!-- Messages Container -->
-                        <div id="coach-messages-container-tab" class="flex-1 min-h-[300px] max-h-[460px] overflow-y-auto flex flex-col gap-3 p-3 bg-slate-950/50 border border-slate-800/80 rounded-2xl">
-                            <div 
-                                v-for="(msg, idx) in coachMessages" 
-                                :key="idx"
-                                :class="msg.role === 'user' ? 'justify-end' : 'justify-start'"
-                                class="flex items-start gap-2">
-                                <div 
-                                    :class="msg.role === 'user' ? 'bg-amber-600 text-white ml-8 rounded-2xl rounded-tr-sm' : 'bg-slate-900 border border-slate-800 text-slate-200 mr-8 rounded-2xl rounded-tl-sm shadow-sm'"
-                                    class="p-3.5 text-xs leading-relaxed max-w-[88%] break-words">
-                                    <div v-if="msg.role === 'assistant'" class="flex items-center gap-1.5 mb-1.5 text-[10px] font-mono text-amber-500 uppercase tracking-wider font-bold">
-                                        <svg class="w-3 h-3 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                                        <span>OPTCG Coach</span>
-                                    </div>
-                                    <div class="whitespace-pre-line" v-html="formatCoachText(msg.text)"></div>
-                                </div>
-                            </div>
-
-                            <!-- Loading indicator -->
-                            <div v-if="isCoachLoading" class="flex items-center gap-2 p-3 bg-slate-900/80 border border-slate-800 rounded-xl mr-auto text-xs text-amber-400 font-mono">
-                                <div class="animate-spin rounded-full h-3.5 w-3.5 border-t-2 border-b-2 border-amber-500"></div>
-                                <span>Coach analisando o deck e estratégias...</span>
-                            </div>
-
-                            <!-- Error Message -->
-                            <div v-if="coachErrorMessage" class="p-3 bg-rose-950/40 border border-rose-800/60 rounded-xl text-xs text-rose-300 font-sans">
-                                <span>{{ coachErrorMessage }}</span>
-                            </div>
-                        </div>
-
-                        <!-- Chat Input Box -->
-                        <div class="flex items-center gap-2 pt-1">
-                            <input 
-                                v-model="coachInput"
-                                @keydown.enter="sendCoachMessage()"
-                                :disabled="isCoachLoading"
-                                type="text"
-                                placeholder="Digite sua dúvida sobre o deck (ex: Vale a pena usar mais remoções?)..."
-                                class="flex-1 bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none transition-colors">
-                            <button 
-                                @click="sendCoachMessage()"
-                                :disabled="!coachInput.trim() || isCoachLoading"
-                                class="px-4 py-2.5 bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed text-slate-950 font-bold text-xs rounded-xl transition-all shadow flex items-center gap-1.5 shrink-0">
-                                <span>Enviar</span>
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </button>
-                        </div>
-                    </div>
-
                 </div>
 
             </div>
@@ -3159,15 +3053,35 @@
                 </button>
 
                 <!-- Modal Header -->
-                <div class="px-5 sm:px-6 pt-5 pb-3 border-b border-slate-800/80 flex flex-col gap-1 bg-slate-900 shrink-0">
-                    <div class="flex items-center gap-2 flex-wrap pr-10 sm:pr-0">
-                        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                        <h2 class="text-lg font-black text-slate-100">Coach Tático IA</h2>
-                        <span v-if="selectedBuilderLeader" class="text-xs bg-amber-500/10 border border-amber-500/30 text-amber-400 px-2 py-0.5 rounded font-mono font-bold">
-                            {{ selectedBuilderLeader.card_name }}
-                        </span>
+                <div class="px-5 sm:px-6 pt-5 pb-3 border-b border-slate-800/80 flex flex-col gap-2 bg-slate-900 shrink-0">
+                    <div class="flex items-center justify-between gap-3 flex-wrap pr-10 sm:pr-0">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                            <h2 class="text-lg font-black text-slate-100">Coach Tático IA</h2>
+                        </div>
+
+                        <!-- Mode Switcher Tabs -->
+                        <div class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+                            <button 
+                                @click="switchCoachMode('meta')"
+                                :class="coachContextMode === 'meta' ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-slate-200'"
+                                class="px-3 py-1 rounded-lg transition-all">
+                                Meta & Cores
+                            </button>
+                            <button 
+                                v-if="selectedBuilderLeader"
+                                @click="switchCoachMode('builder')"
+                                :class="coachContextMode === 'builder' ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-slate-200'"
+                                class="px-3 py-1 rounded-lg transition-all">
+                                Meu Deck ({{ selectedBuilderLeader.card_name.split(' ')[0] }})
+                            </button>
+                        </div>
                     </div>
-                    <p class="text-xs text-slate-400">Tire dúvidas sobre curva, mulligan, substituições e matchups para o seu deck.</p>
+                    <p class="text-xs text-slate-400">
+                        {{ coachContextMode === 'meta' 
+                            ? 'Tire dúvidas sobre o meta de torneios, qual cor escolher para o seu estilo (lento vs agressivo) e arquétipos recomendados.' 
+                            : 'Tire dúvidas sobre curva, mulligan, substituições e matchups para o seu deck montado.' }}
+                    </p>
                 </div>
 
                 <!-- Modal Body -->
@@ -3246,8 +3160,16 @@
                         <p v-if="coachKeySavedFeedback" class="text-xs text-emerald-400 font-medium">Configurações salvas com sucesso.</p>
                     </div>
 
-                    <!-- Quick Prompts Chips -->
-                    <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+                    <!-- Quick Prompts Chips & Mulligan Button -->
+                    <div class="flex items-center gap-1.5 overflow-x-auto py-1.5 shrink-0 min-h-[42px] no-scrollbar">
+                        <button 
+                            v-if="coachContextMode === 'builder' && userDeckCount > 0"
+                            @click="simulateMulliganWithCoach(false)"
+                            :disabled="isCoachLoading"
+                            class="tap-press text-[11px] px-3 py-1.5 bg-indigo-950/80 hover:bg-indigo-900 text-indigo-300 hover:text-indigo-200 border border-indigo-700/60 rounded-full whitespace-nowrap transition-all disabled:opacity-50 shrink-0 font-semibold flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                            <span>Simular Mão Inicial (Mulligan)</span>
+                        </button>
                         <button 
                             v-for="prompt in coachQuickPrompts" 
                             :key="prompt"
@@ -3273,6 +3195,41 @@
                                     <span>OPTCG Coach</span>
                                 </div>
                                 <div class="whitespace-pre-line" v-html="formatCoachText(msg.text)"></div>
+
+                                <!-- Interactive Card Swaps -->
+                                <div v-if="msg.swaps && msg.swaps.length > 0" class="mt-3 pt-2.5 border-t border-slate-800/80 flex flex-col gap-2">
+                                    <div class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
+                                        Sugestão de Troca no Deck:
+                                    </div>
+                                    <div v-for="(swap, sIdx) in msg.swaps" :key="sIdx" class="flex items-center justify-between gap-2 p-2 bg-slate-950/80 border border-slate-800 rounded-xl">
+                                        <div class="flex items-center gap-1.5 text-[11px] font-mono">
+                                            <span class="text-rose-400 font-bold">-{{ swap.outQty }}x {{ swap.outId }}</span>
+                                            <span class="text-slate-500">→</span>
+                                            <span class="text-emerald-400 font-bold">+{{ swap.inQty }}x {{ swap.inId }}</span>
+                                        </div>
+                                        <button 
+                                            v-if="!swap.applied"
+                                            @click="executeCoachSwap(swap)"
+                                            class="tap-press text-[11px] px-2.5 py-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg transition-colors flex items-center gap-1 shrink-0">
+                                            <span>Aplicar Troca</span>
+                                        </button>
+                                        <span v-else class="text-[10px] text-emerald-400 font-bold flex items-center gap-1 shrink-0">
+                                            <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                            <span>Aplicada</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Mulligan Redraw Button -->
+                                <div v-if="msg.isMulliganMessage" class="mt-3 pt-2.5 border-t border-slate-800/80">
+                                    <button 
+                                        @click="simulateMulliganWithCoach(true)"
+                                        :disabled="isCoachLoading"
+                                        class="tap-press text-[11px] px-3 py-1.5 bg-indigo-950/70 hover:bg-indigo-900/80 text-indigo-300 hover:text-indigo-200 border border-indigo-700/60 rounded-lg flex items-center gap-1.5 font-semibold transition-all">
+                                        <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                        <span>Simular Outro Mulligan</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -3295,7 +3252,7 @@
                             @keydown.enter="sendCoachMessage()"
                             :disabled="isCoachLoading"
                             type="text"
-                            placeholder="Digite sua dúvida sobre o deck (ex: Vale a pena usar mais remoções?)..."
+                            :placeholder="coachContextMode === 'meta' ? 'Pergunte sobre cores, arquétipos, estilo lento vs agressivo ou líderes do meta...' : 'Digite sua dúvida sobre o deck (ex: Vale a pena usar mais remoções?)...'"
                             class="flex-1 bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none transition-colors">
                         <button 
                             @click="sendCoachMessage()"
@@ -5680,6 +5637,7 @@
                 // --- COACH IA (TACTICAL AI CHAT ASSISTANT) LOGIC ---
                 // ====================================================
                 const showCoachModal = ref(false);
+                const coachContextMode = ref('meta'); // 'builder' or 'meta'
                 const DEFAULT_COACH_WORKER_URL = '';
                 const coachWorkerUrl = ref(localStorage.getItem('optcg_coach_worker_url') || DEFAULT_COACH_WORKER_URL);
                 const coachApiKey = ref(localStorage.getItem('optcg_gemini_api_key') || '');
@@ -5696,16 +5654,43 @@
                 const coachMessages = ref([
                     {
                         role: 'assistant',
-                        text: 'Olá! Sou o assistente tático do OPTCG Coach. Posso analisar sua curva de custos, opções de defesa, cartas tech e planos de jogo para o líder selecionado. Como posso ajudar com sua lista hoje?'
+                        text: 'Olá! Sou o assistente tático do OPTCG Coach. Posso te ajudar a entender o metagame atual, tirar dúvidas sobre os líderes de torneios e recomendar a melhor cor e arquétipo para o seu estilo de jogo (seja você fã de partidas rápidas e agressivas ou de um controle lento e metódico). Como posso te orientar hoje?'
                     }
                 ]);
 
-                const coachQuickPrompts = [
+                const coachMetaQuickPrompts = [
+                    'Qual é a melhor cor para o meu estilo de jogo?',
+                    'Gosto de jogo lento e controle de mesa, o que me recomenda?',
+                    'Prefiro jogo agressivo e rápido, quais são os melhores decks?',
+                    'Quais são os líderes mais consistentes do meta atual?',
+                    'Sou iniciante, qual deck tem curva de aprendizado mais fácil?'
+                ];
+
+                const coachBuilderQuickPrompts = [
                     'Analisar a consistência e a curva de custo do deck',
                     'O que posso alterar para melhorar contadores e defesas?',
                     'Qual a melhor postura e estratégia contra decks de controle?',
                     'Quais cartas devo priorizar na mão inicial (Mulligan)?'
                 ];
+
+                const coachQuickPrompts = computed(() => {
+                    if (coachContextMode.value === 'meta' || !selectedBuilderLeader.value) {
+                        return coachMetaQuickPrompts;
+                    }
+                    return coachBuilderQuickPrompts;
+                });
+
+                const switchCoachMode = (mode) => {
+                    if (coachContextMode.value === mode) return;
+                    coachContextMode.value = mode;
+                    if (coachMessages.value.length === 1 && coachMessages.value[0].role === 'assistant') {
+                        if (mode === 'meta') {
+                            coachMessages.value[0].text = 'Olá! Sou o assistente tático do OPTCG Coach. Posso te ajudar a entender o metagame atual, tirar dúvidas sobre os líderes de torneios e recomendar a melhor cor e arquétipo para o seu estilo de jogo (seja você fã de partidas rápidas e agressivas ou de um controle lento e metódico). Como posso te orientar hoje?';
+                        } else if (selectedBuilderLeader.value) {
+                            coachMessages.value[0].text = `Olá! Sou o assistente tático do OPTCG Coach. Posso analisar sua curva de custos, opções de defesa, cartas tech e planos de jogo para o líder ${selectedBuilderLeader.value.card_name}. Como posso ajudar com sua lista hoje?`;
+                        }
+                    }
+                };
 
                 const saveCoachApiKey = () => {
                     const key = (coachKeyInput.value || '').trim();
@@ -5732,10 +5717,24 @@
                     showCoachKeyConfig.value = true;
                 };
 
-                const openCoachModal = () => {
+                const openCoachModal = (mode = null) => {
+                    if (mode) {
+                        coachContextMode.value = mode;
+                    } else if (currentTab.value === 'meta' || !selectedBuilderLeader.value) {
+                        coachContextMode.value = 'meta';
+                    } else {
+                        coachContextMode.value = 'builder';
+                    }
                     showCoachModal.value = true;
                     if (!coachWorkerUrl.value && !coachApiKey.value) {
                         showCoachKeyConfig.value = true;
+                    }
+                    if (coachMessages.value.length === 1 && coachMessages.value[0].role === 'assistant') {
+                        if (coachContextMode.value === 'meta') {
+                            coachMessages.value[0].text = 'Olá! Sou o assistente tático do OPTCG Coach. Posso te ajudar a entender o metagame atual, tirar dúvidas sobre os líderes de torneios e recomendar a melhor cor e arquétipo para o seu estilo de jogo (seja você fã de partidas rápidas e agressivas ou de um controle lento e metódico). Como posso te orientar hoje?';
+                        } else if (selectedBuilderLeader.value) {
+                            coachMessages.value[0].text = `Olá! Sou o assistente tático do OPTCG Coach. Posso analisar sua curva de custos, opções de defesa, cartas tech e planos de jogo para o líder ${selectedBuilderLeader.value.card_name}. Como posso ajudar com sua lista hoje?`;
+                        }
                     }
                     nextTick(() => scrollCoachToBottom());
                 };
@@ -5745,10 +5744,13 @@
                 };
 
                 const clearCoachHistory = () => {
+                    const text = (coachContextMode.value === 'meta' || !selectedBuilderLeader.value)
+                        ? 'Histórico limpo. Como posso ajudar com dúvidas sobre o metagame ou recomendação de cores e decks agora?'
+                        : 'Histórico limpo. Como posso ajudar na análise do seu deck agora?';
                     coachMessages.value = [
                         {
                             role: 'assistant',
-                            text: 'Histórico limpo. Como posso ajudar na análise do seu deck agora?'
+                            text: text
                         }
                     ];
                     coachErrorMessage.value = '';
@@ -5770,6 +5772,8 @@
                         .replace(/&/g, '&amp;')
                         .replace(/</g, '&lt;')
                         .replace(/>/g, '&gt;');
+                    // Remove tags brutas de troca [TROCAR: ...] do texto principal, já que serão renderizadas como botões interativos abaixo
+                    escaped = escaped.replace(/\[TROCA[R]?:\s*-?(\d+)\s*x?\s*([A-Za-z0-9-]+)\s*(?:\/|por|->)\s*\+?(\d+)\s*x?\s*([A-Za-z0-9-]+)\]/gi, '');
                     escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong class="text-amber-400 font-bold">$1</strong>');
                     escaped = escaped.replace(/^[\*\-]\s+(.*)$/gm, '<li class="ml-4 list-disc text-slate-300">$1</li>');
                     escaped = escaped.replace(/\n/g, '<br/>');
@@ -5777,15 +5781,149 @@
                 };
 
                 const buildCoachDeckContext = () => {
-                    if (!selectedBuilderLeader.value) {
-                        return 'Nenhum líder selecionado.';
+                    const isMetaMode = coachContextMode.value === 'meta' || !selectedBuilderLeader.value;
+
+                    // --- REGRAS OFICIAIS DE BANLIST E LEGALIDADE EM TORNEIOS (BANDAI) ---
+                    const modes = banlistData.value.modes || {};
+                    const currentMode = modes[activeBanlistMode.value] || banlistData.value;
+                    const bannedCardsList = (currentMode.banned_cards || banlistData.value.banned_cards || []);
+                    const bannedPairsList = (currentMode.banned_pairs || banlistData.value.banned_pairs || []);
+                    const allCardsPool = [...(setCards.value || []), ...(starterCards.value || []), ...(promoCards.value || [])];
+
+                    const getCardName = (cid) => {
+                        if (!cid) return '';
+                        const clean = cid.toUpperCase().trim();
+                        const found = allCardsPool.find(c => (c.card_set_id || '').toUpperCase() === clean);
+                        return found ? found.card_name : '';
+                    };
+
+                    let banlistCtx = `REGRAS OFICIAIS DE BANLIST E RESTRIÇÕES DE TORNEIO (BANDAI TCG):`;
+                    banlistCtx += `\n- Cartas Banidas Oficialmente (PROIBIDAS em qualquer deck):`;
+                    if (bannedCardsList.length > 0) {
+                        bannedCardsList.forEach(cid => {
+                            const cname = getCardName(cid);
+                            banlistCtx += `\n  * ${cid}${cname ? ' ' + cname : ''} (BANIDA)`;
+                        });
+                    } else {
+                        banlistCtx += `\n  Nenhuma carta individual banida no momento.`;
                     }
+
+                    if (bannedPairsList.length > 0) {
+                        banlistCtx += `\n- Pares Proibidos (Combinações ilegais no mesmo deck):`;
+                        bannedPairsList.forEach(pair => {
+                            const [c1, c2] = pair;
+                            const n1 = getCardName(c1);
+                            const n2 = getCardName(c2);
+                            banlistCtx += `\n  * [${c1}${n1 ? ' ' + n1 : ''}] + [${c2}${n2 ? ' ' + n2 : ''}] (PAR ILEGAL)`;
+                        });
+                    }
+                    banlistCtx += `\n- Rotação de Coleções (Meta Ocidental / EN): Coleções OP-01 a OP-04 e Starter Decks ST-01 a ST-10 estão rotacionadas no formato padrão ocidental, exceto cartas expressamente permitidas pela Whitelist oficial.
+AVISO MANDATÓRIO DE BANLIST: NUNCA sugira, recomende ou aprove nenhuma dessas cartas banidas ou combinações ilegais sob hipótese alguma.`;
+
+                    // GUIA DE IDENTIDADE DE CORES E ESTILOS DE JOGO DO ONE PIECE CARD GAME
+                    const colorsGuide = `GUIA DE IDENTIDADE DE CORES E ESTILOS DE JOGO DO ONE PIECE CARD GAME:
+1. VERMELHO (RED) - ESTILO AGRESSIVO / PRESSÃO RÁPIDA (AGGRO / RUSH):
+- Filosofia: Partidas rápidas, dano acelerado na vida desde os primeiros turnos.
+- Mecânicas: Efeitos de Rush (atacar no mesmo turno em que desce), concessão de Don de ataque e debuff (redução do poder dos personagens do adversário para abates fáceis).
+- Para quem é indicado: Jogadores que gostam de jogar de forma proativa, agressiva e direta, forçando o adversário a gastar recursos defensivos desesperadamente.
+- Exemplos de Líderes do Meta: Shanks (OP09), Roronoa Zoro (OP01), Edward.Newgate (OP02), Belo Betty (OP05).
+
+2. VERDE (GREEN) - ESTILO CADENCIADO / CONTROLE DE POSIÇÃO (MIDRANGE / TEMPO):
+- Filosofia: Controle equilibrado de mesa, trocas eficientes e sobrevivência constante.
+- Mecânicas: Virar (Rest) os personagens do oponente sem gastar ataques, reativar Don!! ou Blockers próprios no fim do turno para ter defesa impenetrável.
+- Para quem é indicado: Jogadores que gostam de partidas estruturadas e com foco no campo, controlando o ritmo do combate sem abrir mão da presença física.
+- Exemplos de Líderes do Meta: Jewelry Bonney (OP07), Donquixote Doflamingo (OP08), Trafalgar Law (OP02).
+
+3. AZUL (BLUE) - ESTILO METÓDICO / CONTROLE DE TEMPO & COMPRA (TEMPO / BOUNCE / MILL):
+- Filosofia: Vantagem de cartas na mão, filtragem profunda do deck e controle de ritmo.
+- Mecânicas: Devolver peças inimigas para a mão ou colocá-las no fundo do deck (bouncing sem ativar efeitos de K.O.), compras extras massivas e vitória alternativa por exaustão de cartas (Mill).
+- Para quem é indicado: Jogadores pensativos e táticos que gostam de ter sempre uma mão cheia de respostas, desmontar as estratégias do oponente e frustrar planos inimigos.
+- Exemplos de Líderes do Meta: Boa Hancock (OP07), Donquixote Doflamingo (OP01), Nami (OP03 - Condição de Vitória Mill).
+
+4. ROXO (PURPLE) - ESTILO EXPLOSIVO / ACELERAÇÃO DE DON & CHEFES PESADOS (RAMP / BIG IMPACT):
+- Filosofia: Pular curvas de custo e dominar a mesa com combatentes titânicos antes do esperado.
+- Mecânicas: Rampa de Don!! (adicionar Don ativo ou descansado extra à sua área de custo) e ativação de efeitos devastadores pagando Don (Don -X).
+- Para quem é indicado: Jogadores que gostam de jogar grandes cartas, ter excesso de energia disponível e colocar uma sequência de chefes imparáveis em campo.
+- Exemplos de Líderes do Meta: Monkey.D.Luffy (OP05), Kaido (OP01), Eustass"Captain"Kid (OP05).
+
+5. PRETO (BLACK) - ESTILO LENTO / DESTRUIÇÃO CIRÚRGICA & CONTROLE PESADO (HARD CONTROL / ATTRITION):
+- Filosofia: Partidas longas, esgotamento total dos recursos inimigos e controle total de mesa.
+- Mecânicas: Redução de custo dos personagens adversários combinada com efeitos de K.O. imediato, e constante reaproveitamento de cartas da própria lixeira (Trash recursion).
+- Para quem é indicado: Jogadores que amam um estilo de jogo lento, paciente e cirúrgico, onde o adversário simplesmente não consegue manter nenhum personagem em campo.
+- Exemplos de Líderes do Meta: Rob Lucci (OP07), Gecko Moria (OP06), Sakazuki, Marshall.D.Teach (OP09).
+
+6. AMARELO (YELLOW) - ESTILO DEFENSIVO / MANIPULAÇÃO DE VIDA & REVIRAVOLTAS (LIFE TRIGGER / COMEBACK):
+- Filosofia: Resistência duradoura, punição de ataques do oponente e viradas espetaculares de jogo.
+- Mecânicas: Cartas de vida com Triggers gratuitos ativados ao tomar dano, cura e restauração de pontos de vida, arrastando o jogo para o Late Game definitivo.
+- Para quem é indicado: Jogadores que gostam de jogos imprevisíveis, com alta capacidade de sobrevivência mesmo à beira da derrota e chefes gigantes no turno 10.
+- Exemplos de Líderes do Meta: Enel (OP05), Charlotte Katakuri (OP03), Portgas.D.Ace (OP07).
+
+7. LÍDERES BICOLORES (DUAL-COLOR):
+- Filosofia: Acesso ao acervo de cartas de duas cores simultaneamente, possibilitando sinergias únicas.
+- Trade-off: Começam a partida com apenas 4 pontos de vida (em vez de 5), exigindo gerenciamento defensivo mais refinado.
+- Exemplos de Líderes: Trafalgar Law (ST10), Monkey.D.Luffy (OP11), Sakazuki (OP05).`;
+
+                    // CASO 1: MODO META & ESCOLHA DE CORES / POPULAR DECKS
+                    if (isMetaMode) {
+                        let metaCtx = `MODO DE CONSULTORIA: METAGAME & ESCOLHA DE DECK / COR
+Formato / Set Ativo: ${metaSet.value || 'Geral'}
+Total de Decks Mapeados no Limitless TCG: ${totalDecksTracked.value || 'Centenas de'} listas competitivas.`;
+
+                        if (metaData.value && metaData.value.leaders && metaData.value.leaders.length > 0) {
+                            metaCtx += `\n\nRANKING DOS LÍDERES MAIS POPULARES DO META (LIMITLESS TCG):`;
+                            const topLeaders = [...metaData.value.leaders]
+                                .sort((a, b) => (b.deck_count || 0) - (a.deck_count || 0))
+                                .slice(0, 12);
+
+                            topLeaders.forEach((l, idx) => {
+                                const share = l.share_percentage ? ` | Share: ${l.share_percentage}%` : '';
+                                const wr = l.overall_winrate ? ` | Win Rate: ${l.overall_winrate}%` : '';
+                                const count = l.deck_count ? ` | ${l.deck_count} decks` : '';
+                                const lColor = l.card_color || (l.archetype_code && l.archetype_code.includes('||') ? l.archetype_code.split('||')[1] : 'N/A');
+                                metaCtx += `\n${idx + 1}. ${l.name} (${getLeaderCardId(l)}) - Cor: ${lColor}${count}${share}${wr}`;
+                            });
+                        }
+
+                        if (selectedMetaLeader.value) {
+                            const sml = selectedMetaLeader.value;
+                            metaCtx += `\n\nLÍDER EM FOCO SELECIONADO NA ABA DE POPULAR DECKS:
+Nome: ${sml.name} (${getLeaderCardId(sml)})
+Decks Registrados: ${sml.deck_count || 'N/A'} | Share: ${sml.share_percentage || 0}% | Win Rate: ${sml.overall_winrate || 'N/A'}%`;
+                            const smlCards = getActiveLeaderCards(sml);
+                            if (smlCards && smlCards.length > 0) {
+                                metaCtx += `\nCartas Staples deste Líder nos Torneios:`;
+                                smlCards.slice(0, 10).forEach(c => {
+                                    metaCtx += `\n- ${c.card_name} (${c.card_id}) - Inclusão: ${c.inclusion_percentage}% (${c.copies_recommendation || '4x'})`;
+                                });
+                            }
+                        }
+
+                        metaCtx += `\n\n${colorsGuide}\n\n${banlistCtx}`;
+
+                        if (evergreenGuidesData.value && evergreenGuidesData.value.guides) {
+                            metaCtx += `\n\nGUIAS FUNDAMENTAIS E ESTRATÉGIAS ATEMPORAIS DE PILOTAGEM:`;
+                            evergreenGuidesData.value.guides.forEach(g => {
+                                const cat = g.category ? ` (${g.category})` : '';
+                                metaCtx += `\n- Guia: "${g.title}"${cat}`;
+                                if (g.core_principles && g.core_principles.length > 0) {
+                                    g.core_principles.slice(0, 2).forEach(p => {
+                                        metaCtx += `\n  * ${p}`;
+                                    });
+                                }
+                            });
+                        }
+
+                        return metaCtx;
+                    }
+
+                    // CASO 2: MODO DECK BUILDER (DECK ESPECÍFICO MONTADO PELO USUÁRIO)
                     const leader = selectedBuilderLeader.value;
                     const stats = builderDeckStats.value || {};
                     const deckList = (userDeck.value || []).map(item => {
                         const c = item.card;
                         const cnt = c.counter_amount && c.counter_amount !== 'NULL' ? ` [Counter: +${c.counter_amount}]` : '';
-                        return `${item.quantity || item.count || 1}x ${c.card_set_id} ${c.card_name} (Custo: ${c.card_cost || 0}, Tipo: ${c.card_type}${cnt})`;
+                        const banWarning = isCardBanned(c) ? ' [ATENÇÃO: CARTA BANIDA/ROTACIONADA]' : '';
+                        return `${item.quantity || item.count || 1}x ${c.card_set_id} ${c.card_name} (Custo: ${c.card_cost || 0}, Tipo: ${c.card_type}${cnt})${banWarning}`;
                     }).join('\n');
 
                     let ctx = `LÍDER DO DECK:
@@ -5808,6 +5946,105 @@ ${deckList || 'O deck não possui cartas adicionadas ainda.'}`;
 
                     if (analysisResults.value && analysisResults.value.alignment) {
                         ctx += `\n\nALINHAMENTO COM O META DE TORNEIOS: ${analysisResults.value.alignment.toFixed(1)}%`;
+                    }
+
+                    let deckBanlistCtx = `\n\n${banlistCtx}`;
+                    const userBannedInDeck = (userDeck.value || []).filter(item => isCardBanned(item.card));
+                    if (userBannedInDeck.length > 0) {
+                        deckBanlistCtx += `\n\nALERTA GRAVE - CARTAS ILEGAIS DETECTADAS NO DECK ATUAL:`;
+                        userBannedInDeck.forEach(item => {
+                            deckBanlistCtx += `\n- ${item.card.card_set_id} ${item.card.card_name} (${item.quantity || 1}x) - Esta carta está banida/rotacionada em torneios oficiais. Alerte o jogador com prioridade máxima para substituí-la.`;
+                        });
+                    }
+                    ctx += deckBanlistCtx;
+
+                    // --- DADOS DO META DE TORNEIOS LIMITLESS TCG PARA O LÍDER ---
+                    let matchedLeader = null;
+                    if (metaData.value && metaData.value.leaders && metaData.value.leaders.length > 0) {
+                        matchedLeader = metaData.value.leaders.find(l => {
+                            const lid = (getLeaderCardId(l) || l.leader_card_id || '').toUpperCase();
+                            return lid === (leader.card_set_id || '').toUpperCase();
+                        });
+                        if (!matchedLeader) {
+                            const lName = (leader.card_name || '').toLowerCase();
+                            matchedLeader = metaData.value.leaders.find(l => {
+                                const mName = (l.name || '').toLowerCase();
+                                return mName.includes(lName) || lName.includes(mName);
+                            });
+                        }
+                    }
+
+                    const metaCards = matchedLeader ? getActiveLeaderCards(matchedLeader) : [];
+                    if (metaCards && metaCards.length > 0) {
+                        let metaLeaderCtx = `\n\nDADOS DO META DE TORNEIOS LIMITLESS TCG (LÍDER: ${leader.card_name} ${leader.card_set_id}):`;
+                        if (matchedLeader && matchedLeader.deck_count) {
+                            metaLeaderCtx += `\nBase de Decks Analisados: ${matchedLeader.deck_count} listas de torneios competitivos.`;
+                        }
+
+                        const userDeckIds = new Set((userDeck.value || []).map(item => (item.card?.card_set_id || '').toUpperCase()));
+                        const metaInclusionMap = {};
+                        metaCards.forEach(c => {
+                            if (c.card_id) {
+                                metaInclusionMap[c.card_id.toUpperCase()] = parseFloat(c.inclusion_percentage || 0);
+                            }
+                        });
+
+                        const coreCards = metaCards.filter(c => parseFloat(c.inclusion_percentage || 0) >= 50.0)
+                            .sort((a, b) => parseFloat(b.inclusion_percentage || 0) - parseFloat(a.inclusion_percentage || 0));
+
+                        const techCards = metaCards.filter(c => {
+                            const pct = parseFloat(c.inclusion_percentage || 0);
+                            return pct >= 15.0 && pct < 50.0;
+                        }).sort((a, b) => parseFloat(b.inclusion_percentage || 0) - parseFloat(a.inclusion_percentage || 0));
+
+                        const missingStaples = metaCards.filter(c => {
+                            const cid = (c.card_id || '').toUpperCase();
+                            return !userDeckIds.has(cid) && parseFloat(c.inclusion_percentage || 0) >= 40.0;
+                        }).sort((a, b) => parseFloat(b.inclusion_percentage || 0) - parseFloat(a.inclusion_percentage || 0));
+
+                        const lowPresenceCards = (userDeck.value || []).map(item => {
+                            const cid = (item.card?.card_set_id || '').toUpperCase();
+                            const inc = metaInclusionMap[cid] || 0.0;
+                            return {
+                                name: item.card?.card_name,
+                                id: cid,
+                                qty: item.quantity || item.count || 1,
+                                inclusion: inc
+                            };
+                        }).filter(i => i.inclusion < 20.0).sort((a, b) => a.inclusion - b.inclusion);
+
+                        if (missingStaples.length > 0) {
+                            metaLeaderCtx += `\n\nCARTAS ESSENCIAIS DO META AUSENTES NO DECK (PRIORIDADE MÁXIMA PARA SUGERIR ENTRADA):`;
+                            missingStaples.forEach(c => {
+                                const recCopies = c.copies_recommendation ? ` | Quantidade recomendada: ${c.copies_recommendation}` : '';
+                                metaLeaderCtx += `\n- ${c.card_name} (${c.card_id}) - Presente em ${c.inclusion_percentage}% dos decks campeões${recCopies}`;
+                            });
+                        }
+
+                        if (lowPresenceCards.length > 0) {
+                            metaLeaderCtx += `\n\nCARTAS DO DECK ATUAL COM BAIXA OU NENHUMA PRESENÇA NO META (CANDIDATAS PRIORITÁRIAS A CORTE/SUBSTITUIÇÃO):`;
+                            lowPresenceCards.forEach(c => {
+                                metaLeaderCtx += `\n- ${c.name} (${c.id}) (${c.qty}x no deck) - Presença nos torneios: ${c.inclusion.toFixed(1)}%`;
+                            });
+                        }
+
+                        if (coreCards.length > 0) {
+                            metaLeaderCtx += `\n\nCARTAS CORE DO META DE TORNEIOS PARA ESTE LÍDER (STAPLES >= 50%):`;
+                            coreCards.slice(0, 10).forEach(c => {
+                                const recCopies = c.copies_recommendation ? ` | Uso típico: ${c.copies_recommendation}` : '';
+                                metaLeaderCtx += `\n- ${c.card_name} (${c.card_id}) - Inclusão no meta: ${c.inclusion_percentage}%${recCopies}`;
+                            });
+                        }
+
+                        if (techCards.length > 0) {
+                            metaLeaderCtx += `\n\nOPÇÕES TECH COMPETITIVAS DO META (15% A 49%):`;
+                            techCards.slice(0, 6).forEach(c => {
+                                const recCopies = c.copies_recommendation ? ` | Uso típico: ${c.copies_recommendation}` : '';
+                                metaLeaderCtx += `\n- ${c.card_name} (${c.card_id}) - Inclusão no meta: ${c.inclusion_percentage}%${recCopies}`;
+                            });
+                        }
+
+                        ctx += metaLeaderCtx;
                     }
 
                     if (videoInsightsData.value && videoInsightsData.value.videos_by_leader) {
@@ -5859,7 +6096,7 @@ ${deckList || 'O deck não possui cartas adicionadas ainda.'}`;
                     return [];
                 });
 
-                const sendCoachMessage = async (customPrompt) => {
+                const sendCoachMessage = async (customPrompt, metaOptions = {}) => {
                     const text = (typeof customPrompt === 'string' ? customPrompt : coachInput.value || '').trim();
                     if (!text || isCoachLoading.value) return;
 
@@ -5873,6 +6110,7 @@ ${deckList || 'O deck não possui cartas adicionadas ainda.'}`;
                     coachMessages.value.push({
                         role: 'user',
                         text: text,
+                        isMulliganPrompt: !!metaOptions.isMulligan,
                         timestamp: Date.now()
                     });
                     coachInput.value = '';
@@ -5882,16 +6120,50 @@ ${deckList || 'O deck não possui cartas adicionadas ainda.'}`;
 
                     try {
                         const deckContext = buildCoachDeckContext();
+                        const isMetaMode = coachContextMode.value === 'meta' || !selectedBuilderLeader.value;
+
+                        let modeRules = '';
+                        if (isMetaMode) {
+                            modeRules = `7. DIRETRIZES DE ORIENTAÇÃO DE METAGAME E ESCOLHA DE COR / DECK:
+- Seu objetivo neste modo é tirar dúvidas sobre o metagame, popular decks e orientar o jogador na escolha da melhor cor e líder para seu gosto pessoal.
+- Ao responder perguntas sobre cores e estilo de jogo (lento vs agressivo):
+  * Se o jogador prefere jogo RÁPIDO, DIRETO e AGRESSIVO: Indique a cor Vermelha (Aggro/Rush) e arquétipos de pressão imediata na vida, citando exemplos de líderes fortes no meta (ex: Shanks OP09, Zoro OP01, Belo Betty OP05).
+  * Se o jogador prefere jogo LENTO, PACIENTE, DE CONTROLE OU DESTRUIÇÃO DE MESA: Indique as cores Preta (Hard Control/redução de custo e K.O. constante) ou Amarela (sobrevivência com triggers de vida e cura), citando líderes como Rob Lucci OP07, Gecko Moria OP06, Teach OP09, Enel OP05 ou Katakuri OP03.
+  * Se o jogador prefere jogo CADENCIADO, EQUILIBRADO E TÁTICO: Indique as cores Verde (Midrange/Restar oponentes/Blockers defensivos) ou Azul (vantagem de cartas na mão/bouncing de mesa/controle de tempo), citando líderes como Bonney OP07, Doflamingo OP01/OP08 ou Boa Hancock OP07.
+  * Se o jogador gosta de ACELERAR RECURSOS e descer chefes gigantes: Indique a cor Roxa (Ramp de Don!!), citando Monkey.D.Luffy OP05.
+- Se o jogador perguntar sobre facilidade de aprendizado ou for iniciante: recomende opções consistentes e de plano de jogo claro (como Shanks, Zoro ou Bonney), alertando sobre decks que exigem controle complexo de lixeira ou sequenciamentos punitivos (como Teach ou Moria).
+- Baseie sempre suas recomendações nos dados reais de participação e vitórias de torneios fornecidos no contexto.
+- RESPEITO ABSOLUTO À BANLIST: Nunca sugira ou aprove líderes ou cartas banidas.`;
+                        } else {
+                            modeRules = `7. DIRETRIZES DE RECOMENDAÇÃO BASEADA NO META REAL (LIMITLESS TCG):
+- Suas recomendações de inclusão, corte e substituição de cartas DEVEM ser estritamente fundamentadas nos dados reais do meta de torneios fornecidos no contexto.
+- NUNCA invente cartas ou sugira cartas fracas/fora do meta a menos que o usuário peça explicitamente por cartas 'for fun' ou testes experimentais.
+- Ao sugerir cartas para adicionar, priorize sempre as cartas listadas na seção "CARTAS ESSENCIAIS DO META AUSENTES NO DECK (PRIORIDADE MÁXIMA PARA SUGERIR ENTRADA)" e na seção "CARTAS CORE DO META DE TORNEIOS".
+- Ao sugerir trocas e substituições, priorize indicar o corte das cartas listadas na seção "CARTAS DO DECK ATUAL COM BAIXA OU NENHUMA PRESENÇA NO META (CANDIDATAS PRIORITÁRIAS A CORTE/SUBSTITUIÇÃO)".
+- RESPEITO ABSOLUTO À BANLIST: É terminantemente proibido recomendar cartas banidas ou pares proibidos sob qualquer circunstância. Se o deck do jogador contiver cartas banidas/rotacionadas identificadas no alerta, instrua-o a removê-las com prioridade.
+
+8. REGRAS DE SUGESTÃO DE TROCA E AÇÕES INTERATIVAS NO DECK:
+- Quando você recomendar a substituição ou troca pontual de cartas no deck do usuário (ex: cortar cartas fracas e incluir cartas do meta), você DEVE adicionar ao final da sua resposta uma tag de ação estruturada no formato:
+[TROCAR: -{quantidade}x {ID_CARTA_SAINDO} / +{quantidade}x {ID_CARTA_ENTRANDO}]
+Exemplo: [TROCAR: -2x OP01-039 / +2x OP07-019]
+Essa tag será convertida pela interface em um botão interativo para o usuário aplicar a troca automaticamente no deck. Se sugerir múltiplas trocas, inclua uma tag para cada troca em linhas separadas.
+
+9. REGRAS DE ANÁLISE DE MÃO INICIAL (MULLIGAN):
+- Quando o usuário solicitar uma simulação ou análise de mão inicial / mulligan (com 5 cartas sorteadas), dê sempre um veredito claro e direto em destaque logo no início: MANTER (KEEP) ou MULLIGAN (REDRAW).
+- Explique o sequenciamento de Don turno a turno considerando 1º Turno (1, 3, 5 Don) e 2º Turno (2, 4, 6 Don), e a presença de buscadores de custo baixo ou contadores de emergência na mão.`;
+                        }
+
                         const systemInstructionText = `Você é o OPTCG Coach, um analista tático e especialista de ponta no jogo oficial One Piece Card Game (Bandai).
-Seu papel é responder dúvidas do jogador sobre a lista de deck montada, estratégias de combate, mulligan, curvas de Don e alternativas de cartas.
+Seu papel é responder dúvidas do jogador sobre o metagame de torneios, escolha de cores e arquétipos de jogo (lento vs agressivo), e análise técnica de listas de deck.
 
 REGRAS OBRIGATÓRIAS:
-1. Responda em Português do Brasil com tom técnico, conciso e objetivo.
+1. Responda em Português do Brasil com tom técnico, consultivo, conciso e acolhedor.
 2. NÃO USE NENHUM EMOJI em hipótese alguma. Mantenha as mensagens totalmente livres de emojis ou símbolos ilustrativos semelhantes. Use apenas formatação com negrito e listas com marcadores quando oportuno.
-3. Respeite as cores permitidas pelo líder do jogador. Nunca recomende cartas de cores incompatíveis.
-4. Quando citar cartas recomendadas ou para substituição, sempre escreva o nome e o código oficial (exemplo: Nami OP01-016, Portgas.D.Ace OP02-013, Marco OP03-013).
+3. Respeite as cores permitidas pelo líder do jogador quando estiver analisando um deck específico.
+4. Quando citar cartas recomendadas ou líderes, sempre escreva o nome e o código oficial (exemplo: Shanks OP09-001, Enel OP05-098, Portgas.D.Ace OP02-013, Jewelry Bonney OP07-019).
 5. Baseie suas respostas nas regras oficiais do One Piece Card Game (regras de Don!!, timing de Counter, Blockers, ativamento e descanso).
 6. As informações de análises recentes do meta fornecidas no contexto servem exclusivamente como base de conhecimento tático para fundamentar suas explicações. Não mencione canais do YouTube, links nem recomende vídeos ao jogador; fale diretamente como um especialista e treinador tático que domina as tendências atuais do meta.
+${modeRules}
 
 ${deckContext}`;
 
@@ -5913,26 +6185,54 @@ ${deckContext}`;
                         };
 
                         let res;
+                        let isSseStream = false;
+
+                        // Adiciona mensagem inicial reativa do assistente para receber os tokens do streaming
+                        const assistantMsg = reactive({
+                            role: 'assistant',
+                            text: '',
+                            swaps: [],
+                            isMulliganMessage: !!metaOptions.isMulligan,
+                            timestamp: Date.now()
+                        });
+                        coachMessages.value.push(assistantMsg);
+
                         if (coachWorkerUrl.value) {
                             res = await fetch(coachWorkerUrl.value.trim(), {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify(payload)
                             });
+                            const cType = res.headers.get('content-type') || '';
+                            isSseStream = cType.includes('text/event-stream');
                         } else {
                             const key = encodeURIComponent(coachApiKey.value.trim());
-                            res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${key}`, {
+                            // Chamada via SSE streaming (Server-Sent Events) para renderização progressiva
+                            res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${key}`, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify(payload)
                             });
 
                             if (!res.ok && res.status === 404) {
-                                res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${key}`, {
+                                res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?alt=sse&key=${key}`, {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify(payload)
                                 });
+                            }
+
+                            if (!res.ok && res.status === 404) {
+                                // Fallback para endpoint convencional sem streaming
+                                res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(payload)
+                                });
+                                isSseStream = false;
+                            } else {
+                                const cType = res.headers.get('content-type') || '';
+                                isSseStream = cType.includes('text/event-stream') || res.ok;
                             }
                         }
 
@@ -5947,21 +6247,68 @@ ${deckContext}`;
                             } else {
                                 coachErrorMessage.value = msg;
                             }
+                            const idx = coachMessages.value.indexOf(assistantMsg);
+                            if (idx !== -1) coachMessages.value.splice(idx, 1);
                             return;
                         }
 
-                        const data = await res.json();
-                        const candidate = data.candidates?.[0];
-                        const reply = candidate?.content?.parts?.[0]?.text;
+                        let accumulatedText = '';
 
-                        if (reply) {
-                            coachMessages.value.push({
-                                role: 'assistant',
-                                text: reply.trim(),
-                                timestamp: Date.now()
-                            });
+                        if (isSseStream && res.body) {
+                            const reader = res.body.getReader();
+                            const decoder = new TextDecoder('utf-8');
+                            let buffer = '';
+
+                            while (true) {
+                                const { done, value } = await reader.read();
+                                if (done) break;
+                                buffer += decoder.decode(value, { stream: true });
+
+                                const lines = buffer.split('\n');
+                                buffer = lines.pop() || '';
+
+                                for (const line of lines) {
+                                    const trimmed = line.trim();
+                                    if (trimmed.startsWith('data: ')) {
+                                        const jsonStr = trimmed.slice(6).trim();
+                                        if (jsonStr === '[DONE]') continue;
+                                        try {
+                                            const parsed = JSON.parse(jsonStr);
+                                            const chunk = parsed.candidates?.[0]?.content?.parts?.[0]?.text;
+                                            if (chunk) {
+                                                accumulatedText += chunk;
+                                                assistantMsg.text = accumulatedText;
+                                                scrollCoachToBottom();
+                                            }
+                                        } catch (e) {}
+                                    }
+                                }
+                            }
+                        } else {
+                            const data = await res.json();
+                            const candidate = data.candidates?.[0];
+                            accumulatedText = candidate?.content?.parts?.[0]?.text || '';
+                            assistantMsg.text = accumulatedText.trim();
+                        }
+
+                        if (accumulatedText) {
+                            const swapRegex = /\[TROCA[R]?:\s*-?(\d+)\s*x?\s*([A-Za-z0-9-]+)\s*(?:\/|por|->)\s*\+?(\d+)\s*x?\s*([A-Za-z0-9-]+)\]/gi;
+                            const swaps = [];
+                            let match;
+                            while ((match = swapRegex.exec(accumulatedText)) !== null) {
+                                swaps.push({
+                                    outQty: parseInt(match[1]),
+                                    outId: match[2].toUpperCase().trim(),
+                                    inQty: parseInt(match[3]),
+                                    inId: match[4].toUpperCase().trim(),
+                                    applied: false
+                                });
+                            }
+                            assistantMsg.swaps = swaps;
                         } else {
                             coachErrorMessage.value = 'O modelo não retornou uma resposta válida. Tente reformular sua pergunta.';
+                            const idx = coachMessages.value.indexOf(assistantMsg);
+                            if (idx !== -1) coachMessages.value.splice(idx, 1);
                         }
                     } catch (err) {
                         console.error('Coach IA Error:', err);
@@ -5969,6 +6316,314 @@ ${deckContext}`;
                     } finally {
                         isCoachLoading.value = false;
                         nextTick(() => scrollCoachToBottom());
+                    }
+                };
+
+                const executeCoachSwap = (swap) => {
+                    if (!swap || swap.applied) return;
+                    const outId = (swap.outId || '').toUpperCase().trim();
+                    const inId = (swap.inId || '').toUpperCase().trim();
+                    const outQty = Number(swap.outQty) || 1;
+                    const inQty = Number(swap.inQty) || 1;
+
+                    // Verifica se a carta a ser removida está no deck
+                    const foundOut = userDeck.value.find(item => item && item.card && (item.card.card_set_id || '').toUpperCase().trim() === outId);
+                    if (!foundOut) {
+                        showToast(`A carta ${outId} não foi encontrada no seu deck atual.`, 'warning');
+                        return;
+                    }
+
+                    // Remove as cópias indicadas
+                    const qtyToRemove = Math.min(outQty, foundOut.quantity);
+                    for (let i = 0; i < qtyToRemove; i++) {
+                        removeCardFromDeck(outId);
+                    }
+
+                    // Localiza a carta a ser adicionada no acervo
+                    const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value, ...donCards.value];
+                    let foundIn = allCards.find(c => c && c.card_set_id && c.card_set_id.toUpperCase().trim() === inId);
+
+                    // Se não estiver nos sets básicos carregados, busca nas listas de meta líderes
+                    if (!foundIn && metaData.value && metaData.value.leaders) {
+                        for (const l of metaData.value.leaders) {
+                            const mCards = getActiveLeaderCards(l);
+                            const mc = mCards.find(c => (c.card_id || '').toUpperCase().trim() === inId);
+                            if (mc) {
+                                const cSet = inId.split('-')[0] || '';
+                                foundIn = {
+                                    card_name: mc.card_name || inId,
+                                    card_set_id: inId,
+                                    card_type: 'Character',
+                                    card_color: selectedBuilderLeader.value ? selectedBuilderLeader.value.card_color : 'Red',
+                                    card_image: mc.image || `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${cSet}/${inId}_EN.webp`,
+                                    card_cost: "3",
+                                    rarity: 'UC'
+                                };
+                                break;
+                            }
+                        }
+                    }
+
+                    // Fallback se não encontrada em nenhum lugar
+                    if (!foundIn) {
+                        const cSet = inId.split('-')[0] || '';
+                        foundIn = {
+                            card_name: inId,
+                            card_set_id: inId,
+                            card_type: 'Character',
+                            card_color: selectedBuilderLeader.value ? selectedBuilderLeader.value.card_color : 'Red',
+                            card_image: `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${cSet}/${inId}_EN.webp`,
+                            card_cost: "3",
+                            rarity: 'UC'
+                        };
+                    }
+
+                    // Adiciona as cópias da nova carta ao deck
+                    addCardToDeck(foundIn, inQty);
+                    swap.applied = true;
+                    showToast(`Troca realizada com sucesso: -${qtyToRemove}x ${outId} / +${inQty}x ${inId}`, 'success');
+                };
+
+                const simulateMulliganWithCoach = (isRedraw = false) => {
+                    if (!selectedBuilderLeader.value || userDeck.value.length === 0) {
+                        showToast('Monte ou carregue um deck com cartas para simular a mão inicial.', 'warning');
+                        return;
+                    }
+
+                    const fullDeck = [];
+                    userDeck.value.forEach(item => {
+                        const qty = item.quantity || 1;
+                        for (let i = 0; i < qty; i++) {
+                            fullDeck.push(item.card);
+                        }
+                    });
+
+                    if (fullDeck.length < 5) {
+                        showToast('O deck precisa de pelo menos 5 cartas para simular a mão inicial.', 'warning');
+                        return;
+                    }
+
+                    // Embaralhamento Fisher-Yates
+                    for (let i = fullDeck.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [fullDeck[i], fullDeck[j]] = [fullDeck[j], fullDeck[i]];
+                    }
+
+                    const hand = fullDeck.slice(0, 5);
+                    const handLines = hand.map((c, idx) => {
+                        const cnt = c.counter_amount && c.counter_amount !== 'NULL' && Number(c.counter_amount) > 0 ? ` [Counter: +${c.counter_amount}]` : ' [Sem Counter]';
+                        return `${idx + 1}. ${c.card_name} (${c.card_set_id}) - Custo: ${c.card_cost || 0} | Tipo: ${c.card_type}${cnt}`;
+                    }).join('\n');
+
+                    const handPrompt = `[SIMULAÇÃO DE MÃO INICIAL - ${isRedraw ? 'MULLIGAN / REDRAW' : 'COMPRA INICIAL'}]\nCartas sorteadas (5 cartas):\n${handLines}\n\nAnalise se devo MANTER (KEEP) ou dar MULLIGAN (REDRAW) com meu líder ${selectedBuilderLeader.value.card_name} (${selectedBuilderLeader.value.card_set_id}). Explique a curva de Don ideal para os primeiros turnos.`;
+
+                    sendCoachMessage(handPrompt, { isMulligan: true });
+                };
+
+                // --- SÍNTESE INTELIGENTE DE COMBATE & MANUAL TÁTICO COM IA ---
+                const aiCombatGuide = ref(null);
+                const isGeneratingAiGuide = ref(false);
+                const aiGuideError = ref('');
+                const cachedAiCombatGuide = {};
+
+                const getDeckSignature = () => {
+                    if (!selectedBuilderLeader.value) return '';
+                    const lId = selectedBuilderLeader.value.card_set_id || '';
+                    const cards = (userDeck.value || [])
+                        .map(i => `${i.card?.card_set_id || ''}:${i.quantity || 1}`)
+                        .sort()
+                        .join(',');
+                    return `${lId}__${cards}`;
+                };
+
+                const getAiMatchupData = (oppCardId) => {
+                    if (!aiCombatGuide.value || !aiCombatGuide.value.matchup_insights || !oppCardId) return null;
+                    const cleanId = oppCardId.toUpperCase().trim();
+                    const insights = aiCombatGuide.value.matchup_insights;
+                    if (insights[cleanId]) return insights[cleanId];
+                    for (const k of Object.keys(insights)) {
+                        if (k.toUpperCase().trim() === cleanId) return insights[k];
+                    }
+                    return null;
+                };
+
+                const generateCombatAiGuide = async (forceRefresh = false) => {
+                    if (!selectedBuilderLeader.value || userDeck.value.length === 0) return;
+                    if (isGeneratingAiGuide.value) return;
+
+                    if (!coachWorkerUrl.value && !coachApiKey.value) {
+                        showToast('Configure sua chave de API ou servidor proxy para ativar o Coach IA.', 'info');
+                        showCoachModal.value = true;
+                        showCoachKeyConfig.value = true;
+                        return;
+                    }
+
+                    const sig = getDeckSignature();
+                    if (!forceRefresh && cachedAiCombatGuide[sig]) {
+                        aiCombatGuide.value = cachedAiCombatGuide[sig];
+                        return;
+                    }
+
+                    isGeneratingAiGuide.value = true;
+                    aiGuideError.value = '';
+
+                    try {
+                        const leader = selectedBuilderLeader.value;
+                        const stats = builderDeckStats.value || {};
+                        const deckCardsSummary = (userDeck.value || []).map(i => {
+                            const c = i.card;
+                            const cnt = c.counter_amount && c.counter_amount !== 'NULL' && Number(c.counter_amount) > 0 ? ` [Counter: +${c.counter_amount}]` : '';
+                            return `${i.quantity}x ${c.card_set_id} ${c.card_name} (Custo: ${c.card_cost || 0}, Tipo: ${c.card_type}${cnt})`;
+                        }).join('\n');
+
+                        // Captura oponentes mais populares do meta
+                        const metaLeaders = (metaData.value && metaData.value.leaders ? metaData.value.leaders : []).slice(0, 6);
+                        const oppsContext = metaLeaders.map(l => `- ${l.name} (${getLeaderCardId(l)}): Winrate ${l.overall_winrate || '50'}%, Presença no Meta ${l.share_percentage || '0'}%`).join('\n');
+
+                        // Captura aprendizados dos vídeos diários do YouTube para este líder
+                        let videoContext = '';
+                        if (videoInsightsData.value && videoInsightsData.value.videos_by_leader) {
+                            const ldrName = (leader.card_name || '').toLowerCase();
+                            const byLeader = videoInsightsData.value.videos_by_leader;
+                            for (const key of Object.keys(byLeader)) {
+                                if (ldrName.includes(key) || key.includes(ldrName.split(' ')[0])) {
+                                    const vids = byLeader[key].slice(0, 4);
+                                    videoContext = vids.map(v => `* Análise de Vídeo: "${v.title}" | Confrontos abordados: ${(v.matchups_covered || []).join(', ')}`).join('\n');
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Captura princípios estratégicos atemporais
+                        let evergreenContext = '';
+                        if (evergreenGuidesData.value && evergreenGuidesData.value.guides) {
+                            evergreenGuidesData.value.guides.slice(0, 3).forEach(g => {
+                                evergreenContext += `* Guia Atemporal "${g.title}": ${(g.core_principles || []).slice(0, 2).join('; ')}\n`;
+                            });
+                        }
+
+                        const oppIdsList = metaLeaders.map(l => getLeaderCardId(l)).filter(Boolean);
+
+                        const prompt = `Você é o OPTCG Coach, um especialista tático de torneios de One Piece Card Game (Bandai).
+Analise a lista real do deck do jogador e produza uma síntese técnica de combate aprofundada, concisa e de alto nível para os confrontos contra os principais líderes do meta atual.
+
+LÍDER DO DECK: ${leader.card_name} (${leader.card_set_id}) | Cores: ${leader.card_color}
+ESTATÍSTICAS DA LISTA:
+- Total: ${userDeckCount.value}/50 cartas
+- Contadores +2000: ${stats.counter_2000_count || 0}
+- Contadores +1000: ${stats.counter_1000_count || 0}
+- Blockers: ${stats.blockers_count || 0}
+- Remoções: ${stats.removal_count || 0}
+
+LISTA DE CARTAS:
+${deckCardsSummary}
+
+OPONENTES DO META ATUAL:
+${oppsContext}
+
+INSIGHTS DE VÍDEOS COMPETITIVOS RECENTES DO YOUTUBE:
+${videoContext || 'Foque nas tendências competitivas padrão do metagame.'}
+
+PRINCÍPIOS ATEMPORAIS DE PILOTAGEM:
+${evergreenContext}
+
+REGRAS OBRIGATÓRIAS:
+1. Responda ESTRITAMENTE em formato JSON válido sem texto adicional.
+2. NÃO USE NENHUM EMOJI. Mantenha tom técnico e conciso.
+3. Máximo de 2 frases por descrição ou ação.
+4. Gere chaves no objeto 'matchup_insights' para cada um dos seguintes IDs de líderes do meta: ${oppIdsList.join(', ')}.
+5. Estrutura JSON requerida:
+{
+  "tactical_manual": {
+    "turn_preference": "1º Turno (Ímpar) ou 2º Turno (Par)",
+    "turn_reason": "Justificativa concisa baseada na curva de custo das cartas do deck.",
+    "phases": [
+      {
+        "phase": "Fase 1: Abertura & Buscas (Turnos 1 a 3)",
+        "tag": "Setup de Don",
+        "action": "Ação tática com cartas de custo 1-3 do deck."
+      },
+      {
+        "phase": "Fase 2: Trocas & Controle (Turnos 4 a 6)",
+        "tag": "Domínio de Mesa",
+        "action": "Ação tática com atacantes de meio de curva e remoções do deck."
+      },
+      {
+        "phase": "Fase 3: Finalização Letal (Turnos 7+)",
+        "tag": "Golpe Final",
+        "action": "Ação tática com chefes e Don máximo para vencer."
+      }
+    ],
+    "pilars": [
+      { "title": "Pilar 1", "desc": "Princípio tático chave adaptado ao deck (máx 2 frases)." },
+      { "title": "Pilar 2", "desc": "Princípio tático chave adaptado ao deck (máx 2 frases)." },
+      { "title": "Pilar 3", "desc": "Princípio tático chave adaptado ao deck (máx 2 frases)." }
+    ]
+  },
+  "matchup_insights": {
+    "${oppIdsList[0] || 'OP05-098'}": {
+      "tactical_posture": "Postura recomendada contra este líder específico.",
+      "video_meta_tip": "Dica prática aprendida dos competidores e vídeos recentes.",
+      "key_response": "Como responder às ameaças dele usando cartas do seu deck."
+    }
+  }
+}`;
+
+                        const payload = {
+                            contents: [{ parts: [{ text: prompt }] }],
+                            generationConfig: {
+                                temperature: 0.3,
+                                maxOutputTokens: 2500,
+                                responseMimeType: "application/json"
+                            }
+                        };
+
+                        let res;
+                        if (coachWorkerUrl.value) {
+                            res = await fetch(coachWorkerUrl.value.trim(), {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            });
+                        } else {
+                            const key = encodeURIComponent(coachApiKey.value.trim());
+                            res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            });
+
+                            if (!res.ok && res.status === 404) {
+                                res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(payload)
+                                });
+                            }
+                        }
+
+                        if (!res.ok) {
+                            throw new Error(`HTTP ${res.status}`);
+                        }
+
+                        const data = await res.json();
+                        const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                        let cleaned = rawText.trim();
+                        if (cleaned.startsWith('```json')) {
+                            cleaned = cleaned.replace(/^```json\s*/i, '').replace(/```$/i, '').trim();
+                        } else if (cleaned.startsWith('```')) {
+                            cleaned = cleaned.replace(/^```\s*/, '').replace(/```$/, '').trim();
+                        }
+
+                        const parsed = JSON.parse(cleaned);
+                        cachedAiCombatGuide[sig] = parsed;
+                        aiCombatGuide.value = parsed;
+                        showToast('Guia tático de combate sintetizado com IA do Meta!', 'success');
+                    } catch (e) {
+                        console.warn('Erro ao sintetizar combate com IA:', e);
+                        aiGuideError.value = 'Falha momentânea na conexão com a IA. Exibindo heurística padrão.';
+                    } finally {
+                        isGeneratingAiGuide.value = false;
                     }
                 };
 
@@ -8022,17 +8677,17 @@ ${deckContext}`;
                     const pilotingPillars = [
                         {
                             phase: "Fase 1: Abertura & Consistência (Turnos 1 a 3)",
-                            icon: "🔍",
+                            icon: "",
                             text: `Utilize ${userSearchers[0] ? userSearchers[0].card_name : 'seus buscadores de custo baixo'} para filtrar a mão e garantir a chegada dos atacantes de curva. Não queime seus ${stats.counter_2000_count}x Counters +2000 em ataques fracos do início; tome 1 ou 2 danos de vida para abastecer a mão com novas opções.`
                         },
                         {
                             phase: "Fase 2: Trocas & Domínio de Campo (Turnos 4 a 6)",
-                            icon: "⚔️",
+                            icon: "",
                             text: `Priorize atacar personagens virados (rested) do oponente com seus atacantes de ${userMidDrops[0] ? userMidDrops[0].card_name : '5000-6000 poder'} em vez de bater na vida desnecessariamente. Use ${userRemovals[0] ? userRemovals[0].card_name : 'suas remoções'} para neutralizar ameaças críticas sem precisar gastar múltiplos ataques.`
                         },
                         {
                             phase: "Fase 3: Finalização & Pressão Letal (Turnos 7+)",
-                            icon: "👑",
+                            icon: "",
                             text: `Coloque seu Boss ${userBosses[0] ? userBosses[0].card_name : 'principal'} na mesa. Quando o adversário estiver com 0 ou 1 de vida, concentre o Don disponível nos seus atacantes mais fortes e no Líder (7000 a 9000+ de poder) para tornar a defesa impossível através da mão.`
                         }
                     ];
@@ -8287,6 +8942,8 @@ ${deckContext}`;
 
                     // Coach IA exports
                     showCoachModal,
+                    coachContextMode,
+                    switchCoachMode,
                     coachWorkerUrl,
                     coachWorkerUrlInput,
                     coachApiKey,
@@ -8306,6 +8963,13 @@ ${deckContext}`;
                     formatCoachText,
                     sendCoachMessage,
                     currentLeaderVideos,
+                    executeCoachSwap,
+                    simulateMulliganWithCoach,
+                    generateCombatAiGuide,
+                    aiCombatGuide,
+                    isGeneratingAiGuide,
+                    aiGuideError,
+                    getAiMatchupData,
 
                     savedDecks,
                     showSavedDecksPanel,

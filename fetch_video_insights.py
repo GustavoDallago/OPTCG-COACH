@@ -142,6 +142,23 @@ def identify_leader_and_set(title: str, desc: str) -> Dict[str, Any]:
             matched_leaders.append(ldr)
     return {"format": fmt, "leaders": matched_leaders}
 
+MAX_META_VIDEO_AGE_DAYS = 90
+
+def is_video_within_meta_window(published_at_str: str, max_days: int = MAX_META_VIDEO_AGE_DAYS) -> bool:
+    """Verifica se o video foi publicado dentro da janela de relevancia do meta (padrao: 90 dias / ~3 meses)."""
+    if not published_at_str:
+        return True
+    try:
+        clean_str = published_at_str.replace("Z", "+00:00")
+        pub_dt = datetime.datetime.fromisoformat(clean_str)
+        if pub_dt.tzinfo is None:
+            pub_dt = pub_dt.replace(tzinfo=datetime.timezone.utc)
+        now_dt = datetime.datetime.now(datetime.timezone.utc)
+        age_days = (now_dt - pub_dt).total_seconds() / 86400.0
+        return age_days <= max_days
+    except Exception:
+        return True
+
 def process_channel_videos() -> Dict[str, Any]:
     if not os.path.exists(CHANNELS_FILE):
         print(f"[Erro] Arquivo {CHANNELS_FILE} nao encontrado.")
@@ -149,7 +166,7 @@ def process_channel_videos() -> Dict[str, Any]:
     with open(CHANNELS_FILE, "r", encoding="utf-8") as f:
         config = json.load(f)
     channels = config.get("channels", [])
-    print(f"[YouTube Insights] Iniciando coleta de {len(channels)} canais...")
+    print(f"[YouTube Insights] Iniciando coleta de {len(channels)} canais (janela de meta: {MAX_META_VIDEO_AGE_DAYS} dias)...")
     insights = {
         "last_updated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "total_channels": len(channels),
@@ -174,6 +191,9 @@ def process_channel_videos() -> Dict[str, Any]:
         optcg_count = 0
         for v in videos:
             if not is_optcg_content(v["title"], v["description"]):
+                continue
+            # Filtro 1: Descartar videos com mais de 90 dias (fora do meta ativo)
+            if not is_video_within_meta_window(v.get("published_at", "")):
                 continue
             optcg_count += 1
             meta = identify_leader_and_set(v["title"], v["description"])
@@ -206,11 +226,29 @@ def process_channel_videos() -> Dict[str, Any]:
                     "format": entry["format"],
                     "matchups_covered": matchups
                 })
-        print(f"   {optcg_count} videos de OPTCG identificados.")
+        print(f"   {optcg_count} videos de OPTCG recentes (ultimos {MAX_META_VIDEO_AGE_DAYS} dias) identificados.")
+
+    # Filtro 2: Deduplicacao por canal + lider
+    # Se o mesmo canal tiver multiplos videos para o mesmo lider, mantem apenas o mais recente.
+    # Entre canais diferentes, mantem ambos e ordena por published_at decrescente.
+    deduped_videos_by_leader: Dict[str, List[Dict[str, Any]]] = {}
+    for ldr_key, vlist in insights["videos_by_leader"].items():
+        channel_latest: Dict[str, Dict[str, Any]] = {}
+        for v in vlist:
+            ch_key = v.get("channel_name", "").strip().lower()
+            if ch_key not in channel_latest:
+                channel_latest[ch_key] = v
+            else:
+                if v.get("published_at", "") > channel_latest[ch_key].get("published_at", ""):
+                    channel_latest[ch_key] = v
+        sorted_leader_videos = sorted(channel_latest.values(), key=lambda x: x.get("published_at", ""), reverse=True)
+        deduped_videos_by_leader[ldr_key] = sorted_leader_videos
+
+    insights["videos_by_leader"] = deduped_videos_by_leader
     insights["total_insights"] = len(insights["latest_videos"])
     insights["latest_videos"].sort(key=lambda x: x.get("published_at", ""), reverse=True)
     atomic_save_json(insights, OUTPUT_FILE)
-    print(f"\n[Sucesso] {OUTPUT_FILE} gerado com {insights['total_insights']} videos.")
+    print(f"\n[Sucesso] {OUTPUT_FILE} gerado com {insights['total_insights']} videos de meta.")
     return insights
 
 EVERGREEN_FILE = "optcg_data/evergreen_strategy_guides.json"
