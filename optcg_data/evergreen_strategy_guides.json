@@ -1,44 +1,25 @@
 {
-  "description": "Guias fundamentais e atemporais sobre como jogar melhor One Piece Card Game (gestao de recursos, matematica de Don, postura de combate, mulligan e leitura de jogo).",
+  "description": "Guias fundamentais e atemporais sobre como jogar melhor One Piece Card Game.",
   "guides": [
     {
       "title": "Fundamentos de Gestao de Don e Faixas de Ataque",
-      "url": "",
-      "category": "Matematica de Don e Eficiencia",
-      "core_principles": [
-        "Atacar em faixas de poder eficientes (preferencialmente +2000 acima do poder do alvo para forçar o oponente a gastar pelo menos duas cartas de counter +1000 ou um contador +2000 valioso).",
-        "Evitar deixar Don em pe sem ter eventos de Counter defensivos na mao para utilizar.",
-        "Calcular a curva de turnos futuros para planejar quando investir em desenvolver a mesa vs acelerar ataques no lider."
-      ]
+      "url": "https://www.youtube.com/watch?v=exemplo1",
+      "category": "Matematica de Don e Eficiencia"
     },
     {
       "title": "Gestao de Vida vs Vantagem de Recursos",
-      "url": "",
-      "category": "Vidas e Recursos",
-      "core_principles": [
-        "A vida e um recurso para comprar cartas: nos primeiros turnos, receber dano propositalmente aumenta o tamanho da mao e abre opcoes de jogadas.",
-        "Guardar contadores de +2000 para o meio e final de partida, onde cada ponto de vida restante define a vitoria.",
-        "Nunca deixar a vida cair para 1 ou 0 muito cedo se o oponente tiver personagens com Rush ou Double Attack disponiveis."
-      ]
+      "url": "https://www.youtube.com/watch?v=exemplo2",
+      "category": "Vidas e Recursos"
     },
     {
       "title": "Prioridade de Alvos: Mesa vs Corrida ao Lider",
-      "url": "",
-      "category": "Postura de Combate e Ritmo",
-      "core_principles": [
-        "Se o oponente esta desenvolvendo personagens agressivos com efeito repetido a cada turno, priorize limpar a mesa para evitar que ele gere valor continuo.",
-        "Se o oponente for um deck de controle lento, pressione a vida para forca-lo a se defender antes de colocar os personagens pesados de custo alto.",
-        "Identificar a qualquer momento da partida quem e o jogador proativo (beatdown) e quem e o reativo (controle)."
-      ]
+      "url": "https://www.youtube.com/watch?v=exemplo3",
+      "category": "Postura de Combate e Ritmo"
     },
     {
       "title": "Mulligan e Leitura de Turnos Iniciais",
-      "url": "",
-      "category": "Mulligan e Consistencia",
-      "core_principles": [
-        "Priorizar na mao inicial a carta buscadora de turno 1 ou o personagem-chave da curva de turno 2 e 3.",
-        "Mulligar maos pesadas sem jogadas de curva baixa, mesmo que contenham cartas fortes de final de jogo."
-      ]
+      "url": "https://www.youtube.com/watch?v=exemplo4",
+      "category": "Mulligan e Consistencia"
     }
   ]
 }

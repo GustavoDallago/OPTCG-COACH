@@ -5830,12 +5830,13 @@ ${deckList || 'O deck não possui cartas adicionadas ainda.'}`;
                     }
 
                     if (evergreenGuidesData.value && evergreenGuidesData.value.guides) {
-                        ctx += `\n\nPRINCÍPIOS FUNDAMENTAIS DE PILOTAGEM E COMBATE:`;
+                        ctx += `\n\nGUIAS FUNDAMENTAIS E ESTRATÉGIAS ATEMPORAIS DE PILOTAGEM:`;
                         evergreenGuidesData.value.guides.forEach(g => {
+                            const cat = g.category ? ` (${g.category})` : '';
+                            ctx += `\n- Guia: "${g.title}"${cat}`;
                             if (g.core_principles && g.core_principles.length > 0) {
-                                ctx += `\n[${g.category || g.title}]:`;
                                 g.core_principles.slice(0, 2).forEach(p => {
-                                    ctx += `\n- ${p}`;
+                                    ctx += `\n  * ${p}`;
                                 });
                             }
                         });
