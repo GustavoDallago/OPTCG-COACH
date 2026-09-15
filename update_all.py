@@ -163,7 +163,10 @@ def main() -> None:
     # 4. Generate manifest.json
     generate_manifest()
 
-    # 5. Run automated test suite
+    # 5. Fetch YouTube Video Meta Insights for Coach IA
+    s_yt = run_cmd([sys.executable, "fetch_video_insights.py"])
+
+    # 6. Run automated test suite
     s3 = run_cmd([sys.executable, "-m", "unittest", "test_deck_analyzer.py"])
 
     if s1 and s_ban and s3:
