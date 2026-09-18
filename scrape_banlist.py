@@ -10,7 +10,7 @@ import sys
 import json
 import time
 import urllib.request
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
     try:

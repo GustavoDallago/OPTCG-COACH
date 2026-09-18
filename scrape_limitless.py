@@ -3,6 +3,7 @@ import re
 import sys
 import json
 import time
+import datetime
 import argparse
 import urllib.request
 import urllib.parse
@@ -741,7 +742,7 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
         "source": "Limitless TCG (Past 7 Days - Western Meta)",
         "tournaments_tracked": len(tournaments),
         "decks_tracked": total_decks_tracked,
-        "scraped_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "scraped_at": datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-3), name="BRT")).strftime("%Y-%m-%d %H:%M:%S"),
         "leaders": leaders_output
     }
     

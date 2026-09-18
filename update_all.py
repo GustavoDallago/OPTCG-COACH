@@ -12,14 +12,33 @@ import glob
 import time
 import subprocess
 import datetime
-from typing import List, Dict, Any, Union
+from typing import List, Dict, Any, Union, Optional
+
+# Ensure UTF-8 output on Windows consoles
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+if sys.stderr and hasattr(sys.stderr, "reconfigure"):
+    try:
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 LOG_FILE = "update_log.txt"
+BR_TZ = datetime.timezone(datetime.timedelta(hours=-3), name="BRT")
 
 def log(msg: str) -> None:
-    timestamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    timestamp = datetime.datetime.now(BR_TZ).strftime("%Y-%m-%d %H:%M:%S")
     formatted = f"[{timestamp}] {msg}"
-    print(formatted)
+    try:
+        print(formatted)
+    except Exception:
+        try:
+            print(formatted.encode("ascii", errors="backslashreplace").decode("ascii"))
+        except Exception:
+            pass
     try:
         with open(LOG_FILE, "a", encoding="utf-8") as f:
             f.write(formatted + "\n")
@@ -68,6 +87,8 @@ def run_cmd(cmd: Union[str, List[str]], timeout: int = 600) -> bool:
     display_cmd = cmd if isinstance(cmd, str) else " ".join(cmd)
     log(f"Executing: {display_cmd}")
     try:
+        env = os.environ.copy()
+        env["PYTHONIOENCODING"] = "utf-8"
         res = subprocess.run(
             cmd,
             shell=isinstance(cmd, str),
@@ -75,7 +96,8 @@ def run_cmd(cmd: Union[str, List[str]], timeout: int = 600) -> bool:
             text=True,
             encoding="utf-8",
             errors="replace",
-            timeout=timeout
+            timeout=timeout,
+            env=env
         )
         if res.returncode == 0:
             log(f"SUCCESS: {display_cmd}")
@@ -133,7 +155,7 @@ def generate_manifest() -> None:
             log(f"[manifest] Error reading {filepath}: {e}")
 
     manifest = {
-        "generated_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "generated_at": datetime.datetime.now(BR_TZ).strftime("%Y-%m-%dT%H:%M:%S-03:00"),
         "available_meta_sets": available,
         "total_sets": len(available)
     }
@@ -163,7 +185,10 @@ def main() -> None:
     # 4. Generate manifest.json
     generate_manifest()
 
-    # 5. Run automated test suite
+    # 5. Fetch YouTube Video Meta Insights for Coach IA
+    s_yt = run_cmd([sys.executable, "fetch_video_insights.py"])
+
+    # 6. Run automated test suite
     s3 = run_cmd([sys.executable, "-m", "unittest", "test_deck_analyzer.py"])
 
     if s1 and s_ban and s3:
