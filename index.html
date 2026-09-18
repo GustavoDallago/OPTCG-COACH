@@ -5224,8 +5224,8 @@
                 // ====================================================
                 const showCoachModal = ref(false);
                 const coachContextMode = ref('meta'); // 'builder' or 'meta'
-                const DEFAULT_COACH_WORKER_URL = '';
-                const coachWorkerUrl = ref(localStorage.getItem('optcg_coach_worker_url') || DEFAULT_COACH_WORKER_URL);
+                const DEFAULT_COACH_WORKER_URL = 'https://optcg-coach-api.gustavodallagoferreira.workers.dev/';
+                const coachWorkerUrl = ref((localStorage.getItem('optcg_coach_worker_url') || '').trim() || DEFAULT_COACH_WORKER_URL);
                 const coachApiKey = ref(localStorage.getItem('optcg_gemini_api_key') || '');
                 const showCoachKeyConfig = ref(!coachWorkerUrl.value && !coachApiKey.value);
                 const coachKeyInput = ref(coachApiKey.value);
@@ -5296,13 +5296,13 @@
 
                 const clearCoachApiKey = () => {
                     coachApiKey.value = '';
-                    coachWorkerUrl.value = '';
+                    coachWorkerUrl.value = DEFAULT_COACH_WORKER_URL;
                     coachKeyInput.value = '';
-                    coachWorkerUrlInput.value = '';
+                    coachWorkerUrlInput.value = DEFAULT_COACH_WORKER_URL;
                     cachedGeminiTarget = null;
                     localStorage.removeItem('optcg_gemini_api_key');
                     localStorage.removeItem('optcg_coach_worker_url');
-                    showCoachKeyConfig.value = true;
+                    showCoachKeyConfig.value = !DEFAULT_COACH_WORKER_URL;
                 };
 
                 let cachedGeminiTarget = null;
@@ -5357,11 +5357,10 @@
                                 const candidates = [
                                     'gemini-2.5-flash',
                                     'gemini-2.5-flash-lite',
-                                    'gemini-3.5-flash',
-                                    'gemini-3.1-flash-lite',
                                     'gemini-2.0-flash',
-                                    'gemini-3.8-flash',
-                                    'gemini-3.7-flash'
+                                    'gemini-2.0-flash-lite',
+                                    'gemini-1.5-flash',
+                                    'gemini-1.5-flash-8b'
                                 ];
                                 for (const cand of candidates) {
                                     if (isModelOverloaded(cand)) continue;
@@ -5920,7 +5919,7 @@ ${deckContext}`;
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify(payload)
-                                }, 10000);
+                                }, 45000);
                                 const cType = res.headers.get('content-type') || '';
                                 isSseStream = cType.includes('text/event-stream');
                                 if (!res.ok && res.status >= 500 && coachApiKey.value) {
@@ -5945,10 +5944,10 @@ ${deckContext}`;
                             }
                             candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.5-flash' });
                             candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.5-flash-lite' });
-                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.5-flash' });
-                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.1-flash-lite' });
                             candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.0-flash' });
-                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.8-flash' });
+                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.0-flash-lite' });
+                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-1.5-flash' });
+                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-1.5-flash-8b' });
 
                             const uniqueTargets = [];
                             const seenTargets = new Set();
@@ -6448,7 +6447,7 @@ REGRAS OBRIGATÓRIAS:
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify(payload)
-                                }, 10000);
+                                }, 45000);
                                 if (!res.ok && res.status >= 500 && coachApiKey.value) {
                                     console.warn(`[Proxy Fallback] Servidor proxy retornou status ${res.status}. Tentando chave pessoal direta para combate...`);
                                     res = null;
@@ -6468,10 +6467,10 @@ REGRAS OBRIGATÓRIAS:
                             }
                             candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.5-flash' });
                             candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.5-flash-lite' });
-                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.5-flash' });
-                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.1-flash-lite' });
                             candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.0-flash' });
-                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.8-flash' });
+                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.0-flash-lite' });
+                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-1.5-flash' });
+                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-1.5-flash-8b' });
 
                             const uniqueTargets = [];
                             const seenTargets = new Set();

@@ -57,10 +57,10 @@ export default {
             const candidateTargets = [
                 { ver: "v1beta", model: "gemini-2.5-flash" },
                 { ver: "v1beta", model: "gemini-2.5-flash-lite" },
-                { ver: "v1beta", model: "gemini-3.5-flash" },
-                { ver: "v1beta", model: "gemini-3.1-flash-lite" },
                 { ver: "v1beta", model: "gemini-2.0-flash" },
-                { ver: "v1beta", model: "gemini-3.8-flash" }
+                { ver: "v1beta", model: "gemini-2.0-flash-lite" },
+                { ver: "v1beta", model: "gemini-1.5-flash" },
+                { ver: "v1beta", model: "gemini-1.5-flash-8b" }
             ];
 
             let geminiRes;
@@ -75,17 +75,18 @@ export default {
                         }
                     );
                     if (geminiRes.ok) break;
-                    if (geminiRes.status === 503 || geminiRes.status === 504 || geminiRes.status === 502) {
-                        // Modelo temporariamente sobrecarregado; tenta o próximo imediatamente
-                        continue;
-                    }
-                    if (geminiRes.status === 400 || geminiRes.status === 403 || geminiRes.status === 429) {
+
+                    // Se for erro comprovado de chave de API inválida, para o loop
+                    if (geminiRes.status === 400 || geminiRes.status === 403) {
                         const errJson = await geminiRes.clone().json().catch(() => ({}));
                         const errMsg = errJson.error?.message || '';
-                        if (errMsg.toLowerCase().includes('key') || geminiRes.status === 403 || geminiRes.status === 429) {
+                        if (errMsg.toLowerCase().includes('key') || errMsg.toLowerCase().includes('api_key')) {
                             break;
                         }
                     }
+
+                    // Para qualquer outro status (503 sobrecarga, 404 modelo inexistente, 429 rate limit, 500), tenta o próximo modelo
+                    continue;
                 } catch (fetchErr) {
                     console.warn(`Worker fetch falhou para ${target.model}:`, fetchErr);
                 }
