@@ -75,12 +75,15 @@ export default {
             if (body.model && typeof body.model === 'string') {
                 const customModel = body.model.replace(/^models\//, '').trim();
                 candidateTargets.push({ ver: "v1beta", model: customModel });
+                candidateTargets.push({ ver: "v1", model: customModel });
             }
             candidateTargets.push(
-                { ver: "v1beta", model: "gemini-1.5-flash" },
-                { ver: "v1beta", model: "gemini-2.0-flash" },
-                { ver: "v1beta", model: "gemini-1.5-pro" },
-                { ver: "v1beta", model: "gemini-2.0-flash-exp" }
+                { ver: "v1beta", model: "gemini-3.6-flash" },
+                { ver: "v1", model: "gemini-3.6-flash" },
+                { ver: "v1beta", model: "gemini-2.5-flash" },
+                { ver: "v1", model: "gemini-2.5-flash" },
+                { ver: "v1beta", model: "gemini-2.5-flash-lite" },
+                { ver: "v1", model: "gemini-2.5-flash-lite" }
             );
 
             // Evita duplicatas preservando a ordem
