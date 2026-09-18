@@ -636,3 +636,56 @@ NameError: name 'Optional' is not defined
 [2026-09-14 08:24:09 UTC] ==========================================
 [2026-09-14 08:24:09 UTC] SUCCESS: All update tasks completed flawlessly!
 [2026-09-14 08:24:09 UTC] ==========================================
+[2026-09-16 17:38:03 (Horário de Brasília)] ==========================================
+[2026-09-16 17:38:03 (Horário de Brasília)] Starting Full Automatic Update Pipeline...
+[2026-09-16 17:38:03 (Horário de Brasília)] ==========================================
+[2026-09-16 17:38:03 (Horário de Brasília)] Executing: C:\Python314\python.exe fetch_optcg_data.py
+[2026-09-16 17:43:52 (Horário de Brasília)] SUCCESS: C:\Python314\python.exe fetch_optcg_data.py
+[2026-09-16 17:43:52 (Horário de Brasília)] Executing: C:\Python314\python.exe scrape_banlist.py
+[2026-09-16 17:43:54 (Horário de Brasília)] SUCCESS: C:\Python314\python.exe scrape_banlist.py
+[2026-09-16 17:43:54 (Horário de Brasília)] Executing: C:\Python314\python.exe scrape_limitless.py --set OP17 --min-players 8
+[2026-09-16 17:48:54 (Horário de Brasília)] SUCCESS: C:\Python314\python.exe scrape_limitless.py --set OP17 --min-players 8
+[2026-09-16 17:48:54 (Horário de Brasília)] Recalculating decks_tracked for all meta JSON files...
+[2026-09-16 17:48:54 (Horário de Brasília)] Updated decks_tracked in 13 files.
+[2026-09-16 17:48:54 (Horário de Brasília)] Generating optcg_data/manifest.json...
+[2026-09-16 17:48:55 (Horário de Brasília)] manifest.json generated: 13 sets available.
+[2026-09-16 17:48:55 (Horário de Brasília)] Executing: C:\Python314\python.exe fetch_video_insights.py
+[2026-09-16 17:49:08 (Horário de Brasília)] SUCCESS: C:\Python314\python.exe fetch_video_insights.py
+[2026-09-16 17:49:08 (Horário de Brasília)] Executing: C:\Python314\python.exe -m unittest test_deck_analyzer.py
+[2026-09-16 17:49:08 (Horário de Brasília)] SUCCESS: C:\Python314\python.exe -m unittest test_deck_analyzer.py
+[2026-09-16 17:49:08 (Horário de Brasília)] ==========================================
+[2026-09-16 17:49:08 (Horário de Brasília)] SUCCESS: All update tasks completed flawlessly!
+[2026-09-16 17:49:08 (Horário de Brasília)] ==========================================
+[2026-09-17 17:26:13 (Horário de Brasília)] ==========================================
+[2026-09-17 17:26:13 (Horário de Brasília)] Starting Full Automatic Update Pipeline...
+[2026-09-17 17:26:13 (Horário de Brasília)] ==========================================
+[2026-09-17 17:26:13 (Horário de Brasília)] Executing: C:\Python314\python.exe fetch_optcg_data.py
+[2026-09-17 17:30:42 (Horário de Brasília)] ==========================================
+[2026-09-17 17:30:42 (Horário de Brasília)] Starting Full Automatic Update Pipeline...
+[2026-09-17 17:30:42 (Horário de Brasília)] ==========================================
+[2026-09-17 17:30:42 (Horário de Brasília)] Executing: C:\Python314\python.exe fetch_optcg_data.py
+[2026-09-17 17:36:06 (Horário de Brasília)] SUCCESS: C:\Python314\python.exe fetch_optcg_data.py
+[2026-09-17 17:36:06 (Horário de Brasília)] Executing: C:\Python314\python.exe scrape_banlist.py
+[2026-09-17 17:36:08 (Horário de Brasília)] SUCCESS: C:\Python314\python.exe scrape_banlist.py
+[2026-09-17 17:36:08 (Horário de Brasília)] Executing: C:\Python314\python.exe scrape_limitless.py --set OP17 --min-players 8
+[2026-09-17 17:36:48 (Horário de Brasília)] EXCEPTIONAL ERROR running C:\Python314\python.exe scrape_limitless.py --set OP17 --min-players 8: 'charmap' codec can't encode characters in position 219-222: character maps to <undefined>
+[2026-09-17 17:36:48 (Horário de Brasília)] WARNING: Limitless scraper encountered an issue or found no new tournaments. Existing meta JSON preserved.
+[2026-09-17 17:36:48 (Horário de Brasília)] Recalculating decks_tracked for all meta JSON files...
+[2026-09-18 15:00:09 (Horário de Brasília)] ==========================================
+[2026-09-18 15:00:09 (Horário de Brasília)] Starting Full Automatic Update Pipeline...
+[2026-09-18 15:00:09 (Horário de Brasília)] ==========================================
+[2026-09-18 15:00:09 (Horário de Brasília)] Executing: C:\Python314\python.exe fetch_optcg_data.py
+[2026-09-18 15:06:14 (Horário de Brasília)] SUCCESS: C:\Python314\python.exe fetch_optcg_data.py
+[2026-09-18 15:06:14 (Horário de Brasília)] Executing: C:\Python314\python.exe scrape_banlist.py
+[2026-09-18 15:06:17 (Horário de Brasília)] SUCCESS: C:\Python314\python.exe scrape_banlist.py
+[2026-09-18 15:06:17 (Horário de Brasília)] Executing: C:\Python314\python.exe scrape_limitless.py --set OP17 --min-players 8
+[2026-09-18 15:08:36] Recalculating decks_tracked for all meta JSON files...
+[2026-09-18 15:08:36] Updated decks_tracked in 13 files.
+[2026-09-18 15:08:36] Generating optcg_data/manifest.json...
+[2026-09-18 15:08:37] manifest.json generated: 13 sets available.
+[2026-09-18 15:08:37] SUCCESS: C:\Python314\python.exe scrape_limitless.py --set OP17 --min-players 8
+[2026-09-18 15:08:37] SUCCESS: C:\Python314\python.exe fetch_video_insights.py
+[2026-09-18 15:08:43] SUCCESS: C:\Python314\python.exe -m unittest test_deck_analyzer.py
+[2026-09-18 15:08:43] ==========================================
+[2026-09-18 15:08:43] SUCCESS: All update tasks completed flawlessly!
+[2026-09-18 15:08:43] ==========================================

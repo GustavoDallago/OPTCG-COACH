@@ -166,9 +166,9 @@ def process_channel_videos() -> Dict[str, Any]:
     with open(CHANNELS_FILE, "r", encoding="utf-8") as f:
         config = json.load(f)
     channels = config.get("channels", [])
-    print(f"[YouTube Insights] Iniciando coleta de {len(channels)} canais (janela de meta: {MAX_META_VIDEO_AGE_DAYS} dias)...")
+    br_tz = datetime.timezone(datetime.timedelta(hours=-3), name="BRT")
     insights = {
-        "last_updated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "last_updated": datetime.datetime.now(br_tz).strftime("%Y-%m-%dT%H:%M:%S-03:00"),
         "total_channels": len(channels),
         "total_insights": 0,
         "videos_by_leader": {},

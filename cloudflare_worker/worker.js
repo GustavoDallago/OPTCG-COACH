@@ -50,33 +50,55 @@ export default {
                 contents,
                 generationConfig: generationConfig || {
                     temperature: 0.7,
-                    maxOutputTokens: 2500
+                    maxOutputTokens: 2000
                 }
             };
 
-            const primaryModel = "gemini-3.6-flash";
-            let geminiRes = await fetch(
-                `https://generativelanguage.googleapis.com/v1beta/models/${primaryModel}:generateContent?key=${encodeURIComponent(apiKey)}`,
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                }
-            );
+            const candidateTargets = [
+                { ver: "v1beta", model: "gemini-2.5-flash" },
+                { ver: "v1beta", model: "gemini-2.5-flash-lite" },
+                { ver: "v1beta", model: "gemini-3.5-flash" },
+                { ver: "v1beta", model: "gemini-3.1-flash-lite" },
+                { ver: "v1beta", model: "gemini-2.0-flash" },
+                { ver: "v1beta", model: "gemini-3.8-flash" }
+            ];
 
-            // Fallback caso gemini-3.6-flash retorne 404
-            if (!geminiRes.ok && geminiRes.status === 404) {
-                geminiRes = await fetch(
-                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${encodeURIComponent(apiKey)}`,
-                    {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(payload)
+            let geminiRes;
+            for (const target of candidateTargets) {
+                try {
+                    geminiRes = await fetch(
+                        `https://generativelanguage.googleapis.com/${target.ver}/models/${target.model}:generateContent?key=${encodeURIComponent(apiKey)}`,
+                        {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(payload)
+                        }
+                    );
+                    if (geminiRes.ok) break;
+                    if (geminiRes.status === 503 || geminiRes.status === 504 || geminiRes.status === 502) {
+                        // Modelo temporariamente sobrecarregado; tenta o próximo imediatamente
+                        continue;
                     }
-                );
+                    if (geminiRes.status === 400 || geminiRes.status === 403 || geminiRes.status === 429) {
+                        const errJson = await geminiRes.clone().json().catch(() => ({}));
+                        const errMsg = errJson.error?.message || '';
+                        if (errMsg.toLowerCase().includes('key') || geminiRes.status === 403 || geminiRes.status === 429) {
+                            break;
+                        }
+                    }
+                } catch (fetchErr) {
+                    console.warn(`Worker fetch falhou para ${target.model}:`, fetchErr);
+                }
             }
 
-            const data = await geminiRes.json();
+            if (!geminiRes) {
+                return new Response(JSON.stringify({ error: { message: "Todos os modelos do Gemini estão temporariamente indisponíveis. Tente novamente em instantes." } }), {
+                    status: 503,
+                    headers: { ...corsHeaders, "Content-Type": "application/json" }
+                });
+            }
+
+            const data = await geminiRes.json().catch(() => ({}));
 
             return new Response(JSON.stringify(data), {
                 status: geminiRes.status,
