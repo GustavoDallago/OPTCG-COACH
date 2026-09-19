@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-09-18T15:08:10-03:00",
+  "last_updated": "2026-09-19T04:41:36-03:00",
   "total_channels": 15,
-  "total_insights": 211,
+  "total_insights": 213,
   "videos_by_leader": {
     "yamato": [
       {
@@ -55,6 +55,14 @@
       }
     ],
     "robin": [
+      {
+        "title": "TORNEIO SEMANAL 12/09/26 (POV) | Game 2: Mihawk vs. Robin | One Piece TCG",
+        "channel_name": "tcgBR",
+        "published_at": "2026-09-18T22:00:13+00:00",
+        "video_url": "https://www.youtube.com/watch?v=UPAtg-vqIi0",
+        "format": "OP17",
+        "matchups_covered": []
+      },
       {
         "title": "I Brought This Robin Deck To Nationals!",
         "channel_name": "WezaldoTCG",
@@ -575,6 +583,30 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "NQU2nHsUxoc",
+      "title": "When You Play Against Any Green Deck One Piece",
+      "channel_name": "AkemiTCG",
+      "published_at": "2026-09-19T01:30:25+00:00",
+      "video_url": "https://www.youtube.com/watch?v=NQU2nHsUxoc",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "#onepiecetcg #optcg #op17"
+    },
+    {
+      "video_id": "UPAtg-vqIi0",
+      "title": "TORNEIO SEMANAL 12/09/26 (POV) | Game 2: Mihawk vs. Robin | One Piece TCG",
+      "channel_name": "tcgBR",
+      "published_at": "2026-09-18T22:00:13+00:00",
+      "video_url": "https://www.youtube.com/watch?v=UPAtg-vqIi0",
+      "format": "OP17",
+      "identified_leaders": [
+        "Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "Torneio: OP STORE TOURNAMENT EVENT"
+    },
     {
       "video_id": "_21N7Fmyk7w",
       "title": "Can You Outblock Triggers? (Utrecht EU Finals - Semifinals)",
