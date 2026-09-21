@@ -2,6 +2,7 @@ import os
 import re
 import sys
 import json
+import html as html_lib
 import time
 import datetime
 import argparse
@@ -85,7 +86,6 @@ def fetch_url(url: str, retries: int = 3, delay: float = 0.5) -> Optional[str]:
     return None
 
 _card_details_cache = {}
-import html
 
 def fetch_card_details(card_id: str, card_db: dict = None) -> dict:
     """Fetches real card attributes (cost, power, type, attribute) from local DB first,
@@ -263,10 +263,10 @@ def find_tournaments(set_code: str, min_players: int = 8) -> List[Dict[str, Any]
             continue
             
         t_id = link_match.group(1)
-        name = data_name.group(1) if data_name else ""
+        name = html_lib.unescape(data_name.group(1)) if data_name else ""
         players = int(data_players.group(1)) if data_players else 0
         date_str = data_date.group(1) if data_date else ""
-        winner = data_winner.group(1) if data_winner else ""
+        winner = html_lib.unescape(data_winner.group(1)) if data_winner else ""
 
         name_clean = name.upper()
         is_matching_set = (set_upper in name_clean) or (set_upper.replace("OP", "OP-") in name_clean)
@@ -310,12 +310,12 @@ def parse_standings(t_id: str) -> List[Dict[str, Any]]:
             
         p_id = player_id_match.group(1).lower()
         placing = int(data_placing.group(1)) if data_placing else len(players_list) + 1
-        name = data_name.group(1) if data_name else p_id
+        name = html_lib.unescape(data_name.group(1)) if data_name else p_id
         country = data_country.group(1) if data_country else ""
         leader_id = leader_id_match.group(1).upper()
         
         deck_name_match = re.search(rf'href="\/tournament\/[a-f0-9]+\/metagame\/{re.escape(leader_id)}">([^<]+)<', content)
-        deck_name = deck_name_match.group(1).strip() if deck_name_match else leader_id
+        deck_name = html_lib.unescape(deck_name_match.group(1).strip()) if deck_name_match else leader_id
         
         players_list.append({
             "player_id": p_id,

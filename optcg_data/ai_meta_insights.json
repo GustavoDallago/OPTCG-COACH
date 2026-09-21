@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-21T05:24:46-03:00",
+  "last_updated": "2026-09-21T12:56:18-03:00",
   "total_channels": 15,
   "total_insights": 215,
   "videos_by_leader": {
@@ -43,6 +43,14 @@
     ],
     "robin": [
       {
+        "title": "🟣🟡Quem leva a melhor na Mirror de Robin? One Piece OP17",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-09-21T13:00:28+00:00",
+        "video_url": "https://www.youtube.com/watch?v=c5jye5wBUeM",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
         "title": "TORNEIO SEMANAL 12/09/26 (POV) | Game 2: Mihawk vs. Robin | One Piece TCG",
         "channel_name": "tcgBR",
         "published_at": "2026-09-18T22:00:13+00:00",
@@ -73,16 +81,6 @@
         "video_url": "https://www.youtube.com/watch?v=V_MPt2_U_nA",
         "format": "",
         "matchups_covered": []
-      },
-      {
-        "title": "🟢 Mihawk é o deck mais opressor da OP17? vs Nico Robin! One Piece Card Game",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-09-14T13:00:32+00:00",
-        "video_url": "https://www.youtube.com/watch?v=AfTaY_wAUjo",
-        "format": "OP17",
-        "matchups_covered": [
-          "Mihawk"
-        ]
       },
       {
         "title": "One Piece TCG: Match Analysis and Breakdown - P Enel VS PY Robin (OP17 Utrecht Finals, 2026-27 West)",
@@ -123,7 +121,7 @@
         "channel_name": "Mabi TCG",
         "published_at": "2026-08-25T19:44:07+00:00",
         "video_url": "https://www.youtube.com/watch?v=l6oq35J4mJ8",
-        "format": "OP18",
+        "format": "EB05",
         "matchups_covered": []
       },
       {
@@ -139,6 +137,54 @@
           "RB Sabo",
           "G Mihawk"
         ]
+      },
+      {
+        "title": "CRACKED Nico Robin One Piece TCG 16.5 Format Deck + Gameplay",
+        "channel_name": "AkemiTCG",
+        "published_at": "2026-08-01T01:00:09+00:00",
+        "video_url": "https://www.youtube.com/watch?v=irezGAGPN9g",
+        "format": "",
+        "matchups_covered": [
+          "Purple Enel",
+          "Green Mihawk",
+          "Red Green Luffy"
+        ]
+      }
+    ],
+    "nico robin": [
+      {
+        "title": "🟢 Mihawk é o deck mais opressor da OP17? vs Nico Robin! One Piece Card Game",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-09-14T13:00:32+00:00",
+        "video_url": "https://www.youtube.com/watch?v=AfTaY_wAUjo",
+        "format": "OP17",
+        "matchups_covered": [
+          "Mihawk"
+        ]
+      },
+      {
+        "title": "ANALISAMOS um X1 REAL da CORRIDA DO COLISEU! Nico Robin vs Enel | One Piece TCG ft. @NaluEvolved",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-09-11T15:00:31+00:00",
+        "video_url": "https://www.youtube.com/watch?v=csue0z1bfD8",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
+        "title": "OP-17 Just made Nico Robin absolutely BROKEN!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-09-06T14:30:35+00:00",
+        "video_url": "https://www.youtube.com/watch?v=iSc5U5LxDds",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
+        "title": "NEW FRANKY & NICO ROBIN LEADERS! Reacting to EB05 & OP18 Reveals!",
+        "channel_name": "Mabi TCG",
+        "published_at": "2026-08-25T19:44:07+00:00",
+        "video_url": "https://www.youtube.com/watch?v=l6oq35J4mJ8",
+        "format": "EB05",
+        "matchups_covered": []
       },
       {
         "title": "CRACKED Nico Robin One Piece TCG 16.5 Format Deck + Gameplay",
@@ -203,6 +249,14 @@
       }
     ],
     "kaido": [
+      {
+        "title": "AS CARTAS SECRETAS DA EB-05! Suportes Revelados para Aokiji, Shirahoshi e Kaido",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-09-21T15:00:22+00:00",
+        "video_url": "https://www.youtube.com/watch?v=2bdu0NJNJ2U",
+        "format": "EB05",
+        "matchups_covered": []
+      },
       {
         "title": "TORNEIO SEMANAL 12/09/26 (POV) | Game 1: Mihawk vs. Kaido | One Piece TCG",
         "channel_name": "tcgBR",
@@ -366,6 +420,16 @@
         "matchups_covered": []
       }
     ],
+    "karoo": [
+      {
+        "title": "LÍDERES DA OP-18 REVELADOS! 🚨 Karoo Quebrado e Miss All Sunday Punitiva + SRs da EB 05",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-09-20T14:00:37+00:00",
+        "video_url": "https://www.youtube.com/watch?v=WMVhJdbhYfU",
+        "format": "OP18",
+        "matchups_covered": []
+      }
+    ],
     "perona": [
       {
         "title": "PERONA + SHANKS + VANDER DECKEN + ELBAF: O Combo Mais Insano do OP-17 (One Piece TCG)",
@@ -422,19 +486,37 @@
         "matchups_covered": []
       },
       {
-        "title": "🔥Quem leva a melhor entre Enel e Ace? One Piece POV OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-09-08T13:00:11+00:00",
-        "video_url": "https://www.youtube.com/watch?v=S8x4v_ECgi8",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
         "title": "Power Control Kaido Does It BETTER Than Enel?!",
         "channel_name": "Hashtag EMB",
         "published_at": "2026-09-05T14:30:33+00:00",
         "video_url": "https://www.youtube.com/watch?v=AJhASosZ9oY",
         "format": "",
+        "matchups_covered": []
+      }
+    ],
+    "franky": [
+      {
+        "title": "This Impel Down Franky Combo Is Going To Blow Your Mind!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-09-16T15:15:23+00:00",
+        "video_url": "https://www.youtube.com/watch?v=1BxZT4HwR0g",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
+        "title": "NEW FRANKY & NICO ROBIN LEADERS! Reacting to EB05 & OP18 Reveals!",
+        "channel_name": "Mabi TCG",
+        "published_at": "2026-08-25T19:44:07+00:00",
+        "video_url": "https://www.youtube.com/watch?v=l6oq35J4mJ8",
+        "format": "EB05",
+        "matchups_covered": []
+      },
+      {
+        "title": "FRANKY finally gets a LEADER in OP18! #optcg #tcg",
+        "channel_name": "real_joshua",
+        "published_at": "2026-08-23T06:27:50+00:00",
+        "video_url": "https://www.youtube.com/watch?v=YhkWuPo5-qw",
+        "format": "OP18",
         "matchups_covered": []
       }
     ],
@@ -504,14 +586,6 @@
         ]
       },
       {
-        "title": "🔥Quem leva a melhor entre Enel e Ace? One Piece POV OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-09-08T13:00:11+00:00",
-        "video_url": "https://www.youtube.com/watch?v=S8x4v_ECgi8",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
         "title": "O meta do vermelho voltou com Ace!? - PT-BR",
         "channel_name": "Onepiececardgamebr",
         "published_at": "2026-08-12T14:00:30+00:00",
@@ -526,7 +600,7 @@
         "channel_name": "Hashtag EMB",
         "published_at": "2026-09-14T14:30:07+00:00",
         "video_url": "https://www.youtube.com/watch?v=kaanKheFq5Y",
-        "format": "",
+        "format": "EB05",
         "matchups_covered": []
       }
     ],
@@ -561,6 +635,32 @@
   },
   "latest_videos": [
     {
+      "video_id": "2bdu0NJNJ2U",
+      "title": "AS CARTAS SECRETAS DA EB-05! Suportes Revelados para Aokiji, Shirahoshi e Kaido",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-09-21T15:00:22+00:00",
+      "video_url": "https://www.youtube.com/watch?v=2bdu0NJNJ2U",
+      "format": "EB05",
+      "identified_leaders": [
+        "Kaido"
+      ],
+      "matchups_covered": [],
+      "summary": "Você achou que tínhamos visto tudo da coleção Extra Booster 05 (EB-05)? No vídeo de hoje, trago as cartas raras, incomuns e eventos poderosos que ficaram faltando nas últimas análises e que promete..."
+    },
+    {
+      "video_id": "c5jye5wBUeM",
+      "title": "🟣🟡Quem leva a melhor na Mirror de Robin? One Piece OP17",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-09-21T13:00:28+00:00",
+      "video_url": "https://www.youtube.com/watch?v=c5jye5wBUeM",
+      "format": "OP17",
+      "identified_leaders": [
+        "Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "🎟️Ingressos Copa Café 8: https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-8"
+    },
+    {
       "video_id": "dgUP_fGzqwo",
       "title": "One Piece TCG: Big OP-18/EB-05 Spoilers, All 6 New Leaders from \"The Dominance of God\" Revealed Now",
       "channel_name": "The Vv Theory",
@@ -577,7 +677,7 @@
       "channel_name": "Car D. Kaizoku",
       "published_at": "2026-09-20T17:00:01+00:00",
       "video_url": "https://www.youtube.com/watch?v=1Eh9bYtyJog",
-      "format": "OP18",
+      "format": "EB05",
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "In this video, we catch up on EB05 spoilers now than all SRs have been revealed. We also take a look at all 6 OP18 leaders as well"
@@ -600,7 +700,9 @@
       "published_at": "2026-09-20T14:00:37+00:00",
       "video_url": "https://www.youtube.com/watch?v=WMVhJdbhYfU",
       "format": "OP18",
-      "identified_leaders": [],
+      "identified_leaders": [
+        "Karoo"
+      ],
       "matchups_covered": [],
       "summary": "A Bandai revelou os quatro últimos líderes da coleção OP-18 e as novas cartas Super Raras (SR) e Mangá da Extra Booster 05 (EB-05) de One Piece TCG! Teremos um Karoo mais forte que a Vivi, suportes..."
     },
@@ -610,7 +712,7 @@
       "channel_name": "Café Com One Piece",
       "published_at": "2026-09-20T11:33:22+00:00",
       "video_url": "https://www.youtube.com/watch?v=t4UOv4KViXY",
-      "format": "OP18",
+      "format": "EB05",
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Ingressos Copa Café #8"
@@ -1009,7 +1111,9 @@
       "published_at": "2026-09-16T15:15:23+00:00",
       "video_url": "https://www.youtube.com/watch?v=1BxZT4HwR0g",
       "format": "",
-      "identified_leaders": [],
+      "identified_leaders": [
+        "Franky"
+      ],
       "matchups_covered": [],
       "summary": "Check out Ultimate Guard here:"
     },
@@ -1235,7 +1339,7 @@
       "channel_name": "Hashtag EMB",
       "published_at": "2026-09-14T14:30:07+00:00",
       "video_url": "https://www.youtube.com/watch?v=kaanKheFq5Y",
-      "format": "",
+      "format": "EB05",
       "identified_leaders": [
         "Kuzan"
       ],
@@ -1250,7 +1354,8 @@
       "video_url": "https://www.youtube.com/watch?v=AfTaY_wAUjo",
       "format": "OP17",
       "identified_leaders": [
-        "Robin"
+        "Robin",
+        "Nico Robin"
       ],
       "matchups_covered": [
         "Mihawk"
@@ -1361,7 +1466,8 @@
       "video_url": "https://www.youtube.com/watch?v=lNBS9mtDYU8",
       "format": "OP17",
       "identified_leaders": [
-        "Robin"
+        "Robin",
+        "Nico Robin"
       ],
       "matchups_covered": [
         "Mihawk"
@@ -1433,7 +1539,8 @@
       "format": "OP17",
       "identified_leaders": [
         "Enel",
-        "Robin"
+        "Robin",
+        "Nico Robin"
       ],
       "matchups_covered": [],
       "summary": "Analisamos a partida final da Flame-Flame Fruit Coliseum (Corrida do Coliseu), um dos maiores eventos de One Piece Card Game do ano! Nesse vídeo, com o convidado Nalu (coach de gameplay), assistimo..."
@@ -1669,23 +1776,13 @@
       "format": "OP17",
       "identified_leaders": [
         "Sabo",
-        "Robin"
+        "Robin",
+        "Nico Robin"
       ],
       "matchups_covered": [
         "Nico Robin"
       ],
       "summary": "🎟️Ingressos Copa Café 8 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-8"
-    },
-    {
-      "video_id": "wXUQWtpc9NM",
-      "title": "Torneio Semanal Captain Logs de One Piece TCG | 08 de Setembro",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-09T12:35:23+00:00",
-      "video_url": "https://www.youtube.com/watch?v=wXUQWtpc9NM",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Musta: @onepiececardgamebr"
     },
     {
       "video_id": "xsA_CAi3ioc",
@@ -1809,20 +1906,6 @@
       "summary": "Trazendo o primeiro vídeo do campeonato que tivemos da Flame Flame fruit nesse fim de semana, com Kaido enfrentando o rei do meta, Mihawk!"
     },
     {
-      "video_id": "S8x4v_ECgi8",
-      "title": "🔥Quem leva a melhor entre Enel e Ace? One Piece POV OP17",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-09-08T13:00:11+00:00",
-      "video_url": "https://www.youtube.com/watch?v=S8x4v_ECgi8",
-      "format": "OP17",
-      "identified_leaders": [
-        "Enel",
-        "Ace"
-      ],
-      "matchups_covered": [],
-      "summary": "🎟️Ingressos Copa Café 8: https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-8"
-    },
-    {
       "video_id": "xyC07dZowFQ",
       "title": "How to swing in the one piece card game! #optcg #tcg",
       "channel_name": "real_joshua",
@@ -1902,7 +1985,8 @@
       "video_url": "https://www.youtube.com/watch?v=iSc5U5LxDds",
       "format": "OP17",
       "identified_leaders": [
-        "Robin"
+        "Robin",
+        "Nico Robin"
       ],
       "matchups_covered": [],
       "summary": "Check out Ultimate Guard here:"
@@ -2441,9 +2525,11 @@
       "channel_name": "Mabi TCG",
       "published_at": "2026-08-25T19:44:07+00:00",
       "video_url": "https://www.youtube.com/watch?v=l6oq35J4mJ8",
-      "format": "OP18",
+      "format": "EB05",
       "identified_leaders": [
-        "Robin"
+        "Robin",
+        "Franky",
+        "Nico Robin"
       ],
       "matchups_covered": [],
       "summary": "Massive One Piece TCG updates from One Piece Day! We are diving deep into the huge Bandai livestream reveals for EB05 Extra Booster: Heroines Edition Vol. 2 and OP18 \"The Dominance of God\"! #onepie..."
@@ -2565,7 +2651,7 @@
       "channel_name": "Official Bandai Card Games Channel",
       "published_at": "2026-08-24T02:00:19+00:00",
       "video_url": "https://www.youtube.com/watch?v=nj2N8zRw4lA",
-      "format": "",
+      "format": "EB05",
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "ONE PIECE Heroines Edition vol. 2"
@@ -2576,7 +2662,7 @@
       "channel_name": "Official Bandai Card Games Channel",
       "published_at": "2026-08-24T02:00:09+00:00",
       "video_url": "https://www.youtube.com/watch?v=DRieuScMqEE",
-      "format": "",
+      "format": "EB05",
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "ONE PIECE CARD GAME Extra Booster: -ONE PIECE Heroines Edition vol. 2- [EB-05] has been announced!"
@@ -2610,7 +2696,9 @@
       "published_at": "2026-08-23T06:27:50+00:00",
       "video_url": "https://www.youtube.com/watch?v=YhkWuPo5-qw",
       "format": "OP18",
-      "identified_leaders": [],
+      "identified_leaders": [
+        "Franky"
+      ],
       "matchups_covered": [],
       "summary": "Analise de deck e gameplay."
     },
@@ -3051,7 +3139,8 @@
       "video_url": "https://www.youtube.com/watch?v=irezGAGPN9g",
       "format": "",
       "identified_leaders": [
-        "Robin"
+        "Robin",
+        "Nico Robin"
       ],
       "matchups_covered": [
         "Purple Enel",
@@ -3114,7 +3203,8 @@
       "video_url": "https://www.youtube.com/watch?v=TWe89miO5Vc",
       "format": "OP16",
       "identified_leaders": [
-        "Robin"
+        "Robin",
+        "Nico Robin"
       ],
       "matchups_covered": [
         "Black Yellow Teach",
