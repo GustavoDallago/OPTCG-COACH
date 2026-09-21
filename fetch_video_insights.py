@@ -126,13 +126,15 @@ LEADERS_REF = [
     "Reiju", "Uta", "Smoker", "Moria", "Perona", "Kuro", "Caesar Clown",
     "Shanks", "Buggy", "Teach", "Blackbeard", "Belo Betty", "Chopper",
     "Marco", "Kid", "Whitebeard", "Robin", "Pudding", "Hody Jones",
-    "Sanji", "Kouzuki Oden", "Kuzan", "Sakazuki", "Issho", "Fujitora", "Garp"
+    "Sanji", "Kouzuki Oden", "Kuzan", "Sakazuki", "Issho", "Fujitora", "Garp",
+    # OP18 leaders
+    "Karoo", "Franky", "Ms. All Sunday", "Spandam", "Saint Gunko", "Nico Robin",
 ]
 
 def identify_leader_and_set(title: str, desc: str) -> Dict[str, Any]:
     text = f"{title} {desc}"
     fmt = ""
-    m_fmt = re.search(r'\b(OP-?1[0-9]|OP-?0[1-9])\b', text, re.IGNORECASE)
+    m_fmt = re.search(r'\b(EB-?0[1-9]|OP-?1[0-9]|OP-?0[1-9])\b', text, re.IGNORECASE)
     if m_fmt:
         fmt = m_fmt.group(1).upper().replace("-", "")
     matched_leaders = []

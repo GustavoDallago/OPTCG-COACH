@@ -30,7 +30,7 @@ ENDPOINTS: Dict[str, str] = {
     "set_cards": "/api/allSetCards/",
     "decks": "/api/allDecks/",
     "starter_cards": "/api/allSTCards/",
-    "promo_cards": "/api/allPromoCards/",
+    "promo_cards": "/api/allPromos/",
     "don_cards": "/api/allDonCards/"
 }
 
@@ -45,7 +45,7 @@ ALT_NAME_PATTERNS = [
 ]
 
 ALT_IMG_PATTERNS = [
-    r'_[p]\d+', r'_parallel', r'_[a-z0-9]{7}\.jpg'
+    r'_[p]\d+', r'_parallel'
 ]
 
 def is_strictly_alt_card(card: Dict[str, Any]) -> bool:
@@ -146,8 +146,8 @@ def fetch_data(endpoint: str, retries: int = 3) -> Any:
             response = requests.get(url, timeout=30)
             if response.status_code == 200:
                 return response.json()
-            elif response.status_code == 404 and endpoint == "/api/allPromoCards/":
-                fallback_url = f"{BASE_URL}/api/allPromos/"
+            elif response.status_code == 404 and endpoint == "/api/allPromos/":
+                fallback_url = f"{BASE_URL}/api/allPromoCards/"
                 print(f"Failed with 404. Trying fallback: {fallback_url}...")
                 fallback_resp = requests.get(fallback_url, timeout=30)
                 if fallback_resp.status_code == 200:
@@ -589,6 +589,73 @@ def save_json(data: Any, filename: str) -> None:
             data = filter_clean_cards(data, "set_cards.json")
     elif filename in ["starter_cards.json", "promo_cards.json"]:
         data = filter_clean_cards(data, filename)
+        # Enrich promo_cards.json with Kaizoku promos not present in optcgapi
+        if filename == "promo_cards.json" and isinstance(data, list):
+            try:
+                existing_ids = set(str(c.get("card_set_id") or c.get("card_id") or "").strip().upper() for c in data)
+                headers_k = {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Referer': 'https://www.cardkaizoku.com/'
+                }
+                man_url = "https://cdn.cardkaizoku.com/card_data.json"
+                try:
+                    man_resp = requests.get("https://cdn.cardkaizoku.com/manifest.json", headers=headers_k, timeout=10)
+                    if man_resp.status_code == 200:
+                        curr = man_resp.json().get("cardData", {}).get("current")
+                        if curr:
+                            man_url = f"https://cdn.cardkaizoku.com/{curr}"
+                except Exception:
+                    pass
+                k_resp = requests.get(man_url, headers=headers_k, timeout=20)
+                if k_resp.status_code == 200:
+                    all_kaizoku = k_resp.json()
+                    new_promos = [
+                        c for c in all_kaizoku
+                        if str(c.get("cardNumber") or "").strip().upper().startswith("P-")
+                        and str(c.get("cardNumber") or "").strip().upper() not in existing_ids
+                        and str(c.get("cardNumber") or "").strip()
+                        and str(c.get("cardName") or "").strip()
+                    ]
+                    mapped_new_promos = []
+                    for c in new_promos:
+                        cid = str(c.get("cardNumber", "")).strip().upper()
+                        card_image = get_or_download_spoiler_image(cid, "P")
+                        raw_text = (c.get("text") or "").strip().replace("<br/>", "\n").replace("<br>", "\n")
+                        raw_trigger = (c.get("trigger") or "").strip().replace("<br/>", "\n").replace("<br>", "\n")
+                        if raw_trigger and raw_trigger not in ["—", "-", "None"]:
+                            if not raw_trigger.startswith("[Trigger]"):
+                                raw_trigger = f"[Trigger] {raw_trigger}"
+                            card_text = f"{raw_text}\n{raw_trigger}" if raw_text else raw_trigger
+                        else:
+                            card_text = raw_text
+                        raw_cost = c.get("cost")
+                        raw_counter = c.get("counter")
+                        counter_val: Optional[int] = None
+                        if raw_counter is not None and str(raw_counter).isdigit() and int(raw_counter) > 0:
+                            counter_val = int(raw_counter)
+                        mapped_new_promos.append({
+                            "inventory_price": None,
+                            "market_price": None,
+                            "card_name": c.get("cardName", cid),
+                            "card_set_id": cid,
+                            "card_type": format_card_type(c.get("cardType", "")),
+                            "card_color": c.get("color", ""),
+                            "card_cost": str(raw_cost) if raw_cost is not None and str(raw_cost) != "" else None,
+                            "card_power": str(c.get("power")) if c.get("power") else None,
+                            "card_text": card_text,
+                            "set_id": "P",
+                            "rarity": (c.get("rarity") or "").strip() or None,
+                            "sub_types": (c.get("feature") or "").strip() or None,
+                            "counter_amount": counter_val,
+                            "attribute": (c.get("attribute") or "").strip() or None,
+                            "card_image": card_image,
+                            "date_scraped": datetime.date.today().isoformat(),
+                        })
+                    if mapped_new_promos:
+                        data = data + mapped_new_promos
+                        print(f"Enriched promo_cards.json with {len(mapped_new_promos)} new Kaizoku promos (total: {len(data)}).")
+            except Exception as e:
+                print(f"Notice: Could not enrich promos from Kaizoku: {e}")
 
     # Preserve custom and spoiler set metadata in sets.json
     if filename == "sets.json" and isinstance(data, list):
