@@ -12,6 +12,11 @@ class MyHandler(Handler):
         self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
         super().end_headers()
 
+class ThreadedTCPServer(socketserver.ThreadingTCPServer):
+    daemon_threads = True
+    allow_reuse_address = True
+    request_queue_size = 64
+
 def main():
     httpd = None
     selected_port = DEFAULT_PORT
@@ -19,7 +24,7 @@ def main():
     # Try finding an open port starting from 8000 (Item 7)
     for port in range(DEFAULT_PORT, DEFAULT_PORT + MAX_PORT_ATTEMPTS):
         try:
-            httpd = socketserver.TCPServer(("", port), MyHandler)
+            httpd = ThreadedTCPServer(("", port), MyHandler)
             selected_port = port
             break
         except OSError:

@@ -1720,7 +1720,7 @@
     </main>
 
         <!-- Footer -->
-        <footer class="bg-slate-900 border-t border-slate-800 py-6 text-center text-xs text-slate-500 px-6 mt-auto">
+        <footer class="bg-slate-900 border-t border-slate-800 py-6 text-center text-xs text-slate-500 px-6 mt-auto" :class="selectedBuilderLeader && (currentTab === 'builder' || currentTab === 'sets') ? 'pb-20 sm:pb-6' : ''">
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p>One Piece e One Piece Card Game são marcas registradas da Eiichiro Oda, Bandai, Shonen Jump e Viz Media.</p>
                 <div class="flex items-center gap-3 font-mono text-slate-600">
@@ -1933,7 +1933,8 @@
         <button
             v-if="(currentTab === 'builder' && selectedBuilderLeader) || currentTab === 'meta'"
             @click="openCoachModal(currentTab === 'meta' ? 'meta' : 'builder')"
-            class="fixed bottom-6 right-6 z-40 px-4 py-3 bg-slate-900/95 hover:bg-slate-800 backdrop-blur-md border border-amber-500/40 hover:border-amber-500 text-amber-400 hover:text-amber-300 font-bold text-xs rounded-2xl shadow-xl flex items-center gap-2 transition-all group animate-fade-in"
+            class="fixed z-40 px-4 py-3 bg-slate-900/95 hover:bg-slate-800 backdrop-blur-md border border-amber-500/40 hover:border-amber-500 text-amber-400 hover:text-amber-300 font-bold text-xs rounded-2xl shadow-xl flex items-center gap-2 transition-all group animate-fade-in"
+            :class="selectedBuilderLeader && (currentTab === 'builder' || currentTab === 'sets') ? 'bottom-20 sm:bottom-6 right-4 sm:right-6' : 'bottom-6 right-4 sm:right-6'"
             :title="currentTab === 'meta' ? 'Abrir Coach IA para tirar dúvidas sobre o meta e escolha de cores' : 'Abrir Coach IA para tirar dúvidas sobre seu deck'">
             <svg class="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
             <span>{{ currentTab === 'meta' ? 'Coach IA do Meta' : 'Coach IA' }}</span>
@@ -3543,21 +3544,35 @@
                     loading.value = true;
                     try {
                         const fetchOpts = { cache: 'no-cache' };
+                        const safeFetchJson = async (url, fallback = null, retries = 2) => {
+                            for (let attempt = 0; attempt <= retries; attempt++) {
+                                try {
+                                    const r = await fetch(url, fetchOpts);
+                                    if (r.ok) return await r.json();
+                                    return fallback;
+                                } catch (e) {
+                                    if (attempt === retries) return fallback;
+                                    await new Promise(res => setTimeout(res, 80 * (attempt + 1)));
+                                }
+                            }
+                            return fallback;
+                        };
+
                         const [setsRes, setCardsRes, decksRes, starterCardsRes, promoCardsRes, donCardsRes, banlistRes, banSetsRes, banStRes, whitelistRes, spoilerCfgRes, insightsRes, evergreenRes, manifestRes] = await Promise.all([
-                            fetch('./optcg_data/sets.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
-                            fetch('./optcg_data/set_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
-                            fetch('./optcg_data/decks.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
-                            fetch('./optcg_data/starter_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
-                            fetch('./optcg_data/promo_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
-                            fetch('./optcg_data/don_cards.json', fetchOpts).then(r => r.ok ? r.json() : []).catch(() => []),
-                            fetch('./optcg_data/banlist.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
-                            fetch('./optcg_data/ban_sets.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
-                            fetch('./optcg_data/ban_st.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
-                            fetch('./optcg_data/whitelist.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
-                            fetch('./optcg_data/spoiler_config.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
-                            fetch('./optcg_data/ai_meta_insights.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
-                            fetch('./optcg_data/evergreen_strategy_guides.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null),
-                            fetch('./optcg_data/manifest.json', fetchOpts).then(r => r.ok ? r.json() : null).catch(() => null)
+                            safeFetchJson('./optcg_data/sets.json', []),
+                            safeFetchJson('./optcg_data/set_cards.json', []),
+                            safeFetchJson('./optcg_data/decks.json', []),
+                            safeFetchJson('./optcg_data/starter_cards.json', []),
+                            safeFetchJson('./optcg_data/promo_cards.json', []),
+                            safeFetchJson('./optcg_data/don_cards.json', []),
+                            safeFetchJson('./optcg_data/banlist.json', null),
+                            safeFetchJson('./optcg_data/ban_sets.json', null),
+                            safeFetchJson('./optcg_data/ban_st.json', null),
+                            safeFetchJson('./optcg_data/whitelist.json', null),
+                            safeFetchJson('./optcg_data/spoiler_config.json', null),
+                            safeFetchJson('./optcg_data/ai_meta_insights.json', null),
+                            safeFetchJson('./optcg_data/evergreen_strategy_guides.json', null),
+                            safeFetchJson('./optcg_data/manifest.json', null)
                         ]);
 
                         if (insightsRes && typeof insightsRes === 'object') {
@@ -3617,13 +3632,15 @@
                         const existingSetCodes = new Set(sets.value.map(s => (s.set_id || '').replace(/[^A-Z0-9]/gi, '').toUpperCase()));
                         const existingDeckCodes = new Set(decks.value.map(d => (d.structure_deck_id || d.deck_id || '').replace(/[^A-Z0-9]/gi, '').toUpperCase()));
 
-                        const metaResponses = await Promise.allSettled(
-                            metaFilesToScan.map(code => 
-                                fetch(`./optcg_data/meta_${code}.json`, fetchOpts)
-                                    .then(r => r.ok ? r.json() : null)
-                                    .catch(() => null)
-                            )
-                        );
+                        const metaResponses = [];
+                        const META_CHUNK_SIZE = 4;
+                        for (let i = 0; i < metaFilesToScan.length; i += META_CHUNK_SIZE) {
+                            const chunk = metaFilesToScan.slice(i, i + META_CHUNK_SIZE);
+                            const chunkResults = await Promise.all(
+                                chunk.map(code => safeFetchJson(`./optcg_data/meta_${code}.json`, null))
+                            );
+                            metaResponses.push(...chunkResults.map(value => ({ status: 'fulfilled', value })));
+                        }
 
                         const detectedSets = [];
 
