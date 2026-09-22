@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-09-21T12:56:18-03:00",
+  "last_updated": "2026-09-22T05:04:32-03:00",
   "total_channels": 15,
-  "total_insights": 215,
+  "total_insights": 214,
   "videos_by_leader": {
     "yamato": [
       {
@@ -97,16 +97,6 @@
         "video_url": "https://www.youtube.com/watch?v=csue0z1bfD8",
         "format": "OP17",
         "matchups_covered": []
-      },
-      {
-        "title": "Is Robin The Answer To Mihawk? (HangZhou Championships Top 8)",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-09-07T22:00:00+00:00",
-        "video_url": "https://www.youtube.com/watch?v=dpg67ojCzGg",
-        "format": "OP17",
-        "matchups_covered": [
-          "Purple Yellow Robin"
-        ]
       },
       {
         "title": "OP-17 Just made Nico Robin absolutely BROKEN!",
@@ -448,14 +438,6 @@
         "video_url": "https://www.youtube.com/watch?v=XUBzD-qJd48",
         "format": "OP17",
         "matchups_covered": []
-      },
-      {
-        "title": "OP-17 Belo Betty Is Basically A Big Mom Deck Now...",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-09-03T15:15:23+00:00",
-        "video_url": "https://www.youtube.com/watch?v=1Qsg3V5P1jI",
-        "format": "OP17",
-        "matchups_covered": []
       }
     ],
     "caesar clown": [
@@ -470,10 +452,10 @@
     ],
     "enel": [
       {
-        "title": "One Piece TCG: Match Analysis and Breakdown - P Enel VS PY Robin (OP17 Utrecht Finals, 2026-27 West)",
+        "title": "One Piece TCG: Match Analysis and Breakdown, G Mihawk VS P Enel (OP-17 Dallas Finals, 2026-27 West)",
         "channel_name": "The Vv Theory",
-        "published_at": "2026-09-11T20:49:06+00:00",
-        "video_url": "https://www.youtube.com/watch?v=RWyfE4GgMYM",
+        "published_at": "2026-09-21T21:07:32+00:00",
+        "video_url": "https://www.youtube.com/watch?v=su3PKjY0hVs",
         "format": "OP17",
         "matchups_covered": []
       },
@@ -634,6 +616,63 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "ZB3t1FSrq_Y",
+      "title": "Chinoize cup with the goat Newgate!!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-09-22T05:01:41+00:00",
+      "video_url": "https://www.youtube.com/watch?v=ZB3t1FSrq_Y",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Support the stream: https://streamlabs.com/hashtagemb"
+    },
+    {
+      "video_id": "su3PKjY0hVs",
+      "title": "One Piece TCG: Match Analysis and Breakdown, G Mihawk VS P Enel (OP-17 Dallas Finals, 2026-27 West)",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-09-21T21:07:32+00:00",
+      "video_url": "https://www.youtube.com/watch?v=su3PKjY0hVs",
+      "format": "OP17",
+      "identified_leaders": [
+        "Enel"
+      ],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "YzWhQR8-TNQ",
+      "title": "One Piece Card Game: Flame-Flame Fruit & Dallas Finals! Topping Deck Lists!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-09-21T18:30:09+00:00",
+      "video_url": "https://www.youtube.com/watch?v=YzWhQR8-TNQ",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "OP17 Deck Lists: https://deckbuilder.egmanevents.com/optcg/tournaments?format=OP17"
+    },
+    {
+      "video_id": "OD7zwz1JTBM",
+      "title": "OP17 Week 4 Meta Analysis (Sim & Tournament Data)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-09-21T17:00:26+00:00",
+      "video_url": "https://www.youtube.com/watch?v=OD7zwz1JTBM",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "In this video, we take a look at OP17 data on the sim & recent tournaments! We go over leader performance as well as individual matchups between the leaders! We'll also take a look at some decklist..."
+    },
+    {
+      "video_id": "g2e0l9CHADg",
+      "title": "The OP-17 Ban List Is Coming... My Predictions!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-09-21T16:37:31+00:00",
+      "video_url": "https://www.youtube.com/watch?v=g2e0l9CHADg",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
     {
       "video_id": "2bdu0NJNJ2U",
       "title": "AS CARTAS SECRETAS DA EB-05! Suportes Revelados para Aokiji, Shirahoshi e Kaido",
@@ -1917,21 +1956,6 @@
       "summary": "Analise de deck e gameplay."
     },
     {
-      "video_id": "dpg67ojCzGg",
-      "title": "Is Robin The Answer To Mihawk? (HangZhou Championships Top 8)",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-09-07T22:00:00+00:00",
-      "video_url": "https://www.youtube.com/watch?v=dpg67ojCzGg",
-      "format": "OP17",
-      "identified_leaders": [
-        "Robin"
-      ],
-      "matchups_covered": [
-        "Purple Yellow Robin"
-      ],
-      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
-    },
-    {
       "video_id": "Emo8d8iJSd4",
       "title": "One Piece TCG: Meta Watch (OP17), Analyzing the Flame-Flame Coliseum & Regional Results from Utrecht",
       "channel_name": "The Vv Theory",
@@ -1963,19 +1987,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "My twitter:"
-    },
-    {
-      "video_id": "O1BjubbcfrA",
-      "title": "One Piece TCG: Match Analysis and Breakdown - PY Robin VS U Rocks (OP-17 Utrecht, 2026-27 West)",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-09-06T20:30:31+00:00",
-      "video_url": "https://www.youtube.com/watch?v=O1BjubbcfrA",
-      "format": "OP17",
-      "identified_leaders": [
-        "Robin"
-      ],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "iSc5U5LxDds",
@@ -2096,19 +2107,6 @@
       "summary": "Paulo Mori e João Baron se reúnem novamente aqui na tcgBR para comentar sobre os melhores líderes pós-OP17 no One Piece TCG. Veja quem sobe, quem cai e quais decks prometem no novo meta."
     },
     {
-      "video_id": "1Qsg3V5P1jI",
-      "title": "OP-17 Belo Betty Is Basically A Big Mom Deck Now...",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-09-03T15:15:23+00:00",
-      "video_url": "https://www.youtube.com/watch?v=1Qsg3V5P1jI",
-      "format": "OP17",
-      "identified_leaders": [
-        "Belo Betty"
-      ],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
       "video_id": "EQSMTG1Pjvg",
       "title": "Seeing if Robin Can Actually Produce Results!",
       "channel_name": "WezaldoTCG",
@@ -2155,30 +2153,6 @@
       ],
       "matchups_covered": [],
       "summary": "Mais um video de gameplay do meta de OP17 aqui na tcgBR! Hoje temos o Foxy(P), um underdog do formato, contra o Sabo(RB), um dos decks mais proeminentes do formato. Será que o Foxy dá contra do rec..."
-    },
-    {
-      "video_id": "QtTfe99s-I8",
-      "title": "One Piece Card Game: Elbaph Luffy Chinoize Cup Tournament Run!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-09-02T21:20:43+00:00",
-      "video_url": "https://www.youtube.com/watch?v=QtTfe99s-I8",
-      "format": "",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://egmanevents.com"
-    },
-    {
-      "video_id": "dXjYT3cVXP0",
-      "title": "Newgate FARMED The Ranked Ladder!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-09-02T14:30:12+00:00",
-      "video_url": "https://www.youtube.com/watch?v=dXjYT3cVXP0",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
     },
     {
       "video_id": "P-mf22LejUE",
@@ -3268,17 +3242,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "#azukitcg #azuki #sponsored"
-    },
-    {
-      "video_id": "U5wOzZEiB9s",
-      "title": "One Piece TCG but it's narrated like Jujutsu Kaisen",
-      "channel_name": "AkemiTCG",
-      "published_at": "2026-06-23T16:00:18+00:00",
-      "video_url": "https://www.youtube.com/watch?v=U5wOzZEiB9s",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "#onepiecetcg #onepiece #tcg #jjk"
     }
   ]
 }
