@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-09-22T05:04:32-03:00",
+  "last_updated": "2026-09-23T05:06:50-03:00",
   "total_channels": 15,
-  "total_insights": 214,
+  "total_insights": 212,
   "videos_by_leader": {
     "yamato": [
       {
@@ -43,6 +43,14 @@
     ],
     "robin": [
       {
+        "title": "One Piece TCG: Match Analysis and Breakdown, PY Robin Mirror (Flame-Flame Fruit Finals 26-27 Dallas)",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-09-22T22:03:09+00:00",
+        "video_url": "https://www.youtube.com/watch?v=YBHlB4kqoiI",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
         "title": "🟣🟡Quem leva a melhor na Mirror de Robin? One Piece OP17",
         "channel_name": "Café Com One Piece",
         "published_at": "2026-09-21T13:00:28+00:00",
@@ -83,26 +91,10 @@
         "matchups_covered": []
       },
       {
-        "title": "One Piece TCG: Match Analysis and Breakdown - P Enel VS PY Robin (OP17 Utrecht Finals, 2026-27 West)",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-09-11T20:49:06+00:00",
-        "video_url": "https://www.youtube.com/watch?v=RWyfE4GgMYM",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
         "title": "ANALISAMOS um X1 REAL da CORRIDA DO COLISEU! Nico Robin vs Enel | One Piece TCG ft. @NaluEvolved",
         "channel_name": "Mestre Arty TCG",
         "published_at": "2026-09-11T15:00:31+00:00",
         "video_url": "https://www.youtube.com/watch?v=csue0z1bfD8",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "OP-17 Just made Nico Robin absolutely BROKEN!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-09-06T14:30:35+00:00",
-        "video_url": "https://www.youtube.com/watch?v=iSc5U5LxDds",
         "format": "OP17",
         "matchups_covered": []
       },
@@ -157,14 +149,6 @@
         "channel_name": "Mestre Arty TCG",
         "published_at": "2026-09-11T15:00:31+00:00",
         "video_url": "https://www.youtube.com/watch?v=csue0z1bfD8",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "OP-17 Just made Nico Robin absolutely BROKEN!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-09-06T14:30:35+00:00",
-        "video_url": "https://www.youtube.com/watch?v=iSc5U5LxDds",
         "format": "OP17",
         "matchups_covered": []
       },
@@ -260,14 +244,6 @@
         "channel_name": "Onepiececardgamebr",
         "published_at": "2026-09-08T14:00:33+00:00",
         "video_url": "https://www.youtube.com/watch?v=hGx8VHrw3wQ",
-        "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "Power Control Kaido Does It BETTER Than Enel?!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-09-05T14:30:33+00:00",
-        "video_url": "https://www.youtube.com/watch?v=AJhASosZ9oY",
         "format": "",
         "matchups_covered": []
       },
@@ -466,14 +442,6 @@
         "video_url": "https://www.youtube.com/watch?v=csue0z1bfD8",
         "format": "OP17",
         "matchups_covered": []
-      },
-      {
-        "title": "Power Control Kaido Does It BETTER Than Enel?!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-09-05T14:30:33+00:00",
-        "video_url": "https://www.youtube.com/watch?v=AJhASosZ9oY",
-        "format": "",
-        "matchups_covered": []
       }
     ],
     "franky": [
@@ -616,6 +584,107 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "Sst3uko_sB0",
+      "title": "Gundam Card Game: Starter Deck Testing! Banshee and Aerial!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-09-23T00:27:10+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Sst3uko_sB0",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Cardmarket Giveaway: https://x.com/cardmarket_com/status/2102311212998410707?s=20"
+    },
+    {
+      "video_id": "F5ofwCxZyWc",
+      "title": "Gundam Card Game: Starter Deck Testing! Banshee and Aerial!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-09-22T22:42:49+00:00",
+      "video_url": "https://www.youtube.com/watch?v=F5ofwCxZyWc",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Cardmarket Giveaway: https://x.com/cardmarket_com/status/2102311212998410707?s=20"
+    },
+    {
+      "video_id": "YBHlB4kqoiI",
+      "title": "One Piece TCG: Match Analysis and Breakdown, PY Robin Mirror (Flame-Flame Fruit Finals 26-27 Dallas)",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-09-22T22:03:09+00:00",
+      "video_url": "https://www.youtube.com/watch?v=YBHlB4kqoiI",
+      "format": "OP17",
+      "identified_leaders": [
+        "Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "8M7EHSN0TdQ",
+      "title": "OP17 Banlist Predictions! Mihawk Getting The Hit?",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-09-22T17:00:07+00:00",
+      "video_url": "https://www.youtube.com/watch?v=8M7EHSN0TdQ",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "In this video, we speculate over what they could announce on their Banned and Restricted Cards list this September 2026! This could have huge ramifications on the meta for the rest of the year. Wil..."
+    },
+    {
+      "video_id": "UT9dJj-3kfQ",
+      "title": "BANDAI ERROU? A Verdade Sobre a Nova PEB (Premium Extra Booster)",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-09-22T15:00:35+00:00",
+      "video_url": "https://www.youtube.com/watch?v=UT9dJj-3kfQ",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "A Bandai anunciou para abril a chegada da PEB (Premium Extra Booster), uma nova coleção que mistura reprints e cartas inéditas em pacotes com 16 cartas totalmente foil. Mas será que encarecer o pro..."
+    },
+    {
+      "video_id": "dt1f2sY9G9Q",
+      "title": "Lançamento de Pokémon 30 Anos, Collab de One Piece com McDonalds e mais! | Plantão TCG | EP. 2",
+      "channel_name": "tcgBR",
+      "published_at": "2026-09-22T15:00:16+00:00",
+      "video_url": "https://www.youtube.com/watch?v=dt1f2sY9G9Q",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "No Plantão TCG, Lucca traz algumas das principais notícias da semana pra deixar você antenado sobre o que anda rolando no mundo dos TCGs!"
+    },
+    {
+      "video_id": "VoBgwVmcudY",
+      "title": "The OP-18 Leaders Are FINALLY Here!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-09-22T14:32:27+00:00",
+      "video_url": "https://www.youtube.com/watch?v=VoBgwVmcudY",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "U64zqKf4mR8",
+      "title": "One Piece Card Game: OP17 Restriction Prediction!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-09-22T14:00:00+00:00",
+      "video_url": "https://www.youtube.com/watch?v=U64zqKf4mR8",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "OP17 Deck Lists: https://deckbuilder.egmanevents.com/optcg/tournaments?format=OP17"
+    },
+    {
+      "video_id": "cjaCYEQx6Eo",
+      "title": "🚨BANDAI CONFIRMOU! VEM AÍ UMA NOVA BANLIST NO ONE PIECE CARD GAME! 🚫",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-09-22T12:00:02+00:00",
+      "video_url": "https://www.youtube.com/watch?v=cjaCYEQx6Eo",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "🎟️Ingressos Copa Café 8: https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-8"
+    },
     {
       "video_id": "ZB3t1FSrq_Y",
       "title": "Chinoize cup with the goat Newgate!!",
@@ -997,17 +1066,6 @@
       "summary": "Deck Lists: https://egmanevents.com"
     },
     {
-      "video_id": "F5ofwCxZyWc",
-      "title": "One Piece Card Game: Last Testing Session before Dallas!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-09-17T19:11:29+00:00",
-      "video_url": "https://www.youtube.com/watch?v=F5ofwCxZyWc",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://egmanevents.com"
-    },
-    {
       "video_id": "FMYbnHeNYbs",
       "title": "They're Evenly Matched! (Utrecht EU Finals - Top 8)",
       "channel_name": "Car D. Kaizoku",
@@ -1357,7 +1415,7 @@
         "Luffy"
       ],
       "matchups_covered": [],
-      "summary": "My twitter:"
+      "summary": "If you're looking for more RP Luffy content check out Agre's Video on it: https://www.youtube.com/watch?v=4OkUqPk7VCY"
     },
     {
       "video_id": "V_MPt2_U_nA",
@@ -1772,17 +1830,6 @@
       "summary": "Check out Ultimate Guard here:"
     },
     {
-      "video_id": "eW3t6DtumAU",
-      "title": "TUDO O QUE VOCÊ PRECISA SABER PARA COMECAR NO OPTCG! (Aulão para Iniciantes) @annepaimz",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-09T15:00:37+00:00",
-      "video_url": "https://www.youtube.com/watch?v=eW3t6DtumAU",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Quer começar a jogar One Piece TCG, mas tem dúvidas sobre raridades, estrutura do turno, cores e regras de combate? A professora Senhorita Anne preparou um aulão completo com tudo o que você precis..."
-    },
-    {
       "video_id": "8GD3NJvAavo",
       "title": "Katakuri Might Be A Sleeper Pick For Extra Regulation?",
       "channel_name": "WezaldoTCG",
@@ -1870,19 +1917,6 @@
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
-      "video_id": "xwfDGbtt0Gc",
-      "title": "Is Mihawk's Own Deck His Enemy? (HangZhou Championships Top 4)",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-09-08T17:00:39+00:00",
-      "video_url": "https://www.youtube.com/watch?v=xwfDGbtt0Gc",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [
-        "Green Mihawk"
-      ],
-      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
-    },
-    {
       "video_id": "3guYhN56qCk",
       "title": "One Piece Card Game: Utrecht Finals and Flame Flame Fruit! Topping Deck Lists!",
       "channel_name": "TheEgman",
@@ -1905,17 +1939,6 @@
       ],
       "matchups_covered": [],
       "summary": "Analise de deck e gameplay."
-    },
-    {
-      "video_id": "tau4Im_LcPM",
-      "title": "🔴Montando a Tierlist da OP17 e Sorteio Mensal! 🔥One Piece Card Game",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-09-08T15:21:07+00:00",
-      "video_url": "https://www.youtube.com/watch?v=tau4Im_LcPM",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Ingressos Copa Café #8"
     },
     {
       "video_id": "tM-vDngiSIY",
@@ -1956,17 +1979,6 @@
       "summary": "Analise de deck e gameplay."
     },
     {
-      "video_id": "Emo8d8iJSd4",
-      "title": "One Piece TCG: Meta Watch (OP17), Analyzing the Flame-Flame Coliseum & Regional Results from Utrecht",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-09-07T21:23:09+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Emo8d8iJSd4",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
       "video_id": "lpi_sCJMVcg",
       "title": "How To Get Better At Card Games & Why You Aren't Getting Better",
       "channel_name": "WezaldoTCG",
@@ -1989,20 +2001,6 @@
       "summary": "My twitter:"
     },
     {
-      "video_id": "iSc5U5LxDds",
-      "title": "OP-17 Just made Nico Robin absolutely BROKEN!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-09-06T14:30:35+00:00",
-      "video_url": "https://www.youtube.com/watch?v=iSc5U5LxDds",
-      "format": "OP17",
-      "identified_leaders": [
-        "Robin",
-        "Nico Robin"
-      ],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
       "video_id": "jVBHLjsQPOk",
       "title": "BATALHA ENTRE GERAÇÕES! | Xebec vs. Teach | One Piece TCG",
       "channel_name": "tcgBR",
@@ -2014,20 +2012,6 @@
       ],
       "matchups_covered": [],
       "summary": "Rocks D. Xebec (U) segue reinando em nossos gameplays aqui na tcgBR! Agora chegou a vez do Marshall D. Teach(Y) tentar sua sorte contra o nosso campeão."
-    },
-    {
-      "video_id": "AJhASosZ9oY",
-      "title": "Power Control Kaido Does It BETTER Than Enel?!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-09-05T14:30:33+00:00",
-      "video_url": "https://www.youtube.com/watch?v=AJhASosZ9oY",
-      "format": "",
-      "identified_leaders": [
-        "Enel",
-        "Kaido"
-      ],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
     },
     {
       "video_id": "BMG-N1rgzBE",
@@ -2061,17 +2045,6 @@
       "summary": "Edited by: @zztac"
     },
     {
-      "video_id": "hyvBHA4QjxU",
-      "title": "I'm just a guy trying to play against Mihawk #onepiecetcg #onepiececardgame #cardgame",
-      "channel_name": "TheEgman",
-      "published_at": "2026-09-04T16:00:03+00:00",
-      "video_url": "https://www.youtube.com/watch?v=hyvBHA4QjxU",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Full Episode Here w/ @TheStrongestWizard  : https://youtu.be/nAv0lMrtCso"
-    },
-    {
       "video_id": "K7Mh0BZ1RCc",
       "title": "DA PRA JOGAR OP17 DE XEBEC! RANKED PT-BR",
       "channel_name": "Onepiececardgamebr",
@@ -2081,19 +2054,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Live curtindo a Ranked de OP17 com Xebec, muita música gameplay e conversa sobre o meta atual, aprendendo juntos!"
-    },
-    {
-      "video_id": "qqtkqXVpCos",
-      "title": "One Piece Card Game: OP17 Meta Koala and Elbaph Luffy Testing!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-09-03T22:20:49+00:00",
-      "video_url": "https://www.youtube.com/watch?v=qqtkqXVpCos",
-      "format": "OP17",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://egmanevents.com"
     },
     {
       "video_id": "DLA3IuGoNqk",
@@ -2937,19 +2897,6 @@
       "summary": "#onepiecetcg #optcg"
     },
     {
-      "video_id": "Y_UQFqnmdH0",
-      "title": "NINGUÉM ESTÁ DE OLHO NESSES LÍDERES DE OP-17! | Kaido x Linlin | One Piece TCG",
-      "channel_name": "tcgBR",
-      "published_at": "2026-08-14T00:48:51+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Y_UQFqnmdH0",
-      "format": "OP17",
-      "identified_leaders": [
-        "Kaido"
-      ],
-      "matchups_covered": [],
-      "summary": "Confira com a gente o playtest dos lideres (P) Kaido e (Y) Charlotte Linlin da OP-17 coleção que será lançada dia 28 de agosto."
-    },
-    {
       "video_id": "BPa0Tj-0v68",
       "title": "Ripping your First pack vs your 1000th pack #tcg # #optcg",
       "channel_name": "real_joshua",
@@ -3231,17 +3178,6 @@
         "Black Yellow Teach"
       ],
       "summary": "#rybonney #optcg #onepiecetcg"
-    },
-    {
-      "video_id": "NP0jG4S4NtE",
-      "title": "Azuki TCG Gameplay First Impression + INSANE Box Opening for Gates Awakened",
-      "channel_name": "AkemiTCG",
-      "published_at": "2026-06-24T22:00:08+00:00",
-      "video_url": "https://www.youtube.com/watch?v=NP0jG4S4NtE",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "#azukitcg #azuki #sponsored"
     }
   ]
 }
