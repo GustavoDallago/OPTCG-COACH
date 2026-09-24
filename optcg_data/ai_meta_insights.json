@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-23T05:06:50-03:00",
+  "last_updated": "2026-09-24T04:58:24-03:00",
   "total_channels": 15,
   "total_insights": 212,
   "videos_by_leader": {
@@ -310,6 +310,14 @@
     ],
     "luffy": [
       {
+        "title": "When your opponent has the sim muted #onepiece #optcg #onepiece tcg #luffy #tcg",
+        "channel_name": "WezaldoTCG",
+        "published_at": "2026-09-23T15:30:30+00:00",
+        "video_url": "https://www.youtube.com/watch?v=89Ngx0a7NAY",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
         "title": "TORNEIO SEMANAL 12/09/26 (POV) | Game 3 e 4: Mihawk vs. Xebec e Luffy | One Piece TCG",
         "channel_name": "tcgBR",
         "published_at": "2026-09-19T22:00:08+00:00",
@@ -336,14 +344,6 @@
         "matchups_covered": [
           "G Mihawk"
         ]
-      },
-      {
-        "title": "High Rank Players Are Winning With RP Luffy For Some Reason",
-        "channel_name": "WezaldoTCG",
-        "published_at": "2026-09-14T15:00:17+00:00",
-        "video_url": "https://www.youtube.com/watch?v=NuA96sz6IZs",
-        "format": "",
-        "matchups_covered": []
       },
       {
         "title": "One Piece Card Game: OP17 Elbaph Luffy Mega Testing!",
@@ -585,15 +585,116 @@
   },
   "latest_videos": [
     {
+      "video_id": "AkWHw8GBb20",
+      "title": "Top 64 Dallas Nationals Mihawk \"Fwirth\" — In-Game Interviews",
+      "channel_name": "minhooty",
+      "published_at": "2026-09-24T04:56:46+00:00",
+      "video_url": "https://www.youtube.com/watch?v=AkWHw8GBb20",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Follow Freddie on X! https://x.com/Fwirth"
+    },
+    {
+      "video_id": "8oVV6alJycA",
+      "title": "MUSTACUP! - Campeonato OP17 Standard",
+      "channel_name": "Onepiececardgamebr",
+      "published_at": "2026-09-24T01:09:13+00:00",
+      "video_url": "https://www.youtube.com/watch?v=8oVV6alJycA",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "A MUSTACUP Continua! Um campeonato online semanal, no formato standard começando em OP17, com direito a sorteios para os participantes todo mês e muito mais!!"
+    },
+    {
+      "video_id": "BoXGq6uZz-M",
+      "title": "DA PRA JOGAR OP17 DE XEBEC! RANKED PT-BR",
+      "channel_name": "Onepiececardgamebr",
+      "published_at": "2026-09-24T01:08:28+00:00",
+      "video_url": "https://www.youtube.com/watch?v=BoXGq6uZz-M",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Live curtindo a Ranked de OP17 com Xebec, muita música gameplay e conversa sobre o meta atual, aprendendo juntos!"
+    },
+    {
+      "video_id": "E6b3H91p33o",
+      "title": "Testando uns crimes na OP17!",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-09-23T23:42:51+00:00",
+      "video_url": "https://www.youtube.com/watch?v=E6b3H91p33o",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Jogue camps online com a gente!"
+    },
+    {
       "video_id": "Sst3uko_sB0",
-      "title": "Gundam Card Game: Starter Deck Testing! Banshee and Aerial!",
+      "title": "Gundam Card Game: Starter Deck Testing! Unicorn and Qubeley!",
       "channel_name": "TheEgman",
-      "published_at": "2026-09-23T00:27:10+00:00",
+      "published_at": "2026-09-23T22:33:16+00:00",
       "video_url": "https://www.youtube.com/watch?v=Sst3uko_sB0",
       "format": "",
       "identified_leaders": [],
       "matchups_covered": [],
-      "summary": "Cardmarket Giveaway: https://x.com/cardmarket_com/status/2102311212998410707?s=20"
+      "summary": "Tournament Sign ups: https://www.bestcoastpairings.com/event/UhnzNPOFCVYt?active_tab=overview"
+    },
+    {
+      "video_id": "aZtrJiKBLr0",
+      "title": "One Piece TCG: Bandai Announced A Bans And Restrictions Update Coming Soon, These Are My Predictions",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-09-23T20:19:02+00:00",
+      "video_url": "https://www.youtube.com/watch?v=aZtrJiKBLr0",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "89Ngx0a7NAY",
+      "title": "When your opponent has the sim muted #onepiece #optcg #onepiece tcg #luffy #tcg",
+      "channel_name": "WezaldoTCG",
+      "published_at": "2026-09-23T15:30:30+00:00",
+      "video_url": "https://www.youtube.com/watch?v=89Ngx0a7NAY",
+      "format": "",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "My twitter:"
+    },
+    {
+      "video_id": "HS8ZIEWESpM",
+      "title": "O VERDADEIRO POTENCIAL DA VIVI (OP-17)! Decklist e Gameplay no One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-09-23T15:00:34+00:00",
+      "video_url": "https://www.youtube.com/watch?v=HS8ZIEWESpM",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "A líder Vivi (Azul/Vermelha) sempre foi amada pela comunidade, mas faltava aquele empurrãozinho para brilhar no competitivo. Será que com os novos suportes da OP-17 ela finalmente encontrou seu lug..."
+    },
+    {
+      "video_id": "g0X9O6b0y1w",
+      "title": "AS NOVAS CARTAS VÃO MUDAR TUDO!? - PT-BR",
+      "channel_name": "Onepiececardgamebr",
+      "published_at": "2026-09-23T14:00:27+00:00",
+      "video_url": "https://www.youtube.com/watch?v=g0X9O6b0y1w",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Trazendo um vídeo para falarmos sobre as novas cartas reveladas de EB, finalmente vimos as SRs novas, com diversos suportes para arquétipos que temos no jogo já e vamos ver novas staples, e vemos c..."
+    },
+    {
+      "video_id": "EGIzzrjXYR4",
+      "title": "🔥Preparados para a nova coleção? One Piece Card Game OP18",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-09-23T12:00:03+00:00",
+      "video_url": "https://www.youtube.com/watch?v=EGIzzrjXYR4",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "🎟️Ingressos Copa Café 8: https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-8"
     },
     {
       "video_id": "F5ofwCxZyWc",
@@ -1706,17 +1807,6 @@
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
-      "video_id": "k6qe68tUQmM",
-      "title": "ISSO TA ESTRANHO! Analisando a lista preliminar do SET SAIL DECK (SD-01)!",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-10T20:00:24+00:00",
-      "video_url": "https://www.youtube.com/watch?v=k6qe68tUQmM",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "O Set Sail Deck (SD-01) chegou prometendo ser a porta de entrada perfeita para dois jogadores aprenderem One Piece TCG juntos, mas será que as listas de Luffy (Amarelo) e Ace (Vermelho) estão realm..."
-    },
-    {
       "video_id": "HmhMXUkayhw",
       "title": "No OP17 Leaders Allowed In OP17?! (Flame Flame Fruit Coliseum EU - Semifinals)",
       "channel_name": "Car D. Kaizoku",
@@ -1776,17 +1866,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Support the stream: https://streamlabs.com/hashtagemb"
-    },
-    {
-      "video_id": "inuCP3ZfMew",
-      "title": "🔴 Sorteio dos Membros de Agosto + Gameplay de Crimes!",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-10T01:39:23+00:00",
-      "video_url": "https://www.youtube.com/watch?v=inuCP3ZfMew",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Artista do Don: https://x.com/fenonita"
     },
     {
       "video_id": "Wxh1CZgvp0g",
@@ -1854,23 +1933,6 @@
       "summary": "My twitter:"
     },
     {
-      "video_id": "xKjrSTE1-TY",
-      "title": "Sabo e Nico Robin de volta ao META! One Piece Card Game OP17 🏴‍☠️",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-09-09T13:00:26+00:00",
-      "video_url": "https://www.youtube.com/watch?v=xKjrSTE1-TY",
-      "format": "OP17",
-      "identified_leaders": [
-        "Sabo",
-        "Robin",
-        "Nico Robin"
-      ],
-      "matchups_covered": [
-        "Nico Robin"
-      ],
-      "summary": "🎟️Ingressos Copa Café 8 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-8"
-    },
-    {
       "video_id": "xsA_CAi3ioc",
       "title": "Topping Newgate deck in Chinoize?!",
       "channel_name": "Hashtag EMB",
@@ -1904,17 +1966,6 @@
         "Green Mihawk"
       ],
       "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
-    },
-    {
-      "video_id": "49Thin8ZMaA",
-      "title": "One Piece TCG: If I Could Design My Own Leader, It Would Look Like This (Fun Custom Card Video)",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-09-08T21:45:02+00:00",
-      "video_url": "https://www.youtube.com/watch?v=49Thin8ZMaA",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "3guYhN56qCk",
@@ -2322,17 +2373,6 @@
       "published_at": "2026-08-28T15:00:25+00:00",
       "video_url": "https://www.youtube.com/watch?v=hexFFbt64SA",
       "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "My twitter:"
-    },
-    {
-      "video_id": "07SlowCP-i0",
-      "title": "Say His Name #onepiece #optcg #onepiecetcg #tcg",
-      "channel_name": "WezaldoTCG",
-      "published_at": "2026-08-28T14:45:14+00:00",
-      "video_url": "https://www.youtube.com/watch?v=07SlowCP-i0",
-      "format": "",
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "My twitter:"
@@ -2945,39 +2985,6 @@
       "summary": "Vamos falar sobre o meta de OP17 e como está promissor para Ace vermelho, que tem surpreendido a todos com ótimos resultados se mostrando uma das melhores escolhas nessas primeiras semanas de OP17!!"
     },
     {
-      "video_id": "4Lfw_jWgewU",
-      "title": "Ranked Com XEBEC!!",
-      "channel_name": "Onepiececardgamebr",
-      "published_at": "2026-08-12T02:06:25+00:00",
-      "video_url": "https://www.youtube.com/watch?v=4Lfw_jWgewU",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Live subindo na ranked de Xebec enquanto batemos papo e ouvimos música."
-    },
-    {
-      "video_id": "HJpFNgfTyl4",
-      "title": "É só bater poh...😂 #onepiece #onepiececardgame #onepiececardgamebr #xebec #funny #onepiececommunity",
-      "channel_name": "Onepiececardgamebr",
-      "published_at": "2026-08-10T18:31:11+00:00",
-      "video_url": "https://www.youtube.com/watch?v=HJpFNgfTyl4",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Xebec finalmente retornou com tudo e temos um deck diferente do que estávamos acostumados e ele surpreende bastante no quanto defende apesar de não ter Counter..."
-    },
-    {
-      "video_id": "nCv7JFQx_bQ",
-      "title": "Ranked com XEBEC!! - PT-BR",
-      "channel_name": "Onepiececardgamebr",
-      "published_at": "2026-08-08T15:28:30+00:00",
-      "video_url": "https://www.youtube.com/watch?v=nCv7JFQx_bQ",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Live subindo na ranked com muita música, bom papo sobre o competitivo e tentando melhorar com o deck!!"
-    },
-    {
       "video_id": "xG7AKbj_Jtg",
       "title": "RY Bonney Strawhat FUNNY One Piece TCG Deck + Gameplay",
       "channel_name": "AkemiTCG",
@@ -3093,17 +3100,6 @@
       ],
       "matchups_covered": [],
       "summary": "Follow Phil on X! https://x.com/Philsgoodman97"
-    },
-    {
-      "video_id": "AP2LGncYbdg",
-      "title": "Opening an Early Palworld TCG with my GF — WE HIT A SP",
-      "channel_name": "minhooty",
-      "published_at": "2026-07-29T17:00:39+00:00",
-      "video_url": "https://www.youtube.com/watch?v=AP2LGncYbdg",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Apparently it's really easy to play too :0"
     },
     {
       "video_id": "UiqaYtJjb80",
