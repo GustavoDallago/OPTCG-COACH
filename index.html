@@ -24,6 +24,8 @@
     <script src="./js/optcg-utils.js"></script>
     <script src="./js/storage-service.js"></script>
     <script src="./js/deck-analyzer.js"></script>
+    <script src="./js/versus-mode.js"></script>
+    <script src="./js/deck-diff.js"></script>
     <!-- QRCode JS for Cross-Device Sync -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <!-- html2canvas for Deck Image Export -->
@@ -756,9 +758,14 @@
                                 </svg>
                             </div>
 
-                            <div class="flex items-center gap-4 text-xs font-mono text-slate-400 flex-wrap">
+                            <div class="flex items-center gap-3 text-xs font-mono text-slate-400 flex-wrap">
                                 <span v-if="totalDecksTracked > 0">Decks Mapeados: <strong class="text-amber-500 text-sm">{{ totalDecksTracked }}</strong></span>
                                 <span v-if="metaData.scraped_at" class="text-[10px] text-slate-400 font-mono">Atualizado: <strong class="text-slate-200">{{ formatBrasiliaDateTime(metaData.scraped_at) }}</strong></span>
+                                <button 
+                                    @click="openVersusModal()"
+                                    class="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold rounded-xl text-xs transition-all shadow-md ml-auto sm:ml-2">
+                                    <span>⚔️ Modo Versus</span>
+                                </button>
                             </div>
                         </div>
 
@@ -815,8 +822,12 @@
                                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
                                     </div>
                                     
-                                    <!-- Rank & Metrics Header Badge (Top-Left: #Rank, % WR, % Uso) -->
-                                    <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-lg px-2.5 py-1 shadow-lg">
+                                    <!-- Rank & Metrics Header Badge (Top-Left: #Rank, % WR, % Uso OU Nota Histórica) -->
+                                    <div v-if="leader.is_active === false" class="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-slate-950/95 backdrop-blur-md border border-amber-500/40 rounded-lg px-2 py-0.5 shadow-lg text-[9px] sm:text-[10px] font-mono text-amber-300 max-w-[calc(100%-1.25rem)]">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0 animate-pulse"></span>
+                                        <span class="truncate" :title="leader.historical_note || 'Sem aparição há 15 dias'">{{ leader.historical_note || 'Sem aparição há 15 dias' }}</span>
+                                    </div>
+                                    <div v-else class="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-lg px-2.5 py-1 shadow-lg">
                                         <span :class="idx === 0 ? 'text-amber-400 font-black' : (idx === 1 ? 'text-slate-200 font-black' : (idx === 2 ? 'text-amber-600 font-black' : 'text-slate-400 font-bold'))" class="font-mono text-xs">
                                             #{{ idx + 1 }}
                                         </span>
@@ -888,9 +899,15 @@
                                         Voltar à Lista de Líderes
                                     </button>
                                     <h2 class="text-2xl font-black text-slate-100 mt-1">{{ selectedMetaLeader.name }}</h2>
-                                    <span class="text-xs font-mono bg-slate-950 text-slate-400 px-2 py-0.5 rounded border border-slate-800/80 mt-1.5 inline-block">
-                                        ID do Líder: {{ getLeaderCardId(selectedMetaLeader) }}
-                                    </span>
+                                     <div class="flex flex-wrap items-center gap-2 mt-1.5">
+                                         <span class="text-xs font-mono bg-slate-950 text-slate-400 px-2 py-0.5 rounded border border-slate-800/80 inline-block">
+                                             ID do Líder: {{ getLeaderCardId(selectedMetaLeader) }}
+                                         </span>
+                                         <span v-if="selectedMetaLeader.is_active === false" class="text-xs font-mono bg-slate-950 text-amber-400/90 border border-amber-500/30 px-2.5 py-0.5 rounded flex items-center gap-1.5">
+                                             <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                                             <span>{{ selectedMetaLeader.historical_note || 'Sem aparição há 15 dias' }}</span>
+                                         </span>
+                                     </div>
 
                                     <!-- Quick Action Buttons -->
                                     <div class="flex flex-wrap items-center gap-2.5 mt-4">
@@ -903,6 +920,11 @@
                                             @click="exportMetaDeckTxt(selectedMetaLeader)"
                                             class="flex items-center gap-1.5 px-3.5 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 text-amber-400 font-bold rounded-xl text-xs transition-all shadow-md">
                                             <span>Exportar Decklist (TXT)</span>
+                                        </button>
+                                        <button 
+                                            @click="openVersusModal(selectedMetaLeader)"
+                                            class="flex items-center gap-1.5 px-3.5 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 text-amber-300 font-bold rounded-xl text-xs transition-all shadow-md">
+                                            <span>⚔️ Raio-X Versus</span>
                                         </button>
                                     </div>
                                 </div>
@@ -1512,7 +1534,7 @@
                         <!-- Cards Pool Grid -->
                         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 max-h-[60vh] overflow-y-auto pr-2">
                             <div 
-                                v-for="card in filteredBuilderPool" 
+                                v-for="card in displayedBuilderPool" 
                                 :key="card.card_set_id + card.card_name"
                                 @click="openDetails(card)"
                                 class="bg-slate-950 border border-slate-800 hover:border-amber-500/50 rounded-xl overflow-hidden cursor-pointer hover:scale-[1.03] transition-all relative flex flex-col group shadow-md"
@@ -1555,6 +1577,16 @@
                                         Ver Detalhes
                                     </button>
                                 </div>
+                            </div>
+
+                            <!-- Progressive chunking loader button -->
+                            <div v-if="displayedPoolLimit < filteredBuilderPool.length" class="col-span-full py-4 text-center">
+                                <button 
+                                    @click="loadMorePoolCards"
+                                    class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 text-amber-400 font-bold rounded-xl text-xs transition-all shadow-md inline-flex items-center gap-2">
+                                    <span>Mostrar mais cartas (Exibindo {{ displayedBuilderPool.length }} de {{ filteredBuilderPool.length }})</span>
+                                    <span class="text-xs">▼</span>
+                                </button>
                             </div>
                         </div>
 
@@ -1701,6 +1733,16 @@
                                         title="Exportar deck como imagem PNG">
                                         <span v-if="!isExportingImage">Exportar PNG</span>
                                         <span v-else class="animate-pulse flex items-center gap-1">Gerando...</span>
+                                    </button>
+                                </div>
+
+                                <div class="mt-2">
+                                    <button 
+                                        @click="openDeckDiffModal"
+                                        :disabled="userDeck.length === 0"
+                                        class="w-full py-2.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-indigo-400 hover:text-indigo-300 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5"
+                                        title="Comparar lista atual com versões salvas">
+                                        <span>⚖️ Comparar com Versão Salva (Diff)</span>
                                     </button>
                                 </div>
                                 <p v-if="userDeckCount !== 50 && userDeckCount > 0" class="text-[10px] text-amber-500 text-center font-mono">
@@ -2952,6 +2994,427 @@
             </div>
         </div>
 
+        <!-- PLAYTEST SIMULATOR MODAL -->
+        <div v-if="showPlaytestModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto" @click="showPlaytestModal = false">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col relative my-0 sm:my-auto max-h-[95vh] animate-slide-up sm:animate-pop">
+                
+                <!-- Mobile Drag Handle -->
+                <div class="w-12 h-1.5 bg-slate-700/80 rounded-full mx-auto mt-2.5 mb-1 sm:hidden shrink-0"></div>
+
+                <!-- Modal Header -->
+                <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/60">
+                    <div class="flex items-center gap-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <div>
+                            <h2 class="text-base sm:text-lg font-black text-slate-100 flex items-center gap-2">
+                                🎯 Simulador de Jogo & Playtest
+                                <span class="text-xs font-mono font-normal px-2 py-0.5 bg-slate-800 rounded text-amber-400">
+                                    Turno {{ playtestState.turnNumber }}
+                                </span>
+                            </h2>
+                            <p class="text-[11px] text-slate-400">Teste de consistência de mão inicial, curva de DON!! e jogadas.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button 
+                            @click="triggerPlaytestReset"
+                            class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-lg transition-colors"
+                            title="Reiniciar partida">
+                            🔄 Reiniciar
+                        </button>
+                        <button 
+                            @click="showPlaytestModal = false"
+                            class="p-2 bg-slate-950/50 hover:bg-slate-950 text-slate-400 hover:text-slate-200 rounded-full border border-slate-800 transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modal Content Scrollable -->
+                <div class="p-4 sm:p-6 overflow-y-auto flex flex-col gap-4 max-h-[80vh]">
+
+                    <!-- Top Bar: First/Second Toggle, DON Zone & Actions -->
+                    <div class="bg-slate-950/80 border border-slate-800/90 rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <!-- Turn Order Toggle -->
+                            <div class="flex items-center bg-slate-900 border border-slate-800 rounded-xl p-0.5 text-xs font-mono">
+                                <button 
+                                    @click="triggerPlaytestSetGoingFirst(true)"
+                                    :class="playtestState.isGoingFirst ? 'bg-amber-600 text-white font-bold' : 'text-slate-400 hover:text-slate-200'"
+                                    class="px-2.5 py-1 rounded-lg transition-all">
+                                    1º (Primeiro)
+                                </button>
+                                <button 
+                                    @click="triggerPlaytestSetGoingFirst(false)"
+                                    :class="!playtestState.isGoingFirst ? 'bg-amber-600 text-white font-bold' : 'text-slate-400 hover:text-slate-200'"
+                                    class="px-2.5 py-1 rounded-lg transition-all">
+                                    2º (Segundo)
+                                </button>
+                            </div>
+
+                            <!-- DON Counters -->
+                            <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-xl font-mono text-xs">
+                                <span class="text-slate-400">DON!! Total: <strong class="text-amber-400 text-sm">{{ playtestState.totalDon }}/10</strong></span>
+                                <span class="text-emerald-400 font-bold ml-1">● {{ playtestState.activeDon }} Ativos</span>
+                                <span class="text-slate-500 font-bold ml-1">○ {{ playtestState.restedDon }} Gastos</span>
+                            </div>
+                        </div>
+
+                        <!-- Turn Action Buttons -->
+                        <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                            <button 
+                                v-if="playtestState.mulliganAvailable && !playtestState.mulliganUsed"
+                                @click="triggerPlaytestMulligan"
+                                class="flex-1 sm:flex-none px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5">
+                                <span>⚠️ Fazer Mulligan</span>
+                            </button>
+                            <button 
+                                @click="triggerPlaytestNextTurn"
+                                class="flex-1 sm:flex-none px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white text-xs font-bold rounded-xl transition-all shadow-md flex items-center justify-center gap-1.5">
+                                <span>Passar Turno ➔</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Game Zones Grid (Mesa / Campo) -->
+                    <div class="flex flex-col gap-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                                <span>Mesa (Campo de Batalha)</span>
+                                <span class="text-amber-400 font-normal font-mono">({{ playtestState.field.length }} cartas)</span>
+                            </h3>
+                            <span class="text-[10px] font-mono text-slate-500">Deck restante: {{ playtestState.libraryCount }} cartas | Lixo: {{ playtestState.trash.length }}</span>
+                        </div>
+
+                        <!-- Field Cards -->
+                        <div v-if="playtestState.field.length > 0" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5 p-3 bg-slate-950/60 border border-slate-800/80 rounded-2xl min-h-[120px]">
+                            <div 
+                                v-for="fc in playtestState.field" 
+                                :key="fc.instanceId"
+                                class="bg-slate-900 border border-slate-700/80 rounded-xl overflow-hidden flex flex-col p-1.5 relative group shadow-md">
+                                <div class="w-full aspect-[2.5/3.5] bg-slate-950 rounded-lg overflow-hidden relative">
+                                    <img :src="getCardImage(fc)" :alt="fc.card_name" class="w-full h-full object-cover">
+                                    <div v-if="fc.attachedDon > 0" class="absolute bottom-1 right-1 bg-amber-500 text-slate-950 font-black text-[9px] px-1 rounded font-mono shadow">
+                                        +{{ fc.attachedDon * 1000 }} ({{ fc.attachedDon }} DON)
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between gap-1 mt-1.5 text-[10px]">
+                                    <button 
+                                        @click="triggerPlaytestAttachDon(fc.instanceId)"
+                                        :disabled="playtestState.activeDon <= 0"
+                                        class="flex-1 py-0.5 bg-amber-600/30 hover:bg-amber-600 disabled:opacity-40 text-amber-300 hover:text-white rounded font-bold transition-all text-center"
+                                        title="+1 DON!!">+1 DON</button>
+                                    <button 
+                                        v-if="fc.attachedDon > 0"
+                                        @click="triggerPlaytestDetachDon(fc.instanceId)"
+                                        class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold transition-all text-center"
+                                        title="-1 DON!!">-1</button>
+                                    <button 
+                                        @click="triggerPlaytestToTrash(fc.instanceId)"
+                                        class="px-1.5 py-0.5 bg-rose-500/20 hover:bg-rose-600 text-rose-300 hover:text-white rounded font-bold transition-all"
+                                        title="Enviar ao lixo">🗑️</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else class="p-6 bg-slate-950/40 border border-dashed border-slate-800 rounded-2xl text-center text-xs text-slate-500 font-mono">
+                            Nenhuma carta em campo. Clique em "Baixar" em uma carta da sua mão abaixo para jogar.
+                        </div>
+                    </div>
+
+                    <!-- Hand Zone (Mão do Jogador) -->
+                    <div class="flex flex-col gap-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                                <span>Mão Inicial / Atual</span>
+                                <span class="text-emerald-400 font-normal font-mono">({{ playtestState.hand.length }} cartas)</span>
+                            </h3>
+                            <span v-if="playtestState.mulliganUsed" class="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                                Mulligan utilizado
+                            </span>
+                        </div>
+
+                        <!-- Hand Cards Grid -->
+                        <div v-if="playtestState.hand.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 p-3 bg-slate-950/80 border border-slate-800 rounded-2xl">
+                            <div 
+                                v-for="hc in playtestState.hand" 
+                                :key="hc.instanceId"
+                                class="bg-slate-900 border border-slate-700/80 rounded-xl overflow-hidden flex flex-col p-2 relative shadow-md">
+                                <div class="w-full aspect-[2.5/3.5] bg-slate-950 rounded-lg overflow-hidden relative">
+                                    <img :src="getCardImage(hc)" :alt="hc.card_name" class="w-full h-full object-cover">
+                                    <div class="absolute top-1 left-1 bg-slate-950/90 text-amber-400 font-mono font-bold text-[10px] px-1.5 py-0.5 rounded border border-slate-800">
+                                        {{ hc.cost || 0 }} DON
+                                    </div>
+                                    <div v-if="hc.counter" class="absolute top-1 right-1 bg-emerald-500/90 text-white font-mono font-bold text-[9px] px-1 py-0.5 rounded shadow">
+                                        {{ hc.counter }}
+                                    </div>
+                                </div>
+                                <div class="mt-2 flex flex-col gap-1">
+                                    <p class="text-[11px] font-bold text-slate-200 truncate">{{ hc.card_name || hc.card_id }}</p>
+                                    <button 
+                                        @click="triggerPlaytestPlayCard(hc.instanceId)"
+                                        :disabled="playtestState.activeDon < (parseInt(hc.cost || 0, 10))"
+                                        class="w-full py-1.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:hover:bg-emerald-600 text-white text-[10px] font-bold rounded-lg transition-all text-center">
+                                        Baixar (Custo {{ hc.cost || 0 }})
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else class="p-6 bg-slate-950/40 border border-dashed border-slate-800 rounded-2xl text-center text-xs text-slate-500 font-mono">
+                            Mão vazia. Passe o turno para comprar cartas ou reinicie o jogo.
+                        </div>
+                    </div>
+
+                    <!-- Action Log -->
+                    <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-3 flex flex-col gap-1.5">
+                        <span class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold">Histórico de Ações da Partida</span>
+                        <div class="max-h-24 overflow-y-auto text-[10px] font-mono text-slate-400 flex flex-col gap-0.5">
+                            <div v-for="(log, lidx) in playtestState.historyLog" :key="lidx" class="leading-relaxed">
+                                {{ log }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- VERSUS MODE (RAIO-X DE MATCHUP) MODAL -->
+        <div v-if="showVersusModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto" @click="showVersusModal = false">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-3xl shadow-2xl overflow-hidden flex flex-col relative my-0 sm:my-auto max-h-[92vh] animate-slide-up sm:animate-pop">
+                
+                <!-- Mobile Drag Handle -->
+                <div class="w-12 h-1.5 bg-slate-700/80 rounded-full mx-auto mt-2.5 mb-1 sm:hidden shrink-0"></div>
+
+                <!-- Modal Header -->
+                <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/60">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">⚔️</span>
+                        <div>
+                            <h2 class="text-base sm:text-lg font-black text-slate-100">Modo Versus: Raio-X de Confronto</h2>
+                            <p class="text-[11px] text-slate-400">Análise direta de partidas oficiais do Limitless TCG entre dois líderes.</p>
+                        </div>
+                    </div>
+                    <button 
+                        @click="showVersusModal = false"
+                        class="p-2 bg-slate-950/50 hover:bg-slate-950 text-slate-400 hover:text-slate-200 rounded-full border border-slate-800 transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="p-4 sm:p-6 overflow-y-auto flex flex-col gap-5 max-h-[80vh]">
+
+                    <!-- Leader Selectors (Leader A vs Leader B) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center relative">
+                        <!-- Leader A -->
+                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col gap-2">
+                            <label class="text-[10px] font-mono font-bold uppercase text-amber-500">Seu Líder (Lado A)</label>
+                            <select 
+                                v-model="versusLeaderAId" 
+                                @change="runVersusAnalysis"
+                                class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 font-bold focus:outline-none focus:border-amber-500">
+                                <option v-for="l in (metaData?.leaders || [])" :key="l.leader_card_id" :value="l.leader_card_id">
+                                    {{ l.name }}
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- VS Badge -->
+                        <div class="hidden sm:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-amber-500 text-slate-950 font-black items-center justify-center text-xs shadow-lg z-10">
+                            VS
+                        </div>
+
+                        <!-- Leader B -->
+                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col gap-2">
+                            <label class="text-[10px] font-mono font-bold uppercase text-rose-400">Oponente (Lado B)</label>
+                            <select 
+                                v-model="versusLeaderBId" 
+                                @change="runVersusAnalysis"
+                                class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 font-bold focus:outline-none focus:border-rose-500">
+                                <option v-for="l in (metaData?.leaders || [])" :key="l.leader_card_id" :value="l.leader_card_id">
+                                    {{ l.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Versus Matchup Report -->
+                    <div v-if="versusReport" class="flex flex-col gap-4">
+                        <!-- Scoreboard Card -->
+                        <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+                            <div class="flex flex-col gap-1">
+                                <span class="text-xs font-mono font-bold" :class="versusReport.favorableColor">
+                                    {{ versusReport.favorable }}
+                                </span>
+                                <p class="text-[11px] text-slate-300 max-w-md">{{ versusReport.stance }}</p>
+                            </div>
+                            <div class="flex items-center gap-3 font-mono">
+                                <div class="flex flex-col items-center bg-slate-900 px-3 py-2 rounded-xl border border-slate-800">
+                                    <span class="text-[9px] uppercase text-slate-500 font-bold">Win Rate</span>
+                                    <span class="text-base font-black" :class="versusReport.winrateA >= 50 ? 'text-emerald-400' : 'text-rose-400'">
+                                        {{ versusReport.winrateA }}%
+                                    </span>
+                                </div>
+                                <div class="flex flex-col items-center bg-slate-900 px-3 py-2 rounded-xl border border-slate-800">
+                                    <span class="text-[9px] uppercase text-slate-500 font-bold">Partidas</span>
+                                    <span class="text-base font-black text-amber-400">
+                                        {{ versusReport.totalMatches }}
+                                    </span>
+                                </div>
+                                <div class="flex flex-col items-center bg-slate-900 px-3 py-2 rounded-xl border border-slate-800 text-[10px]">
+                                    <span class="text-emerald-400 font-bold">{{ versusReport.wins }} V</span>
+                                    <span class="text-rose-400 font-bold">{{ versusReport.losses }} D</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reciprocal Threat Analysis -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Threats from Opponent -->
+                            <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-3.5 flex flex-col gap-2.5">
+                                <h4 class="text-xs font-mono font-bold text-rose-400 flex items-center gap-1.5">
+                                    <span>⚠️ Ameaças Críticas do Oponente</span>
+                                </h4>
+                                <div class="flex flex-col gap-1.5">
+                                    <div v-for="tc in versusReport.threatCards" :key="tc.card_id" class="flex items-center gap-2 bg-slate-900/80 p-2 rounded-xl border border-slate-800/70 text-xs">
+                                        <div class="w-7 h-9 rounded overflow-hidden shrink-0 bg-slate-950">
+                                            <img :src="getCardImage(tc)" :alt="tc.card_name" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span class="font-bold text-slate-200 truncate">{{ tc.card_name }}</span>
+                                            <span class="text-[10px] font-mono text-slate-400">Custo: {{ tc.cost }} | Poder: {{ tc.power || '-' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Your Key Defensive / Core Tools -->
+                            <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-3.5 flex flex-col gap-2.5">
+                                <h4 class="text-xs font-mono font-bold text-emerald-400 flex items-center gap-1.5">
+                                    <span>🛡️ Suas Ferramentas-Chave</span>
+                                </h4>
+                                <div class="flex flex-col gap-1.5">
+                                    <div v-for="cc in versusReport.counterCards" :key="cc.card_id" class="flex items-center gap-2 bg-slate-900/80 p-2 rounded-xl border border-slate-800/70 text-xs">
+                                        <div class="w-7 h-9 rounded overflow-hidden shrink-0 bg-slate-950">
+                                            <img :src="getCardImage(cc)" :alt="cc.card_name" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <span class="font-bold text-slate-200 truncate">{{ cc.card_name }}</span>
+                                            <span class="text-[10px] font-mono text-slate-400">Contador: {{ cc.counter || '-' }} | Custo: {{ cc.cost }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- DECK DIFF COMPARATOR MODAL -->
+        <div v-if="showDeckDiffModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto" @click="showDeckDiffModal = false">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-3xl shadow-2xl overflow-hidden flex flex-col relative my-0 sm:my-auto max-h-[92vh] animate-slide-up sm:animate-pop">
+                
+                <!-- Mobile Drag Handle -->
+                <div class="w-12 h-1.5 bg-slate-700/80 rounded-full mx-auto mt-2.5 mb-1 sm:hidden shrink-0"></div>
+
+                <!-- Modal Header -->
+                <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/60">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">⚖️</span>
+                        <div>
+                            <h2 class="text-base sm:text-lg font-black text-slate-100">Comparador de Versões de Deck (Diff)</h2>
+                            <p class="text-[11px] text-slate-400">Compare sua lista atual com decks salvos ou referências.</p>
+                        </div>
+                    </div>
+                    <button 
+                        @click="showDeckDiffModal = false"
+                        class="p-2 bg-slate-950/50 hover:bg-slate-950 text-slate-400 hover:text-slate-200 rounded-full border border-slate-800 transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="p-4 sm:p-6 overflow-y-auto flex flex-col gap-4 max-h-[80vh]">
+                    <!-- Target Selector -->
+                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <div>
+                            <label class="text-xs font-bold text-slate-300">Comparar Deck Atual contra:</label>
+                            <p class="text-[11px] text-slate-500">Selecione um dos seus decks salvos para ver o que mudou.</p>
+                        </div>
+                        <select 
+                            v-model="diffTargetDeckId" 
+                            @change="runDeckDiff"
+                            class="bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-amber-400 font-bold focus:outline-none focus:border-amber-500 min-w-[200px]">
+                            <option value="">Selecione um deck salvo...</option>
+                            <option v-for="sd in savedDecks" :key="sd.id" :value="sd.id">
+                                {{ sd.name }} ({{ sd.cards?.length || 0 }} cartas)
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Diff Results -->
+                    <div v-if="diffReport" class="flex flex-col gap-4">
+                        <!-- Summary Bar -->
+                        <div class="flex items-center gap-3 p-3 bg-slate-950/60 border border-slate-800 rounded-xl font-mono text-xs">
+                            <span>Alterações Totais: <strong class="text-slate-200">{{ diffReport.totalChanged }}</strong></span>
+                            <span class="text-emerald-400 font-bold ml-2">+{{ diffReport.addedCount }} Adicionadas</span>
+                            <span class="text-rose-400 font-bold ml-2">-{{ diffReport.removedCount }} Removidas</span>
+                        </div>
+
+                        <!-- Diff Cards Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Additions & Increases -->
+                            <div class="flex flex-col gap-2">
+                                <h4 class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">
+                                    + Cartas Entrando / Aumentadas
+                                </h4>
+                                <div v-if="diffReport.additions.length > 0 || diffReport.changes.filter(c => c.isIncrease).length > 0" class="flex flex-col gap-1.5">
+                                    <div v-for="add in diffReport.additions" :key="add.id" class="flex items-center justify-between p-2 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-xs">
+                                        <span class="font-bold text-slate-200 truncate">{{ add.name }}</span>
+                                        <span class="font-mono font-black text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded text-[11px]">+{{ add.qty }}</span>
+                                    </div>
+                                    <div v-for="chg in diffReport.changes.filter(c => c.isIncrease)" :key="chg.id" class="flex items-center justify-between p-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl text-xs">
+                                        <span class="font-bold text-slate-200 truncate">{{ chg.name }}</span>
+                                        <span class="font-mono font-black text-emerald-400 text-[11px]">{{ chg.oldQty }} ➔ {{ chg.newQty }} ({{ chg.delta }})</span>
+                                    </div>
+                                </div>
+                                <p v-else class="text-[11px] font-mono text-slate-500">Nenhuma adição.</p>
+                            </div>
+
+                            <!-- Removals & Decreases -->
+                            <div class="flex flex-col gap-2">
+                                <h4 class="text-xs font-mono font-bold text-rose-400 uppercase tracking-wider">
+                                    - Cartas Saindo / Diminuídas
+                                </h4>
+                                <div v-if="diffReport.removals.length > 0 || diffReport.changes.filter(c => !c.isIncrease).length > 0" class="flex flex-col gap-1.5">
+                                    <div v-for="rem in diffReport.removals" :key="rem.id" class="flex items-center justify-between p-2 bg-rose-500/10 border border-rose-500/30 rounded-xl text-xs">
+                                        <span class="font-bold text-slate-200 truncate">{{ rem.name }}</span>
+                                        <span class="font-mono font-black text-rose-400 bg-rose-500/20 px-2 py-0.5 rounded text-[11px]">-{{ rem.qty }}</span>
+                                    </div>
+                                    <div v-for="chg in diffReport.changes.filter(c => !c.isIncrease)" :key="chg.id" class="flex items-center justify-between p-2 bg-rose-500/5 border border-rose-500/20 rounded-xl text-xs">
+                                        <span class="font-bold text-slate-200 truncate">{{ chg.name }}</span>
+                                        <span class="font-mono font-black text-rose-400 text-[11px]">{{ chg.oldQty }} ➔ {{ chg.newQty }} ({{ chg.delta }})</span>
+                                    </div>
+                                </div>
+                                <p v-else class="text-[11px] font-mono text-slate-500">Nenhuma remoção.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <!-- CHANGELOG / NOVIDADES MODAL -->
         <div v-if="showChangelogModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto" @click="showChangelogModal = false">
             <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-2xl w-full max-w-2xl shadow-2xl p-5 sm:p-7 flex flex-col gap-5 relative my-0 sm:my-auto max-h-[92vh] sm:max-h-[85vh] animate-slide-up sm:animate-pop overflow-hidden">
@@ -3214,6 +3677,33 @@
                 const copiedToast = ref(false);
                 const isExportingImage = ref(false);
                 const bannedPairToast = ref({ show: false, pair: [] });
+
+                // --- Novas Features: Playtest Simulator, Versus Mode & Deck Diff ---
+                const showPlaytestModal = ref(false);
+                let playtestEngineInstance = null;
+                const playtestState = ref({
+                    hand: [],
+                    field: [],
+                    trash: [],
+                    libraryCount: 0,
+                    turnNumber: 1,
+                    isGoingFirst: true,
+                    mulliganAvailable: true,
+                    mulliganUsed: false,
+                    activeDon: 0,
+                    restedDon: 0,
+                    totalDon: 0,
+                    historyLog: []
+                });
+
+                const showVersusModal = ref(false);
+                const versusLeaderAId = ref('');
+                const versusLeaderBId = ref('');
+                const versusReport = ref(null);
+
+                const showDeckDiffModal = ref(false);
+                const diffTargetDeckId = ref('');
+                const diffReport = ref(null);
 
                 // --- Suporte Oficial a Fuso Horário de Brasília (BRT / UTC-3) ---
                 const BRASILIA_TZ = 'America/Sao_Paulo';
@@ -4137,6 +4627,12 @@
                 const sortedMetaLeaders = computed(() => {
                     if (!metaData.value || !metaData.value.leaders) return [];
                     return [...metaData.value.leaders].sort((a, b) => {
+                        // 0º Critério: Ativos no meta recente (<15 dias) vêm primeiro
+                        const activeA = a.is_active !== false ? 1 : 0;
+                        const activeB = b.is_active !== false ? 1 : 0;
+                        if (activeB !== activeA) {
+                            return activeB - activeA;
+                        }
                         // 1º Critério: Quantidade de Decks Mapeados
                         const countA = a.deck_count || 0;
                         const countB = b.deck_count || 0;
@@ -4157,8 +4653,8 @@
                 });
 
                 const topMetaLeader = computed(() => {
-                    const list = sortedMetaLeaders.value;
-                    return list.length > 0 ? list[0] : null;
+                    const list = sortedMetaLeaders.value.filter(l => l.is_active !== false);
+                    return list.length > 0 ? list[0] : (sortedMetaLeaders.value[0] || null);
                 });
 
                 const filteredMetaLeaders = computed(() => {
@@ -4655,6 +5151,179 @@
                     a.download = `${(exportModalTitle.value || 'Deck').replace(/[^a-z0-9]/gi, '_')}.txt`;
                     a.click();
                     URL.revokeObjectURL(url);
+                };
+
+                // --- Playtest Simulator Handlers ---
+                const syncPlaytestState = () => {
+                    if (!playtestEngineInstance) return;
+                    playtestState.value = {
+                        hand: [...playtestEngineInstance.hand],
+                        field: [...playtestEngineInstance.field],
+                        trash: [...playtestEngineInstance.trash],
+                        libraryCount: playtestEngineInstance.library.length,
+                        turnNumber: playtestEngineInstance.turnNumber,
+                        isGoingFirst: playtestEngineInstance.isGoingFirst,
+                        mulliganAvailable: playtestEngineInstance.mulliganAvailable,
+                        mulliganUsed: playtestEngineInstance.mulliganUsed,
+                        activeDon: playtestEngineInstance.activeDon,
+                        restedDon: playtestEngineInstance.restedDon,
+                        totalDon: playtestEngineInstance.totalDon,
+                        historyLog: [...playtestEngineInstance.historyLog]
+                    };
+                };
+
+                const openPlaytestModal = () => {
+                    if (userDeck.value.length === 0) {
+                        showToast('Monte ou carregue um deck no Deck Builder para simular.', 'warning');
+                        return;
+                    }
+                    const deckList = [];
+                    userDeck.value.forEach(item => {
+                        deckList.push({
+                            card_id: item.card.card_set_id || item.card.card_id,
+                            card_name: item.card.card_name,
+                            cost: item.card.card_cost || item.card.cost || '0',
+                            power: item.card.card_power || item.card.power || '',
+                            counter: item.card.counter_amount ? (item.card.counter_amount > 0 ? `+${item.card.counter_amount}` : '') : (item.card.counter || ''),
+                            card_type: item.card.card_type || 'Character',
+                            image: getCardImage(item.card),
+                            count: item.quantity
+                        });
+                    });
+
+                    if (window.OPTCG_PlaytestSimulator) {
+                        playtestEngineInstance = new window.OPTCG_PlaytestSimulator(deckList, selectedBuilderLeader.value);
+                        syncPlaytestState();
+                        showPlaytestModal.value = true;
+                    }
+                };
+
+                const triggerPlaytestReset = () => {
+                    if (playtestEngineInstance) {
+                        playtestEngineInstance.reset();
+                        syncPlaytestState();
+                    }
+                };
+
+                const triggerPlaytestSetGoingFirst = (first) => {
+                    if (playtestEngineInstance) {
+                        playtestEngineInstance.setGoingFirst(first);
+                        syncPlaytestState();
+                    }
+                };
+
+                const triggerPlaytestMulligan = () => {
+                    if (playtestEngineInstance) {
+                        playtestEngineInstance.mulligan();
+                        syncPlaytestState();
+                    }
+                };
+
+                const triggerPlaytestNextTurn = () => {
+                    if (playtestEngineInstance) {
+                        playtestEngineInstance.nextTurn();
+                        syncPlaytestState();
+                    }
+                };
+
+                const triggerPlaytestPlayCard = (instId) => {
+                    if (playtestEngineInstance) {
+                        playtestEngineInstance.playCardFromHand(instId);
+                        syncPlaytestState();
+                    }
+                };
+
+                const triggerPlaytestAttachDon = (instId) => {
+                    if (playtestEngineInstance) {
+                        playtestEngineInstance.attachDonToField(instId);
+                        syncPlaytestState();
+                    }
+                };
+
+                const triggerPlaytestDetachDon = (instId) => {
+                    if (playtestEngineInstance) {
+                        playtestEngineInstance.detachDonFromField(instId);
+                        syncPlaytestState();
+                    }
+                };
+
+                const triggerPlaytestToTrash = (instId) => {
+                    if (playtestEngineInstance) {
+                        playtestEngineInstance.sendToTrashFromField(instId);
+                        syncPlaytestState();
+                    }
+                };
+
+                // --- Versus Mode Handlers ---
+                const openVersusModal = (defaultLeader = null) => {
+                    const leaders = metaData.value?.leaders || [];
+                    if (leaders.length === 0) {
+                        showToast('Nenhum dado de líderes do meta carregado.', 'warning');
+                        return;
+                    }
+                    if (defaultLeader) {
+                        versusLeaderAId.value = defaultLeader.leader_card_id || '';
+                    } else if (selectedBuilderLeader.value) {
+                        const blId = selectedBuilderLeader.value.card_set_id || '';
+                        versusLeaderAId.value = leaders.some(l => l.leader_card_id === blId) ? blId : leaders[0].leader_card_id;
+                    } else if (!versusLeaderAId.value) {
+                        versusLeaderAId.value = leaders[0].leader_card_id;
+                    }
+
+                    if (!versusLeaderBId.value || versusLeaderBId.value === versusLeaderAId.value) {
+                        const other = leaders.find(l => l.leader_card_id !== versusLeaderAId.value);
+                        versusLeaderBId.value = other ? other.leader_card_id : leaders[0].leader_card_id;
+                    }
+
+                    runVersusAnalysis();
+                    showVersusModal.value = true;
+                };
+
+                const runVersusAnalysis = () => {
+                    const leaders = metaData.value?.leaders || [];
+                    const leaderA = leaders.find(l => l.leader_card_id === versusLeaderAId.value);
+                    const leaderB = leaders.find(l => l.leader_card_id === versusLeaderBId.value);
+                    if (leaderA && leaderB && window.OPTCG_VersusMode) {
+                        versusReport.value = window.OPTCG_VersusMode.analyze(leaderA, leaderB);
+                    }
+                };
+
+                // --- Deck Diff Handlers ---
+                const openDeckDiffModal = () => {
+                    if (userDeck.value.length === 0) {
+                        showToast('Monte ou carregue um deck no Deck Builder para comparar.', 'warning');
+                        return;
+                    }
+                    if (!diffTargetDeckId.value && savedDecks.value.length > 0) {
+                        diffTargetDeckId.value = savedDecks.value[0].id;
+                    }
+                    runDeckDiff();
+                    showDeckDiffModal.value = true;
+                };
+
+                const runDeckDiff = () => {
+                    if (!diffTargetDeckId.value) {
+                        diffReport.value = null;
+                        return;
+                    }
+                    const target = savedDecks.value.find(d => d.id === diffTargetDeckId.value);
+                    if (!target) return;
+
+                    const listCurrent = userDeck.value.map(item => ({
+                        id: item.card.card_set_id || item.card.card_id,
+                        name: item.card.card_name,
+                        qty: item.quantity
+                    }));
+
+                    const listTarget = (target.cards || []).map(item => ({
+                        id: item.card_set_id || item.card_id || item.id,
+                        name: item.card_name || item.name || item.card_set_id,
+                        qty: item.count || item.quantity || 1
+                    }));
+
+                    if (window.OPTCG_DeckDiff) {
+                        diffReport.value = window.OPTCG_DeckDiff.compare(listTarget, listCurrent);
+                    }
                 };
 
                 const importMetaBuildToBuilder = (leader) => {
@@ -6697,6 +7366,18 @@ REGRAS OBRIGATÓRIAS:
                     return unique;
                 });
 
+                // Progressive chunking for builder card pool (smooth mobile scrolling)
+                const displayedPoolLimit = ref(60);
+                const displayedBuilderPool = computed(() => {
+                    return filteredBuilderPool.value.slice(0, displayedPoolLimit.value);
+                });
+                const loadMorePoolCards = () => {
+                    displayedPoolLimit.value += 60;
+                };
+                watch([builderSearchQuery, builderCardType, builderCardCost, selectedBuilderLeader], () => {
+                    displayedPoolLimit.value = 60;
+                });
+
                 // Count total cards in user deck
                 const userDeckCount = computed(() => {
                     return (userDeck.value || []).reduce((acc, item) => acc + (Number(item.quantity) || 0), 0);
@@ -8351,7 +9032,38 @@ REGRAS OBRIGATÓRIAS:
                     calculateAverageCost,
                     getCostBarHeight,
                     getWinrateColorClass,
-                    getStatusBadgeClass
+                    getStatusBadgeClass,
+
+                    // Novas Features: Playtest, Versus & Deck Diff
+                    showPlaytestModal,
+                    playtestState,
+                    openPlaytestModal,
+                    triggerPlaytestReset,
+                    triggerPlaytestSetGoingFirst,
+                    triggerPlaytestMulligan,
+                    triggerPlaytestNextTurn,
+                    triggerPlaytestPlayCard,
+                    triggerPlaytestAttachDon,
+                    triggerPlaytestDetachDon,
+                    triggerPlaytestToTrash,
+
+                    showVersusModal,
+                    versusLeaderAId,
+                    versusLeaderBId,
+                    versusReport,
+                    openVersusModal,
+                    runVersusAnalysis,
+
+                    showDeckDiffModal,
+                    diffTargetDeckId,
+                    diffReport,
+                    openDeckDiffModal,
+                    runDeckDiff,
+
+                    // Chunked card pool
+                    displayedBuilderPool,
+                    displayedPoolLimit,
+                    loadMorePoolCards
                 };
             }
         }).mount('#app');

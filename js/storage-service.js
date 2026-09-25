@@ -1,32 +1,62 @@
 /**
  * storage-service.js
- * Resilient, safe localStorage service with quota protection, fallback memory cache,
- * and schema error handling for OPTCG-COACH.
+ * High-performance, resilient storage service for OPTCG-COACH.
+ * Seamlessly integrates IndexedDB for large datasets (decks, versions, logs)
+ * with synchronous localStorage and in-memory cache fallbacks.
  */
 (function(global) {
     'use strict';
 
+    const DB_NAME = 'OPTCG_COACH_DB';
+    const DB_VERSION = 1;
+    const STORE_NAME = 'keyval';
+
     const memoryFallback = new Map();
+    let dbPromise = null;
+
+    function getDB() {
+        if (!dbPromise) {
+            dbPromise = new Promise((resolve) => {
+                if (typeof window === 'undefined' || !window.indexedDB) {
+                    return resolve(null);
+                }
+                try {
+                    const req = window.indexedDB.open(DB_NAME, DB_VERSION);
+                    req.onupgradeneeded = function(e) {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains(STORE_NAME)) {
+                            db.createObjectStore(STORE_NAME);
+                        }
+                    };
+                    req.onsuccess = function(e) {
+                        resolve(e.target.result);
+                    };
+                    req.onerror = function(err) {
+                        console.warn('[StorageService] IndexedDB open error, falling back:', err);
+                        resolve(null);
+                    };
+                } catch (e) {
+                    resolve(null);
+                }
+            });
+        }
+        return dbPromise;
+    }
 
     const StorageService = {
         /**
-         * Safely retrieves and parses an item from localStorage.
-         * Falls back to memory cache if localStorage is disabled or corrupted.
-         * @param {string} key
-         * @param {*} defaultValue
-         * @returns {*}
+         * Synchronous get (reads from localStorage, memory cache fallback).
          */
         get(key, defaultValue = null) {
             try {
                 if (typeof window !== 'undefined' && window.localStorage) {
                     const raw = window.localStorage.getItem(key);
-                    if (raw === null) {
-                        return defaultValue;
+                    if (raw !== null) {
+                        return JSON.parse(raw);
                     }
-                    return JSON.parse(raw);
                 }
             } catch (err) {
-                console.warn(`[StorageService] Failed reading key "${key}":`, err);
+                console.warn(`[StorageService] Sync read error "${key}":`, err);
             }
             if (memoryFallback.has(key)) {
                 return memoryFallback.get(key);
@@ -35,31 +65,27 @@
         },
 
         /**
-         * Safely serializes and saves an item into localStorage.
-         * Catches QuotaExceededError and prevents unhandled crashes.
-         * @param {string} key
-         * @param {*} value
-         * @returns {boolean} True if successfully stored, false otherwise.
+         * Synchronous set (saves to localStorage and memory, queues async IndexedDB sync).
          */
         set(key, value) {
+            memoryFallback.set(key, value);
+            let savedSync = false;
             try {
-                const serialized = JSON.stringify(value);
                 if (typeof window !== 'undefined' && window.localStorage) {
-                    window.localStorage.setItem(key, serialized);
-                    return true;
+                    window.localStorage.setItem(key, JSON.stringify(value));
+                    savedSync = true;
                 }
             } catch (err) {
-                console.warn(`[StorageService] Failed saving key "${key}" (Quota/Storage issue):`, err);
-                memoryFallback.set(key, value);
-                return false;
+                console.warn(`[StorageService] localStorage quota exceeded for "${key}", relying on IndexedDB:`, err);
             }
-            memoryFallback.set(key, value);
-            return true;
+
+            // Sync to IndexedDB in background
+            this.setAsync(key, value).catch(() => {});
+            return savedSync;
         },
 
         /**
-         * Removes an item from localStorage and memory fallback.
-         * @param {string} key
+         * Synchronous remove.
          */
         remove(key) {
             try {
@@ -70,22 +96,87 @@
                 console.warn(`[StorageService] Failed removing key "${key}":`, err);
             }
             memoryFallback.delete(key);
+            this.removeAsync(key).catch(() => {});
         },
 
         /**
-         * Checks if localStorage is available and functional.
-         * @returns {boolean}
+         * Asynchronous get via IndexedDB, with localStorage fallback.
+         */
+        async getAsync(key, defaultValue = null) {
+            const db = await getDB();
+            if (!db) {
+                return this.get(key, defaultValue);
+            }
+            return new Promise((resolve) => {
+                try {
+                    const tx = db.transaction(STORE_NAME, 'readonly');
+                    const store = tx.objectStore(STORE_NAME);
+                    const req = store.get(key);
+                    req.onsuccess = () => {
+                        if (req.result !== undefined) {
+                            resolve(req.result);
+                        } else {
+                            resolve(StorageService.get(key, defaultValue));
+                        }
+                    };
+                    req.onerror = () => {
+                        resolve(StorageService.get(key, defaultValue));
+                    };
+                } catch (e) {
+                    resolve(StorageService.get(key, defaultValue));
+                }
+            });
+        },
+
+        /**
+         * Asynchronous set directly to IndexedDB.
+         */
+        async setAsync(key, value) {
+            memoryFallback.set(key, value);
+            const db = await getDB();
+            if (!db) {
+                return this.set(key, value);
+            }
+            return new Promise((resolve) => {
+                try {
+                    const tx = db.transaction(STORE_NAME, 'readwrite');
+                    const store = tx.objectStore(STORE_NAME);
+                    store.put(value, key);
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => resolve(false);
+                } catch (e) {
+                    resolve(false);
+                }
+            });
+        },
+
+        /**
+         * Asynchronous remove from IndexedDB.
+         */
+        async removeAsync(key) {
+            memoryFallback.delete(key);
+            const db = await getDB();
+            if (!db) {
+                return this.remove(key);
+            }
+            return new Promise((resolve) => {
+                try {
+                    const tx = db.transaction(STORE_NAME, 'readwrite');
+                    const store = tx.objectStore(STORE_NAME);
+                    store.delete(key);
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => resolve(false);
+                } catch (e) {
+                    resolve(false);
+                }
+            });
+        },
+
+        /**
+         * Checks if storage (localStorage or IndexedDB) is available.
          */
         isAvailable() {
-            try {
-                if (typeof window === 'undefined' || !window.localStorage) return false;
-                const testKey = '__optcg_test__';
-                window.localStorage.setItem(testKey, '1');
-                window.localStorage.removeItem(testKey);
-                return true;
-            } catch (e) {
-                return false;
-            }
+            return (typeof window !== 'undefined' && (!!window.localStorage || !!window.indexedDB));
         }
     };
 

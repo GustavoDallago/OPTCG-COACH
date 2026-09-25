@@ -122,7 +122,7 @@ def fix_meta_decks_tracked() -> None:
                 data = json.load(f)
             leaders = data.get("leaders", [])
             if leaders:
-                total = sum(l.get("deck_count", 0) for l in leaders)
+                total = sum(l.get("deck_count", 0) for l in leaders if l.get("is_active", True) is not False)
                 data["decks_tracked"] = total
                 if atomic_save_json(data, filepath):
                     updated_count += 1

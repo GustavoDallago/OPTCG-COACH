@@ -35,7 +35,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Limitless TCG Metagame Scraper (Past 7 Days)")
     parser.add_argument("--set", type=str, default="OP17", help="Set code to scrape (e.g., OP17, OP16, OP09)")
     parser.add_argument("--min-players", type=int, default=8, help="Minimum player count in tournament (default: 8)")
-    parser.add_argument("--days", type=int, default=7, help="Days of history to analyze (default: 7)")
+    parser.add_argument("--days", type=int, default=15, help="Days of history to analyze (0 for full set archive, default: 15)")
     return parser.parse_args()
 
 def atomic_save_json(data: Any, filepath: str, indent: Optional[int] = None) -> bool:
@@ -61,28 +61,77 @@ def atomic_save_json(data: Any, filepath: str, indent: Optional[int] = None) -> 
                 pass
         return False
 
-def fetch_url(url: str, retries: int = 3, delay: float = 0.5) -> Optional[str]:
-    """Faz requisições HTTP seguras com headers e tratamento de erros, incluindo rate limit (429)."""
+_session = None
+
+def get_resilient_session():
+    """Initializes a shared requests.Session with connection pooling and Retry adapter."""
+    global _session
+    if _session is not None:
+        return _session
+    try:
+        import requests
+        from requests.adapters import HTTPAdapter
+        from urllib3.util import Retry
+
+        session = requests.Session()
+        retry_strategy = Retry(
+            total=4,
+            backoff_factor=1.5,
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods=["HEAD", "GET", "OPTIONS"]
+        )
+        adapter = HTTPAdapter(max_retries=retry_strategy, pool_connections=16, pool_maxsize=32)
+        session.mount("https://", adapter)
+        session.mount("http://", adapter)
+        session.headers.update(HEADERS)
+        _session = session
+        return _session
+    except Exception:
+        return None
+
+def fetch_url(url: str, retries: int = 4, delay: float = 0.4) -> Optional[str]:
+    """Faz requisições HTTP seguras com retentativas, backoff exponencial e tratamento de rate limit (429)."""
+    session = get_resilient_session()
+    if session is not None:
+        for attempt in range(1, retries + 1):
+            try:
+                resp = session.get(url, timeout=25)
+                if resp.status_code == 200:
+                    if delay > 0:
+                        time.sleep(delay)
+                    return resp.text
+                elif resp.status_code == 429:
+                    wait_sec = min(2 ** attempt * 5, 60)
+                    print(f"  [Rate Limit 429] Limite de taxa em {url}. Aguardando {wait_sec}s (tentativa {attempt}/{retries})...")
+                    time.sleep(wait_sec)
+                else:
+                    print(f"  [Aviso] HTTP {resp.status_code} ao acessar {url} (tentativa {attempt}/{retries})")
+                    time.sleep(attempt * 1.5)
+            except Exception as e:
+                print(f"  [Aviso] Falha de conexão ao acessar {url} (tentativa {attempt}/{retries}): {e}")
+                time.sleep(attempt * 1.5)
+        return None
+
+    # Fallback caso requests não esteja disponível
     req = urllib.request.Request(url, headers=HEADERS)
     for attempt in range(1, retries + 1):
         try:
             with urllib.request.urlopen(req, timeout=25) as response:
                 if response.status == 200:
-                    time.sleep(delay)
+                    if delay > 0:
+                        time.sleep(delay)
                     return response.read().decode("utf-8", errors="replace")
         except urllib.error.HTTPError as e:
             if e.code == 429:
-                wait = min(30 * attempt, 120)
-                print(f"  [Rate Limit 429] Bloqueio temporário em {url}. Aguardando {wait}s antes de tentar novamente (Tentativa {attempt}/{retries})...")
-                time.sleep(wait)
+                wait_sec = min(2 ** attempt * 5, 60)
+                print(f"  [Rate Limit 429] Bloqueio temporário em {url}. Aguardando {wait_sec}s (tentativa {attempt}/{retries})...")
+                time.sleep(wait_sec)
             else:
-                print(f"  [Aviso] HTTP {e.code} ao acessar {url} (Tentativa {attempt}/{retries}): {e}")
-                if attempt < retries:
-                    time.sleep(attempt * 1.5)
-        except Exception as e:
-            print(f"  [Aviso] Falha ao acessar {url} (Tentativa {attempt}/{retries}): {e}")
-            if attempt < retries:
+                print(f"  [Aviso] HTTP {e.code} ao acessar {url} (tentativa {attempt}/{retries}): {e}")
                 time.sleep(attempt * 1.5)
+        except Exception as e:
+            print(f"  [Aviso] Falha ao acessar {url} (tentativa {attempt}/{retries}): {e}")
+            time.sleep(attempt * 1.5)
     return None
 
 _card_details_cache = {}
@@ -232,55 +281,75 @@ def get_top_cut(num_players: int) -> tuple:
         return 64, 8
 
 
-def find_tournaments(set_code: str, min_players: int = 8) -> List[Dict[str, Any]]:
-    """Busca a lista de torneios da seção 'Past 7 days' que correspondam ao Set e ao mínimo de jogadores."""
-    url = f"{BASE_URL}/tournaments/?game=OP"
-    print(f"--> Buscando torneios recentes em: {url}")
-    html = fetch_url(url)
-    if not html:
-        print("❌ Erro: Não foi possível carregar a lista de torneios do Limitless.")
-        return []
-
-    tournaments = []
-    row_pattern = re.compile(r'<tr\s+([^>]*?)>(.*?)</tr>', re.DOTALL | re.IGNORECASE)
-    
-    table_match = re.search(r'<table[^>]*class="[^"]*completed-tournaments[^"]*"[^>]*>(.*?)</table>', html, re.DOTALL | re.IGNORECASE)
-    table_content = table_match.group(1) if table_match else html
-
+def find_tournaments(set_code: str, min_players: int = 8, days: Optional[int] = None) -> List[Dict[str, Any]]:
+    """Busca torneios tanto da página recente quanto da página de torneios concluídos (completed),
+    filtrando opcionalmente por número de dias retroativos."""
+    urls = [
+        f"{BASE_URL}/tournaments/?game=OP",
+        f"{BASE_URL}/tournaments/completed?game=OP"
+    ]
     set_upper = set_code.upper()
-    
-    for row_match in row_pattern.finditer(table_content):
-        attrs = row_match.group(1)
-        content = row_match.group(2)
-        
-        data_name = re.search(r'data-name="([^"]+)"', attrs)
-        data_players = re.search(r'data-players="(\d+)"', attrs)
-        data_date = re.search(r'data-date="([^"]+)"', attrs)
-        data_winner = re.search(r'data-winner="([^"]+)"', attrs)
-        
-        link_match = re.search(r'href="\/tournament\/([a-f0-9]+)\/standings"', content)
-        if not link_match:
+    now_dt = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-3), name="BRT"))
+    cutoff_date = (now_dt.date() - datetime.timedelta(days=days)) if (days and days > 0) else None
+
+    tournaments_dict = {}
+    row_pattern = re.compile(r'<tr\s+([^>]*?)>(.*?)</tr>', re.DOTALL | re.IGNORECASE)
+
+    for url in urls:
+        print(f"--> Buscando torneios em: {url}")
+        html = fetch_url(url)
+        if not html:
             continue
-            
-        t_id = link_match.group(1)
-        name = html_lib.unescape(data_name.group(1)) if data_name else ""
-        players = int(data_players.group(1)) if data_players else 0
-        date_str = data_date.group(1) if data_date else ""
-        winner = html_lib.unescape(data_winner.group(1)) if data_winner else ""
-
-        name_clean = name.upper()
-        is_matching_set = (set_upper in name_clean) or (set_upper.replace("OP", "OP-") in name_clean)
         
-        if is_matching_set and players >= min_players:
-            tournaments.append({
-                "id": t_id,
-                "name": name,
-                "players": players,
-                "date": date_str,
-                "winner": winner
-            })
-            print(f"  [+] Torneio Elegível Encontrado: {name} | Jogadores: {players} | ID: {t_id}")
+        table_match = re.search(r'<table[^>]*class="[^"]*completed-tournaments[^"]*"[^>]*>(.*?)</table>', html, re.DOTALL | re.IGNORECASE)
+        table_content = table_match.group(1) if table_match else html
 
+        for row_match in row_pattern.finditer(table_content):
+            attrs = row_match.group(1)
+            content = row_match.group(2)
+            
+            data_name = re.search(r'data-name="([^"]+)"', attrs)
+            data_players = re.search(r'data-players="(\d+)"', attrs)
+            data_date = re.search(r'data-date="([^"]+)"', attrs)
+            data_winner = re.search(r'data-winner="([^"]+)"', attrs)
+            
+            link_match = re.search(r'href="\/tournament\/([a-f0-9]+)\/standings"', content)
+            if not link_match:
+                continue
+                
+            t_id = link_match.group(1)
+            if t_id in tournaments_dict:
+                continue
+
+            name = html_lib.unescape(data_name.group(1)) if data_name else ""
+            players = int(data_players.group(1)) if data_players else 0
+            date_str = data_date.group(1) if data_date else ""
+            winner = html_lib.unescape(data_winner.group(1)) if data_winner else ""
+
+            name_clean = name.upper()
+            is_matching_set = (set_upper in name_clean) or (set_upper.replace("OP", "OP-") in name_clean)
+            
+            if is_matching_set and players >= min_players:
+                # Se houver filtro de dias, verifica se a data do torneio está dentro da janela
+                if cutoff_date and date_str:
+                    try:
+                        t_date = datetime.datetime.strptime(date_str[:10], "%Y-%m-%d").date()
+                        if t_date < cutoff_date:
+                            continue
+                    except Exception:
+                        pass
+
+                tournaments_dict[t_id] = {
+                    "id": t_id,
+                    "name": name,
+                    "players": players,
+                    "date": date_str,
+                    "winner": winner
+                }
+                print(f"  [+] Torneio Elegível Encontrado: [{date_str[:10]}] {name} | Jogadores: {players} | ID: {t_id}")
+
+    tournaments = list(tournaments_dict.values())
+    tournaments.sort(key=lambda x: x.get("date", ""), reverse=True)
     return tournaments
 
 def parse_standings(t_id: str) -> List[Dict[str, Any]]:
@@ -468,14 +537,15 @@ def fetch_fallback_meta_cards(leader_id: str, card_db: dict, current_set_code: s
 
     return fallback_cards
 
-def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 7):
+def scrape_limitless(set_code: str = "OP17", min_players: int = 8, days: Optional[int] = 15):
+    days_label = f"ÚLTIMOS {days} DIAS" if (days and days > 0) else "HISTÓRICO RETROATIVO COMPLETO"
     print("=" * 60)
-    print(f"🏴‍☠️ INICIANDO SCRAPER LIMITLESS TCG: META {set_code.upper()} (ÚLTIMOS {days} DIAS)")
+    print(f"🏴‍☠️ INICIANDO SCRAPER LIMITLESS TCG: META {set_code.upper()} ({days_label})")
     print(f"   Filtro Mínimo de Jogadores: {min_players}")
     print("=" * 60)
 
     card_db = load_card_database()
-    tournaments = find_tournaments(set_code, min_players)
+    tournaments = find_tournaments(set_code, min_players, days=days)
     
     if not tournaments:
         print(f"Nenhum torneio recente encontrado para o Set {set_code} com >= {min_players} jogadores.")
@@ -486,17 +556,21 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
     all_player_records = {}
     all_leader_decks = {}
     leader_info_map = {}
+    leader_last_seen = {}
     matchup_matrix = {}
     leader_sample_builds = {}
 
     total_decks_tracked = 0
+    now_dt = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-3), name="BRT"))
+    today_str = now_dt.strftime("%Y-%m-%d")
 
     for t_idx, t in enumerate(tournaments):
         t_id = t["id"]
         t_name = t["name"]
         t_players = t["players"]
+        t_date_str = t.get("date", "")[:10] or today_str
         top_cut_decks, top_cut_builds = get_top_cut(t_players)
-        print(f"\n[{t_idx+1}/{len(tournaments)}] Coletando dados do Torneio: {t_name}...", flush=True)
+        print(f"\n[{t_idx+1}/{len(tournaments)}] Coletando dados do Torneio: [{t_date_str}] {t_name}...", flush=True)
         print(f"    Jogadores: {t_players} | Top cut decklists: {top_cut_decks} | Top cut builds: {top_cut_builds}", flush=True)
         
         # 1. Standings
@@ -508,6 +582,9 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
             p_id = p["player_id"]
             leader_id = p["leader_id"]
             deck_name = p["deck_name"]
+            
+            if leader_id:
+                leader_last_seen[leader_id] = max(leader_last_seen.get(leader_id, ""), t_date_str)
             
             tournament_players[p_id] = p
             all_player_records[(t_id, p_id)] = p
@@ -727,10 +804,86 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
             "sample_builds": sample_builds[:4]
         })
 
+    now_dt = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-3), name="BRT"))
+    today_str = now_dt.strftime("%Y-%m-%d")
+    current_time_str = now_dt.strftime("%Y-%m-%d %H:%M:%S")
+
+    # Mark leaders with their real last_seen date and evaluate active vs historical
+    active_leader_ids = set()
+    for l in leaders_output:
+        l_id = l["leader_card_id"]
+        seen = leader_last_seen.get(l_id, today_str)
+        l["last_seen"] = seen
+        days_diff = 0
+        try:
+            seen_date = datetime.datetime.strptime(seen, "%Y-%m-%d").date()
+            days_diff = (now_dt.date() - seen_date).days
+        except Exception:
+            days_diff = 0
+        
+        if days_diff >= 15:
+            l["is_active"] = False
+            l["historical_note"] = "Sem aparição há 15 dias"
+            l["share_percentage"] = 0.0
+        else:
+            l["is_active"] = True
+            active_leader_ids.add(l_id)
+
+    # Load previously saved meta data if available to preserve decks from earlier in the format
+    out_file = os.path.join(DATA_DIR, f"meta_{set_code.upper()}.json")
+    historical_leaders = []
+    if os.path.exists(out_file):
+        try:
+            with open(out_file, "r", encoding="utf-8") as f:
+                prev_meta = json.load(f)
+            prev_leaders = prev_meta.get("leaders", [])
+            prev_scraped_at = prev_meta.get("scraped_at", "")
+            
+            seen_ids = set(active_leader_ids)
+            for old_l in prev_leaders:
+                old_id = old_l.get("leader_card_id")
+                if not old_id or old_id in seen_ids:
+                    continue  # Already updated or already preserved
+                seen_ids.add(old_id)
+                
+                # Determine how many days since last seen
+                last_seen_str = old_l.get("last_seen")
+                if not last_seen_str:
+                    if prev_scraped_at:
+                        last_seen_str = prev_scraped_at.split()[0]
+                    else:
+                        last_seen_str = today_str
+                
+                days_diff = 0
+                try:
+                    last_seen_date = datetime.datetime.strptime(last_seen_str, "%Y-%m-%d").date()
+                    days_diff = (now_dt.date() - last_seen_date).days
+                except Exception:
+                    days_diff = 0
+                
+                if days_diff >= 15:
+                    # Not seen in active meta for more than 15 days -> preserve as historical record
+                    old_l["is_active"] = False
+                    old_l["last_seen"] = last_seen_str
+                    old_l["historical_note"] = "Sem aparição há 15 dias"
+                    old_l["share_percentage"] = 0.0
+                    historical_leaders.append(old_l)
+                else:
+                    # Still within the 15-day window -> keep normal data
+                    old_l["is_active"] = True
+                    old_l["last_seen"] = last_seen_str
+                    historical_leaders.append(old_l)
+            if historical_leaders:
+                print(f"  [Histórico] {len(historical_leaders)} líderes anteriores preservados no formato.")
+        except Exception as e:
+            print(f"  [Aviso] Erro ao carregar líderes anteriores para mesclagem histórica: {e}")
+
     leaders_output.sort(key=lambda x: x["deck_count"], reverse=True)
+    historical_leaders.sort(key=lambda x: (x.get("is_active", True) is False, -x.get("deck_count", 0)))
+    consolidated_leaders = leaders_output + historical_leaders
 
     # --- Guard: Só salva se tiver dados válidos ---
-    if len(leaders_output) == 0:
+    if len(consolidated_leaders) == 0:
         print("\n" + "=" * 60)
         print(f"⚠️  AVISO: Nenhum líder encontrado para o Set {set_code.upper()}.")
         print("   O arquivo JSON existente NÃO foi sobrescrito para evitar perda de dados.")
@@ -742,16 +895,32 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 16, days: int = 
         "source": "Limitless TCG (Past 7 Days - Western Meta)",
         "tournaments_tracked": len(tournaments),
         "decks_tracked": total_decks_tracked,
-        "scraped_at": datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-3), name="BRT")).strftime("%Y-%m-%d %H:%M:%S"),
-        "leaders": leaders_output
+        "scraped_at": current_time_str,
+        "leaders": consolidated_leaders
     }
     
-    out_file = os.path.join(DATA_DIR, f"meta_{set_code.upper()}.json")
+    # Validação de integridade de esquema antes de gravar em produção
+    try:
+        from tools.data_validator import validate_meta_dataset
+        is_valid, validation_errors = validate_meta_dataset(final_data)
+        if not is_valid:
+            print("\n" + "=" * 60)
+            print(f"❌ ERRO CRÍTICO DE VALIDAÇÃO no Set {set_code.upper()}:")
+            for err in validation_errors[:5]:
+                print(f"   - {err}")
+            if len(validation_errors) > 5:
+                print(f"   ... e mais {len(validation_errors) - 5} erros.")
+            print("   O arquivo JSON NÃO foi atualizado para proteger a integridade do banco.")
+            print("=" * 60)
+            return False
+    except ImportError:
+        pass
+    
     if atomic_save_json(final_data, out_file):
         print("\n" + "=" * 60)
         print(f"✅ SUCCESS! Metagame for set {set_code.upper()} consolidated.")
         print(f"   Generated File: {out_file}")
-        print(f"   Tournaments: {len(tournaments)} | Decks: {total_decks_tracked} | Leaders: {len(leaders_output)}")
+        print(f"   Tournaments: {len(tournaments)} | Decks: {total_decks_tracked} | Leaders: {len(consolidated_leaders)} ({len(leaders_output)} ativos, {len(historical_leaders)} preservados)")
         print("=" * 60)
         return True
     return False

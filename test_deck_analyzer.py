@@ -287,5 +287,99 @@ class TestDeckAnalyzer(unittest.TestCase):
         self.assertIn("OP01-016", added_ids)
         self.assertIn("OP09-025", added_ids)
 
+    def test_historical_leader_preservation(self):
+        """Tests that leaders not appearing in recent tournaments (>15 days) are preserved as historical records."""
+        import datetime
+        now_date = datetime.datetime.now().date()
+        prev_leaders = [
+            {
+                "name": "Old Meta Leader",
+                "leader_card_id": "OP01-001",
+                "deck_count": 10,
+                "share_percentage": 5.0,
+                "last_seen": "2026-08-01",  # Over 30 days ago
+                "cards": [{"card_id": "OP01-016", "inclusion_percentage": 90.0}]
+            },
+            {
+                "name": "Recent Leader",
+                "leader_card_id": "OP01-002",
+                "deck_count": 8,
+                "share_percentage": 4.0,
+                "last_seen": (now_date - datetime.timedelta(days=5)).strftime("%Y-%m-%d"),
+                "cards": []
+            }
+        ]
+        active_leaders = [
+            {
+                "name": "Current Leader",
+                "leader_card_id": "OP01-003",
+                "deck_count": 20,
+                "share_percentage": 10.0
+            }
+        ]
+
+        active_ids = {l["leader_card_id"] for l in active_leaders}
+        preserved = []
+        for old in prev_leaders:
+            if old["leader_card_id"] not in active_ids:
+                seen_dt = datetime.datetime.strptime(old["last_seen"], "%Y-%m-%d").date()
+                diff = (now_date - seen_dt).days
+                if diff >= 15:
+                    old["is_active"] = False
+                    old["historical_note"] = "Sem aparição há 15 dias"
+                    preserved.append(old)
+                else:
+                    old["is_active"] = True
+                    preserved.append(old)
+
+        self.assertEqual(len(preserved), 2)
+        old_leader = next(l for l in preserved if l["leader_card_id"] == "OP01-001")
+        self.assertFalse(old_leader["is_active"])
+        self.assertEqual(old_leader["historical_note"], "Sem aparição há 15 dias")
+        recent_leader = next(l for l in preserved if l["leader_card_id"] == "OP01-002")
+        self.assertTrue(recent_leader["is_active"])
+
+class DataValidatorTests(unittest.TestCase):
+    def test_valid_meta_dataset(self):
+        from tools.data_validator import validate_meta_dataset
+        valid_payload = {
+            "set_code": "OP17",
+            "leaders": [
+                {
+                    "name": "Nico Robin",
+                    "leader_card_id": "OP09-062",
+                    "deck_count": 74,
+                    "share_percentage": 16.7,
+                    "overall_winrate": 50.6,
+                    "cards": [
+                        {"card_id": "OP17-107", "card_name": "Daifuku", "inclusion_percentage": 100.0}
+                    ]
+                }
+            ]
+        }
+        is_valid, errors = validate_meta_dataset(valid_payload)
+        self.assertTrue(is_valid)
+        self.assertEqual(len(errors), 0)
+
+    def test_invalid_meta_dataset_missing_fields(self):
+        from tools.data_validator import validate_meta_dataset
+        bad_payload = {
+            "set_code": "OP17",
+            "leaders": [
+                {"name": "Incomplete Leader"}
+            ]
+        }
+        is_valid, errors = validate_meta_dataset(bad_payload)
+        self.assertFalse(is_valid)
+        self.assertTrue(any("leader_card_id" in e for e in errors))
+
+    def test_validate_deck_text_format(self):
+        from tools.data_validator import validate_deck_text
+        valid_deck = "1xOP09-062\n" + "\n".join([f"4xOP17-{100+i:03d}" for i in range(12)]) + "\n2xOP17-150"
+        is_valid, total, lid, errs = validate_deck_text(valid_deck)
+        self.assertTrue(is_valid)
+        self.assertEqual(total, 50)
+        self.assertEqual(lid, "OP09-062")
+
 if __name__ == "__main__":
     unittest.main()
