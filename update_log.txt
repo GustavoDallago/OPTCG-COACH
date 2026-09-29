@@ -889,3 +889,23 @@ NameError: name 'Optional' is not defined
 [2026-09-28 06:07:31] ==========================================
 [2026-09-28 06:07:31] SUCCESS: All update tasks completed flawlessly!
 [2026-09-28 06:07:31] ==========================================
+[2026-09-29 06:16:12] ==========================================
+[2026-09-29 06:16:12] Starting Full Automatic Update Pipeline...
+[2026-09-29 06:16:12] ==========================================
+[2026-09-29 06:16:12] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_optcg_data.py
+[2026-09-29 06:16:22] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_optcg_data.py
+[2026-09-29 06:16:22] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_banlist.py
+[2026-09-29 06:16:23] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_banlist.py
+[2026-09-29 06:16:23] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_limitless.py --set OP17 --min-players 8
+[2026-09-29 06:17:03] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_limitless.py --set OP17 --min-players 8
+[2026-09-29 06:17:03] Recalculating decks_tracked for all meta JSON files...
+[2026-09-29 06:17:03] Updated decks_tracked in 13 files.
+[2026-09-29 06:17:03] Generating optcg_data/manifest.json...
+[2026-09-29 06:17:03] manifest.json generated: 13 sets available.
+[2026-09-29 06:17:03] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_video_insights.py
+[2026-09-29 06:17:12] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_video_insights.py
+[2026-09-29 06:17:12] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python -m unittest test_deck_analyzer.py
+[2026-09-29 06:17:12] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python -m unittest test_deck_analyzer.py
+[2026-09-29 06:17:12] ==========================================
+[2026-09-29 06:17:12] SUCCESS: All update tasks completed flawlessly!
+[2026-09-29 06:17:12] ==========================================
