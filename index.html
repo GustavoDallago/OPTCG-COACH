@@ -590,6 +590,9 @@
                                     </svg>
                                     <span>Rotacionou</span>
                                 </div>
+                                <div v-else-if="isCardScheduledForBan(card)" class="shrink-0 bg-amber-500/95 text-slate-950 border border-amber-300 px-1.5 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono font-black text-center shadow-lg pointer-events-auto flex items-center gap-1 leading-none" :title="getBanReasonText(card)">
+                                    <span>Ban 12/10</span>
+                                </div>
                             </div>
 
                             <!-- Cost/Power Quick Info Overlay -->
@@ -759,13 +762,14 @@
                             </div>
 
                             <div class="flex items-center gap-3 text-xs font-mono text-slate-400 flex-wrap">
+                                <span v-if="metaData.is_consolidated" class="bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-sm">
+                                    Consolidado da Temporada
+                                </span>
+                                <span v-else class="bg-blue-500/10 border border-blue-500/30 text-blue-400 text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-sm">
+                                    Meta Recente (Últimos 15 dias)
+                                </span>
                                 <span v-if="totalDecksTracked > 0">Decks Mapeados: <strong class="text-amber-500 text-sm">{{ totalDecksTracked }}</strong></span>
                                 <span v-if="metaData.scraped_at" class="text-[10px] text-slate-400 font-mono">Atualizado: <strong class="text-slate-200">{{ formatBrasiliaDateTime(metaData.scraped_at) }}</strong></span>
-                                <button 
-                                    @click="openVersusModal()"
-                                    class="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold rounded-xl text-xs transition-all shadow-md ml-auto sm:ml-2">
-                                    <span>⚔️ Modo Versus</span>
-                                </button>
                             </div>
                         </div>
 
@@ -842,6 +846,12 @@
                                     <div class="absolute bottom-2.5 left-2.5 bg-slate-950/85 border border-slate-800 text-[10px] font-mono px-2 py-0.5 rounded text-slate-300">
                                         {{ leader.deck_count }} decks
                                     </div>
+                                    <div v-if="isCardBanned(getLeaderCardId(leader) || leader)" class="absolute bottom-2.5 right-2.5 bg-blue-600/95 text-white border border-blue-400/60 px-2 py-0.5 rounded-lg text-[9px] font-mono font-bold shadow-lg" :title="getBanReasonText(getLeaderCardId(leader) || leader)">
+                                        Banido
+                                    </div>
+                                    <div v-else-if="isCardScheduledForBan(getLeaderCardId(leader) || leader)" class="absolute bottom-2.5 right-2.5 bg-amber-500/95 text-slate-950 border border-amber-300 px-2 py-0.5 rounded-lg text-[9px] font-mono font-black shadow-lg" :title="getBanReasonText(getLeaderCardId(leader) || leader)">
+                                        Ban 12/10
+                                    </div>
                                 </div>
 
                                 <div class="p-4 flex flex-col justify-between flex-grow gap-3">
@@ -903,6 +913,12 @@
                                          <span class="text-xs font-mono bg-slate-950 text-slate-400 px-2 py-0.5 rounded border border-slate-800/80 inline-block">
                                              ID do Líder: {{ getLeaderCardId(selectedMetaLeader) }}
                                          </span>
+                                         <span v-if="isCardBanned(getLeaderCardId(selectedMetaLeader) || selectedMetaLeader)" class="text-xs font-mono bg-blue-600/90 text-white border border-blue-400/60 px-2 py-0.5 rounded font-bold inline-block" :title="getBanReasonText(getLeaderCardId(selectedMetaLeader) || selectedMetaLeader)">
+                                             Banido
+                                         </span>
+                                         <span v-else-if="isCardScheduledForBan(getLeaderCardId(selectedMetaLeader) || selectedMetaLeader)" class="text-xs font-mono bg-amber-500 text-slate-950 border border-amber-300 px-2 py-0.5 rounded font-black inline-block" :title="getBanReasonText(getLeaderCardId(selectedMetaLeader) || selectedMetaLeader)">
+                                             Ban a partir de 12/10
+                                         </span>
                                          <span v-if="selectedMetaLeader.is_active === false" class="text-xs font-mono bg-slate-950 text-amber-400/90 border border-amber-500/30 px-2.5 py-0.5 rounded flex items-center gap-1.5">
                                              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
                                              <span>{{ selectedMetaLeader.historical_note || 'Sem aparição há 15 dias' }}</span>
@@ -923,8 +939,8 @@
                                         </button>
                                         <button 
                                             @click="openVersusModal(selectedMetaLeader)"
-                                            class="flex items-center gap-1.5 px-3.5 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 text-amber-300 font-bold rounded-xl text-xs transition-all shadow-md">
-                                            <span>⚔️ Raio-X Versus</span>
+                                            class="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold rounded-xl text-xs transition-all shadow-md">
+                                            <span>Modo Versus</span>
                                         </button>
                                     </div>
                                 </div>
@@ -1399,6 +1415,9 @@
                                              </svg>
                                              <span>Rotacionou</span>
                                          </div>
+                                         <div v-else-if="isCardScheduledForBan(leader)" class="shrink-0 bg-amber-500/95 text-slate-950 border border-amber-300 px-1.5 py-0.5 rounded text-[8px] sm:text-[8.5px] font-mono font-black text-center shadow-md pointer-events-auto flex items-center gap-1 leading-none" :title="getBanReasonText(leader)">
+                                             <span>Ban 12/10</span>
+                                         </div>
                                      </div>
                                     <!-- Spoiler Badge in Leader Modal -->
                                     <div v-if="getCardSpoilerInfo(leader)" class="absolute bottom-2 left-2 right-2 bg-purple-950/95 text-purple-200 border border-purple-500/60 px-1.5 py-0.5 rounded text-[8px] font-mono font-black text-center truncate shadow-md z-10">
@@ -1410,6 +1429,7 @@
                                     <div class="flex justify-between items-center mt-1">
                                         <span class="text-[9px] font-mono text-slate-500">ID: {{ leader.card_set_id }}</span>
                                         <span v-if="isCardBanned(leader)" class="text-[8px] font-bold text-blue-400">Rotacionou</span>
+                                        <span v-else-if="isCardScheduledForBan(leader)" class="text-[8px] font-bold text-amber-400">Ban 12/10</span>
                                         <span v-else-if="getCardSpoilerInfo(leader)" class="text-[8px] font-bold text-purple-400">Spoiler</span>
                                     </div>
                                 </div>
@@ -1792,7 +1812,14 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-2 shrink-0">
+            <div class="flex items-center gap-1.5 shrink-0">
+                <button 
+                    @click="openCoachModal('builder')"
+                    class="tap-press px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-amber-400 border border-amber-500/50 font-bold text-xs rounded-xl flex items-center gap-1 shadow-md"
+                    title="Abrir Coach IA">
+                    <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    <span>Coach IA</span>
+                </button>
                 <button 
                     v-if="currentTab !== 'builder'"
                     @click="currentTab = 'builder'"
@@ -1811,17 +1838,29 @@
         </div>
 
         <!-- Detail Modal (Integrated for database cards and meta lookup) -->
-        <div v-if="selectedCard" @click="closeDetails" class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-[60] flex items-end sm:items-center justify-center p-0 sm:p-6 overflow-y-auto">
+        <div v-if="selectedCard" @click="closeDetails" class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-[60] flex items-end sm:items-center justify-center p-0 sm:p-6 overflow-hidden sm:overflow-y-auto overscroll-none">
             
-            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative my-0 sm:my-auto max-h-[92vh] sm:max-h-[90vh] animate-slide-up sm:animate-pop">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-4xl shadow-2xl overflow-y-auto md:overflow-hidden flex flex-col md:flex-row relative my-0 sm:my-auto max-h-[88dvh] max-h-[88vh] sm:max-h-[90vh] animate-slide-up sm:animate-pop">
                 
-                <!-- Mobile Drag Handle -->
-                <div class="w-12 h-1.5 bg-slate-700/80 rounded-full mx-auto mt-2.5 mb-1 sm:hidden shrink-0"></div>
+                <!-- Mobile Sticky Header (Drag handle + Pinned Close Button) -->
+                <div class="sticky top-0 z-30 flex items-center justify-between px-4 pt-3 pb-2 bg-slate-900/95 backdrop-blur-md sm:hidden border-b border-slate-800/80 shrink-0">
+                    <div class="w-8"></div>
+                    <div class="w-12 h-1.5 bg-slate-700/80 rounded-full"></div>
+                    <button 
+                        @click="closeDetails"
+                        class="p-1.5 bg-slate-950/80 hover:bg-slate-950 text-slate-400 hover:text-white rounded-full border border-slate-700/80 transition-all shadow-md"
+                        title="Fechar">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
 
-                <!-- Close Button (Always visible on mobile & desktop) -->
+                <!-- Desktop Close Button (Visible on sm/md and above) -->
                 <button 
                     @click="closeDetails"
-                    class="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 p-2 bg-slate-950/80 hover:bg-slate-950 text-slate-400 hover:text-white rounded-full border border-slate-700/80 backdrop-blur-sm transition-all shadow-lg">
+                    class="hidden sm:flex absolute top-4 right-4 z-20 p-2 bg-slate-950/80 hover:bg-slate-950 text-slate-400 hover:text-white rounded-full border border-slate-700/80 backdrop-blur-sm transition-all shadow-lg"
+                    title="Fechar">
                     <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
@@ -1839,7 +1878,7 @@
                 </div>
 
                 <!-- Right Column: Card Details & Stats -->
-                <div class="md:w-1/2 p-5 sm:p-6 md:p-8 flex flex-col gap-4 sm:gap-6 overflow-y-auto">
+                <div class="md:w-1/2 p-5 sm:p-6 md:p-8 flex flex-col gap-4 sm:gap-6 md:overflow-y-auto">
                     
                     <div class="flex flex-col gap-1.5 pr-8 md:pr-0">
                         <span class="text-[10px] sm:text-xs font-mono font-semibold text-amber-500 uppercase tracking-widest">{{ selectedCard.set_name || 'One Piece Promotion' }}</span>
@@ -1855,6 +1894,9 @@
                             </span>
                             <span v-if="isCardBanned(selectedCard)" class="text-[10px] sm:text-xs font-mono bg-blue-600 text-white font-extrabold px-2 py-0.5 rounded shadow flex items-center gap-1" :title="getBanReasonText(selectedCard)">
                                 Rotacionou — {{ getBanReasonText(selectedCard) || `Meta ${activeBanlistMode}` }}
+                            </span>
+                            <span v-else-if="isCardScheduledForBan(selectedCard)" class="text-[10px] sm:text-xs font-mono bg-amber-500 text-slate-950 font-black px-2 py-0.5 rounded shadow flex items-center gap-1" :title="getBanReasonText(selectedCard)">
+                                Ban Agendado: {{ getBanReasonText(selectedCard) }}
                             </span>
                         </div>
                     </div>
@@ -1976,16 +2018,16 @@
             v-if="(currentTab === 'builder' && selectedBuilderLeader) || currentTab === 'meta'"
             @click="openCoachModal(currentTab === 'meta' ? 'meta' : 'builder')"
             class="fixed z-40 px-4 py-3 bg-slate-900/95 hover:bg-slate-800 backdrop-blur-md border border-amber-500/40 hover:border-amber-500 text-amber-400 hover:text-amber-300 font-bold text-xs rounded-2xl shadow-xl flex items-center gap-2 transition-all group animate-fade-in"
-            :class="selectedBuilderLeader && (currentTab === 'builder' || currentTab === 'sets') ? 'bottom-20 sm:bottom-6 right-4 sm:right-6' : 'bottom-6 right-4 sm:right-6'"
+            :class="selectedBuilderLeader && (currentTab === 'builder' || currentTab === 'sets') ? 'hidden sm:flex sm:bottom-6 sm:right-6' : 'bottom-6 right-4 sm:right-6'"
             :title="currentTab === 'meta' ? 'Abrir Coach IA para tirar dúvidas sobre o meta e escolha de cores' : 'Abrir Coach IA para tirar dúvidas sobre seu deck'">
             <svg class="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
             <span>{{ currentTab === 'meta' ? 'Coach IA do Meta' : 'Coach IA' }}</span>
         </button>
 
         <!-- DECK ANALYSIS REPORT MODAL -->
-        <div v-if="showDeckAnalysis" @click="showDeckAnalysis = false" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto">
+        <div v-if="showDeckAnalysis" @click="showDeckAnalysis = false" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-hidden sm:overflow-y-auto overscroll-none">
             
-            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col relative max-h-[92vh] sm:max-h-[90vh] my-0 sm:my-auto animate-slide-up sm:animate-pop">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col relative max-h-[88dvh] max-h-[88vh] sm:max-h-[90vh] my-0 sm:my-auto animate-slide-up sm:animate-pop">
                 
                 <!-- Mobile Drag Handle -->
                 <div class="w-12 h-1.5 bg-slate-700/80 rounded-full mx-auto mt-3 sm:hidden shrink-0"></div>
@@ -2670,8 +2712,8 @@
         </div>
 
         <!-- STANDALONE COACH IA MODAL -->
-        <div v-if="showCoachModal" @click="closeCoachModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto">
-            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col relative max-h-[92vh] sm:max-h-[85vh] my-0 sm:my-auto animate-slide-up sm:animate-pop">
+        <div v-if="showCoachModal" @click="closeCoachModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-hidden sm:overflow-y-auto overscroll-none">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col relative max-h-[88dvh] max-h-[88vh] sm:max-h-[85vh] my-0 sm:my-auto animate-slide-up sm:animate-pop">
                 
                 <!-- Mobile Drag Handle -->
                 <div class="w-12 h-1.5 bg-slate-700/80 rounded-full mx-auto mt-3 sm:hidden shrink-0"></div>
@@ -3068,7 +3110,7 @@
                                 v-if="playtestState.mulliganAvailable && !playtestState.mulliganUsed"
                                 @click="triggerPlaytestMulligan"
                                 class="flex-1 sm:flex-none px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5">
-                                <span>⚠️ Fazer Mulligan</span>
+                                <span>Fazer Mulligan</span>
                             </button>
                             <button 
                                 @click="triggerPlaytestNextTurn"
@@ -3182,8 +3224,8 @@
         </div>
 
         <!-- VERSUS MODE (RAIO-X DE MATCHUP) MODAL -->
-        <div v-if="showVersusModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto" @click="showVersusModal = false">
-            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-3xl shadow-2xl overflow-hidden flex flex-col relative my-0 sm:my-auto max-h-[92vh] animate-slide-up sm:animate-pop">
+        <div v-if="showVersusModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-hidden sm:overflow-y-auto overscroll-none" @click="showVersusModal = false">
+            <div @click.stop class="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-3xl shadow-2xl overflow-hidden flex flex-col relative my-0 sm:my-auto max-h-[88dvh] max-h-[88vh] sm:max-h-[90vh] animate-slide-up sm:animate-pop">
                 
                 <!-- Mobile Drag Handle -->
                 <div class="w-12 h-1.5 bg-slate-700/80 rounded-full mx-auto mt-2.5 mb-1 sm:hidden shrink-0"></div>
@@ -3211,17 +3253,21 @@
 
                     <!-- Leader Selectors (Leader A vs Leader B) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center relative">
-                        <!-- Leader A -->
-                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col gap-2">
-                            <label class="text-[10px] font-mono font-bold uppercase text-amber-500">Seu Líder (Lado A)</label>
-                            <select 
-                                v-model="versusLeaderAId" 
-                                @change="runVersusAnalysis"
-                                class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 font-bold focus:outline-none focus:border-amber-500">
-                                <option v-for="l in (metaData?.leaders || [])" :key="l.leader_card_id" :value="l.leader_card_id">
-                                    {{ l.name }}
-                                </option>
-                            </select>
+                        <!-- Leader A (Locked to Selected Deck) -->
+                        <div class="bg-slate-950 border border-amber-500/30 rounded-2xl p-4 flex flex-col gap-2 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <label class="text-[10px] font-mono font-bold uppercase text-amber-500">Seu Líder (Lado A)</label>
+                                <span class="text-[9px] font-mono font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <span>🔒 Deck Selecionado</span>
+                                </span>
+                            </div>
+                            <div class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl p-2.5 text-xs text-slate-100 font-bold flex items-center justify-between shadow-inner cursor-not-allowed select-none" title="Líder fixado pelo deck visualizado">
+                                <div class="flex items-center gap-2 truncate">
+                                    <span class="w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
+                                    <span class="truncate">{{ versusLeaderAName }}</span>
+                                </div>
+                                <span class="text-xs text-slate-500 shrink-0 ml-2">🔒</span>
+                            </div>
                         </div>
 
                         <!-- VS Badge -->
@@ -3235,8 +3281,8 @@
                             <select 
                                 v-model="versusLeaderBId" 
                                 @change="runVersusAnalysis"
-                                class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 font-bold focus:outline-none focus:border-rose-500">
-                                <option v-for="l in (metaData?.leaders || [])" :key="l.leader_card_id" :value="l.leader_card_id">
+                                class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 font-bold focus:outline-none focus:border-rose-500 cursor-pointer">
+                                <option v-for="l in (metaData?.leaders || []).filter(l => l.leader_card_id !== versusLeaderAId)" :key="l.leader_card_id" :value="l.leader_card_id">
                                     {{ l.name }}
                                 </option>
                             </select>
@@ -3278,7 +3324,7 @@
                             <!-- Threats from Opponent -->
                             <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-3.5 flex flex-col gap-2.5">
                                 <h4 class="text-xs font-mono font-bold text-rose-400 flex items-center gap-1.5">
-                                    <span>⚠️ Ameaças Críticas do Oponente</span>
+                                    <span>Ameaças Críticas do Oponente</span>
                                 </h4>
                                 <div class="flex flex-col gap-1.5">
                                     <div v-for="tc in versusReport.threatCards" :key="tc.card_id" class="flex items-center gap-2 bg-slate-900/80 p-2 rounded-xl border border-slate-800/70 text-xs">
@@ -3701,6 +3747,11 @@
                 const versusLeaderBId = ref('');
                 const versusReport = ref(null);
 
+                const versusLeaderAName = computed(() => {
+                    const l = (metaData.value?.leaders || []).find(x => x.leader_card_id === versusLeaderAId.value);
+                    return l ? l.name : (versusLeaderAId.value || 'Líder Selecionado');
+                });
+
                 const showDeckDiffModal = ref(false);
                 const diffTargetDeckId = ref('');
                 const diffReport = ref(null);
@@ -3772,9 +3823,32 @@
                 const showChangelogModal = ref(false);
                 const appUpdates = ref([
                     {
+                        date: '29/09/2026',
+                        title: 'Modo Versus nos Decks, Histórico Consolidado e Melhorias no Celular',
+                        badge: 'Recente',
+                        items: [
+                            {
+                                title: 'Modo Versus direto nos Decks Populares',
+                                desc: 'Agora você pode entrar no Modo Versus diretamente de dentro do deck que estiver explorando. O seu líder já fica fixo no duelo para você testar confrontos e estratégias contra qualquer outro líder do meta.'
+                            },
+                            {
+                                title: 'Histórico Consolidado da Temporada',
+                                desc: 'As coleções passadas agora contam com o selo (Consolidado), reunindo todas as listas e resultados de toda a temporada. A coleção em andamento exibe (Ativo 15d) com o meta dos últimos 15 dias.'
+                            },
+                            {
+                                title: 'Mais espaço e facilidade no Celular',
+                                desc: 'O botão do Coach IA foi integrado na barra inferior do smartphone para não ficar em cima do botão de analisar deck. Além disso, a visualização de detalhes das cartas agora desliza com suavidade e o botão de fechar fica sempre visível no topo.'
+                            },
+                            {
+                                title: 'Aviso oficial de banimento do Líder Mihawk',
+                                desc: 'O líder Dracule Mihawk (OP14-020) agora conta com um selo informativo avisando que estará banido a partir do dia 12/10/2026, auxiliando no planejamento dos seus próximos torneios.'
+                            }
+                        ]
+                    },
+                    {
                         date: '18/09/2026',
                         title: 'Coach IA sem lentidão, ajustes para Celular e Metagame atualizado',
-                        badge: 'Recente',
+                        badge: '',
                         items: [
                             {
                                 title: 'Coach IA com respostas rápidas',
@@ -3852,11 +3926,54 @@
                 // --- Banlist State (Multi-Mode: EN, JP, NONE) ---
                 const activeBanlistMode = ref('EN'); // 'EN', 'JP', 'NONE'
                 const banlistData = ref({ modes: {}, banned_cards: [], banned_pairs: [], restricted_cards: {} });
-                const isCardBanned = (cardOrId) => {
+                // Retorna data no formato local YYYY-MM-DD
+                const getTodayStr = () => {
+                    const now = new Date();
+                    const year = now.getFullYear();
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const day = String(now.getDate()).padStart(2, '0');
+                    return `${year}-${month}-${day}`;
+                };
+
+                const getScheduledBanInfo = (cardOrId, refDateStr = null) => {
+                    if (!cardOrId) return null;
+                    const rawId = typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '');
+                    if (!rawId) return null;
+                    const cid = rawId.toUpperCase().trim();
+
+                    const modes = banlistData.value.modes || {};
+                    const currentMode = modes[activeBanlistMode.value] || banlistData.value;
+                    const scheduledBans = currentMode.scheduled_bans || banlistData.value.scheduled_bans || [];
+
+                    const match = scheduledBans.find(b => (b.card_id || '').toUpperCase().trim() === cid);
+                    if (!match) return null;
+
+                    const todayStr = refDateStr || getTodayStr();
+                    const isEffective = todayStr >= match.effective_date;
+                    return {
+                        ...match,
+                        isEffective,
+                        currentDate: todayStr
+                    };
+                };
+
+                const isCardScheduledForBan = (cardOrId, refDateStr = null) => {
+                    if (activeBanlistMode.value === 'NONE') return false;
+                    const info = getScheduledBanInfo(cardOrId, refDateStr);
+                    return !!(info && !info.isEffective);
+                };
+
+                const isCardBanned = (cardOrId, refDateStr = null) => {
                     if (activeBanlistMode.value === 'NONE' || !cardOrId) return false;
                     const rawId = typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '');
                     if (!rawId) return false;
                     const cid = rawId.toUpperCase().trim();
+
+                    // Verifica se possui banimento agendado que já entrou em vigor
+                    const schedInfo = getScheduledBanInfo(cid, refDateStr);
+                    if (schedInfo && schedInfo.isEffective) {
+                        return true;
+                    }
 
                     const modes = banlistData.value.modes || {};
                     const currentMode = modes[activeBanlistMode.value] || banlistData.value;
@@ -3876,11 +3993,20 @@
                     return false;
                 };
 
-                const getBanReasonText = (cardOrId) => {
+                const getBanReasonText = (cardOrId, refDateStr = null) => {
                     if (activeBanlistMode.value === 'NONE' || !cardOrId) return '';
                     const rawId = typeof cardOrId === 'string' ? cardOrId : (cardOrId.card_set_id || cardOrId.card_id || cardOrId.don_id || '');
                     if (!rawId) return '';
                     const cid = rawId.toUpperCase().trim();
+
+                    const schedInfo = getScheduledBanInfo(cid, refDateStr);
+                    if (schedInfo) {
+                        if (schedInfo.isEffective) {
+                            return schedInfo.reason || `Banido desde ${schedInfo.effective_date}`;
+                        } else {
+                            return `Aviso: ${schedInfo.reason || ('Banido a partir de ' + schedInfo.effective_date)}`;
+                        }
+                    }
 
                     const modes = banlistData.value.modes || {};
                     const currentMode = modes[activeBanlistMode.value] || banlistData.value;
@@ -4141,8 +4267,10 @@
                             const mData = res.value;
 
                             const realName = setTitles[code] || setTitles[code.replace(/^OP/, 'OP-')] || '';
-                            const label = realName ? `${code} - ${realName}` : code;
-                            detectedSets.push({ value: code, label, data: mData });
+                            const isConsolidated = mData.is_consolidated === true || mData.season_status === 'consolidated' || (mData.source && !mData.source.includes('Past') && !mData.source.includes('Últimos'));
+                            const badge = isConsolidated ? ' (Consolidado)' : ' (Ativo 15d)';
+                            const label = (realName ? `${code} - ${realName}` : code) + badge;
+                            detectedSets.push({ value: code, label, data: mData, isConsolidated });
                             
                             for (const leader of mData.leaders) {
                                 const lid = (leader.leader_card_id || '').toUpperCase().trim();
@@ -4236,7 +4364,7 @@
 
                         // Atualiza lista de sets disponíveis para a aba Meta (sempre seleciona a coleção mais recente)
                         if (detectedSets.length > 0) {
-                            availableMetaSets.value = detectedSets.map(d => ({ value: d.value, label: d.label }));
+                            availableMetaSets.value = detectedSets.map(d => ({ value: d.value, label: d.label, isConsolidated: d.isConsolidated }));
                             
                             // Ordena coleções OP para selecionar a mais recente (ex: OP17)
                             const opSets = detectedSets.filter(d => d.value.startsWith('OP')).sort((a, b) => {
@@ -4653,8 +4781,8 @@
                 });
 
                 const topMetaLeader = computed(() => {
-                    const list = sortedMetaLeaders.value.filter(l => l.is_active !== false);
-                    return list.length > 0 ? list[0] : (sortedMetaLeaders.value[0] || null);
+                    const list = sortedMetaLeaders.value.filter(l => l.is_active !== false && !isCardBanned(l.leader_card_id || l));
+                    return list.length > 0 ? list[0] : (sortedMetaLeaders.value.filter(l => !isCardBanned(l.leader_card_id || l))[0] || null);
                 });
 
                 const filteredMetaLeaders = computed(() => {
@@ -5262,7 +5390,7 @@
                         return;
                     }
                     if (defaultLeader) {
-                        versusLeaderAId.value = defaultLeader.leader_card_id || '';
+                        versusLeaderAId.value = defaultLeader.leader_card_id || (typeof getLeaderCardId === 'function' ? getLeaderCardId(defaultLeader) : '') || '';
                     } else if (selectedBuilderLeader.value) {
                         const blId = selectedBuilderLeader.value.card_set_id || '';
                         versusLeaderAId.value = leaders.some(l => l.leader_card_id === blId) ? blId : leaders[0].leader_card_id;
@@ -5330,6 +5458,11 @@
                     if (!leader) return;
 
                     const leaderCardId = getLeaderCardId(leader);
+                    if (isCardBanned(leaderCardId || leader)) {
+                        const reason = getBanReasonText(leaderCardId || leader) || 'Líder banido do formato';
+                        alert(`Aviso: O líder ${leader.name || leaderCardId} está banido para construção de decks (${reason}).`);
+                        return;
+                    }
                     const allCards = [...setCards.value, ...starterCards.value, ...promoCards.value];
                     
                     // STRICT MATCH ONLY BY EXACT CARD ID (never match another card with different ID by partial name)
@@ -5971,7 +6104,7 @@
                         return cachedGeminiTarget;
                     }
                     const key = encodeURIComponent((apiKey || '').trim());
-                    if (!key) return { ver: 'v1beta', model: 'gemini-2.5-flash' };
+                    if (!key) return { ver: 'v1beta', model: 'gemini-3.5-flash-lite' };
 
                     for (const apiVer of ['v1beta', 'v1']) {
                         try {
@@ -5982,11 +6115,11 @@
                                     m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent')
                                 );
                                 const candidates = [
-                                    'gemini-3.6-flash',
+                                    'gemini-3.5-flash-lite',
+                                    'gemini-3.5-flash',
                                     'gemini-2.5-flash',
-                                    'gemini-2.5-flash-lite',
                                     'gemini-2.0-flash',
-                                    'gemini-2.0-flash-lite'
+                                    'gemini-flash-latest'
                                 ];
                                 for (const cand of candidates) {
                                     if (isModelOverloaded(cand)) continue;
@@ -6015,7 +6148,7 @@
                         }
                     }
 
-                    return { ver: 'v1beta', model: 'gemini-2.5-flash' };
+                    return { ver: 'v1beta', model: 'gemini-3.5-flash-lite' };
                 };
 
                 const openCoachModal = (mode = null) => {
@@ -6123,6 +6256,22 @@
                             banlistCtx += `\n  * [${c1}${n1 ? ' ' + n1 : ''}] + [${c2}${n2 ? ' ' + n2 : ''}] (PAR ILEGAL)`;
                         });
                     }
+
+                    const scheduledBansList = (currentMode.scheduled_bans || banlistData.value.scheduled_bans || []);
+                    if (scheduledBansList.length > 0) {
+                        banlistCtx += `\n- Banimentos Agendados / Futuros Oficiais:`;
+                        const todayStr = getTodayStr();
+                        scheduledBansList.forEach(sb => {
+                            const isEff = todayStr >= sb.effective_date;
+                            const cname = getCardName(sb.card_id) || sb.card_name || '';
+                            if (isEff) {
+                                banlistCtx += `\n  * ${sb.card_id} ${cname} (${sb.card_type || 'Carta'}) - BANIDO OFICIALMENTE desde ${sb.effective_date}. Motivo: ${sb.reason}. Totalmente proibido em qualquer deck.`;
+                            } else {
+                                banlistCtx += `\n  * ${sb.card_id} ${cname} (${sb.card_type || 'Carta'}) - BANIMENTO AGENDADO PARA ${sb.effective_date}. Motivo: ${sb.reason}. AVISO: Se o usuário perguntar sobre este líder/carta ou pedir recomendações, informe com precisão que ele estará banido a partir de ${sb.effective_date} e NÃO deve ser recomendado para construção de decks competitivos futuros.`;
+                            }
+                        });
+                    }
+
                     banlistCtx += `\n- Rotação de Coleções (Meta Ocidental / EN): Coleções OP-01 a OP-04 e Starter Decks ST-01 a ST-10 estão rotacionadas no formato padrão ocidental, exceto cartas expressamente permitidas pela Whitelist oficial.
 AVISO MANDATÓRIO DE BANLIST: NUNCA sugira, recomende ou aprove nenhuma dessas cartas banidas ou combinações ilegais sob hipótese alguma.`;
 
@@ -6140,7 +6289,7 @@ ATENÇÃO: Coleções OP-01 a OP-04 e Starter Decks ST-01 a ST-10 estão ROTACIO
 - Filosofia: Controle equilibrado de mesa, trocas eficientes e sobrevivência constante.
 - Mecânicas: Virar (Rest) personagens do oponente, reativar Blockers próprios.
 - Para quem é indicado: Jogadores que gostam de partidas estruturadas e campo dominante.
-- Exemplos de Líderes Legais do Meta: Jewelry Bonney (OP07-019), Donquixote Doflamingo (OP08-039).
+- Exemplos de Líderes Legais do Meta: Jewelry Bonney (OP07-019), Donquixote Doflamingo (OP08-039). (AVISO: O líder Dracule Mihawk OP14-020 está banido a partir de 12/10/2026, JAMAIS recomendar para construção de decks!).
 
 3. AZUL (BLUE) - ESTILO METÓDICO / CONTROLE DE TEMPO & COMPRA (TEMPO / BOUNCE):
 - Filosofia: Vantagem de cartas na mão, filtragem profunda e controle de ritmo.
@@ -6511,6 +6660,7 @@ ${deckContext}`;
                         }
 
                         const payload = {
+                            model: 'gemini-3.5-flash-lite',
                             systemInstruction: {
                                 parts: [{ text: systemInstructionText }]
                             },
@@ -6568,12 +6718,12 @@ ${deckContext}`;
                             if (discoveredTarget && discoveredTarget.model && discoveredTarget.ver && !isModelOverloaded(discoveredTarget.model)) {
                                 candidateTargets.push(discoveredTarget);
                             }
-                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.6-flash' });
-                            candidateTargets.push({ ver: 'v1', model: 'gemini-3.6-flash' });
+                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.5-flash-lite' });
+                            candidateTargets.push({ ver: 'v1', model: 'gemini-3.5-flash-lite' });
+                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.5-flash' });
+                            candidateTargets.push({ ver: 'v1', model: 'gemini-3.5-flash' });
                             candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.5-flash' });
                             candidateTargets.push({ ver: 'v1', model: 'gemini-2.5-flash' });
-                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.5-flash-lite' });
-                            candidateTargets.push({ ver: 'v1', model: 'gemini-2.5-flash-lite' });
 
                             const uniqueTargets = [];
                             const seenTargets = new Set();
@@ -7058,6 +7208,7 @@ REGRAS OBRIGATÓRIAS:
 }`;
 
                         const payload = {
+                            model: 'gemini-3.5-flash-lite',
                             contents: [{ parts: [{ text: prompt }] }],
                             generationConfig: {
                                 temperature: 0.3,
@@ -7091,12 +7242,12 @@ REGRAS OBRIGATÓRIAS:
                             if (discoveredTarget && discoveredTarget.model && discoveredTarget.ver && !isModelOverloaded(discoveredTarget.model)) {
                                 candidateTargets.push(discoveredTarget);
                             }
-                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.6-flash' });
-                            candidateTargets.push({ ver: 'v1', model: 'gemini-3.6-flash' });
+                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.5-flash-lite' });
+                            candidateTargets.push({ ver: 'v1', model: 'gemini-3.5-flash-lite' });
+                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-3.5-flash' });
+                            candidateTargets.push({ ver: 'v1', model: 'gemini-3.5-flash' });
                             candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.5-flash' });
                             candidateTargets.push({ ver: 'v1', model: 'gemini-2.5-flash' });
-                            candidateTargets.push({ ver: 'v1beta', model: 'gemini-2.5-flash-lite' });
-                            candidateTargets.push({ ver: 'v1', model: 'gemini-2.5-flash-lite' });
 
                             const uniqueTargets = [];
                             const seenTargets = new Set();
@@ -9007,6 +9158,8 @@ REGRAS OBRIGATÓRIAS:
                     banlistData,
                     isCardBanned,
                     getBanReasonText,
+                    getScheduledBanInfo,
+                    isCardScheduledForBan,
                     bannedPairToast,
                     getCardSpoilerInfo,
 
@@ -9050,6 +9203,7 @@ REGRAS OBRIGATÓRIAS:
                     showVersusModal,
                     versusLeaderAId,
                     versusLeaderBId,
+                    versusLeaderAName,
                     versusReport,
                     openVersusModal,
                     runVersusAnalysis,

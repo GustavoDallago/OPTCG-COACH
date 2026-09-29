@@ -269,10 +269,12 @@ def get_real_matchup_winrate(opponent_leader_id: str, leader_matchups_data: Opti
 
 BANLIST_CACHE: Optional[Dict[str, Any]] = None
 
-def load_banlist(mode: str = "EN", force_reload: bool = False) -> Dict[str, Any]:
+def load_banlist(mode: str = "EN", force_reload: bool = False, target_date: Optional[str] = None) -> Dict[str, Any]:
     """
-    Loads banlist rules with support for multi-format modes (EN, JP, NONE) and cached reads.
+    Loads banlist rules with support for multi-format modes (EN, JP, NONE), cached reads,
+    and date-based scheduled bans.
     """
+    import datetime
     global BANLIST_CACHE
     if force_reload:
         BANLIST_CACHE = None
@@ -289,7 +291,8 @@ def load_banlist(mode: str = "EN", force_reload: bool = False) -> Dict[str, Any]
             "banned_starter_decks": [],
             "whitelisted_cards": [],
             "restricted_cards": {},
-            "banned_pairs": []
+            "banned_pairs": [],
+            "scheduled_bans": []
         }
 
         if os.path.exists(banlist_path):
@@ -329,18 +332,31 @@ def load_banlist(mode: str = "EN", force_reload: bool = False) -> Dict[str, Any]
             "banned_starter_decks": [],
             "whitelisted_cards": [],
             "restricted_cards": {},
-            "banned_pairs": []
+            "banned_pairs": [],
+            "scheduled_bans": []
         }
 
     modes = BANLIST_CACHE.get("modes", {})
     if mode in modes:
         res = dict(modes[mode])
-        for key in ["banned_sets", "banned_starter_decks", "whitelisted_cards"]:
+        for key in ["banned_sets", "banned_starter_decks", "whitelisted_cards", "scheduled_bans"]:
             if key not in res:
                 res[key] = BANLIST_CACHE.get(key, [])
-        return res
+    else:
+        res = dict(BANLIST_CACHE)
 
-    return BANLIST_CACHE
+    # Process scheduled bans against target date (defaults to today)
+    eff_date_str = target_date if target_date is not None else datetime.date.today().isoformat()
+    banned_cards_copy = list(res.get("banned_cards", []))
+    for sb in res.get("scheduled_bans", []):
+        sb_date = sb.get("effective_date", "")
+        cid = (sb.get("card_id") or "").strip().upper()
+        if sb_date and cid and eff_date_str >= sb_date:
+            if cid not in banned_cards_copy:
+                banned_cards_copy.append(cid)
+    res["banned_cards"] = banned_cards_copy
+
+    return res
 
 
 def validate_deck_legality(
@@ -348,14 +364,24 @@ def validate_deck_legality(
     leader_card_id: str = "",
     mode: str = "EN",
     banlist_data: Optional[Dict[str, Any]] = None,
-    check_size: bool = True
+    check_size: bool = True,
+    target_date: Optional[str] = None
 ) -> DeckLegalityReport:
     """
     Validates complete deck legality against banned cards, banned sets, banned starters,
-    restricted card counts, banned pairs, and deck size constraints.
+    restricted card counts, banned pairs, scheduled bans, and deck size constraints.
     """
-    banlist = banlist_data if banlist_data is not None else load_banlist(mode)
+    banlist = banlist_data if banlist_data is not None else load_banlist(mode, target_date=target_date)
     banned_cards = {c.strip().upper() for c in banlist.get("banned_cards", [])}
+
+    # If banlist_data is explicitly provided with scheduled_bans and target_date, evaluate them
+    if target_date and "scheduled_bans" in banlist:
+        for sb in banlist.get("scheduled_bans", []):
+            if sb.get("effective_date") and target_date >= sb.get("effective_date"):
+                cid = (sb.get("card_id") or "").strip().upper()
+                if cid:
+                    banned_cards.add(cid)
+
     banned_sets = {s.strip().upper() for s in banlist.get("banned_sets", [])}
     banned_starter_decks = {s.strip().upper() for s in banlist.get("banned_starter_decks", [])}
     whitelisted_cards = {c.strip().upper() for c in banlist.get("whitelisted_cards", [])}
@@ -363,12 +389,16 @@ def validate_deck_legality(
     restricted_cards = {k.strip().upper(): int(v) for k, v in banlist.get("restricted_cards", {}).items()}
 
     deck_card_ids = set()
+    found_banned: List[Dict[str, str]] = []
+
     if leader_card_id:
-        deck_card_ids.add(leader_card_id.strip().upper())
+        lid_u = leader_card_id.strip().upper()
+        deck_card_ids.add(lid_u)
+        if lid_u in banned_cards:
+            found_banned.append({"card_id": lid_u, "card_name": "Líder", "reason": "Líder banido para construção de decks"})
 
     copy_counts: Dict[str, int] = {}
     total_cards = 0
-    found_banned: List[Dict[str, str]] = []
     overcopy_violations: List[Dict[str, Any]] = []
 
     for item in user_deck_cards:
@@ -439,7 +469,8 @@ def validate_deck_legality(
 def find_smart_replacements(
     user_deck_cards: List[Dict[str, Any]],
     leader_meta_cards: List[Dict[str, Any]],
-    banlist_data: Optional[Dict[str, Any]] = None
+    banlist_data: Optional[Dict[str, Any]] = None,
+    target_date: Optional[str] = None
 ) -> List[ReplacementCandidate]:
     """
     Recommends smart card replacements: replaces cards in user deck with lowest meta inclusion %
@@ -450,7 +481,7 @@ def find_smart_replacements(
         return []
 
     if banlist_data is None:
-        banlist_data = load_banlist("EN")
+        banlist_data = load_banlist("EN", target_date=target_date)
 
     banned_ids = {c.strip().upper() for c in banlist_data.get("banned_cards", [])}
     banned_sets = {s.strip().upper() for s in banlist_data.get("banned_sets", [])}

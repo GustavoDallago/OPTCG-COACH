@@ -32,10 +32,11 @@ HEADERS = {
 }
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Limitless TCG Metagame Scraper (Past 7 Days)")
+    parser = argparse.ArgumentParser(description="Limitless TCG Metagame Scraper")
     parser.add_argument("--set", type=str, default="OP17", help="Set code to scrape (e.g., OP17, OP16, OP09)")
     parser.add_argument("--min-players", type=int, default=8, help="Minimum player count in tournament (default: 8)")
     parser.add_argument("--days", type=int, default=15, help="Days of history to analyze (0 for full set archive, default: 15)")
+    parser.add_argument("--force", action="store_true", help="Force scrape even if set is already marked as consolidated")
     return parser.parse_args()
 
 def atomic_save_json(data: Any, filepath: str, indent: Optional[int] = None) -> bool:
@@ -537,7 +538,22 @@ def fetch_fallback_meta_cards(leader_id: str, card_db: dict, current_set_code: s
 
     return fallback_cards
 
-def scrape_limitless(set_code: str = "OP17", min_players: int = 8, days: Optional[int] = 15):
+def scrape_limitless(set_code: str = "OP17", min_players: int = 8, days: Optional[int] = 15, force: bool = False):
+    out_file = os.path.join(DATA_DIR, f"meta_{set_code.upper()}.json")
+    if os.path.exists(out_file) and (days and days > 0) and not force:
+        try:
+            with open(out_file, "r", encoding="utf-8") as f:
+                existing_head = json.load(f)
+            if existing_head.get("is_consolidated") is True:
+                print("\n" + "=" * 60)
+                print(f"🔒 AVISO: Set {set_code.upper()} já está marcado como CONSOLIDADO da temporada.")
+                print(f"   A raspagem de {days} dias foi ignorada para proteger o histórico completo.")
+                print(f"   Para forçar a sobrescrita, utilize o argumento --force.")
+                print("=" * 60 + "\n")
+                return True
+        except Exception:
+            pass
+
     days_label = f"ÚLTIMOS {days} DIAS" if (days and days > 0) else "HISTÓRICO RETROATIVO COMPLETO"
     print("=" * 60)
     print(f"🏴‍☠️ INICIANDO SCRAPER LIMITLESS TCG: META {set_code.upper()} ({days_label})")
@@ -885,14 +901,24 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 8, days: Optiona
     # --- Guard: Só salva se tiver dados válidos ---
     if len(consolidated_leaders) == 0:
         print("\n" + "=" * 60)
-        print(f"⚠️  AVISO: Nenhum líder encontrado para o Set {set_code.upper()}.")
+        print(f"AVISO: Nenhum líder encontrado para o Set {set_code.upper()}.")
         print("   O arquivo JSON existente NÃO foi sobrescrito para evitar perda de dados.")
         print("=" * 60)
         return False
     
+    is_consolidated = (days == 0 or days is None)
+    season_status = "consolidated" if is_consolidated else "active"
+    source_str = (
+        "Limitless TCG (Consolidado da Temporada Completa - Western Meta)"
+        if is_consolidated
+        else f"Limitless TCG (Últimos {days} Dias - Western Meta)"
+    )
+
     final_data = {
         "set_code": set_code.upper(),
-        "source": "Limitless TCG (Past 7 Days - Western Meta)",
+        "source": source_str,
+        "is_consolidated": is_consolidated,
+        "season_status": season_status,
         "tournaments_tracked": len(tournaments),
         "decks_tracked": total_decks_tracked,
         "scraped_at": current_time_str,
@@ -918,7 +944,8 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 8, days: Optiona
     
     if atomic_save_json(final_data, out_file):
         print("\n" + "=" * 60)
-        print(f"✅ SUCCESS! Metagame for set {set_code.upper()} consolidated.")
+        status_tag = "CONSOLIDADO" if is_consolidated else "ATIVO (15d)"
+        print(f"SUCCESS! Metagame for set {set_code.upper()} [{status_tag}] saved.")
         print(f"   Generated File: {out_file}")
         print(f"   Tournaments: {len(tournaments)} | Decks: {total_decks_tracked} | Leaders: {len(consolidated_leaders)} ({len(leaders_output)} ativos, {len(historical_leaders)} preservados)")
         print("=" * 60)
@@ -927,4 +954,4 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 8, days: Optiona
 
 if __name__ == "__main__":
     args = parse_args()
-    scrape_limitless(set_code=args.set, min_players=args.min_players, days=args.days)
+    scrape_limitless(set_code=args.set, min_players=args.min_players, days=args.days, force=args.force)

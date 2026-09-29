@@ -78,20 +78,21 @@ export default {
                 candidateTargets.push({ ver: "v1", model: customModel });
             }
             candidateTargets.push(
-                { ver: "v1beta", model: "gemini-3.6-flash" },
-                { ver: "v1", model: "gemini-3.6-flash" },
+                { ver: "v1beta", model: "gemini-3.5-flash-lite" },
+                { ver: "v1", model: "gemini-3.5-flash-lite" },
+                { ver: "v1beta", model: "gemini-3.5-flash" },
+                { ver: "v1", model: "gemini-3.5-flash" },
                 { ver: "v1beta", model: "gemini-2.5-flash" },
-                { ver: "v1", model: "gemini-2.5-flash" },
-                { ver: "v1beta", model: "gemini-2.5-flash-lite" },
-                { ver: "v1", model: "gemini-2.5-flash-lite" }
+                { ver: "v1", model: "gemini-2.5-flash" }
             );
 
             // Evita duplicatas preservando a ordem
             const uniqueTargets = [];
             const seen = new Set();
             for (const t of candidateTargets) {
-                if (!seen.has(t.model)) {
-                    seen.add(t.model);
+                const sig = `${t.ver}/${t.model}`;
+                if (!seen.has(sig)) {
+                    seen.add(sig);
                     uniqueTargets.push(t);
                 }
             }

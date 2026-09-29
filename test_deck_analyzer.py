@@ -339,6 +339,23 @@ class TestDeckAnalyzer(unittest.TestCase):
         recent_leader = next(l for l in preserved if l["leader_card_id"] == "OP01-002")
         self.assertTrue(recent_leader["is_active"])
 
+    def test_scheduled_bans_mihawk(self):
+        """Tests programmatic scheduled ban for Leader Dracule Mihawk (OP14-020) effective 2026-10-12."""
+        # 1. Before effective date (e.g., 2026-10-11): Leader is legal
+        banlist_before = load_banlist("EN", force_reload=True, target_date="2026-10-11")
+        self.assertNotIn("OP14-020", banlist_before.get("banned_cards", []))
+        rep_before = validate_deck_legality([], leader_card_id="OP14-020", check_size=False, target_date="2026-10-11")
+        self.assertTrue(rep_before["is_legal"])
+        self.assertEqual(len(rep_before["banned_cards_found"]), 0)
+
+        # 2. On and after effective date (e.g., 2026-10-12): Leader is banned
+        banlist_after = load_banlist("EN", force_reload=True, target_date="2026-10-12")
+        self.assertIn("OP14-020", banlist_after.get("banned_cards", []))
+        rep_after = validate_deck_legality([], leader_card_id="OP14-020", check_size=False, target_date="2026-10-12")
+        self.assertFalse(rep_after["is_legal"])
+        self.assertEqual(len(rep_after["banned_cards_found"]), 1)
+        self.assertEqual(rep_after["banned_cards_found"][0]["card_id"], "OP14-020")
+
 class DataValidatorTests(unittest.TestCase):
     def test_valid_meta_dataset(self):
         from tools.data_validator import validate_meta_dataset
@@ -380,6 +397,32 @@ class DataValidatorTests(unittest.TestCase):
         self.assertTrue(is_valid)
         self.assertEqual(total, 50)
         self.assertEqual(lid, "OP09-062")
+
+class SeasonTransitionTests(unittest.TestCase):
+    def test_season_plan_current_active(self):
+        from update_all import get_season_plan
+        plan = get_season_plan(target_date="2026-09-29")
+        self.assertEqual(plan["active_set"], "OP17")
+        self.assertNotIn("OP17", plan["past_to_consolidate"])
+
+    def test_season_plan_future_transition(self):
+        from update_all import get_season_plan
+        plan = get_season_plan(target_date="2026-11-20")
+        self.assertEqual(plan["active_set"], "OP18")
+        # In current state, OP17 is active with rolling 15d (is_consolidated=False), so it must be consolidated
+        self.assertIn("OP17", plan["past_to_consolidate"])
+
+    def test_manifest_contains_consolidation_flags(self):
+        from update_all import generate_manifest
+        generate_manifest()
+        with open("optcg_data/manifest.json", "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+        self.assertEqual(manifest.get("active_season_set"), "OP17")
+        sets_map = {s["code"]: s for s in manifest.get("available_meta_sets", [])}
+        self.assertTrue(sets_map["OP16"]["is_consolidated"])
+        self.assertEqual(sets_map["OP16"]["season_status"], "consolidated")
+        self.assertFalse(sets_map["OP17"]["is_consolidated"])
+        self.assertEqual(sets_map["OP17"]["season_status"], "active")
 
 if __name__ == "__main__":
     unittest.main()

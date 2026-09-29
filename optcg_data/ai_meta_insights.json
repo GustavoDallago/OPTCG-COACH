@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-29T06:17:03-03:00",
+  "last_updated": "2026-09-29T11:13:03-03:00",
   "total_channels": 15,
   "total_insights": 210,
   "videos_by_leader": {
@@ -35,10 +35,10 @@
     ],
     "robin": [
       {
-        "title": "🏴‍☠️ Teach é a resposta na OP17? vs Nico Robin! One Piece POV",
+        "title": "🔥O agressivo Ace tem chance contra a Nico Robin? One Piece POV OP17",
         "channel_name": "Café Com One Piece",
-        "published_at": "2026-09-28T13:00:39+00:00",
-        "video_url": "https://www.youtube.com/watch?v=0bLn0VzAMcY",
+        "published_at": "2026-09-29T13:00:13+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Unezkwfz3kk",
         "format": "OP17",
         "matchups_covered": []
       },
@@ -119,10 +119,10 @@
     ],
     "nico robin": [
       {
-        "title": "🏴‍☠️ Teach é a resposta na OP17? vs Nico Robin! One Piece POV",
+        "title": "🔥O agressivo Ace tem chance contra a Nico Robin? One Piece POV OP17",
         "channel_name": "Café Com One Piece",
-        "published_at": "2026-09-28T13:00:39+00:00",
-        "video_url": "https://www.youtube.com/watch?v=0bLn0VzAMcY",
+        "published_at": "2026-09-29T13:00:13+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Unezkwfz3kk",
         "format": "OP17",
         "matchups_covered": []
       },
@@ -455,6 +455,14 @@
     ],
     "ace": [
       {
+        "title": "🔥O agressivo Ace tem chance contra a Nico Robin? One Piece POV OP17",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-09-29T13:00:13+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Unezkwfz3kk",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
         "title": "Luffy and Ace Is SO FAST & SO GOOD | Deck List and Gameplay",
         "channel_name": "WezaldoTCG",
         "published_at": "2026-09-28T14:30:08+00:00",
@@ -587,6 +595,21 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "Unezkwfz3kk",
+      "title": "🔥O agressivo Ace tem chance contra a Nico Robin? One Piece POV OP17",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-09-29T13:00:13+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Unezkwfz3kk",
+      "format": "OP17",
+      "identified_leaders": [
+        "Ace",
+        "Robin",
+        "Nico Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "🎟️Ingressos Copa Café 8: https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-8"
+    },
     {
       "video_id": "CFTRJ6mmLww",
       "title": "Post ban Chinoize cup with Enel!!",
@@ -1761,17 +1784,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "🐸 Redes do Nalu"
-    },
-    {
-      "video_id": "CiGGwi--9TM",
-      "title": "🏴‍☠️ Tudo sobre o SET SAIL DECK SET! One Piece Card Game",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-09-16T13:00:20+00:00",
-      "video_url": "https://www.youtube.com/watch?v=CiGGwi--9TM",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "📦Link para o produto: https://www.jogandotcg.com.br/?view=ecom/item&prod=368699 (CUPOM CAFECOMOPC)"
     },
     {
       "video_id": "hKJDdCTI_7A",

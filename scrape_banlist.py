@@ -33,6 +33,15 @@ DEFAULT_EN = {
         ["OP07-115", "EB04-058"],
         ["OP11-040", "OP11-067"],
         ["OP11-040", "OP08-069"]
+    ],
+    "scheduled_bans": [
+        {
+            "card_id": "OP14-020",
+            "card_name": "Dracule Mihawk",
+            "card_type": "Leader",
+            "effective_date": "2026-10-12",
+            "reason": "Líder banido para construção de decks a partir de 12/10/2026"
+        }
     ]
 }
 
@@ -114,6 +123,7 @@ def scrape_banlist() -> bool:
     existing_sets = []
     existing_starters = []
     existing_whitelist = []
+    existing_scheduled = []
 
     if os.path.exists(filepath):
         try:
@@ -122,8 +132,19 @@ def scrape_banlist() -> bool:
                 existing_sets = old_data.get("banned_sets", [])
                 existing_starters = old_data.get("banned_starter_decks", [])
                 existing_whitelist = old_data.get("whitelisted_cards", [])
+                existing_scheduled = old_data.get("scheduled_bans", [])
         except Exception:
             pass
+
+    scheduled_bans = existing_scheduled if existing_scheduled else list(DEFAULT_EN.get("scheduled_bans", []))
+
+    # Check if any scheduled ban has reached its effective date
+    today_str = time.strftime("%Y-%m-%d")
+    for sb in scheduled_bans:
+        if sb.get("effective_date") and today_str >= sb.get("effective_date"):
+            cid = sb.get("card_id", "").upper().strip()
+            if cid and cid not in en_data["banned_cards"]:
+                en_data["banned_cards"].append(cid)
 
     banlist_structure = {
         "source": "Official Bandai ONE PIECE CARD GAME (EN)",
@@ -133,13 +154,15 @@ def scrape_banlist() -> bool:
         "whitelisted_cards": existing_whitelist,
         "banned_cards": en_data["banned_cards"],
         "restricted_cards": en_data["restricted_cards"],
-        "banned_pairs": en_data["banned_pairs"]
+        "banned_pairs": en_data["banned_pairs"],
+        "scheduled_bans": scheduled_bans
     }
 
     if atomic_save_json(banlist_structure, filepath):
         print(f"✅ SUCCESS! Official EN banlist updated at {filepath}")
         print(f"   Banned cards scraped: {len(en_data['banned_cards'])}")
         print(f"   Banned pairs scraped: {len(en_data['banned_pairs'])}")
+        print(f"   Scheduled bans tracked: {len(scheduled_bans)}")
         return True
     return False
 

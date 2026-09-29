@@ -23,6 +23,7 @@ def test_worker(url=DEFAULT_WORKER_URL):
 
     # 2. Teste POST (Geracao com Gemini)
     payload = {
+        'model': 'gemini-3.5-flash-lite',
         'contents': [
             {'role': 'user', 'parts': [{'text': 'Diga apenas: Conexao OK'}]}
         ]
