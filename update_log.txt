@@ -948,3 +948,29 @@ NameError: name 'Optional' is not defined
 [2026-09-30 06:09:38] ==========================================
 [2026-09-30 06:09:38] Generating optcg_data/manifest.json...
 [2026-09-30 06:09:38] manifest.json generated: 13 sets available (Active Season: OP17).
+[2026-10-01 06:35:29] ==========================================
+[2026-10-01 06:35:29] Starting Full Automatic Update Pipeline...
+[2026-10-01 06:35:29] ==========================================
+[2026-10-01 06:35:29] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_optcg_data.py
+[2026-10-01 06:35:38] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_optcg_data.py
+[2026-10-01 06:35:38] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_banlist.py
+[2026-10-01 06:35:40] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_banlist.py
+[2026-10-01 06:35:40] Season Plan: Active Season = OP17 (15d), Past to Consolidate = []
+[2026-10-01 06:35:40] --> Atualizando meta da temporada ativa (OP17) com janela de 15 dias...
+[2026-10-01 06:35:40] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_limitless.py --set OP17 --days 15 --min-players 8
+[2026-10-01 06:36:31] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_limitless.py --set OP17 --days 15 --min-players 8
+[2026-10-01 06:36:31] Recalculating decks_tracked and checking consolidation status for all meta JSON files...
+[2026-10-01 06:36:31] Updated metadata / decks_tracked in 0 files.
+[2026-10-01 06:36:31] Generating optcg_data/manifest.json...
+[2026-10-01 06:36:31] manifest.json generated: 13 sets available (Active Season: OP17).
+[2026-10-01 06:36:31] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_video_insights.py
+[2026-10-01 06:36:40] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_video_insights.py
+[2026-10-01 06:36:40] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python -m unittest test_deck_analyzer.py
+[2026-10-01 06:36:40] Generating optcg_data/manifest.json...
+[2026-10-01 06:36:40] manifest.json generated: 13 sets available (Active Season: OP17).
+[2026-10-01 06:36:40] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python -m unittest test_deck_analyzer.py
+[2026-10-01 06:36:40] ==========================================
+[2026-10-01 06:36:40] SUCCESS: All update tasks completed flawlessly!
+[2026-10-01 06:36:40] ==========================================
+[2026-10-01 06:36:40] Generating optcg_data/manifest.json...
+[2026-10-01 06:36:40] manifest.json generated: 13 sets available (Active Season: OP17).
