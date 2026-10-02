@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-10-01T06:36:31-03:00",
+  "last_updated": "2026-10-02T06:10:38-03:00",
   "total_channels": 15,
-  "total_insights": 210,
+  "total_insights": 211,
   "videos_by_leader": {
     "yamato": [
       {
@@ -35,18 +35,18 @@
     ],
     "robin": [
       {
-        "title": "A RAINHA DO META! | Nico Robin vs Luffy | OP17 | One Piece TCG",
-        "channel_name": "tcgBR",
-        "published_at": "2026-09-30T21:00:34+00:00",
-        "video_url": "https://www.youtube.com/watch?v=pEFOqMIX9cY",
+        "title": "🔥O suco do meta! Robin vs Sabo! One Piece POV OP17",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-10-01T13:00:00+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Hbt5OBopwCw",
         "format": "OP17",
         "matchups_covered": []
       },
       {
-        "title": "🔥O agressivo Ace tem chance contra a Nico Robin? One Piece POV OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-09-29T13:00:13+00:00",
-        "video_url": "https://www.youtube.com/watch?v=Unezkwfz3kk",
+        "title": "A RAINHA DO META! | Nico Robin vs Luffy | OP17 | One Piece TCG",
+        "channel_name": "tcgBR",
+        "published_at": "2026-09-30T21:00:34+00:00",
+        "video_url": "https://www.youtube.com/watch?v=pEFOqMIX9cY",
         "format": "OP17",
         "matchups_covered": []
       },
@@ -153,6 +153,16 @@
           "Green Mihawk",
           "Red Green Luffy"
         ]
+      }
+    ],
+    "law": [
+      {
+        "title": "One Piece Nike Don - Trafalgar Law #nike #onepiece",
+        "channel_name": "minhooty",
+        "published_at": "2026-10-01T15:35:49+00:00",
+        "video_url": "https://www.youtube.com/watch?v=e8hKGRbkcAc",
+        "format": "",
+        "matchups_covered": []
       }
     ],
     "nami": [
@@ -291,7 +301,113 @@
         "matchups_covered": []
       }
     ],
+    "smoker": [
+      {
+        "title": "O SUBSTITUTO DO MIHAWK? Nova Decklist de Smoker Verde e Vermelho no OPTCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-10-01T15:00:06+00:00",
+        "video_url": "https://www.youtube.com/watch?v=SY6gwUC7Ppk",
+        "format": "",
+        "matchups_covered": []
+      }
+    ],
+    "karoo": [
+      {
+        "title": "LÍDERES DA OP-18 REVELADOS! 🚨 Karoo Quebrado e Miss All Sunday Punitiva + SRs da EB 05",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-09-20T14:00:37+00:00",
+        "video_url": "https://www.youtube.com/watch?v=WMVhJdbhYfU",
+        "format": "OP18",
+        "matchups_covered": []
+      }
+    ],
+    "enel": [
+      {
+        "title": "Two Different Enel Builds In This MIrror! (Dallas NA Finals - Semifinals)",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-10-01T17:14:25+00:00",
+        "video_url": "https://www.youtube.com/watch?v=v6bcaVuNlJQ",
+        "format": "",
+        "matchups_covered": [
+          "Purple Enel"
+        ]
+      },
+      {
+        "title": "Post ban Chinoize cup with Enel!!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-09-29T04:02:04+00:00",
+        "video_url": "https://www.youtube.com/watch?v=CFTRJ6mmLww",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
+        "title": "One Piece TCG: Match Analysis and Breakdown, G Mihawk VS P Enel (OP-17 Dallas Finals, 2026-27 West)",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-09-21T21:07:32+00:00",
+        "video_url": "https://www.youtube.com/watch?v=su3PKjY0hVs",
+        "format": "OP17",
+        "matchups_covered": []
+      }
+    ],
+    "sabo": [
+      {
+        "title": "🔥O suco do meta! Robin vs Sabo! One Piece POV OP17",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-10-01T13:00:00+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Hbt5OBopwCw",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
+        "title": "Can Sabo Defy The Stats?! (Dallas NA Finals - Top 16)",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-09-28T17:00:37+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Q7hz_r5e69M",
+        "format": "",
+        "matchups_covered": [
+          "Red Black Sabo"
+        ]
+      },
+      {
+        "title": "One Piece TCG: Match Analysis and Breakdown, U Rocks VS RB Sabo (3v3 Team Tournament, OP-17 East)",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-09-25T21:05:16+00:00",
+        "video_url": "https://www.youtube.com/watch?v=FebtCibLSh8",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
+        "title": "ST35 Red Black Sabo Deck Profile + How To Play Duel | One Piece TCG Tutorial",
+        "channel_name": "Mabi TCG",
+        "published_at": "2026-08-15T20:30:25+00:00",
+        "video_url": "https://www.youtube.com/watch?v=R0AAALPu26c",
+        "format": "OP16",
+        "matchups_covered": []
+      }
+    ],
     "luffy": [
+      {
+        "title": "ST14 Luffy Becomes a 6k Leader THIS Easily?? | Every Leader 3 Decks",
+        "channel_name": "real_joshua",
+        "published_at": "2026-10-01T18:38:03+00:00",
+        "video_url": "https://www.youtube.com/watch?v=CwFha4t8wSU",
+        "format": "",
+        "matchups_covered": [
+          "RU Ace",
+          "U Rocks",
+          "Pluffy",
+          "RG Luffy Ace",
+          "G Shanks"
+        ]
+      },
+      {
+        "title": "OP-18 Luffy Is Already BROKEN...",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-10-01T15:30:22+00:00",
+        "video_url": "https://www.youtube.com/watch?v=BFota9T0n2I",
+        "format": "OP18",
+        "matchups_covered": []
+      },
       {
         "title": "A RAINHA DO META! | Nico Robin vs Luffy | OP17 | One Piece TCG",
         "channel_name": "tcgBR",
@@ -307,16 +423,6 @@
         "video_url": "https://www.youtube.com/watch?v=89Ngx0a7NAY",
         "format": "",
         "matchups_covered": []
-      },
-      {
-        "title": "One Piece TCG: What if We Swapped the ST30 RG Luffy & Ace Deck List Over to the ST13 RY Sabo Leader",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-09-16T21:49:25+00:00",
-        "video_url": "https://www.youtube.com/watch?v=QdRGfaXjrAo",
-        "format": "",
-        "matchups_covered": [
-          "G Mihawk"
-        ]
       },
       {
         "title": "Luffy UP é a solução para o meta Verde!? - OP17 META PT-BR",
@@ -340,62 +446,6 @@
         "published_at": "2026-08-19T15:00:38+00:00",
         "video_url": "https://www.youtube.com/watch?v=xrIArMwLiuE",
         "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "Top 8 Peoria Regionals UG Luffy \"PhoneWalletKeys\" — In-Game Interviews",
-        "channel_name": "minhooty",
-        "published_at": "2026-07-30T17:20:14+00:00",
-        "video_url": "https://www.youtube.com/watch?v=6iuJk0QYcs4",
-        "format": "",
-        "matchups_covered": []
-      }
-    ],
-    "karoo": [
-      {
-        "title": "LÍDERES DA OP-18 REVELADOS! 🚨 Karoo Quebrado e Miss All Sunday Punitiva + SRs da EB 05",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-09-20T14:00:37+00:00",
-        "video_url": "https://www.youtube.com/watch?v=WMVhJdbhYfU",
-        "format": "OP18",
-        "matchups_covered": []
-      }
-    ],
-    "sabo": [
-      {
-        "title": "Can Sabo Defy The Stats?! (Dallas NA Finals - Top 16)",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-09-28T17:00:37+00:00",
-        "video_url": "https://www.youtube.com/watch?v=Q7hz_r5e69M",
-        "format": "",
-        "matchups_covered": [
-          "Red Black Sabo"
-        ]
-      },
-      {
-        "title": "One Piece TCG: Match Analysis and Breakdown, U Rocks VS RB Sabo (3v3 Team Tournament, OP-17 East)",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-09-25T21:05:16+00:00",
-        "video_url": "https://www.youtube.com/watch?v=FebtCibLSh8",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "🏆Grande FINAL entre Sabo e Mihawk! One Piece Card Game OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-09-19T13:00:12+00:00",
-        "video_url": "https://www.youtube.com/watch?v=ZJ4bOHue26E",
-        "format": "OP17",
-        "matchups_covered": [
-          "Mihawk"
-        ]
-      },
-      {
-        "title": "ST35 Red Black Sabo Deck Profile + How To Play Duel | One Piece TCG Tutorial",
-        "channel_name": "Mabi TCG",
-        "published_at": "2026-08-15T20:30:25+00:00",
-        "video_url": "https://www.youtube.com/watch?v=R0AAALPu26c",
-        "format": "OP16",
         "matchups_covered": []
       }
     ],
@@ -449,21 +499,13 @@
         ]
       }
     ],
-    "enel": [
+    "zoro": [
       {
-        "title": "Post ban Chinoize cup with Enel!!",
+        "title": "Zoro Just Got WAY Better Post-Ban!",
         "channel_name": "Hashtag EMB",
-        "published_at": "2026-09-29T04:02:04+00:00",
-        "video_url": "https://www.youtube.com/watch?v=CFTRJ6mmLww",
+        "published_at": "2026-09-30T15:30:06+00:00",
+        "video_url": "https://www.youtube.com/watch?v=XTvtJZTmY5Q",
         "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "One Piece TCG: Match Analysis and Breakdown, G Mihawk VS P Enel (OP-17 Dallas Finals, 2026-27 West)",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-09-21T21:07:32+00:00",
-        "video_url": "https://www.youtube.com/watch?v=su3PKjY0hVs",
-        "format": "OP17",
         "matchups_covered": []
       }
     ],
@@ -481,34 +523,6 @@
         "channel_name": "Hashtag EMB",
         "published_at": "2026-09-25T14:30:28+00:00",
         "video_url": "https://www.youtube.com/watch?v=Traa-wlWbr4",
-        "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "One Piece TCG: What if We Swapped the ST30 RG Luffy & Ace Deck List Over to the ST13 RY Sabo Leader",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-09-16T21:49:25+00:00",
-        "video_url": "https://www.youtube.com/watch?v=QdRGfaXjrAo",
-        "format": "",
-        "matchups_covered": [
-          "G Mihawk"
-        ]
-      },
-      {
-        "title": "O meta do vermelho voltou com Ace!? - PT-BR",
-        "channel_name": "Onepiececardgamebr",
-        "published_at": "2026-08-12T14:00:30+00:00",
-        "video_url": "https://www.youtube.com/watch?v=mKJEV2ZdRXs",
-        "format": "OP17",
-        "matchups_covered": []
-      }
-    ],
-    "zoro": [
-      {
-        "title": "Zoro Just Got WAY Better Post-Ban!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-09-30T15:30:06+00:00",
-        "video_url": "https://www.youtube.com/watch?v=XTvtJZTmY5Q",
         "format": "",
         "matchups_covered": []
       }
@@ -539,28 +553,195 @@
         "video_url": "https://www.youtube.com/watch?v=_GOtYWLU1jw",
         "format": "OP17",
         "matchups_covered": []
-      },
-      {
-        "title": "BATALHA ENTRE GERAÇÕES! | Xebec vs. Teach | One Piece TCG",
-        "channel_name": "tcgBR",
-        "published_at": "2026-09-05T15:06:30+00:00",
-        "video_url": "https://www.youtube.com/watch?v=jVBHLjsQPOk",
-        "format": "OP17",
-        "matchups_covered": []
       }
     ]
   },
   "latest_videos": [
     {
+      "video_id": "u9wcyX-Snss",
+      "title": "grinding for store championship!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-10-02T07:18:29+00:00",
+      "video_url": "https://www.youtube.com/watch?v=u9wcyX-Snss",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Support the stream: https://streamlabs.com/hashtagemb"
+    },
+    {
+      "video_id": "U8fFOSUqjZk",
+      "title": "5 Decks Buffed By The New Banlist",
+      "channel_name": "iKailaKai",
+      "published_at": "2026-10-02T03:09:07+00:00",
+      "video_url": "https://www.youtube.com/watch?v=U8fFOSUqjZk",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "What do you plan to play after the bans?"
+    },
+    {
+      "video_id": "YeiiRu3YPLw",
+      "title": "Apresentando o futuro viciado em cartinha 🫡",
+      "channel_name": "tcgBR",
+      "published_at": "2026-10-02T00:25:58+00:00",
+      "video_url": "https://www.youtube.com/watch?v=YeiiRu3YPLw",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "(ele só queria ir embora)"
+    },
+    {
+      "video_id": "0-cNo-_5O3o",
+      "title": "One Piece TCG: Market Watch October 1st, 2026 - OP17 Prices Look Nice Now, Outside of the SEC Rares",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-10-01T21:25:28+00:00",
+      "video_url": "https://www.youtube.com/watch?v=0-cNo-_5O3o",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "ruyj-t47lbs",
+      "title": "Cyberpunk TCG: October 1st Welcome to Night City Beta Testing Stream w/ @LullabyAnto",
+      "channel_name": "TheEgman",
+      "published_at": "2026-10-01T21:25:04+00:00",
+      "video_url": "https://www.youtube.com/watch?v=ruyj-t47lbs",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://egmanevents.com"
+    },
+    {
+      "video_id": "CwFha4t8wSU",
+      "title": "ST14 Luffy Becomes a 6k Leader THIS Easily?? | Every Leader 3 Decks",
+      "channel_name": "real_joshua",
+      "published_at": "2026-10-01T18:38:03+00:00",
+      "video_url": "https://www.youtube.com/watch?v=CwFha4t8wSU",
+      "format": "",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [
+        "RU Ace",
+        "U Rocks",
+        "Pluffy",
+        "RG Luffy Ace",
+        "G Shanks"
+      ],
+      "summary": "They can't harm you if they can't find you! Use code realjoshua at the link below and get 60% off annual plans: https://incogni.com/realjoshua"
+    },
+    {
+      "video_id": "v6bcaVuNlJQ",
+      "title": "Two Different Enel Builds In This MIrror! (Dallas NA Finals - Semifinals)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-10-01T17:14:25+00:00",
+      "video_url": "https://www.youtube.com/watch?v=v6bcaVuNlJQ",
+      "format": "",
+      "identified_leaders": [
+        "Enel"
+      ],
+      "matchups_covered": [
+        "Purple Enel"
+      ],
+      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
+    },
+    {
+      "video_id": "e8hKGRbkcAc",
+      "title": "One Piece Nike Don - Trafalgar Law #nike #onepiece",
+      "channel_name": "minhooty",
+      "published_at": "2026-10-01T15:35:49+00:00",
+      "video_url": "https://www.youtube.com/watch?v=e8hKGRbkcAc",
+      "format": "",
+      "identified_leaders": [
+        "Law"
+      ],
+      "matchups_covered": [],
+      "summary": "Analise de deck e gameplay."
+    },
+    {
+      "video_id": "BFota9T0n2I",
+      "title": "OP-18 Luffy Is Already BROKEN...",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-10-01T15:30:22+00:00",
+      "video_url": "https://www.youtube.com/watch?v=BFota9T0n2I",
+      "format": "OP18",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "SY6gwUC7Ppk",
+      "title": "O SUBSTITUTO DO MIHAWK? Nova Decklist de Smoker Verde e Vermelho no OPTCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-10-01T15:00:06+00:00",
+      "video_url": "https://www.youtube.com/watch?v=SY6gwUC7Ppk",
+      "format": "",
+      "identified_leaders": [
+        "Smoker"
+      ],
+      "matchups_covered": [],
+      "summary": "Estás a chorar a perda do Mihawk banido? Descobre o líder verde e vermelho Smoker, capaz de colocar DON!! ativos em campo e manter a pressão no meta atual de One Piece TCG!"
+    },
+    {
+      "video_id": "8LJLgVEWQ2I",
+      "title": "​@CyberpunkTCG : Best Legends and Deck Lists! Egman's Picks Week One!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-10-01T14:00:38+00:00",
+      "video_url": "https://www.youtube.com/watch?v=8LJLgVEWQ2I",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Egman Event's Cyberpunk Deck Builder & Deck Lists:"
+    },
+    {
+      "video_id": "Hbt5OBopwCw",
+      "title": "🔥O suco do meta! Robin vs Sabo! One Piece POV OP17",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-10-01T13:00:00+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Hbt5OBopwCw",
+      "format": "OP17",
+      "identified_leaders": [
+        "Sabo",
+        "Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "🎟️Ingressos Copa Café 8: https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-8"
+    },
+    {
       "video_id": "SuvSBss2bhY",
       "title": "Testando uns crimes na OP17!",
       "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-30T22:00:35+00:00",
+      "published_at": "2026-10-01T12:20:03+00:00",
       "video_url": "https://www.youtube.com/watch?v=SuvSBss2bhY",
       "format": "OP17",
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Jogue camps online com a gente!"
+    },
+    {
+      "video_id": "SDiTJSh-0oA",
+      "title": "DIGIMON CARD BATTLE - CHIVALROUS XIII New Booster First look Battle!",
+      "channel_name": "Official Bandai Card Games Channel",
+      "published_at": "2026-10-01T12:00:08+00:00",
+      "video_url": "https://www.youtube.com/watch?v=SDiTJSh-0oA",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "[Digimon Card Game Official Website]"
+    },
+    {
+      "video_id": "XGkuc0YzcvU",
+      "title": "MUSTACUP! - Campeonato OP17 Standard",
+      "channel_name": "Onepiececardgamebr",
+      "published_at": "2026-10-01T11:48:10+00:00",
+      "video_url": "https://www.youtube.com/watch?v=XGkuc0YzcvU",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "A MUSTACUP Continua! Um campeonato online semanal, no formato standard começando em OP17, com direito a sorteios para os participantes todo mês e muito mais!!"
     },
     {
       "video_id": "zX8e63INkSs",
@@ -1561,17 +1742,6 @@
       "summary": "🃏 Jogue agora em: https://mestrearty.short.gy/mytragor"
     },
     {
-      "video_id": "ESKurkL_39s",
-      "title": "Has the OP-17 Meta FINALLY Settled?!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-09-19T14:30:07+00:00",
-      "video_url": "https://www.youtube.com/watch?v=ESKurkL_39s",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
       "video_id": "zyoxXljkWik",
       "title": "INVESTIGANDO O META! | O que esperar no competitivo do One Piece TCG nessa temporada?",
       "channel_name": "tcgBR",
@@ -1661,28 +1831,6 @@
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
-      "video_id": "MVJdOHVW_Tg",
-      "title": "A POLÊMICA DO LOKI (OP-17)! Por Que a Carta Dobrou de Preço no One Piece TCG?",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-18T16:00:31+00:00",
-      "video_url": "https://www.youtube.com/watch?v=MVJdOHVW_Tg",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "O Loki da coleção OP-17 está dominando as discussões de One Piece TCG! Além do seu preço disparar no mercado, uma regra polêmica sobre o seu efeito de K.O. dividiu a comunidade e os juízes."
-    },
-    {
-      "video_id": "Wm-RxNSddtI",
-      "title": "OP-17 FINALLY Fixed Hannyabal!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-09-18T15:45:18+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Wm-RxNSddtI",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
       "video_id": "zEaR0o49zyg",
       "title": "I Brought This Robin Deck To Nationals!",
       "channel_name": "WezaldoTCG",
@@ -1694,17 +1842,6 @@
       ],
       "matchups_covered": [],
       "summary": "My twitter:"
-    },
-    {
-      "video_id": "TUC_qdkcB_A",
-      "title": "☕ Decklists, Promoções, Torneios e mais! Site Café com One Piece! 🏴‍☠️",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-09-18T13:00:18+00:00",
-      "video_url": "https://www.youtube.com/watch?v=TUC_qdkcB_A",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "🤑Grupo promoções: https://chat.whatsapp.com/HUF2ZtBx5Yk2ySXzVPITct"
     },
     {
       "video_id": "N7pJVNPmQ_A",
@@ -1795,23 +1932,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "[Digimon Card Game Official Website]"
-    },
-    {
-      "video_id": "QdRGfaXjrAo",
-      "title": "One Piece TCG: What if We Swapped the ST30 RG Luffy & Ace Deck List Over to the ST13 RY Sabo Leader",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-09-16T21:49:25+00:00",
-      "video_url": "https://www.youtube.com/watch?v=QdRGfaXjrAo",
-      "format": "",
-      "identified_leaders": [
-        "Luffy",
-        "Ace",
-        "Sabo"
-      ],
-      "matchups_covered": [
-        "G Mihawk"
-      ],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "clF036ix1lY",
@@ -1912,30 +2032,6 @@
       "summary": "Trazendo mais um vídeo da Flame Flame fruit, o campeonato mais importante de One Piece do ano, onde tivemos MUITOS decks aparecendo e tivemos um teach na quinta rodada mostrando sua força, mostrand..."
     },
     {
-      "video_id": "BN7KBDhCcjc",
-      "title": "One Piece Card Game: Virginia & Athens OP17 Format Regionals! Top Deck Lists!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-09-14T18:00:19+00:00",
-      "video_url": "https://www.youtube.com/watch?v=BN7KBDhCcjc",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "OP17 Triple Win-A-Box Registration: https://www.bestcoastpairings.com/event/t52vFUEbpFQb?active_tab=overview"
-    },
-    {
-      "video_id": "HddTkAoGhbA",
-      "title": "Rocks In Top 32! Not A Fraud?! (Utrecht EU Finals - Top 32)",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-09-14T17:00:13+00:00",
-      "video_url": "https://www.youtube.com/watch?v=HddTkAoGhbA",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [
-        "Blue Rocks"
-      ],
-      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
-    },
-    {
       "video_id": "NuA96sz6IZs",
       "title": "High Rank Players Are Winning With RP Luffy For Some Reason",
       "channel_name": "WezaldoTCG",
@@ -1989,17 +2085,6 @@
         "Green Shanks"
       ],
       "summary": "#optcg #blackyamato"
-    },
-    {
-      "video_id": "21cu1n6rXLo",
-      "title": "One Piece Card Game: Post Utrecht Finals! OP17 Format Power Rankings!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-09-11T21:00:36+00:00",
-      "video_url": "https://www.youtube.com/watch?v=21cu1n6rXLo",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "OP17 Triple Win-A-Box Registration: https://www.bestcoastpairings.com/event/t52vFUEbpFQb?active_tab=overview"
     },
     {
       "video_id": "gVG7TMKLC3c",
@@ -2130,19 +2215,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "My twitter:"
-    },
-    {
-      "video_id": "jVBHLjsQPOk",
-      "title": "BATALHA ENTRE GERAÇÕES! | Xebec vs. Teach | One Piece TCG",
-      "channel_name": "tcgBR",
-      "published_at": "2026-09-05T15:06:30+00:00",
-      "video_url": "https://www.youtube.com/watch?v=jVBHLjsQPOk",
-      "format": "OP17",
-      "identified_leaders": [
-        "Teach"
-      ],
-      "matchups_covered": [],
-      "summary": "Rocks D. Xebec (U) segue reinando em nossos gameplays aqui na tcgBR! Agora chegou a vez do Marshall D. Teach(Y) tentar sua sorte contra o nosso campeão."
     },
     {
       "video_id": "BMG-N1rgzBE",
@@ -2652,17 +2724,6 @@
       "summary": "ONE PIECE CARD GAME Extra Booster: -ONE PIECE Heroines Edition vol. 2- [EB-05] has been announced!"
     },
     {
-      "video_id": "gKPtZhJqCPY",
-      "title": "ONE PIECE CARD GAME BOOSTER BOOSTER -LA DOMINATION DE DIEU- [OP-18] Trailer",
-      "channel_name": "Official Bandai Card Games Channel",
-      "published_at": "2026-08-24T02:00:01+00:00",
-      "video_url": "https://www.youtube.com/watch?v=gKPtZhJqCPY",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "LA DOMINATION DE DIEU- [OP-18]"
-    },
-    {
       "video_id": "6yxRdv4aGqg",
       "title": "We Played 1000+ Games of OP17 And Ranked The Best Leaders ft. @AbbsterTCG",
       "channel_name": "iKailaKai",
@@ -2899,19 +2960,6 @@
       "summary": "Today's One Piece TCG deck profile: ST33 Katakuri, Purple Katakuri, P Katakuri, Starter Deck 34 Katakuri, ST34 Purple Charlotta Katakuri. This Katakurileader originally released in ST34and was crea..."
     },
     {
-      "video_id": "mKJEV2ZdRXs",
-      "title": "O meta do vermelho voltou com Ace!? - PT-BR",
-      "channel_name": "Onepiececardgamebr",
-      "published_at": "2026-08-12T14:00:30+00:00",
-      "video_url": "https://www.youtube.com/watch?v=mKJEV2ZdRXs",
-      "format": "OP17",
-      "identified_leaders": [
-        "Ace"
-      ],
-      "matchups_covered": [],
-      "summary": "Vamos falar sobre o meta de OP17 e como está promissor para Ace vermelho, que tem surpreendido a todos com ótimos resultados se mostrando uma das melhores escolhas nessas primeiras semanas de OP17!!"
-    },
-    {
       "video_id": "xG7AKbj_Jtg",
       "title": "RY Bonney Strawhat FUNNY One Piece TCG Deck + Gameplay",
       "channel_name": "AkemiTCG",
@@ -3016,19 +3064,6 @@
       "summary": "A couple of technical mistakes, but I hope you enjoy the long awaited return of gameplay videos. Let me know what deck you want to see us try to cope!"
     },
     {
-      "video_id": "6iuJk0QYcs4",
-      "title": "Top 8 Peoria Regionals UG Luffy \"PhoneWalletKeys\" — In-Game Interviews",
-      "channel_name": "minhooty",
-      "published_at": "2026-07-30T17:20:14+00:00",
-      "video_url": "https://www.youtube.com/watch?v=6iuJk0QYcs4",
-      "format": "",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "Follow Phil on X! https://x.com/Philsgoodman97"
-    },
-    {
       "video_id": "UiqaYtJjb80",
       "title": "Worst One Piece TCG Experience",
       "channel_name": "AkemiTCG",
@@ -3072,17 +3107,6 @@
         "Red Shanks",
         "Red Blue Ace"
       ],
-      "summary": "#onepiecetcg #optcg"
-    },
-    {
-      "video_id": "WpnzpppeyrY",
-      "title": "POV You Play Against Any Yellow Deck One Piece",
-      "channel_name": "AkemiTCG",
-      "published_at": "2026-07-03T22:00:38+00:00",
-      "video_url": "https://www.youtube.com/watch?v=WpnzpppeyrY",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
       "summary": "#onepiecetcg #optcg"
     }
   ]
