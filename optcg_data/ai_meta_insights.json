@@ -1,9 +1,33 @@
 {
-  "last_updated": "2026-10-03T05:53:34-03:00",
+  "last_updated": "2026-10-04T05:59:48-03:00",
   "total_channels": 15,
   "total_insights": 212,
   "videos_by_leader": {
     "luffy": [
+      {
+        "title": "One Piece TCG: Match Analysis and Breakdown, RG Luffy VS BY Gecko (London Regional, West OP-17)",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-10-03T21:03:02+00:00",
+        "video_url": "https://www.youtube.com/watch?v=YBTMlxZaM-4",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
+        "title": "VALE A PENA COMPRAR O NOVO SET SAIL DECK Luffy e Ace? Unboxing e Análise Completa no One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-10-03T14:31:31+00:00",
+        "video_url": "https://www.youtube.com/watch?v=ibwGLClnrmc",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
+        "title": "⚫ Luffy Elbaf contra Nico Robin! One Piece POV OP17",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-10-03T13:00:25+00:00",
+        "video_url": "https://www.youtube.com/watch?v=uJfBGj8SKNk",
+        "format": "OP17",
+        "matchups_covered": []
+      },
       {
         "title": "When You Play Against RG Luffy Ace One Piece #onepiecetcg #optcg",
         "channel_name": "AkemiTCG",
@@ -77,6 +101,14 @@
     ],
     "ace": [
       {
+        "title": "VALE A PENA COMPRAR O NOVO SET SAIL DECK Luffy e Ace? Unboxing e Análise Completa no One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-10-03T14:31:31+00:00",
+        "video_url": "https://www.youtube.com/watch?v=ibwGLClnrmc",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
         "title": "When You Play Against RG Luffy Ace One Piece #onepiecetcg #optcg",
         "channel_name": "AkemiTCG",
         "published_at": "2026-10-02T22:00:10+00:00",
@@ -141,19 +173,19 @@
     ],
     "robin": [
       {
+        "title": "⚫ Luffy Elbaf contra Nico Robin! One Piece POV OP17",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-10-03T13:00:25+00:00",
+        "video_url": "https://www.youtube.com/watch?v=uJfBGj8SKNk",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
         "title": "Stepping into the Nico Robin Casino #onepiecetcg #onepiececardgame #cardgame",
         "channel_name": "TheEgman",
         "published_at": "2026-10-02T18:00:35+00:00",
         "video_url": "https://www.youtube.com/watch?v=FXn57zqj6Io",
         "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "🔥O suco do meta! Robin vs Sabo! One Piece POV OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-10-01T13:00:00+00:00",
-        "video_url": "https://www.youtube.com/watch?v=Hbt5OBopwCw",
-        "format": "OP17",
         "matchups_covered": []
       },
       {
@@ -233,6 +265,14 @@
     ],
     "nico robin": [
       {
+        "title": "⚫ Luffy Elbaf contra Nico Robin! One Piece POV OP17",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-10-03T13:00:25+00:00",
+        "video_url": "https://www.youtube.com/watch?v=uJfBGj8SKNk",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
         "title": "Stepping into the Nico Robin Casino #onepiecetcg #onepiececardgame #cardgame",
         "channel_name": "TheEgman",
         "published_at": "2026-10-02T18:00:35+00:00",
@@ -245,14 +285,6 @@
         "channel_name": "tcgBR",
         "published_at": "2026-09-30T21:00:34+00:00",
         "video_url": "https://www.youtube.com/watch?v=pEFOqMIX9cY",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "🔥O agressivo Ace tem chance contra a Nico Robin? One Piece POV OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-09-29T13:00:13+00:00",
-        "video_url": "https://www.youtube.com/watch?v=Unezkwfz3kk",
         "format": "OP17",
         "matchups_covered": []
       },
@@ -402,6 +434,22 @@
     ],
     "shanks": [
       {
+        "title": "Shanks Returns With Mihawk Banned!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-10-04T02:30:30+00:00",
+        "video_url": "https://www.youtube.com/watch?v=_liCMO1O4_U",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
+        "title": "O NOVO MIHAWK? Análise de Decklist e Gameplay do Shanks com o Proplayer @borgestcg",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-10-02T19:29:03+00:00",
+        "video_url": "https://www.youtube.com/watch?v=aN8_bu9RWjo",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
         "title": "Green Shanks Deck Profile + How To Play Duel | One Piece TCG Tutorial",
         "channel_name": "Mabi TCG",
         "published_at": "2026-08-31T22:45:38+00:00",
@@ -425,16 +473,6 @@
         "published_at": "2026-10-01T15:00:06+00:00",
         "video_url": "https://www.youtube.com/watch?v=SY6gwUC7Ppk",
         "format": "",
-        "matchups_covered": []
-      }
-    ],
-    "karoo": [
-      {
-        "title": "LÍDERES DA OP-18 REVELADOS! 🚨 Karoo Quebrado e Miss All Sunday Punitiva + SRs da EB 05",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-09-20T14:00:37+00:00",
-        "video_url": "https://www.youtube.com/watch?v=WMVhJdbhYfU",
-        "format": "OP18",
         "matchups_covered": []
       }
     ],
@@ -601,6 +639,83 @@
   },
   "latest_videos": [
     {
+      "video_id": "_liCMO1O4_U",
+      "title": "Shanks Returns With Mihawk Banned!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-10-04T02:30:30+00:00",
+      "video_url": "https://www.youtube.com/watch?v=_liCMO1O4_U",
+      "format": "",
+      "identified_leaders": [
+        "Shanks"
+      ],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "YBTMlxZaM-4",
+      "title": "One Piece TCG: Match Analysis and Breakdown, RG Luffy VS BY Gecko (London Regional, West OP-17)",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-10-03T21:03:02+00:00",
+      "video_url": "https://www.youtube.com/watch?v=YBTMlxZaM-4",
+      "format": "OP17",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "J57OaVrtd0U",
+      "title": "FOI JOGAR NA EUROPA! Relatos do Maior Torneio de One Piece TCG da História com o @Borgestcg",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-10-03T16:00:39+00:00",
+      "video_url": "https://www.youtube.com/watch?v=J57OaVrtd0U",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "📒Aprenda com o Borges: https://www.instagram.com/victor_borg/"
+    },
+    {
+      "video_id": "AQTR74wRzDw",
+      "title": "The Mihawk Ban Just Unleashed These Decks!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-10-03T15:30:36+00:00",
+      "video_url": "https://www.youtube.com/watch?v=AQTR74wRzDw",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "ibwGLClnrmc",
+      "title": "VALE A PENA COMPRAR O NOVO SET SAIL DECK Luffy e Ace? Unboxing e Análise Completa no One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-10-03T14:31:31+00:00",
+      "video_url": "https://www.youtube.com/watch?v=ibwGLClnrmc",
+      "format": "",
+      "identified_leaders": [
+        "Luffy",
+        "Ace"
+      ],
+      "matchups_covered": [],
+      "summary": "🟢 •  Singles no Brasil é na TCG BR (Cupom: MESTREARTY)"
+    },
+    {
+      "video_id": "uJfBGj8SKNk",
+      "title": "⚫ Luffy Elbaf contra Nico Robin! One Piece POV OP17",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-10-03T13:00:25+00:00",
+      "video_url": "https://www.youtube.com/watch?v=uJfBGj8SKNk",
+      "format": "OP17",
+      "identified_leaders": [
+        "Luffy",
+        "Robin",
+        "Nico Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "🎟️Ingressos Copa Café 8: https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-8"
+    },
+    {
       "video_id": "8dudqfdNpiE",
       "title": "When You Play Against RG Luffy Ace One Piece #onepiecetcg #optcg",
       "channel_name": "AkemiTCG",
@@ -631,6 +746,19 @@
         "U Rocks"
       ],
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "aN8_bu9RWjo",
+      "title": "O NOVO MIHAWK? Análise de Decklist e Gameplay do Shanks com o Proplayer @borgestcg",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-10-02T19:29:03+00:00",
+      "video_url": "https://www.youtube.com/watch?v=aN8_bu9RWjo",
+      "format": "",
+      "identified_leaders": [
+        "Shanks"
+      ],
+      "matchups_covered": [],
+      "summary": "📒Aprenda com o Borges: https://www.instagram.com/victor_borg/"
     },
     {
       "video_id": "FXn57zqj6Io",
@@ -1738,17 +1866,6 @@
       "summary": "In this video, we take a look at OP17 data on the sim & recent tournaments! We go over leader performance as well as individual matchups between the leaders! We'll also take a look at some decklist..."
     },
     {
-      "video_id": "g2e0l9CHADg",
-      "title": "The OP-17 Ban List Is Coming... My Predictions!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-09-21T16:37:31+00:00",
-      "video_url": "https://www.youtube.com/watch?v=g2e0l9CHADg",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
       "video_id": "2bdu0NJNJ2U",
       "title": "AS CARTAS SECRETAS DA EB-05! Suportes Revelados para Aokiji, Shirahoshi e Kaido",
       "channel_name": "Mestre Arty TCG",
@@ -1797,52 +1914,6 @@
       "summary": "In this video, we catch up on EB05 spoilers now than all SRs have been revealed. We also take a look at all 6 OP18 leaders as well"
     },
     {
-      "video_id": "mvLxwZTq8HI",
-      "title": "King goes absolutely insane in Extra Grand Battle!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-09-20T14:30:05+00:00",
-      "video_url": "https://www.youtube.com/watch?v=mvLxwZTq8HI",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
-      "video_id": "WMVhJdbhYfU",
-      "title": "LÍDERES DA OP-18 REVELADOS! 🚨 Karoo Quebrado e Miss All Sunday Punitiva + SRs da EB 05",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-20T14:00:37+00:00",
-      "video_url": "https://www.youtube.com/watch?v=WMVhJdbhYfU",
-      "format": "OP18",
-      "identified_leaders": [
-        "Karoo"
-      ],
-      "matchups_covered": [],
-      "summary": "A Bandai revelou os quatro últimos líderes da coleção OP-18 e as novas cartas Super Raras (SR) e Mangá da Extra Booster 05 (EB-05) de One Piece TCG! Teremos um Karoo mais forte que a Vivi, suportes..."
-    },
-    {
-      "video_id": "t4UOv4KViXY",
-      "title": "🔴 Anúncios de EB05 e OP18! Bandai Card Games Fest🏴‍☠️",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-09-20T11:33:22+00:00",
-      "video_url": "https://www.youtube.com/watch?v=t4UOv4KViXY",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Ingressos Copa Café #8"
-    },
-    {
-      "video_id": "0kQbdfJT348",
-      "title": "Conferindo Anúncios de OP18 + EB05",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-20T00:48:05+00:00",
-      "video_url": "https://www.youtube.com/watch?v=0kQbdfJT348",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Jogue camps online com a gente!"
-    },
-    {
       "video_id": "5R9cXJZdPkY",
       "title": "TORNEIO SEMANAL 12/09/26 (POV) | Game 3 e 4: Mihawk vs. Xebec e Luffy | One Piece TCG",
       "channel_name": "tcgBR",
@@ -1880,17 +1951,6 @@
         "Purple Yellow Robin"
       ],
       "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
-    },
-    {
-      "video_id": "zKbEuvKvb00",
-      "title": "O DECK DOS ELFOS E DRUIDAS: Conheça o Leafage, Escolhido Religioso | Mytragor TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-19T15:00:35+00:00",
-      "video_url": "https://www.youtube.com/watch?v=zKbEuvKvb00",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "🃏 Jogue agora em: https://mestrearty.short.gy/mytragor"
     },
     {
       "video_id": "zyoxXljkWik",
@@ -1952,19 +2012,6 @@
       ],
       "matchups_covered": [],
       "summary": "Torneio: OP STORE TOURNAMENT EVENT"
-    },
-    {
-      "video_id": "iGv6Gq-l-g0",
-      "title": "One Piece TCG: Limit Testing - U Xebec, Experimenting with Non-Rocks Type Options and Consistency",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-09-18T16:01:43+00:00",
-      "video_url": "https://www.youtube.com/watch?v=iGv6Gq-l-g0",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [
-        "G Mihawk"
-      ],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "zEaR0o49zyg",
