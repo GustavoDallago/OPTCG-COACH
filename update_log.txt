@@ -1,29 +1,3 @@
-[2026-08-20 10:55:35] ==========================================
-[2026-08-20 10:55:35] Starting Full Automatic Update Pipeline...
-[2026-08-20 10:55:35] ==========================================
-[2026-08-20 10:55:35] Executing: C:\Python314\python.exe fetch_optcg_data.py
-[2026-08-20 10:55:54] SUCCESS: C:\Python314\python.exe fetch_optcg_data.py
-[2026-08-20 10:55:54] Executing: C:\Python314\python.exe scrape_limitless.py --set OP17 --min-players 16
-[2026-08-20 10:57:35] SUCCESS: C:\Python314\python.exe scrape_limitless.py --set OP17 --min-players 16
-[2026-08-20 10:57:35] Recalculating decks_tracked for all meta JSON files...
-[2026-08-20 10:57:36] Updated decks_tracked in 13 files.
-[2026-08-20 10:57:36] Executing: C:\Python314\python.exe -m unittest test_deck_analyzer.py
-[2026-08-20 10:57:36] SUCCESS: C:\Python314\python.exe -m unittest test_deck_analyzer.py
-[2026-08-20 10:57:36] ==========================================
-[2026-08-20 10:57:36] SUCCESS: All update tasks completed flawlessly!
-[2026-08-20 10:57:36] ==========================================
-[2026-08-20 20:32:57] ==========================================
-[2026-08-20 20:32:57] Starting Full Automatic Update Pipeline...
-[2026-08-20 20:32:57] ==========================================
-[2026-08-20 20:32:57] Executing: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe fetch_optcg_data.py
-[2026-08-20 20:33:13] SUCCESS: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe fetch_optcg_data.py
-[2026-08-20 20:33:13] Executing: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe scrape_limitless.py --set OP17 --min-players 16
-[2026-08-20 20:42:02] ==========================================
-[2026-08-20 20:42:02] Starting Full Automatic Update Pipeline...
-[2026-08-20 20:42:02] ==========================================
-[2026-08-20 20:42:02] Executing: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe fetch_optcg_data.py
-[2026-08-20 20:42:18] SUCCESS: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe fetch_optcg_data.py
-[2026-08-20 20:42:18] Executing: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe scrape_limitless.py --set OP17 --min-players 16
 [2026-08-20 20:59:14] SUCCESS: C:\Users\User\AppData\Local\Python\pythoncore-3.14-64\python.exe scrape_limitless.py --set OP17 --min-players 16
 [2026-08-20 20:59:14] Recalculating decks_tracked for all meta JSON files...
 [2026-08-20 20:59:14] Updated decks_tracked in 13 files.
@@ -1024,3 +998,29 @@ NameError: name 'Optional' is not defined
 [2026-10-04 05:59:55] ==========================================
 [2026-10-04 05:59:55] Generating optcg_data/manifest.json...
 [2026-10-04 05:59:55] manifest.json generated: 13 sets available (Active Season: OP17).
+[2026-10-05 06:48:05] ==========================================
+[2026-10-05 06:48:05] Starting Full Automatic Update Pipeline...
+[2026-10-05 06:48:05] ==========================================
+[2026-10-05 06:48:05] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_optcg_data.py
+[2026-10-05 06:48:16] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_optcg_data.py
+[2026-10-05 06:48:16] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_banlist.py
+[2026-10-05 06:48:17] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_banlist.py
+[2026-10-05 06:48:17] Season Plan: Active Season = OP17 (15d), Past to Consolidate = []
+[2026-10-05 06:48:17] --> Atualizando meta da temporada ativa (OP17) com janela de 15 dias...
+[2026-10-05 06:48:17] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_limitless.py --set OP17 --days 15 --min-players 8
+[2026-10-05 06:49:57] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python scrape_limitless.py --set OP17 --days 15 --min-players 8
+[2026-10-05 06:49:57] Recalculating decks_tracked and checking consolidation status for all meta JSON files...
+[2026-10-05 06:49:57] Updated metadata / decks_tracked in 0 files.
+[2026-10-05 06:49:57] Generating optcg_data/manifest.json...
+[2026-10-05 06:49:57] manifest.json generated: 13 sets available (Active Season: OP17).
+[2026-10-05 06:49:57] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_video_insights.py
+[2026-10-05 06:50:06] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python fetch_video_insights.py
+[2026-10-05 06:50:06] Executing: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python -m unittest test_deck_analyzer.py
+[2026-10-05 06:50:06] Generating optcg_data/manifest.json...
+[2026-10-05 06:50:06] manifest.json generated: 13 sets available (Active Season: OP17).
+[2026-10-05 06:50:06] SUCCESS: /opt/hostedtoolcache/Python/3.11.16/x64/bin/python -m unittest test_deck_analyzer.py
+[2026-10-05 06:50:06] ==========================================
+[2026-10-05 06:50:06] SUCCESS: All update tasks completed flawlessly!
+[2026-10-05 06:50:06] ==========================================
+[2026-10-05 06:50:06] Generating optcg_data/manifest.json...
+[2026-10-05 06:50:06] manifest.json generated: 13 sets available (Active Season: OP17).

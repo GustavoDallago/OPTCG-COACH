@@ -1,9 +1,17 @@
 {
-  "last_updated": "2026-10-04T05:59:48-03:00",
+  "last_updated": "2026-10-05T06:49:57-03:00",
   "total_channels": 15,
-  "total_insights": 212,
+  "total_insights": 211,
   "videos_by_leader": {
     "luffy": [
+      {
+        "title": "Sabo vs Luffy & Ace! - Flame Flame fruit Japão!!",
+        "channel_name": "Onepiececardgamebr",
+        "published_at": "2026-10-04T13:00:15+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Wg0L3zKW3h8",
+        "format": "",
+        "matchups_covered": []
+      },
       {
         "title": "One Piece TCG: Match Analysis and Breakdown, RG Luffy VS BY Gecko (London Regional, West OP-17)",
         "channel_name": "The Vv Theory",
@@ -75,14 +83,6 @@
         "matchups_covered": []
       },
       {
-        "title": "Luffy UP é a solução para o meta Verde!? - OP17 META PT-BR",
-        "channel_name": "Onepiececardgamebr",
-        "published_at": "2026-08-27T16:00:19+00:00",
-        "video_url": "https://www.youtube.com/watch?v=5BQpsju9FEU",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
         "title": "OP17 Luffy Deck Profile + How To Play Duel | One Piece TCG Tutorial",
         "channel_name": "Mabi TCG",
         "published_at": "2026-08-24T23:15:25+00:00",
@@ -100,6 +100,14 @@
       }
     ],
     "ace": [
+      {
+        "title": "Sabo vs Luffy & Ace! - Flame Flame fruit Japão!!",
+        "channel_name": "Onepiececardgamebr",
+        "published_at": "2026-10-04T13:00:15+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Wg0L3zKW3h8",
+        "format": "",
+        "matchups_covered": []
+      },
       {
         "title": "VALE A PENA COMPRAR O NOVO SET SAIL DECK Luffy e Ace? Unboxing e Análise Completa no One Piece TCG",
         "channel_name": "Mestre Arty TCG",
@@ -514,6 +522,14 @@
     ],
     "sabo": [
       {
+        "title": "Sabo vs Luffy & Ace! - Flame Flame fruit Japão!!",
+        "channel_name": "Onepiececardgamebr",
+        "published_at": "2026-10-04T13:00:15+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Wg0L3zKW3h8",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
         "title": "🔥O suco do meta! Robin vs Sabo! One Piece POV OP17",
         "channel_name": "Café Com One Piece",
         "published_at": "2026-10-01T13:00:00+00:00",
@@ -638,6 +654,65 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "lACD_JXbcq0",
+      "title": "🔴 Copa Café ao Vivo! Sorteios durante a live! 🏆",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-10-05T00:35:45+00:00",
+      "video_url": "https://www.youtube.com/watch?v=lACD_JXbcq0",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Ingressos Copa Café #8"
+    },
+    {
+      "video_id": "hq8G0YqSWb0",
+      "title": "One Piece TCG: New OP-18 Super Rare Spoilers, This New Set is Really Starting to Take Shape",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-10-04T21:30:12+00:00",
+      "video_url": "https://www.youtube.com/watch?v=hq8G0YqSWb0",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "12-EJbLLtGM",
+      "title": "OP17.5 Week 1 Meta Analysis (Sim & Tournament Data)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-10-04T17:00:19+00:00",
+      "video_url": "https://www.youtube.com/watch?v=12-EJbLLtGM",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "In this video, we take a look at OP17.5 data on the sim & recent tournaments! We go over leader performance as well as individual matchups between the leaders! We'll also take a look at some deckli..."
+    },
+    {
+      "video_id": "Wg0L3zKW3h8",
+      "title": "Sabo vs Luffy & Ace! - Flame Flame fruit Japão!!",
+      "channel_name": "Onepiececardgamebr",
+      "published_at": "2026-10-04T13:00:15+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Wg0L3zKW3h8",
+      "format": "",
+      "identified_leaders": [
+        "Luffy",
+        "Ace",
+        "Sabo"
+      ],
+      "matchups_covered": [],
+      "summary": "Primeiro vídeo do novo evento da flame flame que tivemos, desta vez no Japão, trazendo novas techs nos decks e mostrando que o meta tem espaço ainda para inovações!!"
+    },
+    {
+      "video_id": "hoY-yAMmgLQ",
+      "title": "ONE PIECE CARD GAME Extra Booster: -ONE PIECE Heroines Edition vol. 2- [EB-05] Trailer 3",
+      "channel_name": "Official Bandai Card Games Channel",
+      "published_at": "2026-10-04T11:00:10+00:00",
+      "video_url": "https://www.youtube.com/watch?v=hoY-yAMmgLQ",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "ONE PIECE CARD GAME Extra Booster: -ONE PIECE Heroines Edition vol. 2- [EB-05]"
+    },
     {
       "video_id": "_liCMO1O4_U",
       "title": "Shanks Returns With Mihawk Banned!",
@@ -1629,17 +1704,6 @@
       "summary": "Check out Ultimate Guard here:"
     },
     {
-      "video_id": "lACD_JXbcq0",
-      "title": "🔴 Anúncios de EB05 e OP18! Bandai Card Games Fest🏴‍☠️",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-09-24T11:41:41+00:00",
-      "video_url": "https://www.youtube.com/watch?v=lACD_JXbcq0",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Ingressos Copa Café #8"
-    },
-    {
       "video_id": "AkWHw8GBb20",
       "title": "Top 64 Dallas Nationals Mihawk \"Fwirth\" — In-Game Interviews",
       "channel_name": "minhooty",
@@ -1927,19 +1991,6 @@
       "summary": "Torneio: OP STORE TOURNAMENT EVENT"
     },
     {
-      "video_id": "dkb5cSJQ7kA",
-      "title": "One Piece TCG: Match Analysis and Breakdown, RB Sabo VS G Mihawk (OP-17 Dallas, 2026-27 West)",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-09-19T20:45:04+00:00",
-      "video_url": "https://www.youtube.com/watch?v=dkb5cSJQ7kA",
-      "format": "OP17",
-      "identified_leaders": [
-        "Sabo"
-      ],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
       "video_id": "XeNvuEiC_Lo",
       "title": "It Happened Again?! A Purple FInals! (Utrecht EU Finals - Grand Finals)",
       "channel_name": "Car D. Kaizoku",
@@ -2117,17 +2168,6 @@
       ],
       "matchups_covered": [],
       "summary": "This video was filmed 2 weeks ago! It's a little behind : ("
-    },
-    {
-      "video_id": "hv-ehJLrgA4",
-      "title": "Tech Cards Analysis",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-09-16T17:00:00+00:00",
-      "video_url": "https://www.youtube.com/watch?v=hv-ehJLrgA4",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we take a look at OP17 data on the sim and try to see which Tech Cards are worth running! We go over the performance at the card level and even break down the stats by quantity of co..."
     },
     {
       "video_id": "GIjVngxUhoM",
@@ -2823,17 +2863,6 @@
       "summary": "ONE PIECE Heroines Edition vol. 2"
     },
     {
-      "video_id": "DRieuScMqEE",
-      "title": "ONE PIECE CARD GAME Extra Booster: -ONE PIECE Heroines Edition vol. 2- [EB-05] Trailer",
-      "channel_name": "Official Bandai Card Games Channel",
-      "published_at": "2026-08-24T02:00:09+00:00",
-      "video_url": "https://www.youtube.com/watch?v=DRieuScMqEE",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "ONE PIECE CARD GAME Extra Booster: -ONE PIECE Heroines Edition vol. 2- [EB-05] has been announced!"
-    },
-    {
       "video_id": "6yxRdv4aGqg",
       "title": "We Played 1000+ Games of OP17 And Ranked The Best Leaders ft. @AbbsterTCG",
       "channel_name": "iKailaKai",
@@ -2900,17 +2929,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Thanks to @THECRIMSONGUILDSOCAL for the boxes! What'd you think of the pulls? #optcg #onepiece"
-    },
-    {
-      "video_id": "Vjkhy-2xYNI",
-      "title": "Let's open a box of OP17!",
-      "channel_name": "real_joshua",
-      "published_at": "2026-08-21T17:03:24+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Vjkhy-2xYNI",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Analise de deck e gameplay."
     },
     {
       "video_id": "NaXfrLl4aYE",
@@ -3033,17 +3051,6 @@
       ],
       "matchups_covered": [],
       "summary": "A new threat to worry about."
-    },
-    {
-      "video_id": "FyO_Ic5BJzI",
-      "title": "Abrindo BOX OP16!",
-      "channel_name": "Onepiececardgamebr",
-      "published_at": "2026-08-15T14:01:07+00:00",
-      "video_url": "https://www.youtube.com/watch?v=FyO_Ic5BJzI",
-      "format": "OP16",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Live curtindo abrindo uma box de OP16 com música e papeando com o chat."
     },
     {
       "video_id": "VGXkcOSowco",
