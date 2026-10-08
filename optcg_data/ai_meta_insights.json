@@ -1,9 +1,17 @@
 {
-  "last_updated": "2026-10-07T06:33:22-03:00",
+  "last_updated": "2026-10-08T06:43:54-03:00",
   "total_channels": 15,
   "total_insights": 208,
   "videos_by_leader": {
     "luffy": [
+      {
+        "title": "I Accidentally BROKE This Luffy Deck...",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-10-07T16:30:31+00:00",
+        "video_url": "https://www.youtube.com/watch?v=zhU0-BPEDWs",
+        "format": "",
+        "matchups_covered": []
+      },
       {
         "title": "✌🏻 ELA VENCEU! Robin vs Luffy! One Piece POV OP17",
         "channel_name": "Café Com One Piece",
@@ -57,14 +65,6 @@
           "RG Luffy Ace",
           "G Shanks"
         ]
-      },
-      {
-        "title": "OP-18 Luffy Is Already BROKEN...",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-10-01T15:30:22+00:00",
-        "video_url": "https://www.youtube.com/watch?v=BFota9T0n2I",
-        "format": "OP18",
-        "matchups_covered": []
       },
       {
         "title": "A RAINHA DO META! | Nico Robin vs Luffy | OP17 | One Piece TCG",
@@ -181,10 +181,10 @@
     ],
     "robin": [
       {
-        "title": "✌🏻 ELA VENCEU! Robin vs Luffy! One Piece POV OP17",
+        "title": "Duelo 🟣🟡! Robin vs Rosinante! One Piece POV OP17",
         "channel_name": "Café Com One Piece",
-        "published_at": "2026-10-06T21:00:32+00:00",
-        "video_url": "https://www.youtube.com/watch?v=Lw8yJuiN6yQ",
+        "published_at": "2026-10-07T13:00:29+00:00",
+        "video_url": "https://www.youtube.com/watch?v=gTgQ3lCzO8o",
         "format": "OP17",
         "matchups_covered": []
       },
@@ -434,6 +434,18 @@
     ],
     "shanks": [
       {
+        "title": "One Piece TCG: G Shanks Testing - The New Best Green Leader when Mihawk gets the Ban? Tempo-Control",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-10-07T21:05:00+00:00",
+        "video_url": "https://www.youtube.com/watch?v=moilv9ELask",
+        "format": "OP17",
+        "matchups_covered": [
+          "R Rayleigh",
+          "P Kaido",
+          "PY Robin"
+        ]
+      },
+      {
         "title": "[OP17.5] Shanks Deck Guide + Gameplay",
         "channel_name": "Car D. Kaizoku",
         "published_at": "2026-10-05T17:00:11+00:00",
@@ -514,14 +526,6 @@
         "matchups_covered": [
           "Purple Enel"
         ]
-      },
-      {
-        "title": "One Piece TCG: Match Analysis and Breakdown, G Mihawk VS P Enel (OP-17 Dallas Finals, 2026-27 West)",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-09-21T21:07:32+00:00",
-        "video_url": "https://www.youtube.com/watch?v=su3PKjY0hVs",
-        "format": "OP17",
-        "matchups_covered": []
       }
     ],
     "sabo": [
@@ -659,6 +663,84 @@
   },
   "latest_videos": [
     {
+      "video_id": "moilv9ELask",
+      "title": "One Piece TCG: G Shanks Testing - The New Best Green Leader when Mihawk gets the Ban? Tempo-Control",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-10-07T21:05:00+00:00",
+      "video_url": "https://www.youtube.com/watch?v=moilv9ELask",
+      "format": "OP17",
+      "identified_leaders": [
+        "Shanks"
+      ],
+      "matchups_covered": [
+        "R Rayleigh",
+        "P Kaido",
+        "PY Robin"
+      ],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "6dgsvWMfX0U",
+      "title": "They Got Kaidos Over There?! (Flame Flame Fruit Japan - Top 16)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-10-07T17:00:24+00:00",
+      "video_url": "https://www.youtube.com/watch?v=6dgsvWMfX0U",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "Purple Kaido"
+      ],
+      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
+    },
+    {
+      "video_id": "zhU0-BPEDWs",
+      "title": "I Accidentally BROKE This Luffy Deck...",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-10-07T16:30:31+00:00",
+      "video_url": "https://www.youtube.com/watch?v=zhU0-BPEDWs",
+      "format": "",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "5DErN6pJcKo",
+      "title": "Gundam Card Game: GD05 + Starters Triple Win-A-Box!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-10-07T15:51:00+00:00",
+      "video_url": "https://www.youtube.com/watch?v=5DErN6pJcKo",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Event Signups: https://www.bestcoastpairings.com/event/UhnzNPOFCVYt?active_tab=overview"
+    },
+    {
+      "video_id": "cR898VangS4",
+      "title": "O QUE CADA COR FAZ no One Piece TCG? Psicologia das Cores 2.0 (Guia Completo)",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-10-07T15:00:23+00:00",
+      "video_url": "https://www.youtube.com/watch?v=cR898VangS4",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Começou agora no One Piece TCG e ficou perdido com as 6 cores? Ou já joga há um tempo e quer entender de verdade a filosofia por trás de cada uma? Esse é o guia que você precisava! 🎨"
+    },
+    {
+      "video_id": "gTgQ3lCzO8o",
+      "title": "Duelo 🟣🟡! Robin vs Rosinante! One Piece POV OP17",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-10-07T13:00:29+00:00",
+      "video_url": "https://www.youtube.com/watch?v=gTgQ3lCzO8o",
+      "format": "OP17",
+      "identified_leaders": [
+        "Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "🦾 Seja membro ou apoiador e receba os vídeos antecipadamente e concorra a produtos relacionados a One Piece!"
+    },
+    {
       "video_id": "hGE40rE0mF0",
       "title": "One Piece Card Game: OP17 Charlotte Pudding Testing!",
       "channel_name": "TheEgman",
@@ -668,17 +750,6 @@
       "identified_leaders": [
         "Pudding"
       ],
-      "matchups_covered": [],
-      "summary": "Event Signups: https://www.bestcoastpairings.com/event/UhnzNPOFCVYt?active_tab=overview"
-    },
-    {
-      "video_id": "5DErN6pJcKo",
-      "title": "Gundam Card Game: GD05 + Starters Triple Win-A-Box!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-10-06T23:47:17+00:00",
-      "video_url": "https://www.youtube.com/watch?v=5DErN6pJcKo",
-      "format": "",
-      "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Event Signups: https://www.bestcoastpairings.com/event/UhnzNPOFCVYt?active_tab=overview"
     },
@@ -1969,17 +2040,6 @@
       "summary": "My twitter:"
     },
     {
-      "video_id": "HS8ZIEWESpM",
-      "title": "O VERDADEIRO POTENCIAL DA VIVI (OP-17)! Decklist e Gameplay no One Piece TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-23T15:00:34+00:00",
-      "video_url": "https://www.youtube.com/watch?v=HS8ZIEWESpM",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "A líder Vivi (Azul/Vermelha) sempre foi amada pela comunidade, mas faltava aquele empurrãozinho para brilhar no competitivo. Será que com os novos suportes da OP-17 ela finalmente encontrou seu lug..."
-    },
-    {
       "video_id": "g0X9O6b0y1w",
       "title": "AS NOVAS CARTAS VÃO MUDAR TUDO!? - PT-BR",
       "channel_name": "Onepiececardgamebr",
@@ -1989,17 +2049,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Trazendo um vídeo para falarmos sobre as novas cartas reveladas de EB, finalmente vimos as SRs novas, com diversos suportes para arquétipos que temos no jogo já e vamos ver novas staples, e vemos c..."
-    },
-    {
-      "video_id": "EGIzzrjXYR4",
-      "title": "🔥Preparados para a nova coleção? One Piece Card Game OP18",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-09-23T12:00:03+00:00",
-      "video_url": "https://www.youtube.com/watch?v=EGIzzrjXYR4",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "🎟️Ingressos Copa Café 8: https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-8"
     },
     {
       "video_id": "F5ofwCxZyWc",
@@ -2048,19 +2097,6 @@
       "summary": "No Plantão TCG, Lucca traz algumas das principais notícias da semana pra deixar você antenado sobre o que anda rolando no mundo dos TCGs!"
     },
     {
-      "video_id": "su3PKjY0hVs",
-      "title": "One Piece TCG: Match Analysis and Breakdown, G Mihawk VS P Enel (OP-17 Dallas Finals, 2026-27 West)",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-09-21T21:07:32+00:00",
-      "video_url": "https://www.youtube.com/watch?v=su3PKjY0hVs",
-      "format": "OP17",
-      "identified_leaders": [
-        "Enel"
-      ],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
       "video_id": "OD7zwz1JTBM",
       "title": "OP17 Week 4 Meta Analysis (Sim & Tournament Data)",
       "channel_name": "Car D. Kaizoku",
@@ -2070,17 +2106,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "In this video, we take a look at OP17 data on the sim & recent tournaments! We go over leader performance as well as individual matchups between the leaders! We'll also take a look at some decklist..."
-    },
-    {
-      "video_id": "1Eh9bYtyJog",
-      "title": "All EB05 SR's Have Been Revealed!",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-09-20T17:00:01+00:00",
-      "video_url": "https://www.youtube.com/watch?v=1Eh9bYtyJog",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we catch up on EB05 spoilers now than all SRs have been revealed. We also take a look at all 6 OP18 leaders as well"
     },
     {
       "video_id": "5R9cXJZdPkY",
@@ -2094,19 +2119,6 @@
       ],
       "matchups_covered": [],
       "summary": "Torneio: OP STORE TOURNAMENT EVENT"
-    },
-    {
-      "video_id": "XeNvuEiC_Lo",
-      "title": "It Happened Again?! A Purple FInals! (Utrecht EU Finals - Grand Finals)",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-09-19T17:00:10+00:00",
-      "video_url": "https://www.youtube.com/watch?v=XeNvuEiC_Lo",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [
-        "Purple Yellow Robin"
-      ],
-      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
     },
     {
       "video_id": "zyoxXljkWik",
