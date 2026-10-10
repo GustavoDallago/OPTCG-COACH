@@ -1,9 +1,56 @@
 {
-  "last_updated": "2026-10-09T06:49:41-03:00",
+  "last_updated": "2026-10-10T06:14:21-03:00",
   "total_channels": 15,
-  "total_insights": 205,
+  "total_insights": 206,
   "videos_by_leader": {
+    "nami": [
+      {
+        "title": "You VS Your Opponent on BY Nami One Piece",
+        "channel_name": "AkemiTCG",
+        "published_at": "2026-10-09T22:00:25+00:00",
+        "video_url": "https://www.youtube.com/watch?v=1fF5oN3zt-8",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
+        "title": "One Piece TCG: Experimenting with UY Nami in the OP17 Format - Testing a BMP and TBP Hybrid Package",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-10-02T21:13:03+00:00",
+        "video_url": "https://www.youtube.com/watch?v=6gObG0u78IY",
+        "format": "OP17",
+        "matchups_covered": [
+          "P Kaido",
+          "PY Robin",
+          "B Luffy",
+          "U Rocks"
+        ]
+      },
+      {
+        "title": "Is It Safe To Play Nami Yet?",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-09-30T17:00:24+00:00",
+        "video_url": "https://www.youtube.com/watch?v=wQTZsFNTAmQ",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
+        "title": "won this at my first OPTCG regional! #optcg #nami",
+        "channel_name": "minhooty",
+        "published_at": "2026-09-08T15:58:25+00:00",
+        "video_url": "https://www.youtube.com/watch?v=H6O-GF4K6vk",
+        "format": "",
+        "matchups_covered": []
+      }
+    ],
     "luffy": [
+      {
+        "title": "O PODER DO LUFFY PRETO! Análise de Decklist e Gameplay com o @borgestcg",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-10-09T15:00:10+00:00",
+        "video_url": "https://www.youtube.com/watch?v=UUTbqGRDMWM",
+        "format": "",
+        "matchups_covered": []
+      },
       {
         "title": "One Piece Card Game: Post Restriction Elbaph Luffy Testing!",
         "channel_name": "TheEgman",
@@ -34,14 +81,6 @@
         "published_at": "2026-10-06T21:00:32+00:00",
         "video_url": "https://www.youtube.com/watch?v=Lw8yJuiN6yQ",
         "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "VALE A PENA COMPRAR O NOVO SET SAIL DECK Luffy e Ace? Unboxing e Análise Completa no One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-10-05T15:00:09+00:00",
-        "video_url": "https://www.youtube.com/watch?v=ibwGLClnrmc",
-        "format": "",
         "matchups_covered": []
       },
       {
@@ -138,14 +177,6 @@
         "published_at": "2026-09-29T13:00:13+00:00",
         "video_url": "https://www.youtube.com/watch?v=Unezkwfz3kk",
         "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "This NEW Ace Build Goes Lowkey Hard!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-09-25T14:30:28+00:00",
-        "video_url": "https://www.youtube.com/watch?v=Traa-wlWbr4",
-        "format": "",
         "matchups_covered": []
       }
     ],
@@ -331,37 +362,6 @@
         "channel_name": "minhooty",
         "published_at": "2026-10-01T15:35:49+00:00",
         "video_url": "https://www.youtube.com/watch?v=e8hKGRbkcAc",
-        "format": "",
-        "matchups_covered": []
-      }
-    ],
-    "nami": [
-      {
-        "title": "One Piece TCG: Experimenting with UY Nami in the OP17 Format - Testing a BMP and TBP Hybrid Package",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-10-02T21:13:03+00:00",
-        "video_url": "https://www.youtube.com/watch?v=6gObG0u78IY",
-        "format": "OP17",
-        "matchups_covered": [
-          "P Kaido",
-          "PY Robin",
-          "B Luffy",
-          "U Rocks"
-        ]
-      },
-      {
-        "title": "Is It Safe To Play Nami Yet?",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-09-30T17:00:24+00:00",
-        "video_url": "https://www.youtube.com/watch?v=wQTZsFNTAmQ",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "won this at my first OPTCG regional! #optcg #nami",
-        "channel_name": "minhooty",
-        "published_at": "2026-09-08T15:58:25+00:00",
-        "video_url": "https://www.youtube.com/watch?v=H6O-GF4K6vk",
         "format": "",
         "matchups_covered": []
       }
@@ -598,6 +598,16 @@
         "matchups_covered": []
       }
     ],
+    "moria": [
+      {
+        "title": "This New Gecko Moria Combo Is Crazy",
+        "channel_name": "WezaldoTCG",
+        "published_at": "2026-10-09T15:10:43+00:00",
+        "video_url": "https://www.youtube.com/watch?v=1ZVuXBp9-Mo",
+        "format": "",
+        "matchups_covered": []
+      }
+    ],
     "katakuri": [
       {
         "title": "Katakuri Might Be A Sleeper Pick For Extra Regulation?",
@@ -628,6 +638,16 @@
           "UY Boa",
           "RB Sabo"
         ]
+      }
+    ],
+    "kuzan": [
+      {
+        "title": "EB-05 Hibari BREAKS Kuzan!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-10-09T15:38:31+00:00",
+        "video_url": "https://www.youtube.com/watch?v=9xUi32zVzsY",
+        "format": "EB05",
+        "matchups_covered": []
       }
     ],
     "zoro": [
@@ -671,6 +691,150 @@
   },
   "latest_videos": [
     {
+      "video_id": "1fF5oN3zt-8",
+      "title": "You VS Your Opponent on BY Nami One Piece",
+      "channel_name": "AkemiTCG",
+      "published_at": "2026-10-09T22:00:25+00:00",
+      "video_url": "https://www.youtube.com/watch?v=1fF5oN3zt-8",
+      "format": "",
+      "identified_leaders": [
+        "Nami"
+      ],
+      "matchups_covered": [],
+      "summary": "#onepiecetcg #optcg"
+    },
+    {
+      "video_id": "XnWoUzs9Kb8",
+      "title": "One Piece TCG: Building on a Budget - Rocks, An Adaptive Deck with Big Card Draw and Utility Tech",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-10-09T20:05:03+00:00",
+      "video_url": "https://www.youtube.com/watch?v=XnWoUzs9Kb8",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "RG LAce",
+        "RB Sabo",
+        "PY Robin"
+      ],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "p-PBMxSd5sg",
+      "title": "One Piece Card Game: Post-Restrictions! OP17.5 Format Power Rankings Week 2!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-10-09T19:00:08+00:00",
+      "video_url": "https://www.youtube.com/watch?v=p-PBMxSd5sg",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "OP17 Deck Lists: https://deckbuilder.egmanevents.com/optcg/tournaments?format=OP17"
+    },
+    {
+      "video_id": "Ou5NQ-aYazs",
+      "title": "EB05 is Fully Revealed! Is It Any Good?",
+      "channel_name": "real_joshua",
+      "published_at": "2026-10-09T18:26:04+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Ou5NQ-aYazs",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Record of East Blue Podcast: https://www.youtube.com/watch?v=NJJpSScDbO0"
+    },
+    {
+      "video_id": "ifbscepvNR0",
+      "title": "What emotion with this ring harness #onepiecetcg #tcg #onepiececardgame #cards #optcg",
+      "channel_name": "WezaldoTCG",
+      "published_at": "2026-10-09T17:56:05+00:00",
+      "video_url": "https://www.youtube.com/watch?v=ifbscepvNR0",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Analise de deck e gameplay."
+    },
+    {
+      "video_id": "bkYXH18uW9s",
+      "title": "EB05 Set Review",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-10-09T17:00:22+00:00",
+      "video_url": "https://www.youtube.com/watch?v=bkYXH18uW9s",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "In this video, we rank every card in EB05!"
+    },
+    {
+      "video_id": "9xUi32zVzsY",
+      "title": "EB-05 Hibari BREAKS Kuzan!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-10-09T15:38:31+00:00",
+      "video_url": "https://www.youtube.com/watch?v=9xUi32zVzsY",
+      "format": "EB05",
+      "identified_leaders": [
+        "Kuzan"
+      ],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "1ZVuXBp9-Mo",
+      "title": "This New Gecko Moria Combo Is Crazy",
+      "channel_name": "WezaldoTCG",
+      "published_at": "2026-10-09T15:10:43+00:00",
+      "video_url": "https://www.youtube.com/watch?v=1ZVuXBp9-Mo",
+      "format": "",
+      "identified_leaders": [
+        "Moria"
+      ],
+      "matchups_covered": [],
+      "summary": "My twitter:"
+    },
+    {
+      "video_id": "Gj-tI4vn2bM",
+      "title": "This Combo Is Kinda Nutty?  #onepiecetcg #tcg #onepiececardgame #cards #optcg",
+      "channel_name": "WezaldoTCG",
+      "published_at": "2026-10-09T15:02:40+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Gj-tI4vn2bM",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "My twitter:"
+    },
+    {
+      "video_id": "UUTbqGRDMWM",
+      "title": "O PODER DO LUFFY PRETO! Análise de Decklist e Gameplay com o @borgestcg",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-10-09T15:00:10+00:00",
+      "video_url": "https://www.youtube.com/watch?v=UUTbqGRDMWM",
+      "format": "",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "📒Aprenda com o Borges: https://www.instagram.com/victor_borg/"
+    },
+    {
+      "video_id": "TssN7aKxr68",
+      "title": "CyberpunkTCG: Beta Test Games with @robatlas31",
+      "channel_name": "TheEgman",
+      "published_at": "2026-10-09T13:42:58+00:00",
+      "video_url": "https://www.youtube.com/watch?v=TssN7aKxr68",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://egmanevents.com"
+    },
+    {
+      "video_id": "K0AroSz-aFI",
+      "title": "🏴‍☠️Como está o jogo com Mihawk banido? Meta One Piece OP17",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-10-09T13:00:08+00:00",
+      "video_url": "https://www.youtube.com/watch?v=K0AroSz-aFI",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "📊 Informações: https://stats.tcgmatchmaking.com/"
+    },
+    {
       "video_id": "xE5oOu7D4l8",
       "title": "One Piece Card Game: Post Restriction Elbaph Luffy Testing!",
       "channel_name": "TheEgman",
@@ -680,17 +844,6 @@
       "identified_leaders": [
         "Luffy"
       ],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://egmanevents.com"
-    },
-    {
-      "video_id": "TssN7aKxr68",
-      "title": "CyberpunkTCG: Beta Test Games with @robatlas31",
-      "channel_name": "TheEgman",
-      "published_at": "2026-10-08T21:22:23+00:00",
-      "video_url": "https://www.youtube.com/watch?v=TssN7aKxr68",
-      "format": "",
-      "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Deck Lists: https://egmanevents.com"
     },
@@ -1612,17 +1765,6 @@
       "summary": "Você teria coragem de abrir um produto assim por 50% OFF? Diga lá nos comentários!!! 🦶📦😈"
     },
     {
-      "video_id": "XxfN1svJ-XA",
-      "title": "Gundam Card Game: Starter Deck Testing! The-O!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-09-29T21:47:06+00:00",
-      "video_url": "https://www.youtube.com/watch?v=XxfN1svJ-XA",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Tournament Sign ups: https://www.bestcoastpairings.com/event/UhnzNPOFCVYt?active_tab=overview"
-    },
-    {
       "video_id": "A-acSyB1u0c",
       "title": "That's Some Immaculate Play (Dallas NA Finals - Top 8)",
       "channel_name": "Car D. Kaizoku",
@@ -1886,17 +2028,6 @@
       "summary": "Check out Ultimate Guard here:"
     },
     {
-      "video_id": "taYtulZZR-k",
-      "title": "🚫Bets proibidas no Brasil! Mas o que isso tem a ver com TCG? One Piece",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-09-26T13:00:08+00:00",
-      "video_url": "https://www.youtube.com/watch?v=taYtulZZR-k",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "🦾 Seja membro ou apoiador e receba os vídeos antecipadamente e concorra a produtos relacionados a One Piece!"
-    },
-    {
       "video_id": "E9NkJFw5hhk",
       "title": "When Your Leader gets Banned One Piece TCG",
       "channel_name": "AkemiTCG",
@@ -1945,19 +2076,6 @@
         "Purple Yellow Pudding"
       ],
       "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
-    },
-    {
-      "video_id": "Traa-wlWbr4",
-      "title": "This NEW Ace Build Goes Lowkey Hard!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-09-25T14:30:28+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Traa-wlWbr4",
-      "format": "",
-      "identified_leaders": [
-        "Ace"
-      ],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
     },
     {
       "video_id": "_XeqBEniX9o",
@@ -2034,17 +2152,6 @@
       "summary": "ONE PIECE CARD GAME Extra Booster: -ONE PIECE Heroines Edition vol. 2- [EB-05]"
     },
     {
-      "video_id": "ucOo7YLn7mc",
-      "title": "O MIHAWK FOI BANIDO! 🚨 Análise Completa da Nova Banlist do One Piece TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-09-24T14:01:29+00:00",
-      "video_url": "https://www.youtube.com/watch?v=ucOo7YLn7mc",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "A Bandai surpreendeu o cenário competitivo com uma nova Banlist que traz o banimento oficial do líder Mihawk no One Piece TCG! Mas será que essa decisão foi precipitada ou um mal necessário para o ..."
-    },
-    {
       "video_id": "AkWHw8GBb20",
       "title": "Top 64 Dallas Nationals Mihawk \"Fwirth\" — In-Game Interviews",
       "channel_name": "minhooty",
@@ -2065,17 +2172,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Live curtindo a Ranked de OP17 com Xebec, muita música gameplay e conversa sobre o meta atual, aprendendo juntos!"
-    },
-    {
-      "video_id": "aZtrJiKBLr0",
-      "title": "One Piece TCG: Bandai Announced A Bans And Restrictions Update Coming Soon, These Are My Predictions",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-09-23T20:19:02+00:00",
-      "video_url": "https://www.youtube.com/watch?v=aZtrJiKBLr0",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "89Ngx0a7NAY",
@@ -2100,17 +2196,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Trazendo um vídeo para falarmos sobre as novas cartas reveladas de EB, finalmente vimos as SRs novas, com diversos suportes para arquétipos que temos no jogo já e vamos ver novas staples, e vemos c..."
-    },
-    {
-      "video_id": "8M7EHSN0TdQ",
-      "title": "OP17 Banlist Predictions! Mihawk Getting The Hit?",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-09-22T17:00:07+00:00",
-      "video_url": "https://www.youtube.com/watch?v=8M7EHSN0TdQ",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we speculate over what they could announce on their Banned and Restricted Cards list this September 2026! This could have huge ramifications on the meta for the rest of the year. Wil..."
     },
     {
       "video_id": "dt1f2sY9G9Q",
@@ -2479,19 +2564,6 @@
       "summary": "My twitter:"
     },
     {
-      "video_id": "_8Ss4-Rek8o",
-      "title": "Putting robin in robin?  #onepiecetcg #onepiececardgame #tcg #onepiece #optcg",
-      "channel_name": "WezaldoTCG",
-      "published_at": "2026-09-01T14:45:24+00:00",
-      "video_url": "https://www.youtube.com/watch?v=_8Ss4-Rek8o",
-      "format": "",
-      "identified_leaders": [
-        "Robin"
-      ],
-      "matchups_covered": [],
-      "summary": "My twitter:"
-    },
-    {
       "video_id": "oNoVqRhQL7o",
       "title": "OP17 iKailaCup 2",
       "channel_name": "iKailaKai",
@@ -2562,30 +2634,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Thank you for supporting me by supporting my sponsors."
-    },
-    {
-      "video_id": "2AVedH159a0",
-      "title": "Shank beats mihawk bc hes haki type  #onepiecetcg #onepiececardgame #optcg #luffy #tcg",
-      "channel_name": "WezaldoTCG",
-      "published_at": "2026-08-31T00:08:31+00:00",
-      "video_url": "https://www.youtube.com/watch?v=2AVedH159a0",
-      "format": "",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "My twitter:"
-    },
-    {
-      "video_id": "FNl9Ci9_wKc",
-      "title": "70% Win rate Ashwagandha UG Rosinante Rocks Pirates",
-      "channel_name": "WezaldoTCG",
-      "published_at": "2026-08-29T15:00:37+00:00",
-      "video_url": "https://www.youtube.com/watch?v=FNl9Ci9_wKc",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "They let anyone build decks now a days."
     },
     {
       "video_id": "NKB7A66UQHI",
@@ -2918,17 +2966,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Today's One Piece TCG deck profile: OP17 Edward Newgate, Red Whitebeard, Red Edward Newgate, OP17 Whitebeard. This Red Edward Newgate leader originally released in OP17 and was created with OP17 in..."
-    },
-    {
-      "video_id": "FKiqiB4EvZQ",
-      "title": "OP17 is here! Let's open 2 BOXES | The World's Strongest Warriors OPTCG",
-      "channel_name": "real_joshua",
-      "published_at": "2026-08-21T18:20:58+00:00",
-      "video_url": "https://www.youtube.com/watch?v=FKiqiB4EvZQ",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Thanks to @THECRIMSONGUILDSOCAL for the boxes! What'd you think of the pulls? #optcg #onepiece"
     },
     {
       "video_id": "NaXfrLl4aYE",
