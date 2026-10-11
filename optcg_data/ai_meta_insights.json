@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-10T06:14:21-03:00",
+  "last_updated": "2026-10-11T06:30:58-03:00",
   "total_channels": 15,
   "total_insights": 206,
   "videos_by_leader": {
@@ -148,6 +148,14 @@
     ],
     "ace": [
       {
+        "title": "🔥Ace tem chance contra Nico Robin? One Piece POV OP17",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-10-10T13:00:33+00:00",
+        "video_url": "https://www.youtube.com/watch?v=zS0iooSXeSE",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
         "title": "VALE A PENA COMPRAR O NOVO SET SAIL DECK Luffy e Ace? Unboxing e Análise Completa no One Piece TCG",
         "channel_name": "Mestre Arty TCG",
         "published_at": "2026-10-05T15:00:09+00:00",
@@ -170,17 +178,17 @@
         "video_url": "https://www.youtube.com/watch?v=8dudqfdNpiE",
         "format": "",
         "matchups_covered": []
-      },
-      {
-        "title": "🔥O agressivo Ace tem chance contra a Nico Robin? One Piece POV OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-09-29T13:00:13+00:00",
-        "video_url": "https://www.youtube.com/watch?v=Unezkwfz3kk",
-        "format": "OP17",
-        "matchups_covered": []
       }
     ],
     "yamato": [
+      {
+        "title": "One Piece TCG: Match Analysis and Breakdown, UY Boa VS B Yamato (London Regional, West OP-17)",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-10-10T20:11:40+00:00",
+        "video_url": "https://www.youtube.com/watch?v=qSw2poeYRLA",
+        "format": "OP17",
+        "matchups_covered": []
+      },
       {
         "title": "This Enel List Won Me An SP Yamato!",
         "channel_name": "Hashtag EMB",
@@ -220,10 +228,10 @@
     ],
     "robin": [
       {
-        "title": "Nico Robin contra o PROIBIDO! 🚫 One Piece POV OP17",
+        "title": "🔥Ace tem chance contra Nico Robin? One Piece POV OP17",
         "channel_name": "Café Com One Piece",
-        "published_at": "2026-10-08T13:00:10+00:00",
-        "video_url": "https://www.youtube.com/watch?v=lW0HaJopBJk",
+        "published_at": "2026-10-10T13:00:33+00:00",
+        "video_url": "https://www.youtube.com/watch?v=zS0iooSXeSE",
         "format": "OP17",
         "matchups_covered": []
       },
@@ -304,10 +312,10 @@
     ],
     "nico robin": [
       {
-        "title": "Nico Robin contra o PROIBIDO! 🚫 One Piece POV OP17",
+        "title": "🔥Ace tem chance contra Nico Robin? One Piece POV OP17",
         "channel_name": "Café Com One Piece",
-        "published_at": "2026-10-08T13:00:10+00:00",
-        "video_url": "https://www.youtube.com/watch?v=lW0HaJopBJk",
+        "published_at": "2026-10-10T13:00:33+00:00",
+        "video_url": "https://www.youtube.com/watch?v=zS0iooSXeSE",
         "format": "OP17",
         "matchups_covered": []
       },
@@ -690,6 +698,67 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "qSw2poeYRLA",
+      "title": "One Piece TCG: Match Analysis and Breakdown, UY Boa VS B Yamato (London Regional, West OP-17)",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-10-10T20:11:40+00:00",
+      "video_url": "https://www.youtube.com/watch?v=qSw2poeYRLA",
+      "format": "OP17",
+      "identified_leaders": [
+        "Yamato"
+      ],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "RCf9lGcPF94",
+      "title": "​@CyberpunkTCG : Tri-Color Johnny! Welcome To Night City Deck Profile and Overview!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-10-10T20:00:15+00:00",
+      "video_url": "https://www.youtube.com/watch?v=RCf9lGcPF94",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Egman Event's Cyberpunk Deck Builder & Deck Lists:"
+    },
+    {
+      "video_id": "LNh9bv6jdrw",
+      "title": "O MELHOR DECK PARA INICIANTES NO ONE PIECE TCG!",
+      "channel_name": "tcgBR",
+      "published_at": "2026-10-10T16:15:16+00:00",
+      "video_url": "https://www.youtube.com/watch?v=LNh9bv6jdrw",
+      "format": "OP17",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Quer começar no One Piece TCG e não sabe qual produto comprar? o SET SAIL DECK é pra você. Este é um deck inicial duplo, pra você e mais um amigo aprenderem os básicos de One Piece TCG. Vem com a g..."
+    },
+    {
+      "video_id": "RFytieTrDPQ",
+      "title": "Newgate Returns With EB-05!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-10-10T15:30:06+00:00",
+      "video_url": "https://www.youtube.com/watch?v=RFytieTrDPQ",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "zS0iooSXeSE",
+      "title": "🔥Ace tem chance contra Nico Robin? One Piece POV OP17",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-10-10T13:00:33+00:00",
+      "video_url": "https://www.youtube.com/watch?v=zS0iooSXeSE",
+      "format": "OP17",
+      "identified_leaders": [
+        "Ace",
+        "Robin",
+        "Nico Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "🦾 Seja membro ou apoiador e receba os vídeos antecipadamente e concorra a produtos relacionados a One Piece!"
+    },
     {
       "video_id": "1fF5oN3zt-8",
       "title": "You VS Your Opponent on BY Nami One Piece",
@@ -1721,17 +1790,6 @@
       "summary": "Check out Ultimate Guard here:"
     },
     {
-      "video_id": "r1nZgbBa-kw",
-      "title": "Gundam Card Game: Power Rankings! GD05 + Starter Decks Preview Week!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-09-30T15:00:21+00:00",
-      "video_url": "https://www.youtube.com/watch?v=r1nZgbBa-kw",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Power Rankings: https://deckbuilder.egmanevents.com/gundam/tournaments?format=GD05&tab=ranked"
-    },
-    {
       "video_id": "6UFmochyt5c",
       "title": "Pokémon DESVALORIZADO e One Piece SUPER INFLACIONADO!? 🤔 COLEÇÕES DE ANIVERSÁRIO! 🎂",
       "channel_name": "Café Com One Piece",
@@ -1993,19 +2051,6 @@
       "summary": "Isso aqui não é compra, é saque 😳 \"Let's enjoy\" ele disse... e nós aqui só olhando. Paixão de verdade ou flex de rico? Comenta o que vocês acham 👇"
     },
     {
-      "video_id": "Y3-BoJraloE",
-      "title": "Dragon Shield Non Glare",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-09-26T19:30:29+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Y3-BoJraloE",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [
-        "Leader Y"
-      ],
-      "summary": "🦾 Seja membro ou apoiador e receba os vídeos antecipadamente e concorra a produtos relacionados a One Piece!"
-    },
-    {
       "video_id": "uttRnY_R_0k",
       "title": "VALBRAK: O Mago Implacável Que Não Para de Comprar Cartas | Mytragor TCG",
       "channel_name": "Mestre Arty TCG",
@@ -2015,17 +2060,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "🃏 Jogue agora em: https://mestrearty.short.gy/mytragor"
-    },
-    {
-      "video_id": "phnXpfr9zKo",
-      "title": "Taking Newgate To the Ranked Ladder!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-09-26T14:30:16+00:00",
-      "video_url": "https://www.youtube.com/watch?v=phnXpfr9zKo",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
     },
     {
       "video_id": "E9NkJFw5hhk",
@@ -2089,17 +2123,6 @@
       ],
       "matchups_covered": [],
       "summary": "My twitter:"
-    },
-    {
-      "video_id": "bjf8cvI-tMM",
-      "title": "One Piece TCG: Bandai's Bans & Restrictions Update - Mihawk Gets Banned and Gets a Promo Replacement",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-09-24T21:41:09+00:00",
-      "video_url": "https://www.youtube.com/watch?v=bjf8cvI-tMM",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "sxYWYSnruww",
@@ -2196,17 +2219,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Trazendo um vídeo para falarmos sobre as novas cartas reveladas de EB, finalmente vimos as SRs novas, com diversos suportes para arquétipos que temos no jogo já e vamos ver novas staples, e vemos c..."
-    },
-    {
-      "video_id": "dt1f2sY9G9Q",
-      "title": "Lançamento de Pokémon 30 Anos, Collab de One Piece com McDonalds e mais! | Plantão TCG | EP. 2",
-      "channel_name": "tcgBR",
-      "published_at": "2026-09-22T15:00:16+00:00",
-      "video_url": "https://www.youtube.com/watch?v=dt1f2sY9G9Q",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "No Plantão TCG, Lucca traz algumas das principais notícias da semana pra deixar você antenado sobre o que anda rolando no mundo dos TCGs!"
     },
     {
       "video_id": "NQU2nHsUxoc",
