@@ -249,8 +249,11 @@ def process_channel_videos() -> Dict[str, Any]:
     insights["videos_by_leader"] = deduped_videos_by_leader
     insights["total_insights"] = len(insights["latest_videos"])
     insights["latest_videos"].sort(key=lambda x: x.get("published_at", ""), reverse=True)
-    atomic_save_json(insights, OUTPUT_FILE)
-    print(f"\n[Sucesso] {OUTPUT_FILE} gerado com {insights['total_insights']} videos de meta.")
+    if insights["total_insights"] > 0 or not os.path.exists(OUTPUT_FILE):
+        atomic_save_json(insights, OUTPUT_FILE)
+        print(f"\n[Sucesso] {OUTPUT_FILE} gerado com {insights['total_insights']} videos de meta.")
+    else:
+        print(f"\n[Aviso] Nenhum video coletado (possivel falha de rede). {OUTPUT_FILE} existente preservado.")
     return insights
 
 EVERGREEN_FILE = "optcg_data/evergreen_strategy_guides.json"
