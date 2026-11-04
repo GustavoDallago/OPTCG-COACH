@@ -351,9 +351,12 @@ def load_banlist(mode: str = "EN", force_reload: bool = False, target_date: Opti
     for sb in res.get("scheduled_bans", []):
         sb_date = sb.get("effective_date", "")
         cid = (sb.get("card_id") or "").strip().upper()
-        if sb_date and cid and eff_date_str >= sb_date:
-            if cid not in banned_cards_copy:
-                banned_cards_copy.append(cid)
+        if sb_date and cid:
+            if eff_date_str >= sb_date:
+                if cid not in banned_cards_copy:
+                    banned_cards_copy.append(cid)
+            else:
+                banned_cards_copy = [c for c in banned_cards_copy if c.strip().upper() != cid]
     res["banned_cards"] = banned_cards_copy
 
     return res
@@ -377,10 +380,13 @@ def validate_deck_legality(
     # If banlist_data is explicitly provided with scheduled_bans and target_date, evaluate them
     if target_date and "scheduled_bans" in banlist:
         for sb in banlist.get("scheduled_bans", []):
-            if sb.get("effective_date") and target_date >= sb.get("effective_date"):
-                cid = (sb.get("card_id") or "").strip().upper()
-                if cid:
+            sb_date = sb.get("effective_date", "")
+            cid = (sb.get("card_id") or "").strip().upper()
+            if sb_date and cid:
+                if target_date >= sb_date:
                     banned_cards.add(cid)
+                else:
+                    banned_cards.discard(cid)
 
     banned_sets = {s.strip().upper() for s in banlist.get("banned_sets", [])}
     banned_starter_decks = {s.strip().upper() for s in banlist.get("banned_starter_decks", [])}

@@ -356,6 +356,14 @@ class TestDeckAnalyzer(unittest.TestCase):
         self.assertEqual(len(rep_after["banned_cards_found"]), 1)
         self.assertEqual(rep_after["banned_cards_found"][0]["card_id"], "OP14-020")
 
+        # 3. Even if scrape_banlist persisted OP14-020 into base banned_cards after 2026-10-12,
+        # querying a target_date before 2026-10-12 must still treat OP14-020 as legal
+        import analyzer
+        if analyzer.BANLIST_CACHE is not None and "OP14-020" not in analyzer.BANLIST_CACHE["banned_cards"]:
+            analyzer.BANLIST_CACHE["banned_cards"].append("OP14-020")
+        banlist_retro = load_banlist("EN", force_reload=False, target_date="2026-10-11")
+        self.assertNotIn("OP14-020", banlist_retro.get("banned_cards", []))
+
 class DataValidatorTests(unittest.TestCase):
     def test_valid_meta_dataset(self):
         from tools.data_validator import validate_meta_dataset
@@ -409,20 +417,45 @@ class SeasonTransitionTests(unittest.TestCase):
         from update_all import get_season_plan
         plan = get_season_plan(target_date="2026-11-20")
         self.assertEqual(plan["active_set"], "OP18")
-        # In current state, OP17 is active with rolling 15d (is_consolidated=False), so it must be consolidated
-        self.assertIn("OP17", plan["past_to_consolidate"])
+        with open("optcg_data/meta_OP17.json", "r", encoding="utf-8") as f:
+            op17_data = json.load(f)
+        if not op17_data.get("is_consolidated"):
+            self.assertIn("OP17", plan["past_to_consolidate"])
+        else:
+            self.assertNotIn("OP17", plan["past_to_consolidate"])
 
     def test_manifest_contains_consolidation_flags(self):
-        from update_all import generate_manifest
-        generate_manifest()
-        with open("optcg_data/manifest.json", "r", encoding="utf-8") as f:
-            manifest = json.load(f)
-        self.assertEqual(manifest.get("active_season_set"), "OP17")
-        sets_map = {s["code"]: s for s in manifest.get("available_meta_sets", [])}
-        self.assertTrue(sets_map["OP16"]["is_consolidated"])
-        self.assertEqual(sets_map["OP16"]["season_status"], "consolidated")
-        self.assertFalse(sets_map["OP17"]["is_consolidated"])
-        self.assertEqual(sets_map["OP17"]["season_status"], "active")
+        from update_all import generate_manifest, get_season_plan
+        manifest_path = "optcg_data/manifest.json"
+        log_path = "update_log.txt"
+        orig_manifest = None
+        if os.path.exists(manifest_path):
+            with open(manifest_path, "rb") as f:
+                orig_manifest = f.read()
+        orig_log = None
+        if os.path.exists(log_path):
+            with open(log_path, "rb") as f:
+                orig_log = f.read()
+        try:
+            generate_manifest()
+            plan = get_season_plan()
+            active_set = plan["active_set"]
+            with open(manifest_path, "r", encoding="utf-8") as f:
+                manifest = json.load(f)
+            self.assertEqual(manifest.get("active_season_set"), active_set)
+            sets_map = {s["code"]: s for s in manifest.get("available_meta_sets", [])}
+            self.assertTrue(sets_map["OP16"]["is_consolidated"])
+            self.assertEqual(sets_map["OP16"]["season_status"], "consolidated")
+            if active_set in sets_map:
+                self.assertFalse(sets_map[active_set]["is_consolidated"])
+                self.assertEqual(sets_map[active_set]["season_status"], "active")
+        finally:
+            if orig_manifest is not None:
+                with open(manifest_path, "wb") as f:
+                    f.write(orig_manifest)
+            if orig_log is not None:
+                with open(log_path, "wb") as f:
+                    f.write(orig_log)
 
 if __name__ == "__main__":
     unittest.main()

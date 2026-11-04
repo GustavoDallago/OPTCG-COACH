@@ -209,6 +209,20 @@ def fix_meta_decks_tracked() -> None:
 
             leaders = data.get("leaders", [])
             if leaders:
+                seen_lids = set()
+                unique_leaders = []
+                for l in leaders:
+                    lid = (l.get("leader_card_id") or "").upper().strip()
+                    if lid and lid not in seen_lids:
+                        seen_lids.add(lid)
+                        unique_leaders.append(l)
+                    elif not lid:
+                        unique_leaders.append(l)
+                if len(unique_leaders) != len(leaders):
+                    data["leaders"] = unique_leaders
+                    leaders = unique_leaders
+                    modified = True
+
                 total = sum(l.get("deck_count", 0) for l in leaders if l.get("is_active", True) is not False)
                 if data.get("decks_tracked") != total:
                     data["decks_tracked"] = total

@@ -855,9 +855,9 @@ def scrape_limitless(set_code: str = "OP17", min_players: int = 8, days: Optiona
             prev_leaders = prev_meta.get("leaders", [])
             prev_scraped_at = prev_meta.get("scraped_at", "")
             
-            seen_ids = set(active_leader_ids)
+            seen_ids = set((l.get("leader_card_id") or "").upper().strip() for l in leaders_output if l.get("leader_card_id"))
             for old_l in prev_leaders:
-                old_id = old_l.get("leader_card_id")
+                old_id = (old_l.get("leader_card_id") or "").upper().strip()
                 if not old_id or old_id in seen_ids:
                     continue  # Already updated or already preserved
                 seen_ids.add(old_id)

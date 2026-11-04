@@ -3969,10 +3969,10 @@
                     if (!rawId) return false;
                     const cid = rawId.toUpperCase().trim();
 
-                    // Verifica se possui banimento agendado que já entrou em vigor
+                    // Verifica se possui banimento agendado (respeita data de vigência)
                     const schedInfo = getScheduledBanInfo(cid, refDateStr);
-                    if (schedInfo && schedInfo.isEffective) {
-                        return true;
+                    if (schedInfo) {
+                        return schedInfo.isEffective;
                     }
 
                     const modes = banlistData.value.modes || {};
@@ -4754,7 +4754,21 @@
 
                 const sortedMetaLeaders = computed(() => {
                     if (!metaData.value || !metaData.value.leaders) return [];
-                    return [...metaData.value.leaders].sort((a, b) => {
+                    
+                    // Deduplica líderes para garantir unicidade visual no grid
+                    const seenLids = new Set();
+                    const uniqueLeaders = [];
+                    for (const l of metaData.value.leaders) {
+                        const lid = (l.leader_card_id || '').toUpperCase().trim();
+                        if (lid && !seenLids.has(lid)) {
+                            seenLids.add(lid);
+                            uniqueLeaders.push(l);
+                        } else if (!lid) {
+                            uniqueLeaders.push(l);
+                        }
+                    }
+
+                    return uniqueLeaders.sort((a, b) => {
                         // 0º Critério: Ativos no meta recente (<15 dias) vêm primeiro
                         const activeA = a.is_active !== false ? 1 : 0;
                         const activeB = b.is_active !== false ? 1 : 0;
