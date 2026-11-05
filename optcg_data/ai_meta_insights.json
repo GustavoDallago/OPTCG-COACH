@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-04T15:29:14-03:00",
+  "last_updated": "2026-11-05T07:03:10-03:00",
   "total_channels": 15,
   "total_insights": 201,
   "videos_by_leader": {
@@ -506,22 +506,29 @@
         "matchups_covered": []
       }
     ],
+    "moria": [
+      {
+        "title": "This New Gecko Moria Combo Is Crazy",
+        "channel_name": "WezaldoTCG",
+        "published_at": "2026-10-09T15:10:43+00:00",
+        "video_url": "https://www.youtube.com/watch?v=1ZVuXBp9-Mo",
+        "format": "",
+        "matchups_covered": []
+      }
+    ],
     "sabo": [
       {
-        "title": "One Piece TCG: Breaking Down and Analyzing a 1st Place RY Sabo Flagship Deck List from the East",
+        "title": "One Piece TCG: Testing RY Sabo Against some of the Stronger Looking Leaders in the EB-05 Format",
         "channel_name": "The Vv Theory",
-        "published_at": "2026-10-24T20:45:40+00:00",
-        "video_url": "https://www.youtube.com/watch?v=8JvmWOGykjE",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "SABO McDONALD'S virou BURGER KING?! Sabo ST13 com Big Mom e Thriller Bark | One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-10-15T15:00:01+00:00",
-        "video_url": "https://www.youtube.com/watch?v=sZvDRv02-FM",
-        "format": "OP17",
-        "matchups_covered": []
+        "published_at": "2026-11-04T22:29:15+00:00",
+        "video_url": "https://www.youtube.com/watch?v=w-oxVqhxmds",
+        "format": "EB05",
+        "matchups_covered": [
+          "RG Luffy",
+          "U Buggy 1",
+          "U Buggy 2",
+          "GY Shirahoshi"
+        ]
       },
       {
         "title": "Sabo vs Luffy & Ace! - Flame Flame fruit Japão!!",
@@ -537,16 +544,6 @@
         "published_at": "2026-08-15T20:30:25+00:00",
         "video_url": "https://www.youtube.com/watch?v=R0AAALPu26c",
         "format": "OP16",
-        "matchups_covered": []
-      }
-    ],
-    "moria": [
-      {
-        "title": "This New Gecko Moria Combo Is Crazy",
-        "channel_name": "WezaldoTCG",
-        "published_at": "2026-10-09T15:10:43+00:00",
-        "video_url": "https://www.youtube.com/watch?v=1ZVuXBp9-Mo",
-        "format": "",
         "matchups_covered": []
       }
     ],
@@ -644,6 +641,68 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "sqcTzu0-m1A",
+      "title": "One Piece Card Game: Wednesday Night One Piece EB05 Edition!!!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-05T06:53:09+00:00",
+      "video_url": "https://www.youtube.com/watch?v=sqcTzu0-m1A",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "ESC Affiliate Link: bit.ly/EgmanEXPShare"
+    },
+    {
+      "video_id": "w-oxVqhxmds",
+      "title": "One Piece TCG: Testing RY Sabo Against some of the Stronger Looking Leaders in the EB-05 Format",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-04T22:29:15+00:00",
+      "video_url": "https://www.youtube.com/watch?v=w-oxVqhxmds",
+      "format": "EB05",
+      "identified_leaders": [
+        "Sabo"
+      ],
+      "matchups_covered": [
+        "RG Luffy",
+        "U Buggy 1",
+        "U Buggy 2",
+        "GY Shirahoshi"
+      ],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "8F6ZiKicptU",
+      "title": "@Azuki_TCG Fractured Domains Card Reveal!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-04T22:00:24+00:00",
+      "video_url": "https://www.youtube.com/watch?v=8F6ZiKicptU",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Make sure to check out the official Azuki TCG Twitter for more details on Fractured Domains: https://x.com/AzukiTCG"
+    },
+    {
+      "video_id": "FWCX2umq_Sw",
+      "title": "COMO NASCE UM TCG BRASILEIRO? Entrevista com o Criador do Mytragor",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-04T20:27:06+00:00",
+      "video_url": "https://www.youtube.com/watch?v=FWCX2umq_Sw",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Por que quase nenhum card game brasileiro conquistou o nosso mercado? Fui perguntar pra quem está criando um."
+    },
+    {
+      "video_id": "LMS9RBETiBU",
+      "title": "One Piece Card Game: EB05 Format! Egman and @ikailakai Cup Triple Win-A-Box Results!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-04T19:00:38+00:00",
+      "video_url": "https://www.youtube.com/watch?v=LMS9RBETiBU",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://deckbuilder.egmanevents.com/optcg/tournaments?format=OP17"
+    },
     {
       "video_id": "H62b7q6ds_0",
       "title": "EB05 Pudding SP! #optcg #pudding #eb05",
@@ -1400,17 +1459,6 @@
       "summary": "Support the stream: https://streamlabs.com/hashtagemb"
     },
     {
-      "video_id": "uwdLpy7ThZ4",
-      "title": "Gundam Card Game: GD06 Qubeley Testing!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-10-28T09:26:35+00:00",
-      "video_url": "https://www.youtube.com/watch?v=uwdLpy7ThZ4",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://egmanevents.com"
-    },
-    {
       "video_id": "AyUqp2N333o",
       "title": "Qual o ESPADACHIM mais FORTE de One Piece? ⚔️ #Shorts #onepiece #pokemon #tcg",
       "channel_name": "tcgBR",
@@ -1442,17 +1490,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Check out Ultimate Guard here:"
-    },
-    {
-      "video_id": "Itwmgnubo4E",
-      "title": "Gundam Card Game: Is The Game Still Broken? World Championship Thoughts and Discussion.",
-      "channel_name": "TheEgman",
-      "published_at": "2026-10-27T17:00:29+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Itwmgnubo4E",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sponsored by:"
     },
     {
       "video_id": "bRdcy0qJcOs",
@@ -1492,17 +1529,6 @@
       ],
       "matchups_covered": [],
       "summary": "🎟️ Copa Café #9 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-9"
-    },
-    {
-      "video_id": "qBD_5fuAwao",
-      "title": "Gundam Card Game: GD06 Albion Squad Testing!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-10-27T09:21:08+00:00",
-      "video_url": "https://www.youtube.com/watch?v=qBD_5fuAwao",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://egmanevents.com"
     },
     {
       "video_id": "WOwmltbBxPs",
@@ -1925,17 +1951,6 @@
       "summary": "Trazendo um vídeo onde falo as minhas previsões para o meta de EB05 no competitivo que teremos no fim do ano aqui no Brasil, diversos decks recebem suportes em EB e estão todos mirando no rei, Rocks!!"
     },
     {
-      "video_id": "At7dKkaCv3w",
-      "title": "One Piece TCG: Hot Take Tuesday - \"Purple Needs a Re-Design, Don Minus Not an Extra Cost Anymore\"",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-10-20T21:19:02+00:00",
-      "video_url": "https://www.youtube.com/watch?v=At7dKkaCv3w",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
       "video_id": "rTIyhEYFxEk",
       "title": "Robin Makes 10c Luffy Finally Good!!",
       "channel_name": "Car D. Kaizoku",
@@ -2141,19 +2156,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Ta à procura dos melhores acessórios para proteger a tua coleção com máximo estilo e segurança? Descobre as novas pastas temáticas e as cores inéditas de shields da Titan TCG!"
-    },
-    {
-      "video_id": "sZvDRv02-FM",
-      "title": "SABO McDONALD'S virou BURGER KING?! Sabo ST13 com Big Mom e Thriller Bark | One Piece TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-10-15T15:00:01+00:00",
-      "video_url": "https://www.youtube.com/watch?v=sZvDRv02-FM",
-      "format": "OP17",
-      "identified_leaders": [
-        "Sabo"
-      ],
-      "matchups_covered": [],
-      "summary": "O Sabo amarelo e vermelho do ST13 tem um efeito único: com um DON!! anexado, ele coloca um personagem de custo 3 ou mais no topo da vida virado para cima e dá +2.000 de poder para alguém. Nesse víd..."
     },
     {
       "video_id": "4W_eI3UPrPE",
