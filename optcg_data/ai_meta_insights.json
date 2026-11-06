@@ -1,23 +1,23 @@
 {
-  "last_updated": "2026-11-05T07:03:10-03:00",
+  "last_updated": "2026-11-06T07:08:10-03:00",
   "total_channels": 15,
-  "total_insights": 201,
+  "total_insights": 200,
   "videos_by_leader": {
     "pudding": [
+      {
+        "title": "👁️ Imu? Contra a revitalizada Pudding! One Piece OP17",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-11-05T13:00:13+00:00",
+        "video_url": "https://www.youtube.com/watch?v=H26frTAm2y4",
+        "format": "OP17",
+        "matchups_covered": []
+      },
       {
         "title": "EB05 Pudding SP! #optcg #pudding #eb05",
         "channel_name": "minhooty",
         "published_at": "2026-11-04T18:21:23+00:00",
         "video_url": "https://www.youtube.com/watch?v=H62b7q6ds_0",
         "format": "EB05",
-        "matchups_covered": []
-      },
-      {
-        "title": "🟣🟡Duelo de Big Mom! Pudding VS Robin! One Piece POV OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-10-31T13:00:18+00:00",
-        "video_url": "https://www.youtube.com/watch?v=J2wvC1la1sg",
-        "format": "OP17",
         "matchups_covered": []
       },
       {
@@ -54,6 +54,19 @@
     ],
     "robin": [
       {
+        "title": "[EB05] Green Yellow Robin Deck Guide + Gameplay",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-11-05T18:00:39+00:00",
+        "video_url": "https://www.youtube.com/watch?v=2jK1_zOKtAE",
+        "format": "EB05",
+        "matchups_covered": [
+          "U Rocks",
+          "U Buggy",
+          "GU Luffy",
+          "P Kaido"
+        ]
+      },
+      {
         "title": "🔵 Xebec é imbatível? vs Nico Robin! One Piece POV OP17",
         "channel_name": "Café Com One Piece",
         "published_at": "2026-11-04T13:00:07+00:00",
@@ -75,14 +88,6 @@
         "published_at": "2026-10-21T15:00:20+00:00",
         "video_url": "https://www.youtube.com/watch?v=NTyNg4QWrNw",
         "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "Robin Makes 10c Luffy Finally Good!!",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-10-20T17:00:14+00:00",
-        "video_url": "https://www.youtube.com/watch?v=rTIyhEYFxEk",
-        "format": "EB05",
         "matchups_covered": []
       },
       {
@@ -170,6 +175,14 @@
     ],
     "luffy": [
       {
+        "title": "One Piece Card Game: Try-Hard Red/Green Luffy Ranked Testing!",
+        "channel_name": "TheEgman",
+        "published_at": "2026-11-05T06:53:09+00:00",
+        "video_url": "https://www.youtube.com/watch?v=sqcTzu0-m1A",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
         "title": "One Piece TCG: Hot Take Tuesday - \"OP13 RG Luffy is a Tier Zero Deck with the New EB05 Support\"",
         "channel_name": "The Vv Theory",
         "published_at": "2026-11-03T22:07:27+00:00",
@@ -199,14 +212,6 @@
         "published_at": "2026-10-29T14:02:26+00:00",
         "video_url": "https://www.youtube.com/watch?v=5yLohFgVMZk",
         "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "One Piece Card Game: Red/Green Miracle Luffy! Deck Lists and Example Game!",
-        "channel_name": "TheEgman",
-        "published_at": "2026-10-29T14:00:29+00:00",
-        "video_url": "https://www.youtube.com/watch?v=O_kupbDrdrk",
-        "format": "OP17",
         "matchups_covered": []
       },
       {
@@ -565,20 +570,14 @@
         "matchups_covered": []
       }
     ],
-    "kouzuki oden": [
+    "karoo": [
       {
-        "title": "One Piece TCG: Experimenting with a Red/Green Kouzuki Oden List in the OP-17 Format - Big Tempo",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-10-21T20:23:10+00:00",
-        "video_url": "https://www.youtube.com/watch?v=kOc1ZSqyd-Q",
-        "format": "OP17",
-        "matchups_covered": [
-          "PY Robin",
-          "P Kaido",
-          "B Luffy",
-          "GB Brook",
-          "GU Zonji"
-        ]
+        "title": "The Fastest Duck in the West! OP-18 Karoo is Here!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-11-05T17:00:32+00:00",
+        "video_url": "https://www.youtube.com/watch?v=8E5YLVFnpIo",
+        "format": "OP18",
+        "matchups_covered": []
       }
     ],
     "spandam": [
@@ -642,13 +641,94 @@
   },
   "latest_videos": [
     {
+      "video_id": "v_dHoAG9Ydc",
+      "title": "One Piece TCG: Truck Talk Thursday - Discussing OP18 Pre-Releases Starting Next Week, Very Exciting",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-05T21:01:15+00:00",
+      "video_url": "https://www.youtube.com/watch?v=v_dHoAG9Ydc",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "I1PqpM1FGg8",
+      "title": "​@CyberpunkTCG : Retail Release! Five Day 1 Starter Decks and Build!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-05T18:30:02+00:00",
+      "video_url": "https://www.youtube.com/watch?v=I1PqpM1FGg8",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Egman Event's Cyberpunk Deck Builder & Deck Lists:"
+    },
+    {
+      "video_id": "2jK1_zOKtAE",
+      "title": "[EB05] Green Yellow Robin Deck Guide + Gameplay",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-05T18:00:39+00:00",
+      "video_url": "https://www.youtube.com/watch?v=2jK1_zOKtAE",
+      "format": "EB05",
+      "identified_leaders": [
+        "Robin"
+      ],
+      "matchups_covered": [
+        "U Rocks",
+        "U Buggy",
+        "GU Luffy",
+        "P Kaido"
+      ],
+      "summary": "GIn this video, we go over our guide to Green Yellow Robin in EB05! We go over a decklist, explain the card choices, go over matchups and then we cap it off with sample gameplay footage!"
+    },
+    {
+      "video_id": "8E5YLVFnpIo",
+      "title": "The Fastest Duck in the West! OP-18 Karoo is Here!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-05T17:00:32+00:00",
+      "video_url": "https://www.youtube.com/watch?v=8E5YLVFnpIo",
+      "format": "OP18",
+      "identified_leaders": [
+        "Karoo"
+      ],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "8QbY1ExMMso",
+      "title": "VALE A PENA COMEÇAR NO RIFTBOUND? Unboxing Showdown Deck Evelynn vs Seraphine",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-05T15:00:31+00:00",
+      "video_url": "https://www.youtube.com/watch?v=8QbY1ExMMso",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "Seraphine"
+      ],
+      "summary": "Dois decks prontos, dois boosters e dois playmats numa caixa só: será que esse é o jeito certo de começar no Riftbound?"
+    },
+    {
+      "video_id": "H26frTAm2y4",
+      "title": "👁️ Imu? Contra a revitalizada Pudding! One Piece OP17",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-05T13:00:13+00:00",
+      "video_url": "https://www.youtube.com/watch?v=H26frTAm2y4",
+      "format": "OP17",
+      "identified_leaders": [
+        "Pudding"
+      ],
+      "matchups_covered": [],
+      "summary": "🦾 Seja membro ou apoiador e receba os vídeos antecipadamente e concorra a produtos relacionados a One Piece!"
+    },
+    {
       "video_id": "sqcTzu0-m1A",
-      "title": "One Piece Card Game: Wednesday Night One Piece EB05 Edition!!!",
+      "title": "One Piece Card Game: Try-Hard Red/Green Luffy Ranked Testing!",
       "channel_name": "TheEgman",
       "published_at": "2026-11-05T06:53:09+00:00",
       "video_url": "https://www.youtube.com/watch?v=sqcTzu0-m1A",
-      "format": "EB05",
-      "identified_leaders": [],
+      "format": "",
+      "identified_leaders": [
+        "Luffy"
+      ],
       "matchups_covered": [],
       "summary": "ESC Affiliate Link: bit.ly/EgmanEXPShare"
     },
@@ -1415,17 +1495,6 @@
       "summary": "She's just cool. And surprisingly strong"
     },
     {
-      "video_id": "RCbUL2iHPFE",
-      "title": "Gundam Assemble: ST01 Opening and Initial Thoughts!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-10-28T16:00:06+00:00",
-      "video_url": "https://www.youtube.com/watch?v=RCbUL2iHPFE",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Gundam Assemble Team Builder: https://deckbuilder.egmanevents.com/gundamassemble/cards"
-    },
-    {
       "video_id": "mH5Pwy35hZg",
       "title": "A Gunko trouxe os cavaleiros com ela!! - PT-BR",
       "channel_name": "Onepiececardgamebr",
@@ -1739,19 +1808,6 @@
       "summary": "#onepiecetcg #belobettyonepiece #eb05"
     },
     {
-      "video_id": "GYGPMXmJpOQ",
-      "title": "Mais uma vez tentando vencer o Luffy Elbaf! One Piece POV OP17",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-10-23T21:00:05+00:00",
-      "video_url": "https://www.youtube.com/watch?v=GYGPMXmJpOQ",
-      "format": "OP17",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #9 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-9"
-    },
-    {
       "video_id": "PWSExCYRpf8",
       "title": "One Piece TCG: Revisiting UB Usopp in the OP17 Format - Still a Fun Leader, Just Needs Some Support",
       "channel_name": "The Vv Theory",
@@ -1871,25 +1927,6 @@
       "summary": "Support the stream: https://streamlabs.com/hashtagemb"
     },
     {
-      "video_id": "kOc1ZSqyd-Q",
-      "title": "One Piece TCG: Experimenting with a Red/Green Kouzuki Oden List in the OP-17 Format - Big Tempo",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-10-21T20:23:10+00:00",
-      "video_url": "https://www.youtube.com/watch?v=kOc1ZSqyd-Q",
-      "format": "OP17",
-      "identified_leaders": [
-        "Kouzuki Oden"
-      ],
-      "matchups_covered": [
-        "PY Robin",
-        "P Kaido",
-        "B Luffy",
-        "GB Brook",
-        "GU Zonji"
-      ],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
       "video_id": "bzwTPXx3_hU",
       "title": "I Can't Stop Playing Red Law!",
       "channel_name": "Car D. Kaizoku",
@@ -1901,17 +1938,6 @@
       ],
       "matchups_covered": [],
       "summary": "In this video, we make changes and test more OP14 Red Law with the new Bonney and Stussy from EB05!"
-    },
-    {
-      "video_id": "BXA992HviSM",
-      "title": "Shirahoshi Draws EVERYTHING in EB-05!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-10-21T15:30:04+00:00",
-      "video_url": "https://www.youtube.com/watch?v=BXA992HviSM",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
     },
     {
       "video_id": "NTyNg4QWrNw",
@@ -2101,17 +2127,6 @@
       "summary": "#optcg #onepiecetcg"
     },
     {
-      "video_id": "FXAH67O0BqY",
-      "title": "Will Her 3rd EB Buff Save Shirahoshi?!",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-10-16T17:00:36+00:00",
-      "video_url": "https://www.youtube.com/watch?v=FXAH67O0BqY",
-      "format": "OP11",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we test out OP11 Shirahoshi with the a bunch of new cards from EB05!"
-    },
-    {
       "video_id": "aN8_bu9RWjo",
       "title": "O NOVO MIHAWK? Análise de Decklist e Gameplay do Shanks com o Proplayer @borgestcg",
       "channel_name": "Mestre Arty TCG",
@@ -2145,17 +2160,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "The real comeup was the friends we made along the way. #optcg #pokemoncards #pokemontcg"
-    },
-    {
-      "video_id": "lQQnGK4cWxM",
-      "title": "NOVAS PASTAS E CORES DE SHIELDS DA TITAN! Unboxing e Review",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-10-15T15:00:32+00:00",
-      "video_url": "https://www.youtube.com/watch?v=lQQnGK4cWxM",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Ta à procura dos melhores acessórios para proteger a tua coleção com máximo estilo e segurança? Descobre as novas pastas temáticas e as cores inéditas de shields da Titan TCG!"
     },
     {
       "video_id": "4W_eI3UPrPE",
@@ -3065,23 +3069,6 @@
       ],
       "matchups_covered": [],
       "summary": "Today's One Piece TCG deck profile: ST33 Katakuri, Purple Katakuri, P Katakuri, Starter Deck 34 Katakuri, ST34 Purple Charlotta Katakuri. This Katakurileader originally released in ST34and was crea..."
-    },
-    {
-      "video_id": "xG7AKbj_Jtg",
-      "title": "RY Bonney Strawhat FUNNY One Piece TCG Deck + Gameplay",
-      "channel_name": "AkemiTCG",
-      "published_at": "2026-08-07T22:00:15+00:00",
-      "video_url": "https://www.youtube.com/watch?v=xG7AKbj_Jtg",
-      "format": "",
-      "identified_leaders": [
-        "Bonney"
-      ],
-      "matchups_covered": [
-        "RG Kouzuki Oden",
-        "Red Ace",
-        "Purple Sengoku"
-      ],
-      "summary": "#onepiecetcg #optcg"
     }
   ]
 }
