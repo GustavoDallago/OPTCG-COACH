@@ -1,9 +1,17 @@
 {
-  "last_updated": "2026-11-07T06:25:23-03:00",
+  "last_updated": "2026-11-08T06:42:35-03:00",
   "total_channels": 15,
   "total_insights": 200,
   "videos_by_leader": {
     "pudding": [
+      {
+        "title": "Pudding enfrenta o rei do meta!! - Regional Japão!!",
+        "channel_name": "Onepiececardgamebr",
+        "published_at": "2026-11-07T21:00:35+00:00",
+        "video_url": "https://www.youtube.com/watch?v=2G_mZL2N4M8",
+        "format": "OP17",
+        "matchups_covered": []
+      },
       {
         "title": "👁️ Imu? Contra a revitalizada Pudding! One Piece OP17",
         "channel_name": "Café Com One Piece",
@@ -352,14 +360,6 @@
         "matchups_covered": []
       },
       {
-        "title": "Bonney Draws Her Whole Deck in EB-05!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-10-22T14:30:05+00:00",
-        "video_url": "https://www.youtube.com/watch?v=d1RyWZ_o8dQ",
-        "format": "EB05",
-        "matchups_covered": []
-      },
-      {
         "title": "RY Bonney NEVER DIES OP17 Deck + Gameplay",
         "channel_name": "AkemiTCG",
         "published_at": "2026-09-04T22:00:09+00:00",
@@ -451,14 +451,6 @@
     ],
     "enel": [
       {
-        "title": "🟡 Enel voltou com o pack Big Mom? vs Xebec! One Piece OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-10-25T13:00:12+00:00",
-        "video_url": "https://www.youtube.com/watch?v=ZBnWw2gfXa8",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
         "title": "KUZAN do ST33 ATUALIZADO: DESTRUIU o Enel Roxo! | One Piece TCG",
         "channel_name": "Mestre Arty TCG",
         "published_at": "2026-10-22T15:00:18+00:00",
@@ -500,6 +492,28 @@
         "published_at": "2026-10-09T15:10:43+00:00",
         "video_url": "https://www.youtube.com/watch?v=1ZVuXBp9-Mo",
         "format": "",
+        "matchups_covered": []
+      }
+    ],
+    "spandam": [
+      {
+        "title": "One Piece TCG: Initial Testing With an OP18 BY Spandam, Midrange Build - Life Gain and Triggers",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-11-07T21:19:03+00:00",
+        "video_url": "https://www.youtube.com/watch?v=wKOVEEMDQp4",
+        "format": "OP18",
+        "matchups_covered": [
+          "PB Gunko",
+          "U Miss All Sunday",
+          "G Luffy"
+        ]
+      },
+      {
+        "title": "Bustin' on Everyone with OP-18 Spandam!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-11-04T17:45:33+00:00",
+        "video_url": "https://www.youtube.com/watch?v=KCGKA4Rw0gE",
+        "format": "OP18",
         "matchups_covered": []
       }
     ],
@@ -552,6 +566,24 @@
         "matchups_covered": []
       }
     ],
+    "franky": [
+      {
+        "title": "Don't underestimate OP-18 Franky!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-11-07T16:01:42+00:00",
+        "video_url": "https://www.youtube.com/watch?v=mz2S65bP2cs",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
+        "title": "NEW FRANKY & NICO ROBIN LEADERS! Reacting to EB05 & OP18 Reveals!",
+        "channel_name": "Mabi TCG",
+        "published_at": "2026-08-25T19:44:07+00:00",
+        "video_url": "https://www.youtube.com/watch?v=l6oq35J4mJ8",
+        "format": "EB05",
+        "matchups_covered": []
+      }
+    ],
     "karoo": [
       {
         "title": "The Fastest Duck in the West! OP-18 Karoo is Here!",
@@ -562,22 +594,12 @@
         "matchups_covered": []
       }
     ],
-    "spandam": [
-      {
-        "title": "Bustin' on Everyone with OP-18 Spandam!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-11-04T17:45:33+00:00",
-        "video_url": "https://www.youtube.com/watch?v=KCGKA4Rw0gE",
-        "format": "OP18",
-        "matchups_covered": []
-      }
-    ],
     "shanks": [
       {
-        "title": "⚫ Luffy supera o poderoso Shanks? One Piece Card Game OP17",
+        "title": "🏆 Imu na FINAL da OP17? Contra Shanks! One Piece Card Game",
         "channel_name": "Café Com One Piece",
-        "published_at": "2026-11-03T13:00:01+00:00",
-        "video_url": "https://www.youtube.com/watch?v=F_lenDPogaY",
+        "published_at": "2026-11-07T13:00:04+00:00",
+        "video_url": "https://www.youtube.com/watch?v=lGD251LAQTQ",
         "format": "OP17",
         "matchups_covered": []
       },
@@ -587,16 +609,6 @@
         "published_at": "2026-08-31T22:45:38+00:00",
         "video_url": "https://www.youtube.com/watch?v=rtuoQQngzgI",
         "format": "OP17",
-        "matchups_covered": []
-      }
-    ],
-    "franky": [
-      {
-        "title": "NEW FRANKY & NICO ROBIN LEADERS! Reacting to EB05 & OP18 Reveals!",
-        "channel_name": "Mabi TCG",
-        "published_at": "2026-08-25T19:44:07+00:00",
-        "video_url": "https://www.youtube.com/watch?v=l6oq35J4mJ8",
-        "format": "EB05",
         "matchups_covered": []
       }
     ],
@@ -619,19 +631,109 @@
         "format": "OP16",
         "matchups_covered": []
       }
-    ],
-    "kaido": [
-      {
-        "title": "Kaido x Mihawk Flame Flame fruit! - Comentado PT-BR",
-        "channel_name": "Onepiececardgamebr",
-        "published_at": "2026-09-08T14:00:33+00:00",
-        "video_url": "https://www.youtube.com/watch?v=hGx8VHrw3wQ",
-        "format": "",
-        "matchups_covered": []
-      }
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "5amT0Uc-_oQ",
+      "title": "One Piece Card Game: @CoreTCG-YT  Piece Card Game EB05 Pomona Regionals",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-08T03:19:53+00:00",
+      "video_url": "https://www.youtube.com/watch?v=5amT0Uc-_oQ",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://egmanevents.com"
+    },
+    {
+      "video_id": "pfKYntyZXq8",
+      "title": "One Piece Card Game: @CoreTCG-YT  Piece Card Game EB05 Pomona Regionals",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-08T03:01:37+00:00",
+      "video_url": "https://www.youtube.com/watch?v=pfKYntyZXq8",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://egmanevents.com"
+    },
+    {
+      "video_id": "wKOVEEMDQp4",
+      "title": "One Piece TCG: Initial Testing With an OP18 BY Spandam, Midrange Build - Life Gain and Triggers",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-07T21:19:03+00:00",
+      "video_url": "https://www.youtube.com/watch?v=wKOVEEMDQp4",
+      "format": "OP18",
+      "identified_leaders": [
+        "Spandam"
+      ],
+      "matchups_covered": [
+        "PB Gunko",
+        "U Miss All Sunday",
+        "G Luffy"
+      ],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "2G_mZL2N4M8",
+      "title": "Pudding enfrenta o rei do meta!! - Regional Japão!!",
+      "channel_name": "Onepiececardgamebr",
+      "published_at": "2026-11-07T21:00:35+00:00",
+      "video_url": "https://www.youtube.com/watch?v=2G_mZL2N4M8",
+      "format": "OP17",
+      "identified_leaders": [
+        "Pudding"
+      ],
+      "matchups_covered": [],
+      "summary": "Trazendo a semifinal do Regional que tivemos no Japão nessa semana, com Pudding enfrentando na semifinal o Rocks que tem sido o rei do meta de op17 desde o banimento de Mihawk, mostrando que Puddin..."
+    },
+    {
+      "video_id": "P7AJTdLSGvA",
+      "title": "New Personal Collection submission back! Which is your fave? #optcg #graded",
+      "channel_name": "minhooty",
+      "published_at": "2026-11-07T18:08:26+00:00",
+      "video_url": "https://www.youtube.com/watch?v=P7AJTdLSGvA",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Analise de deck e gameplay."
+    },
+    {
+      "video_id": "MS3Nm9CwsmE",
+      "title": "5 OPTCG Fundamentals That Separate You From the Best",
+      "channel_name": "iKailaKai",
+      "published_at": "2026-11-07T17:09:03+00:00",
+      "video_url": "https://www.youtube.com/watch?v=MS3Nm9CwsmE",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "How much of this were you already doing?"
+    },
+    {
+      "video_id": "mz2S65bP2cs",
+      "title": "Don't underestimate OP-18 Franky!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-07T16:01:42+00:00",
+      "video_url": "https://www.youtube.com/watch?v=mz2S65bP2cs",
+      "format": "OP18",
+      "identified_leaders": [
+        "Franky"
+      ],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "lGD251LAQTQ",
+      "title": "🏆 Imu na FINAL da OP17? Contra Shanks! One Piece Card Game",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-07T13:00:04+00:00",
+      "video_url": "https://www.youtube.com/watch?v=lGD251LAQTQ",
+      "format": "OP17",
+      "identified_leaders": [
+        "Shanks"
+      ],
+      "matchups_covered": [],
+      "summary": "🦾 Seja membro ou apoiador e receba os vídeos antecipadamente e concorra a produtos relacionados a One Piece!"
+    },
     {
       "video_id": "83vdFuNIbV4",
       "title": "Heroines Winner Nami in hand! #optcg #nami #eb05",
@@ -1250,17 +1352,6 @@
       "summary": "🎟️ Copa Café #9 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-9"
     },
     {
-      "video_id": "trLn9fQSEI0",
-      "title": "One Piece And Gundam Card Game: EB05 and GD06 Triple Box Opening!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-01T10:11:01+00:00",
-      "video_url": "https://www.youtube.com/watch?v=trLn9fQSEI0",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://egmanevents.com"
-    },
-    {
       "video_id": "zEEe6tF5cxY",
       "title": "Boa Double Pack Tin Hits! #op17 #buggy #optcg",
       "channel_name": "minhooty",
@@ -1345,17 +1436,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Make sure to sign up with \"MINHOOTY\" when you rip Power Packs!"
-    },
-    {
-      "video_id": "5ufk72tqawU",
-      "title": "One Piece Card Game: EB05 Format! Week 1 Power Rankings!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-10-30T23:30:38+00:00",
-      "video_url": "https://www.youtube.com/watch?v=5ufk72tqawU",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://deckbuilder.egmanevents.com/optcg/tournaments?format=OP17"
     },
     {
       "video_id": "d_ouvWYLeGw",
@@ -1776,19 +1856,6 @@
       "summary": "Check out Ultimate Guard here:"
     },
     {
-      "video_id": "ZBnWw2gfXa8",
-      "title": "🟡 Enel voltou com o pack Big Mom? vs Xebec! One Piece OP17",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-10-25T13:00:12+00:00",
-      "video_url": "https://www.youtube.com/watch?v=ZBnWw2gfXa8",
-      "format": "OP17",
-      "identified_leaders": [
-        "Enel"
-      ],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #9 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-9"
-    },
-    {
       "video_id": "8JvmWOGykjE",
       "title": "One Piece TCG: Breaking Down and Analyzing a 1st Place RY Sabo Flagship Deck List from the East",
       "channel_name": "The Vv Theory",
@@ -1845,21 +1912,6 @@
       "summary": "#onepiecetcg #belobettyonepiece #eb05"
     },
     {
-      "video_id": "PWSExCYRpf8",
-      "title": "One Piece TCG: Revisiting UB Usopp in the OP17 Format - Still a Fun Leader, Just Needs Some Support",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-10-23T20:39:27+00:00",
-      "video_url": "https://www.youtube.com/watch?v=PWSExCYRpf8",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [
-        "R Law",
-        "GP Luffy",
-        "U Rocks"
-      ],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
       "video_id": "N2hW0Jfn_fs",
       "title": "Rosinante Gets Good 2K Counters!",
       "channel_name": "Car D. Kaizoku",
@@ -1905,19 +1957,6 @@
       ],
       "matchups_covered": [],
       "summary": "Comprou o ST33 e não sabe como deixar o Kuzan competitivo? Trago a lista atualizada com os novos suportes da OP17... e já te dou o spoiler: ela bate de frente com o Enel roxo, um dos queridinhos do..."
-    },
-    {
-      "video_id": "d1RyWZ_o8dQ",
-      "title": "Bonney Draws Her Whole Deck in EB-05!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-10-22T14:30:05+00:00",
-      "video_url": "https://www.youtube.com/watch?v=d1RyWZ_o8dQ",
-      "format": "EB05",
-      "identified_leaders": [
-        "Bonney"
-      ],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
     },
     {
       "video_id": "iO9E4aVkG_E",
@@ -2614,19 +2653,6 @@
       "summary": "[Digimon Card Game Official Website]"
     },
     {
-      "video_id": "feIqGzcaIVg",
-      "title": "Playtesting Fi-Hawk vs. PY Robin",
-      "channel_name": "minhooty",
-      "published_at": "2026-09-16T18:36:07+00:00",
-      "video_url": "https://www.youtube.com/watch?v=feIqGzcaIVg",
-      "format": "",
-      "identified_leaders": [
-        "Robin"
-      ],
-      "matchups_covered": [],
-      "summary": "This video was filmed 2 weeks ago! It's a little behind : ("
-    },
-    {
       "video_id": "GIjVngxUhoM",
       "title": "Is this the new Charlotte Pudding? #optcg #tcg",
       "channel_name": "real_joshua",
@@ -2715,19 +2741,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Analise de deck e gameplay."
-    },
-    {
-      "video_id": "hGx8VHrw3wQ",
-      "title": "Kaido x Mihawk Flame Flame fruit! - Comentado PT-BR",
-      "channel_name": "Onepiececardgamebr",
-      "published_at": "2026-09-08T14:00:33+00:00",
-      "video_url": "https://www.youtube.com/watch?v=hGx8VHrw3wQ",
-      "format": "",
-      "identified_leaders": [
-        "Kaido"
-      ],
-      "matchups_covered": [],
-      "summary": "Trazendo o primeiro vídeo do campeonato que tivemos da Flame Flame fruit nesse fim de semana, com Kaido enfrentando o rei do meta, Mihawk!"
     },
     {
       "video_id": "xyC07dZowFQ",
@@ -2938,17 +2951,6 @@
       ],
       "matchups_covered": [],
       "summary": "Today's One Piece TCG deck profile: OP17 Monkey D Luffy, Black Luffy, Black Monkey D Luffy, OP17 Black Luffy. This leader originally released in OP17 and was created with OP17 in mind. I'll teach y..."
-    },
-    {
-      "video_id": "D37jrmGgmtI",
-      "title": "let's talk about OP18",
-      "channel_name": "iKailaKai",
-      "published_at": "2026-08-24T15:22:54+00:00",
-      "video_url": "https://www.youtube.com/watch?v=D37jrmGgmtI",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Thank you for supporting me by supporting my sponsors."
     },
     {
       "video_id": "X5UtC9t2sY0",
