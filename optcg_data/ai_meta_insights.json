@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-08T06:42:35-03:00",
+  "last_updated": "2026-11-09T07:38:06-03:00",
   "total_channels": 15,
   "total_insights": 200,
   "videos_by_leader": {
@@ -62,25 +62,22 @@
     ],
     "robin": [
       {
+        "title": "ROBIN IS FOR REAL?! (Aichi CS Season 2 - Grand Finals)",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-11-08T14:00:03+00:00",
+        "video_url": "https://www.youtube.com/watch?v=RMBxMeq9m-0",
+        "format": "",
+        "matchups_covered": [
+          "Red Green Luffy"
+        ]
+      },
+      {
         "title": "🟣🟡Robin tem chances contra o Tier S Xebec? One Piece POV OP17",
         "channel_name": "Café Com One Piece",
         "published_at": "2026-11-06T13:00:31+00:00",
         "video_url": "https://www.youtube.com/watch?v=8mskkdvNJ_s",
         "format": "OP17",
         "matchups_covered": []
-      },
-      {
-        "title": "[EB05] Green Yellow Robin Deck Guide + Gameplay",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-11-05T18:00:39+00:00",
-        "video_url": "https://www.youtube.com/watch?v=2jK1_zOKtAE",
-        "format": "EB05",
-        "matchups_covered": [
-          "U Rocks",
-          "U Buggy",
-          "GU Luffy",
-          "P Kaido"
-        ]
       },
       {
         "title": "EB05 Robin SP! Do you like the art? I like the card design art is eh to me #eb05 #optcg #robin",
@@ -413,14 +410,6 @@
     ],
     "law": [
       {
-        "title": "I Can't Stop Playing Red Law!",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-10-21T17:00:01+00:00",
-        "video_url": "https://www.youtube.com/watch?v=bzwTPXx3_hU",
-        "format": "OP14",
-        "matchups_covered": []
-      },
-      {
         "title": "One Piece Nike Don - Trafalgar Law #nike #onepiece",
         "channel_name": "minhooty",
         "published_at": "2026-10-01T15:35:49+00:00",
@@ -492,6 +481,28 @@
         "published_at": "2026-10-09T15:10:43+00:00",
         "video_url": "https://www.youtube.com/watch?v=1ZVuXBp9-Mo",
         "format": "",
+        "matchups_covered": []
+      }
+    ],
+    "karoo": [
+      {
+        "title": "One Piece TCG: Initial Testing With an OP-18 RU Karoo Tempo/Midrange Build - Rush and Card Draw",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-11-08T22:15:54+00:00",
+        "video_url": "https://www.youtube.com/watch?v=KFzZW8UkegM",
+        "format": "OP18",
+        "matchups_covered": [
+          "PB Gunko",
+          "BY Spandam",
+          "U Ms All Sunday"
+        ]
+      },
+      {
+        "title": "The Fastest Duck in the West! OP-18 Karoo is Here!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-11-05T17:00:32+00:00",
+        "video_url": "https://www.youtube.com/watch?v=8E5YLVFnpIo",
+        "format": "OP18",
         "matchups_covered": []
       }
     ],
@@ -584,16 +595,6 @@
         "matchups_covered": []
       }
     ],
-    "karoo": [
-      {
-        "title": "The Fastest Duck in the West! OP-18 Karoo is Here!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-11-05T17:00:32+00:00",
-        "video_url": "https://www.youtube.com/watch?v=8E5YLVFnpIo",
-        "format": "OP18",
-        "matchups_covered": []
-      }
-    ],
     "shanks": [
       {
         "title": "🏆 Imu na FINAL da OP17? Contra Shanks! One Piece Card Game",
@@ -635,22 +636,126 @@
   },
   "latest_videos": [
     {
-      "video_id": "5amT0Uc-_oQ",
-      "title": "One Piece Card Game: @CoreTCG-YT  Piece Card Game EB05 Pomona Regionals",
+      "video_id": "oPVwGy7ac3s",
+      "title": "First Look at the Valhalla NenGarden Deck Box",
+      "channel_name": "minhooty",
+      "published_at": "2026-11-09T07:56:06+00:00",
+      "video_url": "https://www.youtube.com/watch?v=oPVwGy7ac3s",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deckbox link for you! https://nengarden.com/products/valhalla-vault-deck-box-pre-order"
+    },
+    {
+      "video_id": "fvZwZKvyIEE",
+      "title": "🔴 EB05, Regional e Copa Café #10",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-09T02:24:24+00:00",
+      "video_url": "https://www.youtube.com/watch?v=fvZwZKvyIEE",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Ingressos Copa Café #10"
+    },
+    {
+      "video_id": "pfKYntyZXq8",
+      "title": "One Piece Card Game: @CoreTCG-YT  Piece Card Game EB05 Pomona Regionals Day 2!",
       "channel_name": "TheEgman",
-      "published_at": "2026-11-08T03:19:53+00:00",
-      "video_url": "https://www.youtube.com/watch?v=5amT0Uc-_oQ",
+      "published_at": "2026-11-09T02:01:26+00:00",
+      "video_url": "https://www.youtube.com/watch?v=pfKYntyZXq8",
       "format": "EB05",
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Deck Lists: https://egmanevents.com"
     },
     {
-      "video_id": "pfKYntyZXq8",
+      "video_id": "KFzZW8UkegM",
+      "title": "One Piece TCG: Initial Testing With an OP-18 RU Karoo Tempo/Midrange Build - Rush and Card Draw",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-08T22:15:54+00:00",
+      "video_url": "https://www.youtube.com/watch?v=KFzZW8UkegM",
+      "format": "OP18",
+      "identified_leaders": [
+        "Karoo"
+      ],
+      "matchups_covered": [
+        "PB Gunko",
+        "BY Spandam",
+        "U Ms All Sunday"
+      ],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "nqQkL7s3iKw",
+      "title": "I played 200+ games with OP-18 Gunko and here's what I learned! (Guide + Tips & Tricks)",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-08T15:30:21+00:00",
+      "video_url": "https://www.youtube.com/watch?v=nqQkL7s3iKw",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "RMBxMeq9m-0",
+      "title": "ROBIN IS FOR REAL?! (Aichi CS Season 2 - Grand Finals)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-08T14:00:03+00:00",
+      "video_url": "https://www.youtube.com/watch?v=RMBxMeq9m-0",
+      "format": "",
+      "identified_leaders": [
+        "Robin"
+      ],
+      "matchups_covered": [
+        "Red Green Luffy"
+      ],
+      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
+    },
+    {
+      "video_id": "3P2CIN_8-TE",
+      "title": "So This Is The EB05 Meta! (Aichi CS Season 2 - Top 4)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-08T13:30:26+00:00",
+      "video_url": "https://www.youtube.com/watch?v=3P2CIN_8-TE",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "Red Green Luffy"
+      ],
+      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
+    },
+    {
+      "video_id": "TqV7wUI5Fqg",
+      "title": "Omg He Can't Do Anything!! (Aichi CS Season 2 - Top 8)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-08T13:00:10+00:00",
+      "video_url": "https://www.youtube.com/watch?v=TqV7wUI5Fqg",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "Black Teach"
+      ],
+      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
+    },
+    {
+      "video_id": "noohlMtGCiA",
+      "title": "EB05 Tournaments Are Here! (Aichi CS Season 2 - Top 16)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-08T12:30:33+00:00",
+      "video_url": "https://www.youtube.com/watch?v=noohlMtGCiA",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "Blue Buggy"
+      ],
+      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
+    },
+    {
+      "video_id": "5amT0Uc-_oQ",
       "title": "One Piece Card Game: @CoreTCG-YT  Piece Card Game EB05 Pomona Regionals",
       "channel_name": "TheEgman",
-      "published_at": "2026-11-08T03:01:37+00:00",
-      "video_url": "https://www.youtube.com/watch?v=pfKYntyZXq8",
+      "published_at": "2026-11-08T03:19:53+00:00",
+      "video_url": "https://www.youtube.com/watch?v=5amT0Uc-_oQ",
       "format": "EB05",
       "identified_leaders": [],
       "matchups_covered": [],
@@ -1273,17 +1378,6 @@
       "summary": "🎫Win a Case  @MontCardShop   https://www.montshop.com.br/?view=ecom/item&ing=48489"
     },
     {
-      "video_id": "fvZwZKvyIEE",
-      "title": "🔴 Copa Café #9 valendo EB05! E Sorteios!",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-11-02T00:07:32+00:00",
-      "video_url": "https://www.youtube.com/watch?v=fvZwZKvyIEE",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Ingressos Copa Café #9"
-    },
-    {
       "video_id": "gqaRmE0qy7o",
       "title": "🔴 Copa Café #9 valendo EB05! E Sorteios!",
       "channel_name": "Café Com One Piece",
@@ -1856,19 +1950,6 @@
       "summary": "Check out Ultimate Guard here:"
     },
     {
-      "video_id": "8JvmWOGykjE",
-      "title": "One Piece TCG: Breaking Down and Analyzing a 1st Place RY Sabo Flagship Deck List from the East",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-10-24T20:45:40+00:00",
-      "video_url": "https://www.youtube.com/watch?v=8JvmWOGykjE",
-      "format": "OP17",
-      "identified_leaders": [
-        "Sabo"
-      ],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
       "video_id": "IIfELMyZ1mI",
       "title": "How Good Is The New Cyberpunk TCG?",
       "channel_name": "WezaldoTCG",
@@ -1923,17 +2004,6 @@
       "summary": "In this video, we test out Purple Yellow Rosinante in EB05 with his new shiny 2k Counters"
     },
     {
-      "video_id": "aXfxum6bnv0",
-      "title": "The NEW Elbaph Slop Deck... is Gunko?!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-10-23T14:30:03+00:00",
-      "video_url": "https://www.youtube.com/watch?v=aXfxum6bnv0",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
       "video_id": "qyHNecKusR4",
       "title": "i'm sorry, i failed you",
       "channel_name": "iKailaKai",
@@ -1981,19 +2051,6 @@
       "summary": "[Digimon Card Game Official Website]"
     },
     {
-      "video_id": "bzwTPXx3_hU",
-      "title": "I Can't Stop Playing Red Law!",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-10-21T17:00:01+00:00",
-      "video_url": "https://www.youtube.com/watch?v=bzwTPXx3_hU",
-      "format": "OP14",
-      "identified_leaders": [
-        "Law"
-      ],
-      "matchups_covered": [],
-      "summary": "In this video, we make changes and test more OP14 Red Law with the new Bonney and Stussy from EB05!"
-    },
-    {
       "video_id": "NTyNg4QWrNw",
       "title": "This Robin List Has No Weaknesses!",
       "channel_name": "WezaldoTCG",
@@ -2031,20 +2088,6 @@
       "summary": "Trazendo um vídeo onde falo as minhas previsões para o meta de EB05 no competitivo que teremos no fim do ano aqui no Brasil, diversos decks recebem suportes em EB e estão todos mirando no rei, Rocks!!"
     },
     {
-      "video_id": "rTIyhEYFxEk",
-      "title": "Robin Makes 10c Luffy Finally Good!!",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-10-20T17:00:14+00:00",
-      "video_url": "https://www.youtube.com/watch?v=rTIyhEYFxEk",
-      "format": "EB05",
-      "identified_leaders": [
-        "Luffy",
-        "Robin"
-      ],
-      "matchups_covered": [],
-      "summary": "In this video, we test out ST10 Red Purple Luffy with the new Robin card from EB05!"
-    },
-    {
       "video_id": "MH0Mw8MDjF8",
       "title": "YAMATO BRAZUCA VOLTOU! Verde e Amarela com Slot de Big Mom | One Piece TCG",
       "channel_name": "Mestre Arty TCG",
@@ -2056,17 +2099,6 @@
       ],
       "matchups_covered": [],
       "summary": "Se você começou no One Piece TCG em 2025, com certeza já jogou ou apanhou da Yamato verde e amarela! Barata, divertida e agressiva... ela tinha caído, mas o slot de Big Mom pode ter trazido ela de ..."
-    },
-    {
-      "video_id": "wrTSTx5h6To",
-      "title": "Cards To Buy To Prepare For EB05",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-10-19T17:00:06+00:00",
-      "video_url": "https://www.youtube.com/watch?v=wrTSTx5h6To",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we go over popular leaders in EB05 and the cards needed for their decks along with prices!"
     },
     {
       "video_id": "IfLsLPKLdVw",
@@ -2113,17 +2145,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "My twitter:"
-    },
-    {
-      "video_id": "dkyal2VNF4s",
-      "title": "OP17.5 Week 3 Meta Analysis (Sim & Tournament Data)",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-10-18T17:00:31+00:00",
-      "video_url": "https://www.youtube.com/watch?v=dkyal2VNF4s",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we take a look at OP17.5 data on the sim & recent tournaments! We go over leader performance as well as individual matchups between the leaders! We'll also take a look at some deckli..."
     },
     {
       "video_id": "fMnAlMWSHbs",
@@ -2548,17 +2569,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "[Digimon Card Game Official Website]"
-    },
-    {
-      "video_id": "AkWHw8GBb20",
-      "title": "Top 64 Dallas Nationals Mihawk \"Fwirth\" — In-Game Interviews",
-      "channel_name": "minhooty",
-      "published_at": "2026-09-24T04:56:46+00:00",
-      "video_url": "https://www.youtube.com/watch?v=AkWHw8GBb20",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Follow Freddie on X! https://x.com/Fwirth"
     },
     {
       "video_id": "BoXGq6uZz-M",
