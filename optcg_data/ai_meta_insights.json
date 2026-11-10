@@ -1,8 +1,138 @@
 {
-  "last_updated": "2026-11-09T07:38:06-03:00",
+  "last_updated": "2026-11-10T07:39:19-03:00",
   "total_channels": 15,
-  "total_insights": 200,
+  "total_insights": 202,
   "videos_by_leader": {
+    "bonney": [
+      {
+        "title": "RY Bonney Heroines Cup Winner List EB05 One Piece",
+        "channel_name": "AkemiTCG",
+        "published_at": "2026-11-10T05:00:18+00:00",
+        "video_url": "https://www.youtube.com/watch?v=fIkJgrJ_bi0",
+        "format": "EB05",
+        "matchups_covered": []
+      },
+      {
+        "title": "🔴🟡 A INCOMUM Bonney Nika consegue parar o Xebec? One Piece OP17",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-10-27T13:00:17+00:00",
+        "video_url": "https://www.youtube.com/watch?v=CMFNnqgjOws",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
+        "title": "BONNEY Amarela VOLTOU! Decklist com Slot de Big Mom | OP17",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-10-26T15:00:39+00:00",
+        "video_url": "https://www.youtube.com/watch?v=PTm7JYmqMaM",
+        "format": "OP17",
+        "matchups_covered": []
+      }
+    ],
+    "luffy": [
+      {
+        "title": "When You Play Against RG Luffy for the First Time One Piece TCG",
+        "channel_name": "AkemiTCG",
+        "published_at": "2026-11-09T23:00:22+00:00",
+        "video_url": "https://www.youtube.com/watch?v=WKEZneTrp8I",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
+        "title": "Swinging MASSIVE DOUBLE ATTACKS with OP-18 Luffy!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-11-06T16:45:32+00:00",
+        "video_url": "https://www.youtube.com/watch?v=tZtPzOyV8KA",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
+        "title": "One Piece Card Game: Try-Hard Red/Green Luffy Ranked Testing!",
+        "channel_name": "TheEgman",
+        "published_at": "2026-11-06T11:08:27+00:00",
+        "video_url": "https://www.youtube.com/watch?v=sqcTzu0-m1A",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
+        "title": "One Piece TCG: Hot Take Tuesday - \"OP13 RG Luffy is a Tier Zero Deck with the New EB05 Support\"",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-11-03T22:07:27+00:00",
+        "video_url": "https://www.youtube.com/watch?v=wXOwiXHLVeM",
+        "format": "OP13",
+        "matchups_covered": []
+      },
+      {
+        "title": "⚫ Luffy supera o poderoso Shanks? One Piece Card Game OP17",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-11-03T13:00:01+00:00",
+        "video_url": "https://www.youtube.com/watch?v=F_lenDPogaY",
+        "format": "OP17",
+        "matchups_covered": []
+      },
+      {
+        "title": "MR. 0 VOLTOU! Crocodile e Luffy nos Novos Starters ST-37 e ST-38 | One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-02T16:41:19+00:00",
+        "video_url": "https://www.youtube.com/watch?v=tfUijkTNqwg",
+        "format": "OP14",
+        "matchups_covered": []
+      },
+      {
+        "title": "Is RG Luffy A Miracle or Mirage?",
+        "channel_name": "WezaldoTCG",
+        "published_at": "2026-10-29T14:02:26+00:00",
+        "video_url": "https://www.youtube.com/watch?v=5yLohFgVMZk",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
+        "title": "EB05 RG Luffy Is BUSTED!!",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-10-27T17:00:26+00:00",
+        "video_url": "https://www.youtube.com/watch?v=bRdcy0qJcOs",
+        "format": "EB05",
+        "matchups_covered": []
+      },
+      {
+        "title": "Green Blue Luffy is the Strongest Deck From EB05",
+        "channel_name": "iKailaKai",
+        "published_at": "2026-10-17T03:37:19+00:00",
+        "video_url": "https://www.youtube.com/watch?v=uahFZiYf3gI",
+        "format": "EB05",
+        "matchups_covered": []
+      },
+      {
+        "title": "Sabo vs Luffy & Ace! - Flame Flame fruit Japão!!",
+        "channel_name": "Onepiececardgamebr",
+        "published_at": "2026-10-04T13:00:15+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Wg0L3zKW3h8",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
+        "title": "ST14 Luffy Becomes a 6k Leader THIS Easily?? | Every Leader 3 Decks",
+        "channel_name": "real_joshua",
+        "published_at": "2026-10-01T18:38:03+00:00",
+        "video_url": "https://www.youtube.com/watch?v=CwFha4t8wSU",
+        "format": "",
+        "matchups_covered": [
+          "RU Ace",
+          "U Rocks",
+          "Pluffy",
+          "RG Luffy Ace",
+          "G Shanks"
+        ]
+      },
+      {
+        "title": "OP17 Luffy Deck Profile + How To Play Duel | One Piece TCG Tutorial",
+        "channel_name": "Mabi TCG",
+        "published_at": "2026-08-24T23:15:25+00:00",
+        "video_url": "https://www.youtube.com/watch?v=QJFx-X-_ohs",
+        "format": "OP17",
+        "matchups_covered": []
+      }
+    ],
     "pudding": [
       {
         "title": "Pudding enfrenta o rei do meta!! - Regional Japão!!",
@@ -186,110 +316,6 @@
         "matchups_covered": []
       }
     ],
-    "luffy": [
-      {
-        "title": "Swinging MASSIVE DOUBLE ATTACKS with OP-18 Luffy!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-11-06T16:45:32+00:00",
-        "video_url": "https://www.youtube.com/watch?v=tZtPzOyV8KA",
-        "format": "OP18",
-        "matchups_covered": []
-      },
-      {
-        "title": "One Piece Card Game: Try-Hard Red/Green Luffy Ranked Testing!",
-        "channel_name": "TheEgman",
-        "published_at": "2026-11-06T11:08:27+00:00",
-        "video_url": "https://www.youtube.com/watch?v=sqcTzu0-m1A",
-        "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "One Piece TCG: Hot Take Tuesday - \"OP13 RG Luffy is a Tier Zero Deck with the New EB05 Support\"",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-11-03T22:07:27+00:00",
-        "video_url": "https://www.youtube.com/watch?v=wXOwiXHLVeM",
-        "format": "OP13",
-        "matchups_covered": []
-      },
-      {
-        "title": "⚫ Luffy supera o poderoso Shanks? One Piece Card Game OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-11-03T13:00:01+00:00",
-        "video_url": "https://www.youtube.com/watch?v=F_lenDPogaY",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "MR. 0 VOLTOU! Crocodile e Luffy nos Novos Starters ST-37 e ST-38 | One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-11-02T16:41:19+00:00",
-        "video_url": "https://www.youtube.com/watch?v=tfUijkTNqwg",
-        "format": "OP14",
-        "matchups_covered": []
-      },
-      {
-        "title": "Is RG Luffy A Miracle or Mirage?",
-        "channel_name": "WezaldoTCG",
-        "published_at": "2026-10-29T14:02:26+00:00",
-        "video_url": "https://www.youtube.com/watch?v=5yLohFgVMZk",
-        "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "EB05 RG Luffy Is BUSTED!!",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-10-27T17:00:26+00:00",
-        "video_url": "https://www.youtube.com/watch?v=bRdcy0qJcOs",
-        "format": "EB05",
-        "matchups_covered": []
-      },
-      {
-        "title": "Green Blue Luffy is the Strongest Deck From EB05",
-        "channel_name": "iKailaKai",
-        "published_at": "2026-10-17T03:37:19+00:00",
-        "video_url": "https://www.youtube.com/watch?v=uahFZiYf3gI",
-        "format": "EB05",
-        "matchups_covered": []
-      },
-      {
-        "title": "Sabo vs Luffy & Ace! - Flame Flame fruit Japão!!",
-        "channel_name": "Onepiececardgamebr",
-        "published_at": "2026-10-04T13:00:15+00:00",
-        "video_url": "https://www.youtube.com/watch?v=Wg0L3zKW3h8",
-        "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "When You Play Against RG Luffy Ace One Piece #onepiecetcg #optcg",
-        "channel_name": "AkemiTCG",
-        "published_at": "2026-10-02T22:00:10+00:00",
-        "video_url": "https://www.youtube.com/watch?v=8dudqfdNpiE",
-        "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "ST14 Luffy Becomes a 6k Leader THIS Easily?? | Every Leader 3 Decks",
-        "channel_name": "real_joshua",
-        "published_at": "2026-10-01T18:38:03+00:00",
-        "video_url": "https://www.youtube.com/watch?v=CwFha4t8wSU",
-        "format": "",
-        "matchups_covered": [
-          "RU Ace",
-          "U Rocks",
-          "Pluffy",
-          "RG Luffy Ace",
-          "G Shanks"
-        ]
-      },
-      {
-        "title": "OP17 Luffy Deck Profile + How To Play Duel | One Piece TCG Tutorial",
-        "channel_name": "Mabi TCG",
-        "published_at": "2026-08-24T23:15:25+00:00",
-        "video_url": "https://www.youtube.com/watch?v=QJFx-X-_ohs",
-        "format": "OP17",
-        "matchups_covered": []
-      }
-    ],
     "ace": [
       {
         "title": "Robin consegue desbancar o Luffy & Ace? One Piece POV OP17",
@@ -318,14 +344,6 @@
     ],
     "yamato": [
       {
-        "title": "YAMATO BRAZUCA VOLTOU! Verde e Amarela com Slot de Big Mom | One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-10-20T15:00:31+00:00",
-        "video_url": "https://www.youtube.com/watch?v=MH0Mw8MDjF8",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
         "title": "I Tried Playing Black Yamato in OP17 Deck + Gameplay",
         "channel_name": "AkemiTCG",
         "published_at": "2026-09-11T22:00:20+00:00",
@@ -336,37 +354,6 @@
           "Yellow Luffy",
           "PY Robin",
           "Green Shanks"
-        ]
-      }
-    ],
-    "bonney": [
-      {
-        "title": "🔴🟡 A INCOMUM Bonney Nika consegue parar o Xebec? One Piece OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-10-27T13:00:17+00:00",
-        "video_url": "https://www.youtube.com/watch?v=CMFNnqgjOws",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "BONNEY Amarela VOLTOU! Decklist com Slot de Big Mom | OP17",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-10-26T15:00:39+00:00",
-        "video_url": "https://www.youtube.com/watch?v=PTm7JYmqMaM",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "RY Bonney NEVER DIES OP17 Deck + Gameplay",
-        "channel_name": "AkemiTCG",
-        "published_at": "2026-09-04T22:00:09+00:00",
-        "video_url": "https://www.youtube.com/watch?v=BMG-N1rgzBE",
-        "format": "OP17",
-        "matchups_covered": [
-          "Red Purple Luffy",
-          "Yellow Linlin",
-          "Red Black Koby",
-          "Purple Yellow Robin"
         ]
       }
     ],
@@ -397,14 +384,6 @@
         "published_at": "2026-10-31T22:43:29+00:00",
         "video_url": "https://www.youtube.com/watch?v=zEEe6tF5cxY",
         "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "Buggy Makes So Much Sense in Kuzan!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-10-24T15:00:30+00:00",
-        "video_url": "https://www.youtube.com/watch?v=sXstjMQpNNA",
-        "format": "",
         "matchups_covered": []
       }
     ],
@@ -440,6 +419,14 @@
     ],
     "enel": [
       {
+        "title": "🏴‍☠️ Enel Big Mom contra Sabo Elbaf? One Piece EB05",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-11-09T21:00:31+00:00",
+        "video_url": "https://www.youtube.com/watch?v=VPAdFssK6v4",
+        "format": "EB05",
+        "matchups_covered": []
+      },
+      {
         "title": "KUZAN do ST33 ATUALIZADO: DESTRUIU o Enel Roxo! | One Piece TCG",
         "channel_name": "Mestre Arty TCG",
         "published_at": "2026-10-22T15:00:18+00:00",
@@ -458,14 +445,6 @@
     ],
     "kuzan": [
       {
-        "title": "Buggy Makes So Much Sense in Kuzan!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-10-24T15:00:30+00:00",
-        "video_url": "https://www.youtube.com/watch?v=sXstjMQpNNA",
-        "format": "",
-        "matchups_covered": []
-      },
-      {
         "title": "KUZAN do ST33 ATUALIZADO: DESTRUIU o Enel Roxo! | One Piece TCG",
         "channel_name": "Mestre Arty TCG",
         "published_at": "2026-10-22T15:00:18+00:00",
@@ -482,6 +461,20 @@
         "video_url": "https://www.youtube.com/watch?v=1ZVuXBp9-Mo",
         "format": "",
         "matchups_covered": []
+      }
+    ],
+    "saint gunko": [
+      {
+        "title": "One Piece TCG: Initial Testing With an OP18, Tanky/Bruiser PB Saint Gunko Build - Recursion and Ramp",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-11-09T21:35:17+00:00",
+        "video_url": "https://www.youtube.com/watch?v=xzoTp-BcQwc",
+        "format": "OP18",
+        "matchups_covered": [
+          "G Luffy",
+          "BY Spandam",
+          "U Sunday"
+        ]
       }
     ],
     "karoo": [
@@ -529,6 +522,14 @@
       }
     ],
     "sabo": [
+      {
+        "title": "🏴‍☠️ Enel Big Mom contra Sabo Elbaf? One Piece EB05",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-11-09T21:00:31+00:00",
+        "video_url": "https://www.youtube.com/watch?v=VPAdFssK6v4",
+        "format": "EB05",
+        "matchups_covered": []
+      },
       {
         "title": "One Piece TCG: Testing RY Sabo Against some of the Stronger Looking Leaders in the EB-05 Format",
         "channel_name": "The Vv Theory",
@@ -635,6 +636,118 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "UvlIGR250So",
+      "title": "Hosting an OP-18 tourney! come join!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-10T05:01:59+00:00",
+      "video_url": "https://www.youtube.com/watch?v=UvlIGR250So",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Support the stream: https://streamlabs.com/hashtagemb"
+    },
+    {
+      "video_id": "fIkJgrJ_bi0",
+      "title": "RY Bonney Heroines Cup Winner List EB05 One Piece",
+      "channel_name": "AkemiTCG",
+      "published_at": "2026-11-10T05:00:18+00:00",
+      "video_url": "https://www.youtube.com/watch?v=fIkJgrJ_bi0",
+      "format": "EB05",
+      "identified_leaders": [
+        "Bonney"
+      ],
+      "matchups_covered": [],
+      "summary": "#onepiecetcg #optcg #rybonney"
+    },
+    {
+      "video_id": "1qxmZoiekOI",
+      "title": "One Piece Card Game: Tier 0 Format!? EB05 Week 1 Tournament Results!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-09T23:00:37+00:00",
+      "video_url": "https://www.youtube.com/watch?v=1qxmZoiekOI",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Make sure to follow @JoyBoysTCG"
+    },
+    {
+      "video_id": "WKEZneTrp8I",
+      "title": "When You Play Against RG Luffy for the First Time One Piece TCG",
+      "channel_name": "AkemiTCG",
+      "published_at": "2026-11-09T23:00:22+00:00",
+      "video_url": "https://www.youtube.com/watch?v=WKEZneTrp8I",
+      "format": "",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "#OnePieceTCG #optcg"
+    },
+    {
+      "video_id": "WxivA7waZas",
+      "title": "Metendo o Shape da EB05!",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-09T22:02:07+00:00",
+      "video_url": "https://www.youtube.com/watch?v=WxivA7waZas",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Parceiros do canal:"
+    },
+    {
+      "video_id": "xzoTp-BcQwc",
+      "title": "One Piece TCG: Initial Testing With an OP18, Tanky/Bruiser PB Saint Gunko Build - Recursion and Ramp",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-09T21:35:17+00:00",
+      "video_url": "https://www.youtube.com/watch?v=xzoTp-BcQwc",
+      "format": "OP18",
+      "identified_leaders": [
+        "Saint Gunko"
+      ],
+      "matchups_covered": [
+        "G Luffy",
+        "BY Spandam",
+        "U Sunday"
+      ],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "VPAdFssK6v4",
+      "title": "🏴‍☠️ Enel Big Mom contra Sabo Elbaf? One Piece EB05",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-09T21:00:31+00:00",
+      "video_url": "https://www.youtube.com/watch?v=VPAdFssK6v4",
+      "format": "EB05",
+      "identified_leaders": [
+        "Enel",
+        "Sabo"
+      ],
+      "matchups_covered": [],
+      "summary": "☕ Portal do Café:"
+    },
+    {
+      "video_id": "UwvBRjNpd2A",
+      "title": "EB05 Week 1 Meta Analysis (Sim & Tournament Data)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-09T18:00:27+00:00",
+      "video_url": "https://www.youtube.com/watch?v=UwvBRjNpd2A",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "In this video, we take a look at EB05 data on the sim & recent tournaments! We go over leader performance as well as individual matchups between the leaders! We'll also take a look at some decklist..."
+    },
+    {
+      "video_id": "YgBZBG4QK_Q",
+      "title": "📰 BOMBÁSTICO! EB-06, OP-19, PB-02 Dreams e Alt Arts da OP-18 Reveladas!",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-09T15:33:50+00:00",
+      "video_url": "https://www.youtube.com/watch?v=YgBZBG4QK_Q",
+      "format": "EB06",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Fica por dentro de todas as novidades quentes do One Piece TCG nesta edição do Morgan News! Analisamos os anúncios das coleções EB-06, OP-19 e PB-02, a revelação das Alt Arts da OP-18, novas promob..."
+    },
     {
       "video_id": "oPVwGy7ac3s",
       "title": "First Look at the Valhalla NenGarden Deck Box",
@@ -1012,7 +1125,7 @@
     },
     {
       "video_id": "8QbY1ExMMso",
-      "title": "VALE A PENA COMEÇAR NO RIFTBOUND? Unboxing Showdown Deck Evelynn vs Seraphine",
+      "title": "O MELHOR PRODUTO PARA COMEÇAR NO RIFTBOUND? Evelynn vs Seraphine",
       "channel_name": "Mestre Arty TCG",
       "published_at": "2026-11-05T15:00:31+00:00",
       "video_url": "https://www.youtube.com/watch?v=8QbY1ExMMso",
@@ -1326,17 +1439,6 @@
         "RG Luffy & Ace"
       ],
       "summary": "In this video, we go over our guide to Blue Buggy in EB05! We go over a decklist, explain the card choices, go over matchups and then we cap it off with sample gameplay footage!"
-    },
-    {
-      "video_id": "nRIjWNRo7B0",
-      "title": "One Piece Card Game: EB05 Format! Tier List!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-02T17:00:12+00:00",
-      "video_url": "https://www.youtube.com/watch?v=nRIjWNRo7B0",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Tier List Maker: https://deckbuilder.egmanevents.com/optcg/tier-matchup"
     },
     {
       "video_id": "tfUijkTNqwg",
@@ -1893,17 +1995,6 @@
       "summary": "Nesse vídeo eu explico a decklist da Bonney amarela rodando o slot de Big Mom Pirates. O efeito dela (ganhar DON!! quando joga personagem com Trigger) combina muito bem com os personagens de 4.000 ..."
     },
     {
-      "video_id": "ZYcXWidHYLE",
-      "title": "⚔️ Duelo da OP17 entre Linlin e Xebec! One Piece Card Game",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-10-26T13:00:24+00:00",
-      "video_url": "https://www.youtube.com/watch?v=ZYcXWidHYLE",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #9 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-9"
-    },
-    {
       "video_id": "zfNDiHmcPgc",
       "title": "Miracle luffy lowkey nutty #onepiecetcg  #tcg #cards #onepiececardgame #onepiece #optcg",
       "channel_name": "WezaldoTCG",
@@ -1915,17 +2006,6 @@
       ],
       "matchups_covered": [],
       "summary": "My twitter:"
-    },
-    {
-      "video_id": "ehs-GMDk0BA",
-      "title": "One Piece TCG: Full EB-05 Set Review - One Piece Heroines Edition Vol. 2, Lots of Great Support",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-10-25T21:25:48+00:00",
-      "video_url": "https://www.youtube.com/watch?v=ehs-GMDk0BA",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "XgRtI3q5UxU",
@@ -1961,20 +2041,6 @@
       "summary": "How to play: https://youtu.be/UmrxMPYGDXo"
     },
     {
-      "video_id": "sXstjMQpNNA",
-      "title": "Buggy Makes So Much Sense in Kuzan!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-10-24T15:00:30+00:00",
-      "video_url": "https://www.youtube.com/watch?v=sXstjMQpNNA",
-      "format": "",
-      "identified_leaders": [
-        "Buggy",
-        "Kuzan"
-      ],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
       "video_id": "N6QEuay_RfE",
       "title": "I Tried Belo Betty in EB05 Deck + Gameplay One Piece TCG",
       "channel_name": "AkemiTCG",
@@ -1991,17 +2057,6 @@
         "Black Yellow Gecko Moria"
       ],
       "summary": "#onepiecetcg #belobettyonepiece #eb05"
-    },
-    {
-      "video_id": "N2hW0Jfn_fs",
-      "title": "Rosinante Gets Good 2K Counters!",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-10-23T17:00:03+00:00",
-      "video_url": "https://www.youtube.com/watch?v=N2hW0Jfn_fs",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we test out Purple Yellow Rosinante in EB05 with his new shiny 2k Counters"
     },
     {
       "video_id": "qyHNecKusR4",
@@ -2088,19 +2143,6 @@
       "summary": "Trazendo um vídeo onde falo as minhas previsões para o meta de EB05 no competitivo que teremos no fim do ano aqui no Brasil, diversos decks recebem suportes em EB e estão todos mirando no rei, Rocks!!"
     },
     {
-      "video_id": "MH0Mw8MDjF8",
-      "title": "YAMATO BRAZUCA VOLTOU! Verde e Amarela com Slot de Big Mom | One Piece TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-10-20T15:00:31+00:00",
-      "video_url": "https://www.youtube.com/watch?v=MH0Mw8MDjF8",
-      "format": "OP17",
-      "identified_leaders": [
-        "Yamato"
-      ],
-      "matchups_covered": [],
-      "summary": "Se você começou no One Piece TCG em 2025, com certeza já jogou ou apanhou da Yamato verde e amarela! Barata, divertida e agressiva... ela tinha caído, mas o slot de Big Mom pode ter trazido ela de ..."
-    },
-    {
       "video_id": "IfLsLPKLdVw",
       "title": "How One Card Made this F Tier Deck Meta",
       "channel_name": "iKailaKai",
@@ -2110,19 +2152,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Is this the single strongest card in the set?"
-    },
-    {
-      "video_id": "tfhGCu7xUf8",
-      "title": "Um DON!! anexado SALVOU a partida?! Luffy Roxo e Preto OP09 ATUALIZADO | One Piece TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-10-19T15:00:27+00:00",
-      "video_url": "https://www.youtube.com/watch?v=tfhGCu7xUf8",
-      "format": "OP09",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "O primeiro Luffy Nika do jogo sempre foi querido, mas sempre cansadinho... Com a enxurrada de cartas pretas novas, será que ele finalmente vê jogo? Spoiler: a partida desse vídeo foi decidida por U..."
     },
     {
       "video_id": "ZpVkY79XniQ",
