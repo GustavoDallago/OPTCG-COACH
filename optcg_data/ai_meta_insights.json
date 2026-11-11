@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-10T07:39:19-03:00",
+  "last_updated": "2026-11-11T07:02:01-03:00",
   "total_channels": 15,
-  "total_insights": 202,
+  "total_insights": 204,
   "videos_by_leader": {
     "bonney": [
       {
@@ -10,14 +10,6 @@
         "published_at": "2026-11-10T05:00:18+00:00",
         "video_url": "https://www.youtube.com/watch?v=fIkJgrJ_bi0",
         "format": "EB05",
-        "matchups_covered": []
-      },
-      {
-        "title": "🔴🟡 A INCOMUM Bonney Nika consegue parar o Xebec? One Piece OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-10-27T13:00:17+00:00",
-        "video_url": "https://www.youtube.com/watch?v=CMFNnqgjOws",
-        "format": "OP17",
         "matchups_covered": []
       },
       {
@@ -30,6 +22,14 @@
       }
     ],
     "luffy": [
+      {
+        "title": "Peak Mihawk vs. EB05 RG Miracle Luffy | Who Wins?",
+        "channel_name": "minhooty",
+        "published_at": "2026-11-11T04:44:07+00:00",
+        "video_url": "https://www.youtube.com/watch?v=IX8r47GQL-I",
+        "format": "EB05",
+        "matchups_covered": []
+      },
       {
         "title": "When You Play Against RG Luffy for the First Time One Piece TCG",
         "channel_name": "AkemiTCG",
@@ -192,6 +192,22 @@
     ],
     "robin": [
       {
+        "title": "NICO ROBIN VERDE E AMARELO (EB-05)! Decklist e Gameplay no One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-10T20:03:53+00:00",
+        "video_url": "https://www.youtube.com/watch?v=OKjGosu2WK4",
+        "format": "EB05",
+        "matchups_covered": []
+      },
+      {
+        "title": "❤️ Quem cura mais? Enel ou a NOVA ROBIN? One Piece EB05",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-11-10T13:00:02+00:00",
+        "video_url": "https://www.youtube.com/watch?v=xjGui-dNM48",
+        "format": "EB05",
+        "matchups_covered": []
+      },
+      {
         "title": "ROBIN IS FOR REAL?! (Aichi CS Season 2 - Grand Finals)",
         "channel_name": "Car D. Kaizoku",
         "published_at": "2026-11-08T14:00:03+00:00",
@@ -200,14 +216,6 @@
         "matchups_covered": [
           "Red Green Luffy"
         ]
-      },
-      {
-        "title": "🟣🟡Robin tem chances contra o Tier S Xebec? One Piece POV OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-11-06T13:00:31+00:00",
-        "video_url": "https://www.youtube.com/watch?v=8mskkdvNJ_s",
-        "format": "OP17",
-        "matchups_covered": []
       },
       {
         "title": "EB05 Robin SP! Do you like the art? I like the card design art is eh to me #eb05 #optcg #robin",
@@ -269,6 +277,14 @@
       }
     ],
     "nico robin": [
+      {
+        "title": "NICO ROBIN VERDE E AMARELO (EB-05)! Decklist e Gameplay no One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-10T20:03:53+00:00",
+        "video_url": "https://www.youtube.com/watch?v=OKjGosu2WK4",
+        "format": "EB05",
+        "matchups_covered": []
+      },
       {
         "title": "🔵 Xebec é imbatível? vs Nico Robin! One Piece POV OP17",
         "channel_name": "Café Com One Piece",
@@ -359,14 +375,6 @@
     ],
     "buggy": [
       {
-        "title": "One Piece Card Game: EB05 Format Buggy Games and Testing!",
-        "channel_name": "TheEgman",
-        "published_at": "2026-11-03T09:27:01+00:00",
-        "video_url": "https://www.youtube.com/watch?v=jYqG981U7R8",
-        "format": "EB05",
-        "matchups_covered": []
-      },
-      {
         "title": "[EB05] Buggy Deck Guide + Gameplay",
         "channel_name": "Car D. Kaizoku",
         "published_at": "2026-11-02T18:00:02+00:00",
@@ -384,16 +392,6 @@
         "published_at": "2026-10-31T22:43:29+00:00",
         "video_url": "https://www.youtube.com/watch?v=zEEe6tF5cxY",
         "format": "OP17",
-        "matchups_covered": []
-      }
-    ],
-    "law": [
-      {
-        "title": "One Piece Nike Don - Trafalgar Law #nike #onepiece",
-        "channel_name": "minhooty",
-        "published_at": "2026-10-01T15:35:49+00:00",
-        "video_url": "https://www.youtube.com/watch?v=e8hKGRbkcAc",
-        "format": "",
         "matchups_covered": []
       }
     ],
@@ -419,10 +417,10 @@
     ],
     "enel": [
       {
-        "title": "🏴‍☠️ Enel Big Mom contra Sabo Elbaf? One Piece EB05",
+        "title": "❤️ Quem cura mais? Enel ou a NOVA ROBIN? One Piece EB05",
         "channel_name": "Café Com One Piece",
-        "published_at": "2026-11-09T21:00:31+00:00",
-        "video_url": "https://www.youtube.com/watch?v=VPAdFssK6v4",
+        "published_at": "2026-11-10T13:00:02+00:00",
+        "video_url": "https://www.youtube.com/watch?v=xjGui-dNM48",
         "format": "EB05",
         "matchups_covered": []
       },
@@ -633,9 +631,175 @@
         "format": "OP16",
         "matchups_covered": []
       }
+    ],
+    "zoro": [
+      {
+        "title": "DE GRAÇA se ela TRAIR o Zoro 😳 #shorts #onepiece",
+        "channel_name": "tcgBR",
+        "published_at": "2026-11-10T21:00:13+00:00",
+        "video_url": "https://www.youtube.com/watch?v=OatoQ7QYQgU",
+        "format": "",
+        "matchups_covered": []
+      }
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "Mu63wpon6v0",
+      "title": "Hosting an OP-18 tourney! EVERYBODY can join!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-11T06:03:01+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Mu63wpon6v0",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Support the stream: https://streamlabs.com/hashtagemb"
+    },
+    {
+      "video_id": "IX8r47GQL-I",
+      "title": "Peak Mihawk vs. EB05 RG Miracle Luffy | Who Wins?",
+      "channel_name": "minhooty",
+      "published_at": "2026-11-11T04:44:07+00:00",
+      "video_url": "https://www.youtube.com/watch?v=IX8r47GQL-I",
+      "format": "EB05",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "Thanks Alex for playtesting! Original RG goat!"
+    },
+    {
+      "video_id": "vy4MK2LlDjE",
+      "title": "One Piece TCG: Hot Take Tuesday - \"There are Too Many Leaders that Come Out in Each New Main Set\"",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-10T21:09:02+00:00",
+      "video_url": "https://www.youtube.com/watch?v=vy4MK2LlDjE",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "OatoQ7QYQgU",
+      "title": "DE GRAÇA se ela TRAIR o Zoro 😳 #shorts #onepiece",
+      "channel_name": "tcgBR",
+      "published_at": "2026-11-10T21:00:13+00:00",
+      "video_url": "https://www.youtube.com/watch?v=OatoQ7QYQgU",
+      "format": "",
+      "identified_leaders": [
+        "Zoro"
+      ],
+      "matchups_covered": [],
+      "summary": "De graça. Era só falar que o Sanji é melhor que o Zoro… repara no final 👀"
+    },
+    {
+      "video_id": "qj-KiUpIhGE",
+      "title": "RANKEAMOS OS MELHORES LÍDERES DE OP18! | One Piece TCG",
+      "channel_name": "tcgBR",
+      "published_at": "2026-11-10T20:45:32+00:00",
+      "video_url": "https://www.youtube.com/watch?v=qj-KiUpIhGE",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Massaro, Mori e Baron se reunem na tcgBR para discutir o que esperar dos líderes da nova coleção de One Piece TCG! Venha conferir e já prepare seus decks para o novo meta!"
+    },
+    {
+      "video_id": "OKjGosu2WK4",
+      "title": "NICO ROBIN VERDE E AMARELO (EB-05)! Decklist e Gameplay no One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-10T20:03:53+00:00",
+      "video_url": "https://www.youtube.com/watch?v=OKjGosu2WK4",
+      "format": "EB05",
+      "identified_leaders": [
+        "Robin",
+        "Nico Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "Bater no board dá vida pra ela. Bater na vida dá carta pra ela. A Nico Robin verde e amarela do EB-05 é a primeira líder que joga de verdade com o atributo Wisdom e vai pegar muita gente de surpresa!"
+    },
+    {
+      "video_id": "lQmRHlZj_WY",
+      "title": "Gundam Card Game: First GD06 Format Regionals! noHeroes CardCon Results!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-10T20:00:14+00:00",
+      "video_url": "https://www.youtube.com/watch?v=lQmRHlZj_WY",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://deckbuilder.egmanevents.com/gundam/tournaments?format=GD06"
+    },
+    {
+      "video_id": "qJ0jlnER72E",
+      "title": "Hosting an OP-18 tourney! EVERYBODY can join!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-10T18:17:34+00:00",
+      "video_url": "https://www.youtube.com/watch?v=qJ0jlnER72E",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Support the stream: https://streamlabs.com/hashtagemb"
+    },
+    {
+      "video_id": "g1OtBCmnt1g",
+      "title": "Hosting an OP-18 tourney! EVERYBODY can join!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-10T18:12:52+00:00",
+      "video_url": "https://www.youtube.com/watch?v=g1OtBCmnt1g",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Support the stream: https://streamlabs.com/hashtagemb"
+    },
+    {
+      "video_id": "hf4yvzPAGCk",
+      "title": "OP18 Ms All Sunday Goes Super Wide!",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-10T18:00:39+00:00",
+      "video_url": "https://www.youtube.com/watch?v=hf4yvzPAGCk",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "In this video, we see learn OP18 with Ms All Sunday!"
+    },
+    {
+      "video_id": "Q4n1NNmK-aE",
+      "title": "BBG Is A Meta Menace In Cyberpunk TCG! | Deck list and Gameplay",
+      "channel_name": "WezaldoTCG",
+      "published_at": "2026-11-10T16:00:34+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Q4n1NNmK-aE",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "Bot",
+        "RYY"
+      ],
+      "summary": "My twitter:"
+    },
+    {
+      "video_id": "xjGui-dNM48",
+      "title": "❤️ Quem cura mais? Enel ou a NOVA ROBIN? One Piece EB05",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-10T13:00:02+00:00",
+      "video_url": "https://www.youtube.com/watch?v=xjGui-dNM48",
+      "format": "EB05",
+      "identified_leaders": [
+        "Enel",
+        "Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "☕ Portal do Café:"
+    },
+    {
+      "video_id": "WxivA7waZas",
+      "title": "Metendo o Shape da EB05!",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-10T12:40:13+00:00",
+      "video_url": "https://www.youtube.com/watch?v=WxivA7waZas",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Parceiros do canal:"
+    },
     {
       "video_id": "UvlIGR250So",
       "title": "Hosting an OP-18 tourney! come join!",
@@ -683,17 +847,6 @@
       ],
       "matchups_covered": [],
       "summary": "#OnePieceTCG #optcg"
-    },
-    {
-      "video_id": "WxivA7waZas",
-      "title": "Metendo o Shape da EB05!",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-09T22:02:07+00:00",
-      "video_url": "https://www.youtube.com/watch?v=WxivA7waZas",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Parceiros do canal:"
     },
     {
       "video_id": "xzoTp-BcQwc",
@@ -1400,19 +1553,6 @@
       "summary": "Support the stream: https://streamlabs.com/hashtagemb"
     },
     {
-      "video_id": "jYqG981U7R8",
-      "title": "One Piece Card Game: EB05 Format Buggy Games and Testing!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-03T09:27:01+00:00",
-      "video_url": "https://www.youtube.com/watch?v=jYqG981U7R8",
-      "format": "EB05",
-      "identified_leaders": [
-        "Buggy"
-      ],
-      "matchups_covered": [],
-      "summary": "Kai's EB05 Event: https://www.bestcoastpairings.com/event/u3uyydK4N0H6"
-    },
-    {
       "video_id": "asnEXA1AjFA",
       "title": "One Piece TCG: Picking a Main for OP-18 - Breaking Down the Design And Playstyle of Each New Leader",
       "channel_name": "The Vv Theory",
@@ -1844,17 +1984,6 @@
       "summary": "🎟️ Copa Café #9 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-9"
     },
     {
-      "video_id": "sxvbda8UUEE",
-      "title": "OP-18 Testing Gunko and more!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-10-28T10:26:58+00:00",
-      "video_url": "https://www.youtube.com/watch?v=sxvbda8UUEE",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Support the stream: https://streamlabs.com/hashtagemb"
-    },
-    {
       "video_id": "AyUqp2N333o",
       "title": "Qual o ESPADACHIM mais FORTE de One Piece? ⚔️ #Shorts #onepiece #pokemon #tcg",
       "channel_name": "tcgBR",
@@ -1875,17 +2004,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
-      "video_id": "V0_JuklPh8Q",
-      "title": "Gunko will be the strongest deck in OP-18 and its not even close...",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-10-27T17:31:06+00:00",
-      "video_url": "https://www.youtube.com/watch?v=V0_JuklPh8Q",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
     },
     {
       "video_id": "bRdcy0qJcOs",
@@ -1914,19 +2032,6 @@
       "summary": "Ele é o queridinho da comunidade, tá meio esquecido no meta... mas quem disse que deck fofo não bate forte? Monta o board de Chopper e segura a pressão! 🦌💥"
     },
     {
-      "video_id": "CMFNnqgjOws",
-      "title": "🔴🟡 A INCOMUM Bonney Nika consegue parar o Xebec? One Piece OP17",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-10-27T13:00:17+00:00",
-      "video_url": "https://www.youtube.com/watch?v=CMFNnqgjOws",
-      "format": "OP17",
-      "identified_leaders": [
-        "Bonney"
-      ],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #9 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-9"
-    },
-    {
       "video_id": "WOwmltbBxPs",
       "title": "UNION ARENA - New Title Coming - ARKNIGHTS",
       "channel_name": "Official Bandai Card Games Channel",
@@ -1936,17 +2041,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Announcement of a new title joining UNION ARENA!"
-    },
-    {
-      "video_id": "vOdZcYqhQxo",
-      "title": "One Piece TCG: Meta Watch - Breaking Down the OP17.5 Format and Discussing the Matchup Spread",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-10-26T21:51:29+00:00",
-      "video_url": "https://www.youtube.com/watch?v=vOdZcYqhQxo",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "kQs0yepg8-w",
@@ -2006,28 +2100,6 @@
       ],
       "matchups_covered": [],
       "summary": "My twitter:"
-    },
-    {
-      "video_id": "XgRtI3q5UxU",
-      "title": "EB05 Week -1 Meta Analysis (Sim & Tournament Data)",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-10-25T17:00:03+00:00",
-      "video_url": "https://www.youtube.com/watch?v=XgRtI3q5UxU",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we take a look at EB05 data on the sim & recent tournaments! We go over leader performance as well as individual matchups between the leaders! We'll also take a look at some decklist..."
-    },
-    {
-      "video_id": "sk_C7DfzGuQ",
-      "title": "The NEW Jinbe support... is good?",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-10-25T15:30:24+00:00",
-      "video_url": "https://www.youtube.com/watch?v=sk_C7DfzGuQ",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
     },
     {
       "video_id": "IIfELMyZ1mI",
@@ -2117,19 +2189,6 @@
       ],
       "matchups_covered": [],
       "summary": "My twitter:"
-    },
-    {
-      "video_id": "olRfjtfD_Vg",
-      "title": "O ENEL FICOU INSANO? Decklist Amarela com Big Mom (OP-17) em One Piece TCG!",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-10-21T15:00:02+00:00",
-      "video_url": "https://www.youtube.com/watch?v=olRfjtfD_Vg",
-      "format": "OP17",
-      "identified_leaders": [
-        "Enel"
-      ],
-      "matchups_covered": [],
-      "summary": "O Enel amarelo sempre foi considerado um dos líderes com maior potencial de jogo por conta de sua regeneração de vida. Mas será que com a chegada dos suportes de Big Mom (OP-17) ele finalmente se c..."
     },
     {
       "video_id": "TWghqSJERyg",
@@ -2480,19 +2539,6 @@
       "summary": "They can't harm you if they can't find you! Use code realjoshua at the link below and get 60% off annual plans: https://incogni.com/realjoshua"
     },
     {
-      "video_id": "e8hKGRbkcAc",
-      "title": "One Piece Nike Don - Trafalgar Law #nike #onepiece",
-      "channel_name": "minhooty",
-      "published_at": "2026-10-01T15:35:49+00:00",
-      "video_url": "https://www.youtube.com/watch?v=e8hKGRbkcAc",
-      "format": "",
-      "identified_leaders": [
-        "Law"
-      ],
-      "matchups_covered": [],
-      "summary": "Analise de deck e gameplay."
-    },
-    {
       "video_id": "SDiTJSh-0oA",
       "title": "DIGIMON CARD BATTLE - CHIVALROUS XIII New Booster First look Battle!",
       "channel_name": "Official Bandai Card Games Channel",
@@ -2644,19 +2690,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "#onepiecetcg #optcg #op17"
-    },
-    {
-      "video_id": "zEaR0o49zyg",
-      "title": "I Brought This Robin Deck To Nationals!",
-      "channel_name": "WezaldoTCG",
-      "published_at": "2026-09-18T15:00:29+00:00",
-      "video_url": "https://www.youtube.com/watch?v=zEaR0o49zyg",
-      "format": "",
-      "identified_leaders": [
-        "Robin"
-      ],
-      "matchups_covered": [],
-      "summary": "My twitter:"
     },
     {
       "video_id": "N7pJVNPmQ_A",
