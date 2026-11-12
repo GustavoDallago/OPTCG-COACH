@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-11T07:02:01-03:00",
+  "last_updated": "2026-11-12T07:28:36-03:00",
   "total_channels": 15,
-  "total_insights": 204,
+  "total_insights": 202,
   "videos_by_leader": {
     "bonney": [
       {
@@ -22,6 +22,27 @@
       }
     ],
     "luffy": [
+      {
+        "title": "One Piece TCG: Initial Testing With an OP18, Midrange/Bruiser G Luffy Deck - Lock Down and Pressure",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-11-11T21:47:42+00:00",
+        "video_url": "https://www.youtube.com/watch?v=7xbyLUNhWSk",
+        "format": "OP18",
+        "matchups_covered": [
+          "PB Gunko 1",
+          "PB Gunko 2",
+          "BY Spandam",
+          "U Sunday"
+        ]
+      },
+      {
+        "title": "Rocks enfrenta Luffy Miracle no regional de Sidney!! - PT-BR",
+        "channel_name": "Onepiececardgamebr",
+        "published_at": "2026-11-11T14:00:08+00:00",
+        "video_url": "https://www.youtube.com/watch?v=vPtrFLGfsR4",
+        "format": "",
+        "matchups_covered": []
+      },
       {
         "title": "Peak Mihawk vs. EB05 RG Miracle Luffy | Who Wins?",
         "channel_name": "minhooty",
@@ -52,14 +73,6 @@
         "published_at": "2026-11-06T11:08:27+00:00",
         "video_url": "https://www.youtube.com/watch?v=sqcTzu0-m1A",
         "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "One Piece TCG: Hot Take Tuesday - \"OP13 RG Luffy is a Tier Zero Deck with the New EB05 Support\"",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-11-03T22:07:27+00:00",
-        "video_url": "https://www.youtube.com/watch?v=wXOwiXHLVeM",
-        "format": "OP13",
         "matchups_covered": []
       },
       {
@@ -100,14 +113,6 @@
         "published_at": "2026-10-17T03:37:19+00:00",
         "video_url": "https://www.youtube.com/watch?v=uahFZiYf3gI",
         "format": "EB05",
-        "matchups_covered": []
-      },
-      {
-        "title": "Sabo vs Luffy & Ace! - Flame Flame fruit Japão!!",
-        "channel_name": "Onepiececardgamebr",
-        "published_at": "2026-10-04T13:00:15+00:00",
-        "video_url": "https://www.youtube.com/watch?v=Wg0L3zKW3h8",
-        "format": "",
         "matchups_covered": []
       },
       {
@@ -375,6 +380,17 @@
     ],
     "buggy": [
       {
+        "title": "O BUGGY VOLTOU AO META! Decklist Atualizada de Buggy (OP-09) na EB-05",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-11T16:00:25+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Fb-7ukccQvM",
+        "format": "OP09",
+        "matchups_covered": [
+          "Luffy Vermelho/Verde",
+          "Nami Azul/Amarela"
+        ]
+      },
+      {
         "title": "[EB05] Buggy Deck Guide + Gameplay",
         "channel_name": "Car D. Kaizoku",
         "published_at": "2026-11-02T18:00:02+00:00",
@@ -417,19 +433,11 @@
     ],
     "enel": [
       {
-        "title": "❤️ Quem cura mais? Enel ou a NOVA ROBIN? One Piece EB05",
+        "title": "🟡Enel consegue lidar com o Tier S Xebec? One Piece POV EB05",
         "channel_name": "Café Com One Piece",
-        "published_at": "2026-11-10T13:00:02+00:00",
-        "video_url": "https://www.youtube.com/watch?v=xjGui-dNM48",
+        "published_at": "2026-11-11T13:00:33+00:00",
+        "video_url": "https://www.youtube.com/watch?v=GETEyg48wto",
         "format": "EB05",
-        "matchups_covered": []
-      },
-      {
-        "title": "KUZAN do ST33 ATUALIZADO: DESTRUIU o Enel Roxo! | One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-10-22T15:00:18+00:00",
-        "video_url": "https://www.youtube.com/watch?v=7EFGpk4FHYA",
-        "format": "OP17",
         "matchups_covered": []
       },
       {
@@ -438,16 +446,6 @@
         "published_at": "2026-10-14T15:00:01+00:00",
         "video_url": "https://www.youtube.com/watch?v=0KKqvlOwkVo",
         "format": "",
-        "matchups_covered": []
-      }
-    ],
-    "kuzan": [
-      {
-        "title": "KUZAN do ST33 ATUALIZADO: DESTRUIU o Enel Roxo! | One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-10-22T15:00:18+00:00",
-        "video_url": "https://www.youtube.com/watch?v=7EFGpk4FHYA",
-        "format": "OP17",
         "matchups_covered": []
       }
     ],
@@ -622,16 +620,6 @@
         "matchups_covered": []
       }
     ],
-    "katakuri": [
-      {
-        "title": "ST34 Purple Katakuri Deck Profile + How To Play Duel | One Piece TCG Tutorial",
-        "channel_name": "Mabi TCG",
-        "published_at": "2026-08-13T23:15:26+00:00",
-        "video_url": "https://www.youtube.com/watch?v=AcKE9dsPZ0A",
-        "format": "OP16",
-        "matchups_covered": []
-      }
-    ],
     "zoro": [
       {
         "title": "DE GRAÇA se ela TRAIR o Zoro 😳 #shorts #onepiece",
@@ -644,6 +632,88 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "7xbyLUNhWSk",
+      "title": "One Piece TCG: Initial Testing With an OP18, Midrange/Bruiser G Luffy Deck - Lock Down and Pressure",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-11T21:47:42+00:00",
+      "video_url": "https://www.youtube.com/watch?v=7xbyLUNhWSk",
+      "format": "OP18",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [
+        "PB Gunko 1",
+        "PB Gunko 2",
+        "BY Spandam",
+        "U Sunday"
+      ],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "zL7bm-yLVOM",
+      "title": "OP18 Reanimating With Gunko Is STRONG!",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-11T18:00:04+00:00",
+      "video_url": "https://www.youtube.com/watch?v=zL7bm-yLVOM",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "In this video, we learn OP18 with Saint Gunko!"
+    },
+    {
+      "video_id": "_EbkV442uyg",
+      "title": "This Miss Sunday list won the first OP-18 Tournament!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-11T16:41:21+00:00",
+      "video_url": "https://www.youtube.com/watch?v=_EbkV442uyg",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "Fb-7ukccQvM",
+      "title": "O BUGGY VOLTOU AO META! Decklist Atualizada de Buggy (OP-09) na EB-05",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-11T16:00:25+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Fb-7ukccQvM",
+      "format": "OP09",
+      "identified_leaders": [
+        "Buggy"
+      ],
+      "matchups_covered": [
+        "Luffy Vermelho/Verde",
+        "Nami Azul/Amarela"
+      ],
+      "summary": "O Buggy pode não ser o Rei dos Piratas, mas no One Piece TCG ele renasceu com os novos suportes da EB-05! O líder mono azul da OP-09 ganhou o fôlego que faltava com ferramentas de compra pesadas pa..."
+    },
+    {
+      "video_id": "vPtrFLGfsR4",
+      "title": "Rocks enfrenta Luffy Miracle no regional de Sidney!! - PT-BR",
+      "channel_name": "Onepiececardgamebr",
+      "published_at": "2026-11-11T14:00:08+00:00",
+      "video_url": "https://www.youtube.com/watch?v=vPtrFLGfsR4",
+      "format": "",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "Trazendo a MD3 que tivemos no top32 de Rocks contra luffy miracle, os 2 melhores decks do meta se enfrentam!!"
+    },
+    {
+      "video_id": "GETEyg48wto",
+      "title": "🟡Enel consegue lidar com o Tier S Xebec? One Piece POV EB05",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-11T13:00:33+00:00",
+      "video_url": "https://www.youtube.com/watch?v=GETEyg48wto",
+      "format": "EB05",
+      "identified_leaders": [
+        "Enel"
+      ],
+      "matchups_covered": [],
+      "summary": "☕ Portal do Café:"
+    },
     {
       "video_id": "Mu63wpon6v0",
       "title": "Hosting an OP-18 tourney! EVERYBODY can join!",
@@ -759,7 +829,7 @@
       "format": "OP18",
       "identified_leaders": [],
       "matchups_covered": [],
-      "summary": "In this video, we see learn OP18 with Ms All Sunday!"
+      "summary": "In this video, we learn OP18 with Ms All Sunday!"
     },
     {
       "video_id": "Q4n1NNmK-aE",
@@ -1940,17 +2010,6 @@
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
-      "video_id": "jYmeLGB-ccs",
-      "title": "The NEW Jabra Combo Heals 3 and Rips 3 Life!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-10-28T17:15:28+00:00",
-      "video_url": "https://www.youtube.com/watch?v=jYmeLGB-ccs",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
       "video_id": "B-68BMEaszA",
       "title": "My Favorite Deck In EB05",
       "channel_name": "iKailaKai",
@@ -1973,17 +2032,6 @@
       "summary": "A OP18 continua surpreendendo com suas novas cartas trazendo suportes muito fortes e personagens que estão em alta e que os fãs gostam bastante, não bastava a Gunko líder, agora temos os cavaleiros..."
     },
     {
-      "video_id": "cbGGSHRcwoc",
-      "title": "🔵 XEBEC dominando! Mirror match na FINAL! One Piece OP17",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-10-28T13:00:11+00:00",
-      "video_url": "https://www.youtube.com/watch?v=cbGGSHRcwoc",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #9 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-9"
-    },
-    {
       "video_id": "AyUqp2N333o",
       "title": "Qual o ESPADACHIM mais FORTE de One Piece? ⚔️ #Shorts #onepiece #pokemon #tcg",
       "channel_name": "tcgBR",
@@ -1993,17 +2041,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Shanks, Mihawk, Zoro ou Oden: quem leva essa? ⚔️"
-    },
-    {
-      "video_id": "F0C_UuacOUw",
-      "title": "One Piece TCG: Hot Take Tuesday - \"Adding a Colorless 'Color' to the Game that All Decks can Use\"",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-10-27T20:25:27+00:00",
-      "video_url": "https://www.youtube.com/watch?v=F0C_UuacOUw",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "bRdcy0qJcOs",
@@ -2052,17 +2089,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Michael might be doing Riftbound content on the channel soon! So you may be seeing more of him. : )"
-    },
-    {
-      "video_id": "YIYf2Q0I6w4",
-      "title": "EB05 Meta Is Making These Cards Expensive! | Market Review",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-10-26T17:00:13+00:00",
-      "video_url": "https://www.youtube.com/watch?v=YIYf2Q0I6w4",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Market Reviews are back! In this video, we take a use the market pages on the site to go over how EB05 is affecting the price of playables! We also go over the market in general for alt arts and pr..."
     },
     {
       "video_id": "CuuYMN2f1JE",
@@ -2140,20 +2166,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Do we just suck or is this deck actually chopped"
-    },
-    {
-      "video_id": "7EFGpk4FHYA",
-      "title": "KUZAN do ST33 ATUALIZADO: DESTRUIU o Enel Roxo! | One Piece TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-10-22T15:00:18+00:00",
-      "video_url": "https://www.youtube.com/watch?v=7EFGpk4FHYA",
-      "format": "OP17",
-      "identified_leaders": [
-        "Enel",
-        "Kuzan"
-      ],
-      "matchups_covered": [],
-      "summary": "Comprou o ST33 e não sabe como deixar o Kuzan competitivo? Trago a lista atualizada com os novos suportes da OP17... e já te dou o spoiler: ela bate de frente com o Enel roxo, um dos queridinhos do..."
     },
     {
       "video_id": "iO9E4aVkG_E",
@@ -2782,17 +2794,6 @@
       "summary": "#optcg #blackyamato"
     },
     {
-      "video_id": "gVG7TMKLC3c",
-      "title": "MUSTACUP 01! - Campeonato OP17 Standard",
-      "channel_name": "Onepiececardgamebr",
-      "published_at": "2026-09-11T12:27:25+00:00",
-      "video_url": "https://www.youtube.com/watch?v=gVG7TMKLC3c",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "A primeira MUSTACUP! Um campeonato online semanal, no formato standard começando em OP17, com direito a sorteios para os participantes todo mês e muito mais!!"
-    },
-    {
       "video_id": "sZU8Z9ed2DA",
       "title": "[EX-13] Royal Knights Deck Buffs! Part. 1 | Digimon Card Battle",
       "channel_name": "Official Bandai Card Games Channel",
@@ -2842,17 +2843,6 @@
         "Purple Yellow Robin"
       ],
       "summary": "#onepiecetcg #optcg #rybonney"
-    },
-    {
-      "video_id": "Xn9rw8SJALE",
-      "title": "Digimon Card Battle - DIGICA QUIZ DELIVERY - TIMELESS BONDS",
-      "channel_name": "Official Bandai Card Games Channel",
-      "published_at": "2026-09-03T12:00:06+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Xn9rw8SJALE",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "[Digimon Card Game Official Website]"
     },
     {
       "video_id": "vNxI4aQggx4",
@@ -3119,19 +3109,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "#onepiecetcg #optcg"
-    },
-    {
-      "video_id": "AcKE9dsPZ0A",
-      "title": "ST34 Purple Katakuri Deck Profile + How To Play Duel | One Piece TCG Tutorial",
-      "channel_name": "Mabi TCG",
-      "published_at": "2026-08-13T23:15:26+00:00",
-      "video_url": "https://www.youtube.com/watch?v=AcKE9dsPZ0A",
-      "format": "OP16",
-      "identified_leaders": [
-        "Katakuri"
-      ],
-      "matchups_covered": [],
-      "summary": "Today's One Piece TCG deck profile: ST33 Katakuri, Purple Katakuri, P Katakuri, Starter Deck 34 Katakuri, ST34 Purple Charlotta Katakuri. This Katakurileader originally released in ST34and was crea..."
     }
   ]
 }
