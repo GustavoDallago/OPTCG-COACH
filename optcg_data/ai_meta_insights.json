@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-12T07:28:36-03:00",
+  "last_updated": "2026-11-13T07:20:22-03:00",
   "total_channels": 15,
-  "total_insights": 202,
+  "total_insights": 203,
   "videos_by_leader": {
     "bonney": [
       {
@@ -11,28 +11,17 @@
         "video_url": "https://www.youtube.com/watch?v=fIkJgrJ_bi0",
         "format": "EB05",
         "matchups_covered": []
-      },
-      {
-        "title": "BONNEY Amarela VOLTOU! Decklist com Slot de Big Mom | OP17",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-10-26T15:00:39+00:00",
-        "video_url": "https://www.youtube.com/watch?v=PTm7JYmqMaM",
-        "format": "OP17",
-        "matchups_covered": []
       }
     ],
     "luffy": [
       {
-        "title": "One Piece TCG: Initial Testing With an OP18, Midrange/Bruiser G Luffy Deck - Lock Down and Pressure",
+        "title": "One Piece TCG: Truck Talk Thursday - Discussing RG Luffy Representation and Results in EB05 Tourneys",
         "channel_name": "The Vv Theory",
-        "published_at": "2026-11-11T21:47:42+00:00",
-        "video_url": "https://www.youtube.com/watch?v=7xbyLUNhWSk",
-        "format": "OP18",
+        "published_at": "2026-11-12T21:30:02+00:00",
+        "video_url": "https://www.youtube.com/watch?v=GmYWvzreA6w",
+        "format": "EB05",
         "matchups_covered": [
-          "PB Gunko 1",
-          "PB Gunko 2",
-          "BY Spandam",
-          "U Sunday"
+          "RG Luffy"
         ]
       },
       {
@@ -97,14 +86,6 @@
         "published_at": "2026-10-29T14:02:26+00:00",
         "video_url": "https://www.youtube.com/watch?v=5yLohFgVMZk",
         "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "EB05 RG Luffy Is BUSTED!!",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-10-27T17:00:26+00:00",
-        "video_url": "https://www.youtube.com/watch?v=bRdcy0qJcOs",
-        "format": "EB05",
         "matchups_covered": []
       },
       {
@@ -411,6 +392,16 @@
         "matchups_covered": []
       }
     ],
+    "law": [
+      {
+        "title": "O LAW MONO RED FICOU QUEBRADO! Decklist Atualizada (OP-14) na EB-05",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-12T18:00:00+00:00",
+        "video_url": "https://www.youtube.com/watch?v=W34StfxJRTo",
+        "format": "OP14",
+        "matchups_covered": []
+      }
+    ],
     "lucci": [
       {
         "title": "AS SRs DA OP-18 CHEGARAM! Crocodile, Lucci e Gunko Quebrada | One Piece TCG",
@@ -418,16 +409,6 @@
         "published_at": "2026-10-28T21:00:19+00:00",
         "video_url": "https://www.youtube.com/watch?v=mx4M4dH1Q2Q",
         "format": "OP18",
-        "matchups_covered": []
-      }
-    ],
-    "chopper": [
-      {
-        "title": "O deck MAIS FOFO do One Piece TCG... que AMASSOU o meta?! Chopper Atualizado",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-10-27T15:00:17+00:00",
-        "video_url": "https://www.youtube.com/watch?v=YwoS7VxBEUs",
-        "format": "",
         "matchups_covered": []
       }
     ],
@@ -556,24 +537,6 @@
         "matchups_covered": []
       }
     ],
-    "teach": [
-      {
-        "title": "One Piece TCG: Breaking Down and Analyzing a 1st Place BY Teach Chinoize Cup List form the West",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-10-28T20:25:49+00:00",
-        "video_url": "https://www.youtube.com/watch?v=JbVYUAFMR1E",
-        "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "Reagindo a Teach x Mihawk - Flame Flame fruit!!",
-        "channel_name": "Onepiececardgamebr",
-        "published_at": "2026-09-15T14:00:09+00:00",
-        "video_url": "https://www.youtube.com/watch?v=_GOtYWLU1jw",
-        "format": "OP17",
-        "matchups_covered": []
-      }
-    ],
     "franky": [
       {
         "title": "Don't underestimate OP-18 Franky!",
@@ -629,9 +592,146 @@
         "format": "",
         "matchups_covered": []
       }
+    ],
+    "teach": [
+      {
+        "title": "Reagindo a Teach x Mihawk - Flame Flame fruit!!",
+        "channel_name": "Onepiececardgamebr",
+        "published_at": "2026-09-15T14:00:09+00:00",
+        "video_url": "https://www.youtube.com/watch?v=_GOtYWLU1jw",
+        "format": "OP17",
+        "matchups_covered": []
+      }
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "iL_n8gqWs2o",
+      "title": "Praticando para o Regional!",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-13T08:16:18+00:00",
+      "video_url": "https://www.youtube.com/watch?v=iL_n8gqWs2o",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Parceiros do canal:"
+    },
+    {
+      "video_id": "vEyrvjm7Gx8",
+      "title": "CyberpunkTCG: Deck Building and Testing with Ash!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-13T05:22:15+00:00",
+      "video_url": "https://www.youtube.com/watch?v=vEyrvjm7Gx8",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://egmanevents.com"
+    },
+    {
+      "video_id": "3D4f9b932zY",
+      "title": "Every TCG Player on a Trip be Like",
+      "channel_name": "AkemiTCG",
+      "published_at": "2026-11-12T23:00:23+00:00",
+      "video_url": "https://www.youtube.com/watch?v=3D4f9b932zY",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "#tcg #onepiecetcg #optcg"
+    },
+    {
+      "video_id": "r3jPS4K9H3I",
+      "title": "CyberpunkTCG: Deck Building and Testing with Ash!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-12T22:50:57+00:00",
+      "video_url": "https://www.youtube.com/watch?v=r3jPS4K9H3I",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://egmanevents.com"
+    },
+    {
+      "video_id": "qiRNDiszk4c",
+      "title": "EB05 SP Expdia!! #eb05 #optcg",
+      "channel_name": "minhooty",
+      "published_at": "2026-11-12T21:56:30+00:00",
+      "video_url": "https://www.youtube.com/watch?v=qiRNDiszk4c",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Analise de deck e gameplay."
+    },
+    {
+      "video_id": "GmYWvzreA6w",
+      "title": "One Piece TCG: Truck Talk Thursday - Discussing RG Luffy Representation and Results in EB05 Tourneys",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-12T21:30:02+00:00",
+      "video_url": "https://www.youtube.com/watch?v=GmYWvzreA6w",
+      "format": "EB05",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [
+        "RG Luffy"
+      ],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "AMPawLNkPdI",
+      "title": "Só 1 TCG pode SOBREVIVER. Qual ganhou? #Shorts #pokemon #onepiece",
+      "channel_name": "tcgBR",
+      "published_at": "2026-11-12T20:56:52+00:00",
+      "video_url": "https://www.youtube.com/watch?v=AMPawLNkPdI",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Pokémon, Yu-Gi-Oh, One Piece, Lorcana… quem ganha fica. Repara no final 👀"
+    },
+    {
+      "video_id": "TZZJK8H0PLk",
+      "title": "BUSTIN' MAKES ME FEEL GOOD",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-12T18:00:13+00:00",
+      "video_url": "https://www.youtube.com/watch?v=TZZJK8H0PLk",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "In this video, we learn OP18 with Spandam!"
+    },
+    {
+      "video_id": "W34StfxJRTo",
+      "title": "O LAW MONO RED FICOU QUEBRADO! Decklist Atualizada (OP-14) na EB-05",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-12T18:00:00+00:00",
+      "video_url": "https://www.youtube.com/watch?v=W34StfxJRTo",
+      "format": "OP14",
+      "identified_leaders": [
+        "Law"
+      ],
+      "matchups_covered": [],
+      "summary": "Trocar o poder de um personagem de 2000 pelo de um monstro de 10.000 e bater duas vezes pesado no mesmo turno. O Trafalgar Law mono vermelho da OP-14 sempre teve uma das mecânicas mais divertidas d..."
+    },
+    {
+      "video_id": "AXfkJf5eoa4",
+      "title": "What If Gunko Always Draws Perfectly?",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-12T17:00:29+00:00",
+      "video_url": "https://www.youtube.com/watch?v=AXfkJf5eoa4",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "3PHm1mqDD-A",
+      "title": "🔵 Xebec domina na EB05? One Piece POV",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-12T13:00:11+00:00",
+      "video_url": "https://www.youtube.com/watch?v=3PHm1mqDD-A",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
+    },
     {
       "video_id": "7xbyLUNhWSk",
       "title": "One Piece TCG: Initial Testing With an OP18, Midrange/Bruiser G Luffy Deck - Lock Down and Pressure",
@@ -712,7 +812,7 @@
         "Enel"
       ],
       "matchups_covered": [],
-      "summary": "☕ Portal do Café:"
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
     },
     {
       "video_id": "Mu63wpon6v0",
@@ -857,7 +957,7 @@
         "Robin"
       ],
       "matchups_covered": [],
-      "summary": "☕ Portal do Café:"
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
     },
     {
       "video_id": "WxivA7waZas",
@@ -947,7 +1047,7 @@
         "Sabo"
       ],
       "matchups_covered": [],
-      "summary": "☕ Portal do Café:"
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
     },
     {
       "video_id": "UwvBRjNpd2A",
@@ -1173,7 +1273,7 @@
         "Shanks"
       ],
       "matchups_covered": [],
-      "summary": "🦾 Seja membro ou apoiador e receba os vídeos antecipadamente e concorra a produtos relacionados a One Piece!"
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
     },
     {
       "video_id": "83vdFuNIbV4",
@@ -1519,17 +1619,6 @@
       "summary": "#onepiecetcg #optcg"
     },
     {
-      "video_id": "LearrBLGttQ",
-      "title": "Gundam Card Game: GD06 Wing and G Team Testing!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-03T23:09:55+00:00",
-      "video_url": "https://www.youtube.com/watch?v=LearrBLGttQ",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "GD06 Tournament Registration: https://www.bestcoastpairings.com/event/ZHiILmYYEuYg?"
-    },
-    {
       "video_id": "wXOwiXHLVeM",
       "title": "One Piece TCG: Hot Take Tuesday - \"OP13 RG Luffy is a Tier Zero Deck with the New EB05 Support\"",
       "channel_name": "The Vv Theory",
@@ -1585,17 +1674,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Check out Ultimate Guard here:"
-    },
-    {
-      "video_id": "oZAdqJtZlsU",
-      "title": "Gundam Card Game: GD06 Format! Day 1 Tier List!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-03T15:00:21+00:00",
-      "video_url": "https://www.youtube.com/watch?v=oZAdqJtZlsU",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sponsored by:"
     },
     {
       "video_id": "F_lenDPogaY",
@@ -1912,19 +1990,6 @@
       "summary": "In this video, we go over every card in OP18 (except 1 missing SEC)"
     },
     {
-      "video_id": "LA812sDp8sY",
-      "title": "Trigger Control Spandam is A Very Scary Deck...",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-10-29T17:00:05+00:00",
-      "video_url": "https://www.youtube.com/watch?v=LA812sDp8sY",
-      "format": "",
-      "identified_leaders": [
-        "Spandam"
-      ],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
       "video_id": "DN4eezVqYXI",
       "title": "EB05 Robin SP! Do you like the art? I like the card design art is eh to me #eb05 #optcg #robin",
       "channel_name": "minhooty",
@@ -1949,17 +2014,6 @@
       ],
       "matchups_covered": [],
       "summary": "My twitter:"
-    },
-    {
-      "video_id": "Rd5-1HAisJw",
-      "title": "🔵 Xebec é o deck mais quebrado do meta? One Piece OP17",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-10-29T13:00:33+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Rd5-1HAisJw",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #9 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-9"
     },
     {
       "video_id": "XwTejDaikfI",
@@ -1997,19 +2051,6 @@
       "summary": "Missão: chegar em Laugh Tale. Orçamento: R$ 20."
     },
     {
-      "video_id": "JbVYUAFMR1E",
-      "title": "One Piece TCG: Breaking Down and Analyzing a 1st Place BY Teach Chinoize Cup List form the West",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-10-28T20:25:49+00:00",
-      "video_url": "https://www.youtube.com/watch?v=JbVYUAFMR1E",
-      "format": "",
-      "identified_leaders": [
-        "Teach"
-      ],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
       "video_id": "B-68BMEaszA",
       "title": "My Favorite Deck In EB05",
       "channel_name": "iKailaKai",
@@ -2043,32 +2084,6 @@
       "summary": "Shanks, Mihawk, Zoro ou Oden: quem leva essa? ⚔️"
     },
     {
-      "video_id": "bRdcy0qJcOs",
-      "title": "EB05 RG Luffy Is BUSTED!!",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-10-27T17:00:26+00:00",
-      "video_url": "https://www.youtube.com/watch?v=bRdcy0qJcOs",
-      "format": "EB05",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "In this video, we see what the hubbub is about the new RG Luffy Bonney Wano Build that's been getting popularized in EB05!"
-    },
-    {
-      "video_id": "YwoS7VxBEUs",
-      "title": "O deck MAIS FOFO do One Piece TCG... que AMASSOU o meta?! Chopper Atualizado",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-10-27T15:00:17+00:00",
-      "video_url": "https://www.youtube.com/watch?v=YwoS7VxBEUs",
-      "format": "",
-      "identified_leaders": [
-        "Chopper"
-      ],
-      "matchups_covered": [],
-      "summary": "Ele é o queridinho da comunidade, tá meio esquecido no meta... mas quem disse que deck fofo não bate forte? Monta o board de Chopper e segura a pressão! 🦌💥"
-    },
-    {
       "video_id": "WOwmltbBxPs",
       "title": "UNION ARENA - New Title Coming - ARKNIGHTS",
       "channel_name": "Official Bandai Card Games Channel",
@@ -2100,19 +2115,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Any and all wrong opinions are not my fault"
-    },
-    {
-      "video_id": "PTm7JYmqMaM",
-      "title": "BONNEY Amarela VOLTOU! Decklist com Slot de Big Mom | OP17",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-10-26T15:00:39+00:00",
-      "video_url": "https://www.youtube.com/watch?v=PTm7JYmqMaM",
-      "format": "OP17",
-      "identified_leaders": [
-        "Bonney"
-      ],
-      "matchups_covered": [],
-      "summary": "Nesse vídeo eu explico a decklist da Bonney amarela rodando o slot de Big Mom Pirates. O efeito dela (ganhar DON!! quando joga personagem com Trigger) combina muito bem com os personagens de 4.000 ..."
     },
     {
       "video_id": "zfNDiHmcPgc",
@@ -2331,17 +2333,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Trazendo vídeo falando sobre a coleção do fim do ano, OP18 chega surpreendendo a todos com as SRs brabíssimas elevando o nível, trazendo uma nova era de tutores para o jogo e animando a comunidade!!"
-    },
-    {
-      "video_id": "sKB71dHyx74",
-      "title": "Yellow Big Mom vs. BY Boa but EVERY TIME you take a life you drink",
-      "channel_name": "minhooty",
-      "published_at": "2026-10-14T19:37:41+00:00",
-      "video_url": "https://www.youtube.com/watch?v=sKB71dHyx74",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Devil fruit juice coming to a store near you! (Not actually). This is for the sole purpose of entertainment."
     },
     {
       "video_id": "0KKqvlOwkVo",
@@ -2633,7 +2624,7 @@
       "format": "OP18",
       "identified_leaders": [],
       "matchups_covered": [],
-      "summary": "ONE PIECE CARD GAME BOOSTER: -THE DOMINANCE OF GOD- [OP-18]"
+      "summary": "ONE PIECE CARD GAME BOOSTER: -THE DOMINANCE OF GOD [OP-18]"
     },
     {
       "video_id": "WyFV6WUmAnw",
@@ -3098,17 +3089,6 @@
       ],
       "matchups_covered": [],
       "summary": "Today's One Piece TCG deck profile: ST35 Sabo , Red Black Sabo, RB Sabo, Starter Deck 35 Sabo,  Black Red Sabo This Katakurileader originally released in ST35 and was created with OP16 in mind. I'l..."
-    },
-    {
-      "video_id": "VGXkcOSowco",
-      "title": "When Your Opponent is Slow Playing One Piece TCG",
-      "channel_name": "AkemiTCG",
-      "published_at": "2026-08-14T22:00:16+00:00",
-      "video_url": "https://www.youtube.com/watch?v=VGXkcOSowco",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "#onepiecetcg #optcg"
     }
   ]
 }
