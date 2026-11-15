@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-14T06:40:26-03:00",
+  "last_updated": "2026-11-15T07:09:45-03:00",
   "total_channels": 15,
   "total_insights": 200,
   "videos_by_leader": {
@@ -177,6 +177,14 @@
       }
     ],
     "robin": [
+      {
+        "title": "ROBIN DE EB05 É MEME OU META? | Robin vs. Xebec | One Piece TCG",
+        "channel_name": "tcgBR",
+        "published_at": "2026-11-14T15:00:24+00:00",
+        "video_url": "https://www.youtube.com/watch?v=gVTiZUKUOUQ",
+        "format": "EB05",
+        "matchups_covered": []
+      },
       {
         "title": "NICO ROBIN VERDE E AMARELO (EB-05)! Decklist e Gameplay no One Piece TCG",
         "channel_name": "Mestre Arty TCG",
@@ -372,18 +380,6 @@
         ]
       },
       {
-        "title": "[EB05] Buggy Deck Guide + Gameplay",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-11-02T18:00:02+00:00",
-        "video_url": "https://www.youtube.com/watch?v=YknZZhF8qKI",
-        "format": "EB05",
-        "matchups_covered": [
-          "Y Enel",
-          "U Rocks",
-          "RG Luffy & Ace"
-        ]
-      },
-      {
         "title": "Boa Double Pack Tin Hits! #op17 #buggy #optcg",
         "channel_name": "minhooty",
         "published_at": "2026-10-31T22:43:29+00:00",
@@ -402,17 +398,17 @@
         "matchups_covered": []
       }
     ],
-    "lucci": [
-      {
-        "title": "AS SRs DA OP-18 CHEGARAM! Crocodile, Lucci e Gunko Quebrada | One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-10-28T21:00:19+00:00",
-        "video_url": "https://www.youtube.com/watch?v=mx4M4dH1Q2Q",
-        "format": "OP18",
-        "matchups_covered": []
-      }
-    ],
     "enel": [
+      {
+        "title": "Is Enel A Luck-Based Deck? (Miyagi CS Season 2 - Top 8)",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-11-14T10:00:10+00:00",
+        "video_url": "https://www.youtube.com/watch?v=aRYp6VfQfsk",
+        "format": "",
+        "matchups_covered": [
+          "Yellow Enel"
+        ]
+      },
       {
         "title": "🟡Enel consegue lidar com o Tier S Xebec? One Piece POV EB05",
         "channel_name": "Café Com One Piece",
@@ -620,6 +616,109 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "qEd3fp4gYiA",
+      "title": "One Piece TCG: Initial Testing With an OP-18 U Ms All Sunday Deck, Tempo-Midrange with Draw/Discard",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-14T21:45:01+00:00",
+      "video_url": "https://www.youtube.com/watch?v=qEd3fp4gYiA",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "GP Franky",
+        "PB Gunko",
+        "RU Karoo",
+        "BY Spandam"
+      ],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "d3JSWeDO0kI",
+      "title": "FUI NO CONEXÃO BRASIL TCG! Testei Vários Card Games Nacionais",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-14T16:36:20+00:00",
+      "video_url": "https://www.youtube.com/watch?v=d3JSWeDO0kI",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "🧐Quer apoiar o canal e ainda rampar? Se liga então:"
+    },
+    {
+      "video_id": "cags2ctJBDs",
+      "title": "Which Decks Will DOMINATE the OP-18 Meta?! (Tier List)",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-14T16:30:14+00:00",
+      "video_url": "https://www.youtube.com/watch?v=cags2ctJBDs",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "gVTiZUKUOUQ",
+      "title": "ROBIN DE EB05 É MEME OU META? | Robin vs. Xebec | One Piece TCG",
+      "channel_name": "tcgBR",
+      "published_at": "2026-11-14T15:00:24+00:00",
+      "video_url": "https://www.youtube.com/watch?v=gVTiZUKUOUQ",
+      "format": "EB05",
+      "identified_leaders": [
+        "Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "EB05 chegou em nossas mesas e trouxe uma nova líder da Nico Robin! Será que ela vai vingar no meta atual? Mori e Massaro colocam ela á prova contra o rei do formato, Rocks. D. Xebec!"
+    },
+    {
+      "video_id": "F1Y9dfaEQ_0",
+      "title": "🪞 Mirror de Xebec na EB05! One Piece POV",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-14T13:00:14+00:00",
+      "video_url": "https://www.youtube.com/watch?v=F1Y9dfaEQ_0",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
+    },
+    {
+      "video_id": "N9nrl3ko5Xs",
+      "title": "Can Rocks Defy A Miracle? (Miyagi CS Season 2 - Grand Finals)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-14T11:00:24+00:00",
+      "video_url": "https://www.youtube.com/watch?v=N9nrl3ko5Xs",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "Blue Rocks"
+      ],
+      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
+    },
+    {
+      "video_id": "hz0wyLe4toI",
+      "title": "It's A Power Down Battle! (Miyagi CS Season 2 - Top 4)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-14T10:30:28+00:00",
+      "video_url": "https://www.youtube.com/watch?v=hz0wyLe4toI",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "Blue Rocks"
+      ],
+      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
+    },
+    {
+      "video_id": "aRYp6VfQfsk",
+      "title": "Is Enel A Luck-Based Deck? (Miyagi CS Season 2 - Top 8)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-14T10:00:10+00:00",
+      "video_url": "https://www.youtube.com/watch?v=aRYp6VfQfsk",
+      "format": "",
+      "identified_leaders": [
+        "Enel"
+      ],
+      "matchups_covered": [
+        "Yellow Enel"
+      ],
+      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
+    },
     {
       "video_id": "_ljiSwULhUc",
       "title": "One Piece TCG: Initial Testing With an OP-18, Technical GP Franky Deck - Don!! Tricks and Tempo",
@@ -1758,17 +1857,6 @@
       "summary": "🦾 Seja membro ou apoiador e receba os vídeos antecipadamente e concorra a produtos relacionados a One Piece!"
     },
     {
-      "video_id": "djSTQRjAiHc",
-      "title": "OP-18 Testing Gunko and more!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-11-03T11:15:07+00:00",
-      "video_url": "https://www.youtube.com/watch?v=djSTQRjAiHc",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Support the stream: https://streamlabs.com/hashtagemb"
-    },
-    {
       "video_id": "asnEXA1AjFA",
       "title": "One Piece TCG: Picking a Main for OP-18 - Breaking Down the Design And Playstyle of Each New Leader",
       "channel_name": "The Vv Theory",
@@ -1778,23 +1866,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
-      "video_id": "YknZZhF8qKI",
-      "title": "[EB05] Buggy Deck Guide + Gameplay",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-11-02T18:00:02+00:00",
-      "video_url": "https://www.youtube.com/watch?v=YknZZhF8qKI",
-      "format": "EB05",
-      "identified_leaders": [
-        "Buggy"
-      ],
-      "matchups_covered": [
-        "Y Enel",
-        "U Rocks",
-        "RG Luffy & Ace"
-      ],
-      "summary": "In this video, we go over our guide to Blue Buggy in EB05! We go over a decklist, explain the card choices, go over matchups and then we cap it off with sample gameplay footage!"
     },
     {
       "video_id": "tfUijkTNqwg",
@@ -1858,17 +1929,6 @@
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
-      "video_id": "U6fd9Tz8q4s",
-      "title": "EB05 Week 0 Meta Analysis (Sim & Tournament Data)",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-11-01T18:00:19+00:00",
-      "video_url": "https://www.youtube.com/watch?v=U6fd9Tz8q4s",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we take a look at EB05 data on the sim & recent tournaments! We go over leader performance as well as individual matchups between the leaders! We'll also take a look at some decklist..."
-    },
-    {
       "video_id": "PQT5yFof2AU",
       "title": "#onepiececardgame #anime #cafecomonepiece #onepiece #onepiecetcg #tcg #optcg #cards",
       "channel_name": "Café Com One Piece",
@@ -1878,19 +1938,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Analise de deck e gameplay."
-    },
-    {
-      "video_id": "P9CWfBk78ps",
-      "title": "O grande counter do Xebec? Luffy Elbaf! One Piece OP17",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-11-01T13:00:10+00:00",
-      "video_url": "https://www.youtube.com/watch?v=P9CWfBk78ps",
-      "format": "OP17",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #9 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-9"
     },
     {
       "video_id": "zEEe6tF5cxY",
@@ -1932,17 +1979,6 @@
       "summary": "Would you still play the game if this was normal?"
     },
     {
-      "video_id": "rHdWsQKSoqw",
-      "title": "EB05 Booster Boxes Are WEIRD AS HELL",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-10-31T17:00:43+00:00",
-      "video_url": "https://www.youtube.com/watch?v=rHdWsQKSoqw",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we open 3 EB05 Booster Boxes! This set is SO WEIRD"
-    },
-    {
       "video_id": "vfTbCY3pZUA",
       "title": "BUSTER CALL NA OP-18! Cartas Pretas e Amarelas Vazadas | One Piece TCG",
       "channel_name": "Mestre Arty TCG",
@@ -1976,17 +2012,6 @@
       ],
       "matchups_covered": [],
       "summary": "#onepiecetcg #optcg"
-    },
-    {
-      "video_id": "9Fe8RaOe8PU",
-      "title": "One Piece TCG: Pretty Short Video for Today - Just a Quick Mystery Topic, Nothing Serious/Crazy",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-10-30T21:19:17+00:00",
-      "video_url": "https://www.youtube.com/watch?v=9Fe8RaOe8PU",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "VLNta8Xx5EU",
@@ -2048,19 +2073,6 @@
       "summary": "A MUSTACUP Continua! Um campeonato online semanal, no formato standard começando em OP17, com direito a sorteios para os participantes todo mês e muito mais!!"
     },
     {
-      "video_id": "mx4M4dH1Q2Q",
-      "title": "AS SRs DA OP-18 CHEGARAM! Crocodile, Lucci e Gunko Quebrada | One Piece TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-10-28T21:00:19+00:00",
-      "video_url": "https://www.youtube.com/watch?v=mx4M4dH1Q2Q",
-      "format": "OP18",
-      "identified_leaders": [
-        "Lucci"
-      ],
-      "matchups_covered": [],
-      "summary": "Fiquei três semanas fora, mas voltei com tudo! Bora revisar as novas cartas reveladas da OP-18 de One Piece TCG: SRs da Baroque Works, da CP9 e dos Cavaleiros de Deus, e muito suporte para Franky, ..."
-    },
-    {
       "video_id": "miccFf57A_Y",
       "title": "MONTE seu BANDO de ONE PIECE com APENAS R$ 20 💸 #optcg  #onepiece #onepiecetcg #pokemon",
       "channel_name": "tcgBR",
@@ -2092,17 +2104,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "A OP18 continua surpreendendo com suas novas cartas trazendo suportes muito fortes e personagens que estão em alta e que os fãs gostam bastante, não bastava a Gunko líder, agora temos os cavaleiros..."
-    },
-    {
-      "video_id": "AyUqp2N333o",
-      "title": "Qual o ESPADACHIM mais FORTE de One Piece? ⚔️ #Shorts #onepiece #pokemon #tcg",
-      "channel_name": "tcgBR",
-      "published_at": "2026-10-27T20:30:03+00:00",
-      "video_url": "https://www.youtube.com/watch?v=AyUqp2N333o",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Shanks, Mihawk, Zoro ou Oden: quem leva essa? ⚔️"
     },
     {
       "video_id": "WOwmltbBxPs",
