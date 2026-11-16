@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-15T07:09:45-03:00",
+  "last_updated": "2026-11-16T07:23:35-03:00",
   "total_channels": 15,
   "total_insights": 200,
   "videos_by_leader": {
@@ -14,6 +14,14 @@
       }
     ],
     "luffy": [
+      {
+        "title": "Is RG Luffy Done For?",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-11-15T18:00:05+00:00",
+        "video_url": "https://www.youtube.com/watch?v=LDB1Als6K6Q",
+        "format": "",
+        "matchups_covered": []
+      },
       {
         "title": "One Piece TCG: Truck Talk Thursday - Discussing RG Luffy Representation and Results in EB05 Tourneys",
         "channel_name": "The Vv Theory",
@@ -352,21 +360,6 @@
         "matchups_covered": []
       }
     ],
-    "yamato": [
-      {
-        "title": "I Tried Playing Black Yamato in OP17 Deck + Gameplay",
-        "channel_name": "AkemiTCG",
-        "published_at": "2026-09-11T22:00:20+00:00",
-        "video_url": "https://www.youtube.com/watch?v=_TjzGbVrfA4",
-        "format": "OP17",
-        "matchups_covered": [
-          "RG Luffy & Ace",
-          "Yellow Luffy",
-          "PY Robin",
-          "Green Shanks"
-        ]
-      }
-    ],
     "buggy": [
       {
         "title": "O BUGGY VOLTOU AO META! Decklist Atualizada de Buggy (OP-09) na EB-05",
@@ -400,6 +393,14 @@
     ],
     "enel": [
       {
+        "title": "🐉O poderoso Kaido consegue superar o Enel? One Piece POV EB05",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-11-15T13:00:26+00:00",
+        "video_url": "https://www.youtube.com/watch?v=yW-sQ-lqEn4",
+        "format": "EB05",
+        "matchups_covered": []
+      },
+      {
         "title": "Is Enel A Luck-Based Deck? (Miyagi CS Season 2 - Top 8)",
         "channel_name": "Car D. Kaizoku",
         "published_at": "2026-11-14T10:00:10+00:00",
@@ -408,14 +409,6 @@
         "matchups_covered": [
           "Yellow Enel"
         ]
-      },
-      {
-        "title": "🟡Enel consegue lidar com o Tier S Xebec? One Piece POV EB05",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-11-11T13:00:33+00:00",
-        "video_url": "https://www.youtube.com/watch?v=GETEyg48wto",
-        "format": "EB05",
-        "matchups_covered": []
       },
       {
         "title": "Yellow Enel Is Back Post Mihawk Ban!",
@@ -596,10 +589,10 @@
     ],
     "kaido": [
       {
-        "title": "🐉 EB05 trouxe o necessário para o Kaido? vs Xebec! One Piece POV",
+        "title": "🐉O poderoso Kaido consegue superar o Enel? One Piece POV EB05",
         "channel_name": "Café Com One Piece",
-        "published_at": "2026-11-13T13:00:12+00:00",
-        "video_url": "https://www.youtube.com/watch?v=Vafsh9MyGfI",
+        "published_at": "2026-11-15T13:00:26+00:00",
+        "video_url": "https://www.youtube.com/watch?v=yW-sQ-lqEn4",
         "format": "EB05",
         "matchups_covered": []
       }
@@ -616,6 +609,77 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "Luc5q9DsB3o",
+      "title": "RRG is a meta POWERHOUSE in Cyberpunk TCG | Deck Profile & Theory",
+      "channel_name": "WezaldoTCG",
+      "published_at": "2026-11-16T00:06:13+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Luc5q9DsB3o",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "My twitter:"
+    },
+    {
+      "video_id": "Sj66CRp6slM",
+      "title": "Every Deck Profile Comment Section be Like",
+      "channel_name": "AkemiTCG",
+      "published_at": "2026-11-15T22:30:35+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Sj66CRp6slM",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "#tcg #optcg #onepiecetcg"
+    },
+    {
+      "video_id": "27weoU3K6oA",
+      "title": "One Piece TCG: Market Watch Nov 15th, 2026 - Crazy OP18 Presale Prices, but EB05 Prices Looking Good",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-15T21:57:23+00:00",
+      "video_url": "https://www.youtube.com/watch?v=27weoU3K6oA",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "LDB1Als6K6Q",
+      "title": "Is RG Luffy Done For?",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-15T18:00:05+00:00",
+      "video_url": "https://www.youtube.com/watch?v=LDB1Als6K6Q",
+      "format": "",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "In this video, we speculate on what they will announce in their November 2026 ban and restricted list announcement and simulate what a meta without RG Luffy would be like"
+    },
+    {
+      "video_id": "ljjoDXwkiqk",
+      "title": "Jinbe finally got some good support!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-15T15:30:38+00:00",
+      "video_url": "https://www.youtube.com/watch?v=ljjoDXwkiqk",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "yW-sQ-lqEn4",
+      "title": "🐉O poderoso Kaido consegue superar o Enel? One Piece POV EB05",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-15T13:00:26+00:00",
+      "video_url": "https://www.youtube.com/watch?v=yW-sQ-lqEn4",
+      "format": "EB05",
+      "identified_leaders": [
+        "Enel",
+        "Kaido"
+      ],
+      "matchups_covered": [],
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
+    },
     {
       "video_id": "qEd3fp4gYiA",
       "title": "One Piece TCG: Initial Testing With an OP-18 U Ms All Sunday Deck, Tempo-Midrange with Draw/Discard",
@@ -1108,20 +1172,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "In this video, we learn OP18 with Ms All Sunday!"
-    },
-    {
-      "video_id": "Q4n1NNmK-aE",
-      "title": "BBG Is A Meta Menace In Cyberpunk TCG! | Deck list and Gameplay",
-      "channel_name": "WezaldoTCG",
-      "published_at": "2026-11-10T16:00:34+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Q4n1NNmK-aE",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [
-        "Bot",
-        "RYY"
-      ],
-      "summary": "My twitter:"
     },
     {
       "video_id": "xjGui-dNM48",
@@ -1810,17 +1860,6 @@
       "summary": "Dizem que a geladeira protege do calor e da radiação. O que ninguém conta é pra onde a onda de choque pode te levar 💥"
     },
     {
-      "video_id": "QpO8MzbsnIQ",
-      "title": "30 Decks For EVERY BUDGET (EB05)",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-11-03T18:00:39+00:00",
-      "video_url": "https://www.youtube.com/watch?v=QpO8MzbsnIQ",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we go over the price point for 30 decks for the EB05 meta! Whether you have $300 to spend or under $100, we'll find a deck for you!"
-    },
-    {
       "video_id": "Xi0RBVQGSEU",
       "title": "EB-05 COM DEFEITO?! Cartas Amassadas, OP-20 Vazou e Muito Mais | Notícias One Piece TCG",
       "channel_name": "Mestre Arty TCG",
@@ -1830,17 +1869,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "A EB-05 tá chegando com carta amassada, box sem hit e impressão feita nos EUA. E ainda vazou a OP-20, chegaram os líderes cabeção e tem muita promo nova! 📰🏴"
-    },
-    {
-      "video_id": "jLbqP2K7vH4",
-      "title": "OP-18 Gunko is FINALLY Complete!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-11-03T16:24:37+00:00",
-      "video_url": "https://www.youtube.com/watch?v=jLbqP2K7vH4",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
     },
     {
       "video_id": "F_lenDPogaY",
@@ -1929,17 +1957,6 @@
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
-      "video_id": "PQT5yFof2AU",
-      "title": "#onepiececardgame #anime #cafecomonepiece #onepiece #onepiecetcg #tcg #optcg #cards",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-11-01T15:15:30+00:00",
-      "video_url": "https://www.youtube.com/watch?v=PQT5yFof2AU",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Analise de deck e gameplay."
-    },
-    {
       "video_id": "zEEe6tF5cxY",
       "title": "Boa Double Pack Tin Hits! #op17 #buggy #optcg",
       "channel_name": "minhooty",
@@ -1951,21 +1968,6 @@
       ],
       "matchups_covered": [],
       "summary": "Analise de deck e gameplay."
-    },
-    {
-      "video_id": "d135uUvR0Jc",
-      "title": "One Piece TCG: Experimenting with a Blue/Purple Hannyabal List in the OP17.5 Format - Fast Ramp",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-10-31T21:21:05+00:00",
-      "video_url": "https://www.youtube.com/watch?v=d135uUvR0Jc",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [
-        "Y Linlin",
-        "U Buggy",
-        "B Teach"
-      ],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "E_G1gh9vUmo",
@@ -2787,24 +2789,6 @@
       ],
       "matchups_covered": [],
       "summary": "I'll see you soon in Dallas. Make sure to subscribe so I can feel happy"
-    },
-    {
-      "video_id": "_TjzGbVrfA4",
-      "title": "I Tried Playing Black Yamato in OP17 Deck + Gameplay",
-      "channel_name": "AkemiTCG",
-      "published_at": "2026-09-11T22:00:20+00:00",
-      "video_url": "https://www.youtube.com/watch?v=_TjzGbVrfA4",
-      "format": "OP17",
-      "identified_leaders": [
-        "Yamato"
-      ],
-      "matchups_covered": [
-        "RG Luffy & Ace",
-        "Yellow Luffy",
-        "PY Robin",
-        "Green Shanks"
-      ],
-      "summary": "#optcg #blackyamato"
     },
     {
       "video_id": "sZU8Z9ed2DA",
