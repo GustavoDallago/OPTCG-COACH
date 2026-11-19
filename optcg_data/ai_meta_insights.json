@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-18T07:55:30-03:00",
+  "last_updated": "2026-11-19T07:55:37-03:00",
   "total_channels": 15,
-  "total_insights": 198,
+  "total_insights": 196,
   "videos_by_leader": {
     "bonney": [
       {
@@ -96,30 +96,6 @@
         "published_at": "2026-11-09T23:00:22+00:00",
         "video_url": "https://www.youtube.com/watch?v=WKEZneTrp8I",
         "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "One Piece Card Game: Try-Hard Red/Green Luffy Ranked Testing!",
-        "channel_name": "TheEgman",
-        "published_at": "2026-11-06T11:08:27+00:00",
-        "video_url": "https://www.youtube.com/watch?v=sqcTzu0-m1A",
-        "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "⚫ Luffy supera o poderoso Shanks? One Piece Card Game OP17",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-11-03T13:00:01+00:00",
-        "video_url": "https://www.youtube.com/watch?v=F_lenDPogaY",
-        "format": "OP17",
-        "matchups_covered": []
-      },
-      {
-        "title": "MR. 0 VOLTOU! Crocodile e Luffy nos Novos Starters ST-37 e ST-38 | One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-11-02T16:41:19+00:00",
-        "video_url": "https://www.youtube.com/watch?v=tfUijkTNqwg",
-        "format": "OP14",
         "matchups_covered": []
       },
       {
@@ -447,6 +423,22 @@
         "matchups_covered": []
       }
     ],
+    "spandam": [
+      {
+        "title": "One Piece TCG: Early BY Spandam Testing - This Might Be My New Main for OP18 - Life Gain and Removal",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-11-18T21:13:28+00:00",
+        "video_url": "https://www.youtube.com/watch?v=X90tweOWRQA",
+        "format": "OP18",
+        "matchups_covered": [
+          "PB Gunko",
+          "GP Franky",
+          "P Kaido",
+          "U Rocks",
+          "U Buggy"
+        ]
+      }
+    ],
     "franky": [
       {
         "title": "One Piece TCG: Initial Testing With an OP-18, Technical GP Franky Deck - Don!! Tricks and Tempo",
@@ -494,6 +486,14 @@
     ],
     "karoo": [
       {
+        "title": "One Piece Card Game: OP18 Meta Ms. All Sunday and Karoo Testing!",
+        "channel_name": "TheEgman",
+        "published_at": "2026-11-19T03:53:57+00:00",
+        "video_url": "https://www.youtube.com/watch?v=wOrekGwKc-k",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
         "title": "One Piece TCG: Initial Testing With an OP-18 RU Karoo Tempo/Midrange Build - Rush and Card Draw",
         "channel_name": "The Vv Theory",
         "published_at": "2026-11-08T22:15:54+00:00",
@@ -503,20 +503,6 @@
           "PB Gunko",
           "BY Spandam",
           "U Ms All Sunday"
-        ]
-      }
-    ],
-    "spandam": [
-      {
-        "title": "One Piece TCG: Initial Testing With an OP18 BY Spandam, Midrange Build - Life Gain and Triggers",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-11-07T21:19:03+00:00",
-        "video_url": "https://www.youtube.com/watch?v=wKOVEEMDQp4",
-        "format": "OP18",
-        "matchups_covered": [
-          "PB Gunko",
-          "U Miss All Sunday",
-          "G Luffy"
         ]
       }
     ],
@@ -548,6 +534,16 @@
         "published_at": "2026-10-04T13:00:15+00:00",
         "video_url": "https://www.youtube.com/watch?v=Wg0L3zKW3h8",
         "format": "",
+        "matchups_covered": []
+      }
+    ],
+    "ms. all sunday": [
+      {
+        "title": "One Piece Card Game: OP18 Meta Ms. All Sunday and Karoo Testing!",
+        "channel_name": "TheEgman",
+        "published_at": "2026-11-19T03:53:57+00:00",
+        "video_url": "https://www.youtube.com/watch?v=wOrekGwKc-k",
+        "format": "OP18",
         "matchups_covered": []
       }
     ],
@@ -591,6 +587,105 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "wOrekGwKc-k",
+      "title": "One Piece Card Game: OP18 Meta Ms. All Sunday and Karoo Testing!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-19T03:53:57+00:00",
+      "video_url": "https://www.youtube.com/watch?v=wOrekGwKc-k",
+      "format": "OP18",
+      "identified_leaders": [
+        "Karoo",
+        "Ms. All Sunday"
+      ],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://egmanevents.com"
+    },
+    {
+      "video_id": "cyw27yBJLRA",
+      "title": "Cyberpunk TCG: Night City Showdown Winning Deck Testing w/ @LullabyAnto",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-18T22:02:49+00:00",
+      "video_url": "https://www.youtube.com/watch?v=cyw27yBJLRA",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://egmanevents.com"
+    },
+    {
+      "video_id": "X90tweOWRQA",
+      "title": "One Piece TCG: Early BY Spandam Testing - This Might Be My New Main for OP18 - Life Gain and Removal",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-18T21:13:28+00:00",
+      "video_url": "https://www.youtube.com/watch?v=X90tweOWRQA",
+      "format": "OP18",
+      "identified_leaders": [
+        "Spandam"
+      ],
+      "matchups_covered": [
+        "PB Gunko",
+        "GP Franky",
+        "P Kaido",
+        "U Rocks",
+        "U Buggy"
+      ],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "RK0gkr3HLwo",
+      "title": "I TOPPED With Gunko! (6-1 Chinoize Deck Profile)",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-18T17:30:26+00:00",
+      "video_url": "https://www.youtube.com/watch?v=RK0gkr3HLwo",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "BLQox9WDIIE",
+      "title": "Gundam Card Game: First GD06 Format Regionals! noHeroes CardCon Results!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-18T17:00:16+00:00",
+      "video_url": "https://www.youtube.com/watch?v=BLQox9WDIIE",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://deckbuilder.egmanevents.com/gundam/tournaments?format=GD06"
+    },
+    {
+      "video_id": "9T07m_Ve1Rw",
+      "title": "COMO FOI O REGIONAL BR DE ONE PIECE TCG! Resenha, Meta e Banlist (ft. Borges e Nalu)",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-18T15:00:22+00:00",
+      "video_url": "https://www.youtube.com/watch?v=9T07m_Ve1Rw",
+      "format": "EB05",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "O Regional BR de One Piece TCG pegou fogo em São Paulo e eu chamei dois finalistas lendários do cenário — Borges e Nalu — para passar o torneio a limpo! Conversamos sobre o meta acelerado da EB-05,..."
+    },
+    {
+      "video_id": "H78YOaD4ONM",
+      "title": "First Look at the Riftbound KDA Couture Bundle",
+      "channel_name": "minhooty",
+      "published_at": "2026-11-18T14:34:48+00:00",
+      "video_url": "https://www.youtube.com/watch?v=H78YOaD4ONM",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "So beautiful! Straight to the living room."
+    },
+    {
+      "video_id": "WDH3IGgWp3k",
+      "title": "🎉 Tudo que você precisa saber sobre o Pré Release da OP18! One Piece Card Game",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-18T13:01:07+00:00",
+      "video_url": "https://www.youtube.com/watch?v=WDH3IGgWp3k",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
+    },
     {
       "video_id": "A7ErgSGNgtY",
       "title": "Gundam Card Game: GD06 Gundam Aerial Testing And Ranked Games!",
@@ -1790,41 +1885,6 @@
       "summary": "Edited by: @zztac"
     },
     {
-      "video_id": "p0e4HNMiBsc",
-      "title": "Getting hit with the Life or Stay #onepiecetcg #onepiececardgame #cardgame",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-06T19:00:09+00:00",
-      "video_url": "https://www.youtube.com/watch?v=p0e4HNMiBsc",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Full Episode Here: https://youtu.be/YyAm076Usyk"
-    },
-    {
-      "video_id": "tZtPzOyV8KA",
-      "title": "Swinging MASSIVE DOUBLE ATTACKS with OP-18 Luffy!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-11-06T16:45:32+00:00",
-      "video_url": "https://www.youtube.com/watch?v=tZtPzOyV8KA",
-      "format": "OP18",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
-      "video_id": "PrpcDpx-K48",
-      "title": "One Piece Card Game: EB05 Format! Week 2 Power Rankings!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-06T16:00:22+00:00",
-      "video_url": "https://www.youtube.com/watch?v=PrpcDpx-K48",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://deckbuilder.egmanevents.com/optcg/tournaments?format=OP17"
-    },
-    {
       "video_id": "8mskkdvNJ_s",
       "title": "🟣🟡Robin tem chances contra o Tier S Xebec? One Piece POV OP17",
       "channel_name": "Café Com One Piece",
@@ -1836,19 +1896,6 @@
       ],
       "matchups_covered": [],
       "summary": "🎫Win a Case  @MontCardShop   https://www.montshop.com.br/?view=ecom/item&ing=48489"
-    },
-    {
-      "video_id": "sqcTzu0-m1A",
-      "title": "One Piece Card Game: Try-Hard Red/Green Luffy Ranked Testing!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-06T11:08:27+00:00",
-      "video_url": "https://www.youtube.com/watch?v=sqcTzu0-m1A",
-      "format": "",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "ESC Affiliate Link: bit.ly/EgmanEXPShare"
     },
     {
       "video_id": "v_dHoAG9Ydc",
@@ -1966,19 +2013,6 @@
       "summary": "#onepiecetcg #optcg"
     },
     {
-      "video_id": "wXOwiXHLVeM",
-      "title": "One Piece TCG: Hot Take Tuesday - \"OP13 RG Luffy is a Tier Zero Deck with the New EB05 Support\"",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-11-03T22:07:27+00:00",
-      "video_url": "https://www.youtube.com/watch?v=wXOwiXHLVeM",
-      "format": "OP13",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
       "video_id": "is9njTu6h9g",
       "title": "A geladeira pode te salvar de uma explosão nuclear? Olha pra onde o impacto pode te mandar! #shorts",
       "channel_name": "tcgBR",
@@ -1999,33 +2033,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "A EB-05 tá chegando com carta amassada, box sem hit e impressão feita nos EUA. E ainda vazou a OP-20, chegaram os líderes cabeção e tem muita promo nova! 📰🏴"
-    },
-    {
-      "video_id": "F_lenDPogaY",
-      "title": "⚫ Luffy supera o poderoso Shanks? One Piece Card Game OP17",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-11-03T13:00:01+00:00",
-      "video_url": "https://www.youtube.com/watch?v=F_lenDPogaY",
-      "format": "OP17",
-      "identified_leaders": [
-        "Luffy",
-        "Shanks"
-      ],
-      "matchups_covered": [],
-      "summary": "🦾 Seja membro ou apoiador e receba os vídeos antecipadamente e concorra a produtos relacionados a One Piece!"
-    },
-    {
-      "video_id": "tfUijkTNqwg",
-      "title": "MR. 0 VOLTOU! Crocodile e Luffy nos Novos Starters ST-37 e ST-38 | One Piece TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-02T16:41:19+00:00",
-      "video_url": "https://www.youtube.com/watch?v=tfUijkTNqwg",
-      "format": "OP14",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "Baroque Works contra o exército de Alabasta! A Bandai revelou os líderes dos novos Starter Decks ST-37 e ST-38 de One Piece TCG, e o Crocodile Mr.0 e o Luffy chegam com propostas bem diferentes. Qu..."
     },
     {
       "video_id": "9JaWr0QxHoI",
@@ -2309,17 +2316,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "My twitter:"
-    },
-    {
-      "video_id": "fMnAlMWSHbs",
-      "title": "Ranked Sim for Store Champs Tomorrow",
-      "channel_name": "minhooty",
-      "published_at": "2026-10-17T06:42:40+00:00",
-      "video_url": "https://www.youtube.com/watch?v=fMnAlMWSHbs",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Make sure to sign up with \"MINHOOTY\" when you rip Power Packs!"
     },
     {
       "video_id": "uahFZiYf3gI",
@@ -2733,17 +2729,6 @@
       "summary": "Trazendo um vídeo para falarmos sobre as novas cartas reveladas de EB, finalmente vimos as SRs novas, com diversos suportes para arquétipos que temos no jogo já e vamos ver novas staples, e vemos c..."
     },
     {
-      "video_id": "NQU2nHsUxoc",
-      "title": "When You Play Against Any Green Deck One Piece",
-      "channel_name": "AkemiTCG",
-      "published_at": "2026-09-19T01:30:25+00:00",
-      "video_url": "https://www.youtube.com/watch?v=NQU2nHsUxoc",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "#onepiecetcg #optcg #op17"
-    },
-    {
       "video_id": "N7pJVNPmQ_A",
       "title": "[EX-13] Royal Knights Deck Buffs! Part. 2 | Digimon Card Battle",
       "channel_name": "Official Bandai Card Games Channel",
@@ -2764,17 +2749,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Trazendo um vídeo onde falamos sobre a nova carta revelada pela bandai, um super suporte para o azul vindo como resposta para a situação atual do meta, onde os decks serão forçados a mudarem suas e..."
-    },
-    {
-      "video_id": "jSvhfUuZuR0",
-      "title": "DIGIMON CARD GAME Extra Booster CHIVALROUS XIII [EX-13] Trailer",
-      "channel_name": "Official Bandai Card Games Channel",
-      "published_at": "2026-09-17T13:00:25+00:00",
-      "video_url": "https://www.youtube.com/watch?v=jSvhfUuZuR0",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "[Digimon Card Game Official Website]"
     },
     {
       "video_id": "GIjVngxUhoM",
