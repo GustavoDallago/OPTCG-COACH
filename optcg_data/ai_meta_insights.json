@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-21T07:30:10-03:00",
+  "last_updated": "2026-11-22T07:31:44-03:00",
   "total_channels": 15,
-  "total_insights": 196,
+  "total_insights": 197,
   "videos_by_leader": {
     "bonney": [
       {
@@ -473,6 +473,14 @@
     ],
     "spandam": [
       {
+        "title": "OP-18 Spandam is BETTER without Buster Call?!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-11-21T15:35:35+00:00",
+        "video_url": "https://www.youtube.com/watch?v=2P0lzQd96lY",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
         "title": "One Piece TCG: Early BY Spandam Testing - This Might Be My New Main for OP18 - Life Gain and Removal",
         "channel_name": "The Vv Theory",
         "published_at": "2026-11-18T21:13:28+00:00",
@@ -521,14 +529,6 @@
       }
     ],
     "shanks": [
-      {
-        "title": "🏆 Imu na FINAL da OP17? Contra Shanks! One Piece Card Game",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-11-07T13:00:04+00:00",
-        "video_url": "https://www.youtube.com/watch?v=lGD251LAQTQ",
-        "format": "OP17",
-        "matchups_covered": []
-      },
       {
         "title": "Green Shanks Deck Profile + How To Play Duel | One Piece TCG Tutorial",
         "channel_name": "Mabi TCG",
@@ -579,6 +579,96 @@
   },
   "latest_videos": [
     {
+      "video_id": "aMZSWYKp7W0",
+      "title": "Japanese TCG accessories are ahead of the game... | Japan accessory haul",
+      "channel_name": "real_joshua",
+      "published_at": "2026-11-21T23:00:18+00:00",
+      "video_url": "https://www.youtube.com/watch?v=aMZSWYKp7W0",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Thanks to TCGPlayer for sponsoring this video! Earn 10% Store Credit on all products for Cyber Weekend using my affiliate link: https://partner.tcgplayer.com/realjoshua"
+    },
+    {
+      "video_id": "T2fEYTAlZuA",
+      "title": "One Piece TCG: Reviewing the New ST-37 and ST-38 Spoilers - Very Interesting New Leaders and Support",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-21T21:27:36+00:00",
+      "video_url": "https://www.youtube.com/watch?v=T2fEYTAlZuA",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "SsBQkLvqFEk",
+      "title": "ESSE NOVO ESCOLHIDO É QUEBRADO! Decklist e Gameplay de Ranza no Mytragor TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-21T18:30:03+00:00",
+      "video_url": "https://www.youtube.com/watch?v=SsBQkLvqFEk",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Ranza chegou inaugurando a nova coleção de Mytragor TCG e já mostrou por que é uma máquina de controle de board e compra de cartas! Confira minha primeira decklist de testes com o Escolhido das Som..."
+    },
+    {
+      "video_id": "3sALp_hN2pM",
+      "title": "OOPS ALL GUNKO",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-21T18:00:37+00:00",
+      "video_url": "https://www.youtube.com/watch?v=3sALp_hN2pM",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "In this video, we open 4 OP18 Booster Boxes! This set is trying to tell me something"
+    },
+    {
+      "video_id": "2P0lzQd96lY",
+      "title": "OP-18 Spandam is BETTER without Buster Call?!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-21T15:35:35+00:00",
+      "video_url": "https://www.youtube.com/watch?v=2P0lzQd96lY",
+      "format": "OP18",
+      "identified_leaders": [
+        "Spandam"
+      ],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "zSqEauiA38Q",
+      "title": "THE DOMINANCE OF GOD TÁ INSANA! | Unboxing OP18 | One Piece TCG",
+      "channel_name": "tcgBR",
+      "published_at": "2026-11-21T14:45:38+00:00",
+      "video_url": "https://www.youtube.com/watch?v=zSqEauiA38Q",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "OP18 chegou aqui na tcgBR! Vem com a gente conferir como estão os hits do mais novo lançamento de One Piece TCG!"
+    },
+    {
+      "video_id": "8hh2SEdeCFI",
+      "title": "🖤 UNBOXING DE OP18 -  THE DOMINANCE OF GOD!",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-21T14:33:23+00:00",
+      "video_url": "https://www.youtube.com/watch?v=8hh2SEdeCFI",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Apoio aos meninos da Topdraw por garantirem uma no lançamento: https://www.instagram.com/top.drawtcg/"
+    },
+    {
+      "video_id": "8-0a9aR8tDU",
+      "title": "🚫 Premiações apenas em produtos e packs nas lojas? One Piece Card Game 🏴‍☠️",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-21T13:00:12+00:00",
+      "video_url": "https://www.youtube.com/watch?v=8-0a9aR8tDU",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "🔗 Link para o vídeo oficial: https://www.youtube.com/watch?v=SnTKUzwqUQA"
+    },
+    {
       "video_id": "w1nKOqVMEsg",
       "title": "OP18 whales and their walmart Mangas be like #optcg #op18",
       "channel_name": "minhooty",
@@ -599,17 +689,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Parceiros do canal:"
-    },
-    {
-      "video_id": "8hh2SEdeCFI",
-      "title": "🖤 UNBOXING DE OP18 -  THE DOMINANCE OF GOD!",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-21T00:39:59+00:00",
-      "video_url": "https://www.youtube.com/watch?v=8hh2SEdeCFI",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Apoio aos meninos da Topdraw por garantirem uma no lançamento: https://www.instagram.com/top.drawtcg/"
     },
     {
       "video_id": "lsAP2ljybSo",
@@ -1814,17 +1893,6 @@
       "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
     },
     {
-      "video_id": "WxivA7waZas",
-      "title": "Metendo o Shape da EB05!",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-10T12:40:13+00:00",
-      "video_url": "https://www.youtube.com/watch?v=WxivA7waZas",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Parceiros do canal:"
-    },
-    {
       "video_id": "UvlIGR250So",
       "title": "Hosting an OP-18 tourney! come join!",
       "channel_name": "Hashtag EMB",
@@ -1943,17 +2011,6 @@
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
-      "video_id": "nqQkL7s3iKw",
-      "title": "I played 200+ games with OP-18 Gunko and here's what I learned! (Guide + Tips & Tricks)",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-11-08T15:30:21+00:00",
-      "video_url": "https://www.youtube.com/watch?v=nqQkL7s3iKw",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
       "video_id": "RMBxMeq9m-0",
       "title": "ROBIN IS FOR REAL?! (Aichi CS Season 2 - Grand Finals)",
       "channel_name": "Car D. Kaizoku",
@@ -1963,19 +2020,6 @@
       "identified_leaders": [
         "Robin"
       ],
-      "matchups_covered": [
-        "Red Green Luffy"
-      ],
-      "summary": "このゲーム実況は「株式会社バンダイ カード事業部 ゲーム実況動画配信ガイドライン」"
-    },
-    {
-      "video_id": "3P2CIN_8-TE",
-      "title": "So This Is The EB05 Meta! (Aichi CS Season 2 - Top 4)",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-11-08T13:30:26+00:00",
-      "video_url": "https://www.youtube.com/watch?v=3P2CIN_8-TE",
-      "format": "EB05",
-      "identified_leaders": [],
       "matchups_covered": [
         "Red Green Luffy"
       ],
@@ -2034,19 +2078,6 @@
       "summary": "How much of this were you already doing?"
     },
     {
-      "video_id": "lGD251LAQTQ",
-      "title": "🏆 Imu na FINAL da OP17? Contra Shanks! One Piece Card Game",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-11-07T13:00:04+00:00",
-      "video_url": "https://www.youtube.com/watch?v=lGD251LAQTQ",
-      "format": "OP17",
-      "identified_leaders": [
-        "Shanks"
-      ],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
-    },
-    {
       "video_id": "83vdFuNIbV4",
       "title": "Heroines Winner Nami in hand! #optcg #nami #eb05",
       "channel_name": "minhooty",
@@ -2058,17 +2089,6 @@
       ],
       "matchups_covered": [],
       "summary": "Analise de deck e gameplay."
-    },
-    {
-      "video_id": "wH5mjxEx_uk",
-      "title": "One Piece TCG: Art Critique - Reviewing All of the New Alt Arts, SPs, and Manga's Coming Out in OP18",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-11-06T21:31:57+00:00",
-      "video_url": "https://www.youtube.com/watch?v=wH5mjxEx_uk",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "H62b7q6ds_0",
@@ -2903,21 +2923,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Today's One Piece TCG deck profile: OP17 Rocks D Xebec, Blue Rocks Xebec, Blue Rocks D Xebec, OP17 U Rocks Xebec. This leader originally released in OP17 and was created with OP17 in mind. The new ..."
-    },
-    {
-      "video_id": "tQiZHGQWhJ8",
-      "title": "Playing OP17's BROKEN combo in a meme deck before it gets banned | Gameplay and decklist",
-      "channel_name": "real_joshua",
-      "published_at": "2026-08-27T18:56:30+00:00",
-      "video_url": "https://www.youtube.com/watch?v=tQiZHGQWhJ8",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [
-        "UY Nami",
-        "G Mihawk",
-        "R Shanks"
-      ],
-      "summary": "🕹️ Mulligan into a better browser: ﻿﻿https://operagx.gg/realjoshua2  Sponsored by Opera GX!  #optcg #onepiece"
     },
     {
       "video_id": "l6oq35J4mJ8",
