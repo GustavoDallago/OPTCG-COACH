@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-23T08:31:35-03:00",
+  "last_updated": "2026-11-24T10:05:55-03:00",
   "total_channels": 15,
-  "total_insights": 195,
+  "total_insights": 194,
   "videos_by_leader": {
     "bonney": [
       {
@@ -41,6 +41,22 @@
     ],
     "luffy": [
       {
+        "title": "Is RG Luffy Still Good After Bans? (Rhetorical Question)",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-11-23T18:00:16+00:00",
+        "video_url": "https://www.youtube.com/watch?v=bqircPbbB0E",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
+        "title": "⚔️ Xebec enfrenta o \"banido\" RG Luffy! One Piece POV EB05",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-11-23T13:00:29+00:00",
+        "video_url": "https://www.youtube.com/watch?v=LLngouc4xfw",
+        "format": "EB05",
+        "matchups_covered": []
+      },
+      {
         "title": "Post-Ban RG Luffy is Still INCREDIBLY STRONG in OP-18!",
         "channel_name": "Hashtag EMB",
         "published_at": "2026-11-22T16:00:13+00:00",
@@ -62,14 +78,6 @@
         "published_at": "2026-11-19T18:00:11+00:00",
         "video_url": "https://www.youtube.com/watch?v=d5--Sl4w3wI",
         "format": "OP18",
-        "matchups_covered": []
-      },
-      {
-        "title": "New Restrictions! RG Luffy Is A Goner",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-11-17T13:00:25+00:00",
-        "video_url": "https://www.youtube.com/watch?v=2xQR-hmbibs",
-        "format": "",
         "matchups_covered": []
       },
       {
@@ -188,14 +196,6 @@
         "matchups_covered": []
       },
       {
-        "title": "NICO ROBIN VERDE E AMARELO (EB-05)! Decklist e Gameplay no One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-11-10T20:03:53+00:00",
-        "video_url": "https://www.youtube.com/watch?v=OKjGosu2WK4",
-        "format": "EB05",
-        "matchups_covered": []
-      },
-      {
         "title": "❤️ Quem cura mais? Enel ou a NOVA ROBIN? One Piece EB05",
         "channel_name": "Café Com One Piece",
         "published_at": "2026-11-10T13:00:02+00:00",
@@ -252,25 +252,9 @@
         "video_url": "https://www.youtube.com/watch?v=V_MPt2_U_nA",
         "format": "",
         "matchups_covered": []
-      },
-      {
-        "title": "NEW FRANKY & NICO ROBIN LEADERS! Reacting to EB05 & OP18 Reveals!",
-        "channel_name": "Mabi TCG",
-        "published_at": "2026-08-25T19:44:07+00:00",
-        "video_url": "https://www.youtube.com/watch?v=l6oq35J4mJ8",
-        "format": "EB05",
-        "matchups_covered": []
       }
     ],
     "nico robin": [
-      {
-        "title": "NICO ROBIN VERDE E AMARELO (EB-05)! Decklist e Gameplay no One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-11-10T20:03:53+00:00",
-        "video_url": "https://www.youtube.com/watch?v=OKjGosu2WK4",
-        "format": "EB05",
-        "matchups_covered": []
-      },
       {
         "title": "GY Nico Robin has MASSIVE Potential EB05 Deck + Gameplay",
         "channel_name": "AkemiTCG",
@@ -282,14 +266,6 @@
           "Purple Enel",
           "Blue Buggy"
         ]
-      },
-      {
-        "title": "NEW FRANKY & NICO ROBIN LEADERS! Reacting to EB05 & OP18 Reveals!",
-        "channel_name": "Mabi TCG",
-        "published_at": "2026-08-25T19:44:07+00:00",
-        "video_url": "https://www.youtube.com/watch?v=l6oq35J4mJ8",
-        "format": "EB05",
-        "matchups_covered": []
       }
     ],
     "nami": [
@@ -306,24 +282,6 @@
         "channel_name": "AkemiTCG",
         "published_at": "2026-10-09T22:00:25+00:00",
         "video_url": "https://www.youtube.com/watch?v=1fF5oN3zt-8",
-        "format": "",
-        "matchups_covered": []
-      }
-    ],
-    "ace": [
-      {
-        "title": "Sabo vs Luffy & Ace! - Flame Flame fruit Japão!!",
-        "channel_name": "Onepiececardgamebr",
-        "published_at": "2026-10-04T13:00:15+00:00",
-        "video_url": "https://www.youtube.com/watch?v=Wg0L3zKW3h8",
-        "format": "",
-        "matchups_covered": []
-      },
-      {
-        "title": "When You Play Against RG Luffy Ace One Piece #onepiecetcg #optcg",
-        "channel_name": "AkemiTCG",
-        "published_at": "2026-10-02T22:00:10+00:00",
-        "video_url": "https://www.youtube.com/watch?v=8dudqfdNpiE",
         "format": "",
         "matchups_covered": []
       }
@@ -375,18 +333,6 @@
         "video_url": "https://www.youtube.com/watch?v=wOrekGwKc-k",
         "format": "OP18",
         "matchups_covered": []
-      },
-      {
-        "title": "One Piece TCG: Initial Testing With an OP-18 RU Karoo Tempo/Midrange Build - Rush and Card Draw",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-11-08T22:15:54+00:00",
-        "video_url": "https://www.youtube.com/watch?v=KFzZW8UkegM",
-        "format": "OP18",
-        "matchups_covered": [
-          "PB Gunko",
-          "BY Spandam",
-          "U Ms All Sunday"
-        ]
       }
     ],
     "saint gunko": [
@@ -469,14 +415,6 @@
         ]
       },
       {
-        "title": "🏴‍☠️ Enel Big Mom contra Sabo Elbaf? One Piece EB05",
-        "channel_name": "Café Com One Piece",
-        "published_at": "2026-11-09T21:00:31+00:00",
-        "video_url": "https://www.youtube.com/watch?v=VPAdFssK6v4",
-        "format": "EB05",
-        "matchups_covered": []
-      },
-      {
         "title": "Sabo vs Luffy & Ace! - Flame Flame fruit Japão!!",
         "channel_name": "Onepiececardgamebr",
         "published_at": "2026-10-04T13:00:15+00:00",
@@ -522,14 +460,6 @@
           "U Sunday",
           "BY Spandam"
         ]
-      },
-      {
-        "title": "NEW FRANKY & NICO ROBIN LEADERS! Reacting to EB05 & OP18 Reveals!",
-        "channel_name": "Mabi TCG",
-        "published_at": "2026-08-25T19:44:07+00:00",
-        "video_url": "https://www.youtube.com/watch?v=l6oq35J4mJ8",
-        "format": "EB05",
-        "matchups_covered": []
       }
     ],
     "ms. all sunday": [
@@ -571,9 +501,91 @@
         "format": "EB05",
         "matchups_covered": []
       }
+    ],
+    "ace": [
+      {
+        "title": "Sabo vs Luffy & Ace! - Flame Flame fruit Japão!!",
+        "channel_name": "Onepiececardgamebr",
+        "published_at": "2026-10-04T13:00:15+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Wg0L3zKW3h8",
+        "format": "",
+        "matchups_covered": []
+      }
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "F5oVzylezQk",
+      "title": "OP-18 Chinoize cup with the goat gunko!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-24T04:00:50+00:00",
+      "video_url": "https://www.youtube.com/watch?v=F5oVzylezQk",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Support the stream: https://streamlabs.com/hashtagemb"
+    },
+    {
+      "video_id": "BuFNgdXOTFo",
+      "title": "One Piece TCG: Meta Watch Monday - Early OP18 Results, Blue is Looking Very Dominant in this Format",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-23T22:13:04+00:00",
+      "video_url": "https://www.youtube.com/watch?v=BuFNgdXOTFo",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "bqircPbbB0E",
+      "title": "Is RG Luffy Still Good After Bans? (Rhetorical Question)",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-23T18:00:16+00:00",
+      "video_url": "https://www.youtube.com/watch?v=bqircPbbB0E",
+      "format": "",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "In this video, we try out the Strawhat Luffy build we saw from the sim stats this week!"
+    },
+    {
+      "video_id": "SsTOiLqKSDI",
+      "title": "Azuki TCG Water VS Lightning Fractured Domains Box Opening + Duel",
+      "channel_name": "AkemiTCG",
+      "published_at": "2026-11-23T17:30:17+00:00",
+      "video_url": "https://www.youtube.com/watch?v=SsTOiLqKSDI",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "Lightning Duel"
+      ],
+      "summary": "#AzukiPartner #AzukiTCG @Azuki"
+    },
+    {
+      "video_id": "1iDySRFZrvg",
+      "title": "POLÊMICA NA BANDAI! Fim da Premiação em Crédito, Spoilers ST-37/38 e Atrasos no OPTCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-23T15:00:31+00:00",
+      "video_url": "https://www.youtube.com/watch?v=1iDySRFZrvg",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Polêmica das grandes na Bandai proibindo premiação em dinheiro e crédito de loja, as primeiras SRs reveladas de ST-37 e ST-38, atrasos da OP-18 na América Latina e tudo sobre o BCG Fest em Tóquio! ..."
+    },
+    {
+      "video_id": "LLngouc4xfw",
+      "title": "⚔️ Xebec enfrenta o \"banido\" RG Luffy! One Piece POV EB05",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-23T13:00:29+00:00",
+      "video_url": "https://www.youtube.com/watch?v=LLngouc4xfw",
+      "format": "EB05",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
+    },
     {
       "video_id": "iABJFACwtN8",
       "title": "OP18 Early Meta Analysis / Discussion",
@@ -1882,20 +1894,6 @@
       "summary": "Massaro, Mori e Baron se reunem na tcgBR para discutir o que esperar dos líderes da nova coleção de One Piece TCG! Venha conferir e já prepare seus decks para o novo meta!"
     },
     {
-      "video_id": "OKjGosu2WK4",
-      "title": "NICO ROBIN VERDE E AMARELO (EB-05)! Decklist e Gameplay no One Piece TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-10T20:03:53+00:00",
-      "video_url": "https://www.youtube.com/watch?v=OKjGosu2WK4",
-      "format": "EB05",
-      "identified_leaders": [
-        "Robin",
-        "Nico Robin"
-      ],
-      "matchups_covered": [],
-      "summary": "Bater no board dá vida pra ela. Bater na vida dá carta pra ela. A Nico Robin verde e amarela do EB-05 é a primeira líder que joga de verdade com o atributo Wisdom e vai pegar muita gente de surpresa!"
-    },
-    {
       "video_id": "lQmRHlZj_WY",
       "title": "Gundam Card Game: First GD06 Format Regionals! noHeroes CardCon Results!",
       "channel_name": "TheEgman",
@@ -1912,17 +1910,6 @@
       "channel_name": "Hashtag EMB",
       "published_at": "2026-11-10T18:17:34+00:00",
       "video_url": "https://www.youtube.com/watch?v=qJ0jlnER72E",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Support the stream: https://streamlabs.com/hashtagemb"
-    },
-    {
-      "video_id": "g1OtBCmnt1g",
-      "title": "Hosting an OP-18 tourney! EVERYBODY can join!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-11-10T18:12:52+00:00",
-      "video_url": "https://www.youtube.com/watch?v=g1OtBCmnt1g",
       "format": "OP18",
       "identified_leaders": [],
       "matchups_covered": [],
@@ -1997,31 +1984,6 @@
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
-      "video_id": "VPAdFssK6v4",
-      "title": "🏴‍☠️ Enel Big Mom contra Sabo Elbaf? One Piece EB05",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-11-09T21:00:31+00:00",
-      "video_url": "https://www.youtube.com/watch?v=VPAdFssK6v4",
-      "format": "EB05",
-      "identified_leaders": [
-        "Enel",
-        "Sabo"
-      ],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
-    },
-    {
-      "video_id": "UwvBRjNpd2A",
-      "title": "EB05 Week 1 Meta Analysis (Sim & Tournament Data)",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-11-09T18:00:27+00:00",
-      "video_url": "https://www.youtube.com/watch?v=UwvBRjNpd2A",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we take a look at EB05 data on the sim & recent tournaments! We go over leader performance as well as individual matchups between the leaders! We'll also take a look at some decklist..."
-    },
-    {
       "video_id": "oPVwGy7ac3s",
       "title": "First Look at the Valhalla NenGarden Deck Box",
       "channel_name": "minhooty",
@@ -2031,23 +1993,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Deckbox link for you! https://nengarden.com/products/valhalla-vault-deck-box-pre-order"
-    },
-    {
-      "video_id": "KFzZW8UkegM",
-      "title": "One Piece TCG: Initial Testing With an OP-18 RU Karoo Tempo/Midrange Build - Rush and Card Draw",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-11-08T22:15:54+00:00",
-      "video_url": "https://www.youtube.com/watch?v=KFzZW8UkegM",
-      "format": "OP18",
-      "identified_leaders": [
-        "Karoo"
-      ],
-      "matchups_covered": [
-        "PB Gunko",
-        "BY Spandam",
-        "U Ms All Sunday"
-      ],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "2G_mZL2N4M8",
@@ -2654,20 +2599,6 @@
       "summary": "ONE PIECE CARD GAME Extra Booster: -ONE PIECE Heroines Edition vol. 2- [EB-05]"
     },
     {
-      "video_id": "8dudqfdNpiE",
-      "title": "When You Play Against RG Luffy Ace One Piece #onepiecetcg #optcg",
-      "channel_name": "AkemiTCG",
-      "published_at": "2026-10-02T22:00:10+00:00",
-      "video_url": "https://www.youtube.com/watch?v=8dudqfdNpiE",
-      "format": "",
-      "identified_leaders": [
-        "Luffy",
-        "Ace"
-      ],
-      "matchups_covered": [],
-      "summary": "This actually happens every single time."
-    },
-    {
       "video_id": "U8fFOSUqjZk",
       "title": "5 Decks Buffed By The New Banlist",
       "channel_name": "iKailaKai",
@@ -2919,21 +2850,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Today's One Piece TCG deck profile: OP17 Rocks D Xebec, Blue Rocks Xebec, Blue Rocks D Xebec, OP17 U Rocks Xebec. This leader originally released in OP17 and was created with OP17 in mind. The new ..."
-    },
-    {
-      "video_id": "l6oq35J4mJ8",
-      "title": "NEW FRANKY & NICO ROBIN LEADERS! Reacting to EB05 & OP18 Reveals!",
-      "channel_name": "Mabi TCG",
-      "published_at": "2026-08-25T19:44:07+00:00",
-      "video_url": "https://www.youtube.com/watch?v=l6oq35J4mJ8",
-      "format": "EB05",
-      "identified_leaders": [
-        "Robin",
-        "Franky",
-        "Nico Robin"
-      ],
-      "matchups_covered": [],
-      "summary": "Massive One Piece TCG updates from One Piece Day! We are diving deep into the huge Bandai livestream reveals for EB05 Extra Booster: Heroines Edition Vol. 2 and OP18 \"The Dominance of God\"! #onepie..."
     }
   ]
 }
