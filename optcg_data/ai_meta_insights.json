@@ -1,8 +1,47 @@
 {
-  "last_updated": "2026-11-25T08:54:26-03:00",
+  "last_updated": "2026-11-26T08:45:04-03:00",
   "total_channels": 15,
-  "total_insights": 193,
+  "total_insights": 191,
   "videos_by_leader": {
+    "karoo": [
+      {
+        "title": "BIRDS BEST DECK Karoo OP18 Deck + Gameplay One Piece TCG",
+        "channel_name": "AkemiTCG",
+        "published_at": "2026-11-26T00:45:06+00:00",
+        "video_url": "https://www.youtube.com/watch?v=18yAAzNqr9Q",
+        "format": "OP18",
+        "matchups_covered": [
+          "Lim",
+          "Spandam",
+          "Charlotte Linlin",
+          "Brook"
+        ]
+      },
+      {
+        "title": "TESTANDO O KAROO OP-18 AO VIVO! O Pato Mais Rápido de Alabasta | One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-25T16:07:14+00:00",
+        "video_url": "https://www.youtube.com/watch?v=6aOio8klGJ8",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
+        "title": "Did They Even Finish Designing Karoo?",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-11-20T18:00:07+00:00",
+        "video_url": "https://www.youtube.com/watch?v=ic8cJxzXusU",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
+        "title": "One Piece Card Game: OP18 Meta Ms. All Sunday and Karoo Testing!",
+        "channel_name": "TheEgman",
+        "published_at": "2026-11-19T21:42:19+00:00",
+        "video_url": "https://www.youtube.com/watch?v=wOrekGwKc-k",
+        "format": "OP18",
+        "matchups_covered": []
+      }
+    ],
     "bonney": [
       {
         "title": "One Piece TCG: Discussing the New, Official EB05 Jewelry Bonney Pair Ban Announcement - Makes Sense",
@@ -21,16 +60,6 @@
         "matchups_covered": []
       },
       {
-        "title": "SAIU A BANLIST DE EMERGÊNCIA! Bonney Tomou Pair Ban no One Piece TCG!",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-11-17T12:50:24+00:00",
-        "video_url": "https://www.youtube.com/watch?v=sJCNfNF_cKM",
-        "format": "EB05",
-        "matchups_covered": [
-          "Pair Ban e o impacto come"
-        ]
-      },
-      {
         "title": "RY Bonney Heroines Cup Winner List EB05 One Piece",
         "channel_name": "AkemiTCG",
         "published_at": "2026-11-10T05:00:18+00:00",
@@ -40,6 +69,14 @@
       }
     ],
     "luffy": [
+      {
+        "title": "TESTANDO O LUFFY VERDE OP-18 AO VIVO! Ataca Duas Vezes Por Turno | One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-25T16:10:32+00:00",
+        "video_url": "https://www.youtube.com/watch?v=zN3l-BtiQe4",
+        "format": "OP18",
+        "matchups_covered": []
+      },
       {
         "title": "This is also my reaction to GY Yamato rotating #onepiecetcg #optcg #onepiece #tcg #luffy",
         "channel_name": "WezaldoTCG",
@@ -73,14 +110,6 @@
         "channel_name": "Hashtag EMB",
         "published_at": "2026-11-22T16:00:13+00:00",
         "video_url": "https://www.youtube.com/watch?v=8FBsWG2lU-g",
-        "format": "OP18",
-        "matchups_covered": []
-      },
-      {
-        "title": "ENTREVISTA COM O CAMPEÃO DO REGIONAL BR! Henrique Vaz Conta Tudo Sobre o Título de RG Luffy",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-11-20T15:30:01+00:00",
-        "video_url": "https://www.youtube.com/watch?v=sDKqtiHqAl8",
         "format": "OP18",
         "matchups_covered": []
       },
@@ -192,6 +221,20 @@
     ],
     "robin": [
       {
+        "title": "One Piece TCG: Revisiting PY Robin in the OP18 Format - Things May Have Changed, but Banish Has Not",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-11-25T22:41:27+00:00",
+        "video_url": "https://www.youtube.com/watch?v=Q3nfdo0q8z0",
+        "format": "OP18",
+        "matchups_covered": [
+          "BY Spandam",
+          "PB Gunko",
+          "GY Robin",
+          "GP Franky",
+          "U Buggy"
+        ]
+      },
+      {
         "title": "ROBIN DE EB05 É MEME OU META? | Robin vs. Xebec | One Piece TCG",
         "channel_name": "tcgBR",
         "published_at": "2026-11-14T15:00:24+00:00",
@@ -272,14 +315,6 @@
         "video_url": "https://www.youtube.com/watch?v=83vdFuNIbV4",
         "format": "EB05",
         "matchups_covered": []
-      },
-      {
-        "title": "You VS Your Opponent on BY Nami One Piece",
-        "channel_name": "AkemiTCG",
-        "published_at": "2026-10-09T22:00:25+00:00",
-        "video_url": "https://www.youtube.com/watch?v=1fF5oN3zt-8",
-        "format": "",
-        "matchups_covered": []
       }
     ],
     "buggy": [
@@ -290,6 +325,91 @@
         "video_url": "https://www.youtube.com/watch?v=zEEe6tF5cxY",
         "format": "OP17",
         "matchups_covered": []
+      }
+    ],
+    "spandam": [
+      {
+        "title": "O SPANDAM É BOM?! Testando o Líder Preto e Amarelo da OP-18 ao Vivo | One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-26T06:05:22+00:00",
+        "video_url": "https://www.youtube.com/watch?v=omlYmDuXbbU",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
+        "title": "OP-18 Spandam is BETTER without Buster Call?!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-11-21T15:35:35+00:00",
+        "video_url": "https://www.youtube.com/watch?v=2P0lzQd96lY",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
+        "title": "One Piece TCG: Early BY Spandam Testing - This Might Be My New Main for OP18 - Life Gain and Removal",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-11-18T21:13:28+00:00",
+        "video_url": "https://www.youtube.com/watch?v=X90tweOWRQA",
+        "format": "OP18",
+        "matchups_covered": [
+          "PB Gunko",
+          "GP Franky",
+          "P Kaido",
+          "U Rocks",
+          "U Buggy"
+        ]
+      }
+    ],
+    "saint gunko": [
+      {
+        "title": "TESTANDO A SAINT GUNKO OP-18 AO VIVO! Os Cavaleiros de Deus Chegaram | One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-25T16:11:47+00:00",
+        "video_url": "https://www.youtube.com/watch?v=r5aKmo7sKwI",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
+        "title": "[OP18] Saint Gunko Deck Guide + Gameplay",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-11-19T18:00:00+00:00",
+        "video_url": "https://www.youtube.com/watch?v=ZY-K8CHIfg4",
+        "format": "OP18",
+        "matchups_covered": [
+          "RB Sabo",
+          "BY Spandam",
+          "R Law"
+        ]
+      }
+    ],
+    "franky": [
+      {
+        "title": "SUPER!! Franky Verde e Roxo OP-18 Gameplay ao Vivo | One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-25T16:08:24+00:00",
+        "video_url": "https://www.youtube.com/watch?v=8UIlNY-tDms",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
+        "title": "One Piece Card Game: OP18 Franky Testing!",
+        "channel_name": "TheEgman",
+        "published_at": "2026-11-25T07:07:59+00:00",
+        "video_url": "https://www.youtube.com/watch?v=BCWSTht5EWw",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
+        "title": "One Piece TCG: Initial Testing With an OP-18, Technical GP Franky Deck - Don!! Tricks and Tempo",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-11-13T21:19:04+00:00",
+        "video_url": "https://www.youtube.com/watch?v=_ljiSwULhUc",
+        "format": "OP18",
+        "matchups_covered": [
+          "PB Gunko",
+          "RU Karoo",
+          "U Sunday",
+          "BY Spandam"
+        ]
       }
     ],
     "ms. all sunday": [
@@ -311,48 +431,6 @@
         "video_url": "https://www.youtube.com/watch?v=wOrekGwKc-k",
         "format": "OP18",
         "matchups_covered": []
-      }
-    ],
-    "law": [
-      {
-        "title": "O LAW MONO RED FICOU QUEBRADO! Decklist Atualizada (OP-14) na EB-05",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-11-12T18:00:00+00:00",
-        "video_url": "https://www.youtube.com/watch?v=W34StfxJRTo",
-        "format": "OP14",
-        "matchups_covered": []
-      }
-    ],
-    "karoo": [
-      {
-        "title": "Did They Even Finish Designing Karoo?",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-11-20T18:00:07+00:00",
-        "video_url": "https://www.youtube.com/watch?v=ic8cJxzXusU",
-        "format": "OP18",
-        "matchups_covered": []
-      },
-      {
-        "title": "One Piece Card Game: OP18 Meta Ms. All Sunday and Karoo Testing!",
-        "channel_name": "TheEgman",
-        "published_at": "2026-11-19T21:42:19+00:00",
-        "video_url": "https://www.youtube.com/watch?v=wOrekGwKc-k",
-        "format": "OP18",
-        "matchups_covered": []
-      }
-    ],
-    "saint gunko": [
-      {
-        "title": "[OP18] Saint Gunko Deck Guide + Gameplay",
-        "channel_name": "Car D. Kaizoku",
-        "published_at": "2026-11-19T18:00:00+00:00",
-        "video_url": "https://www.youtube.com/watch?v=ZY-K8CHIfg4",
-        "format": "OP18",
-        "matchups_covered": [
-          "RB Sabo",
-          "BY Spandam",
-          "R Law"
-        ]
       }
     ],
     "enel": [
@@ -383,27 +461,20 @@
         "matchups_covered": []
       }
     ],
-    "yamato": [
-      {
-        "title": "This is also my reaction to GY Yamato rotating #onepiecetcg #optcg #onepiece #tcg #luffy",
-        "channel_name": "WezaldoTCG",
-        "published_at": "2026-11-24T21:04:45+00:00",
-        "video_url": "https://www.youtube.com/watch?v=N9l9nACt2W0",
-        "format": "",
-        "matchups_covered": []
-      }
-    ],
-    "moria": [
-      {
-        "title": "This New Gecko Moria Combo Is Crazy",
-        "channel_name": "WezaldoTCG",
-        "published_at": "2026-10-09T15:10:43+00:00",
-        "video_url": "https://www.youtube.com/watch?v=1ZVuXBp9-Mo",
-        "format": "",
-        "matchups_covered": []
-      }
-    ],
     "sabo": [
+      {
+        "title": "Holy Knights Sabo is SURPRISINGLY Strong!",
+        "channel_name": "real_joshua",
+        "published_at": "2026-11-25T20:15:44+00:00",
+        "video_url": "https://www.youtube.com/watch?v=4C2ClOftTQE",
+        "format": "",
+        "matchups_covered": [
+          "UP Luffy",
+          "RP Luffy",
+          "R Law",
+          "BP Gunko"
+        ]
+      },
       {
         "title": "One Piece TCG: A Hyper Aggressive Version of RY Sabo Might be the Way to Go for the OP18 Meta",
         "channel_name": "The Vv Theory",
@@ -427,51 +498,24 @@
         "matchups_covered": []
       }
     ],
-    "spandam": [
+    "yamato": [
       {
-        "title": "OP-18 Spandam is BETTER without Buster Call?!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-11-21T15:35:35+00:00",
-        "video_url": "https://www.youtube.com/watch?v=2P0lzQd96lY",
-        "format": "OP18",
+        "title": "This is also my reaction to GY Yamato rotating #onepiecetcg #optcg #onepiece #tcg #luffy",
+        "channel_name": "WezaldoTCG",
+        "published_at": "2026-11-24T21:04:45+00:00",
+        "video_url": "https://www.youtube.com/watch?v=N9l9nACt2W0",
+        "format": "",
         "matchups_covered": []
-      },
-      {
-        "title": "One Piece TCG: Early BY Spandam Testing - This Might Be My New Main for OP18 - Life Gain and Removal",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-11-18T21:13:28+00:00",
-        "video_url": "https://www.youtube.com/watch?v=X90tweOWRQA",
-        "format": "OP18",
-        "matchups_covered": [
-          "PB Gunko",
-          "GP Franky",
-          "P Kaido",
-          "U Rocks",
-          "U Buggy"
-        ]
       }
     ],
-    "franky": [
+    "moria": [
       {
-        "title": "One Piece Card Game: OP18 Franky Testing!",
-        "channel_name": "TheEgman",
-        "published_at": "2026-11-25T07:07:59+00:00",
-        "video_url": "https://www.youtube.com/watch?v=BCWSTht5EWw",
-        "format": "OP18",
+        "title": "This New Gecko Moria Combo Is Crazy",
+        "channel_name": "WezaldoTCG",
+        "published_at": "2026-10-09T15:10:43+00:00",
+        "video_url": "https://www.youtube.com/watch?v=1ZVuXBp9-Mo",
+        "format": "",
         "matchups_covered": []
-      },
-      {
-        "title": "One Piece TCG: Initial Testing With an OP-18, Technical GP Franky Deck - Don!! Tricks and Tempo",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-11-13T21:19:04+00:00",
-        "video_url": "https://www.youtube.com/watch?v=_ljiSwULhUc",
-        "format": "OP18",
-        "matchups_covered": [
-          "PB Gunko",
-          "RU Karoo",
-          "U Sunday",
-          "BY Spandam"
-        ]
       }
     ],
     "shanks": [
@@ -491,6 +535,16 @@
         "published_at": "2026-11-10T21:00:13+00:00",
         "video_url": "https://www.youtube.com/watch?v=OatoQ7QYQgU",
         "format": "",
+        "matchups_covered": []
+      }
+    ],
+    "teach": [
+      {
+        "title": "⚫ Deck profile Teach campeão na OP18! One Piece Card Game",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-11-25T13:00:19+00:00",
+        "video_url": "https://www.youtube.com/watch?v=AwCFUxZCVYc",
+        "format": "OP18",
         "matchups_covered": []
       }
     ],
@@ -516,6 +570,183 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "HF4mqyYQArM",
+      "title": "Digimon Alysion: Surprise Drop!? Game Launch Livestream!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-26T07:36:05+00:00",
+      "video_url": "https://www.youtube.com/watch?v=HF4mqyYQArM",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://egmanevents.com"
+    },
+    {
+      "video_id": "omlYmDuXbbU",
+      "title": "O SPANDAM É BOM?! Testando o Líder Preto e Amarelo da OP-18 ao Vivo | One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-26T06:05:22+00:00",
+      "video_url": "https://www.youtube.com/watch?v=omlYmDuXbbU",
+      "format": "OP18",
+      "identified_leaders": [
+        "Spandam"
+      ],
+      "matchups_covered": [],
+      "summary": "O CP9 está de volta, e o Spandam agora coloca carta na vida! Bora testar ao vivo esse líder preto e amarelo!"
+    },
+    {
+      "video_id": "18yAAzNqr9Q",
+      "title": "BIRDS BEST DECK Karoo OP18 Deck + Gameplay One Piece TCG",
+      "channel_name": "AkemiTCG",
+      "published_at": "2026-11-26T00:45:06+00:00",
+      "video_url": "https://www.youtube.com/watch?v=18yAAzNqr9Q",
+      "format": "OP18",
+      "identified_leaders": [
+        "Karoo"
+      ],
+      "matchups_covered": [
+        "Lim",
+        "Spandam",
+        "Charlotte Linlin",
+        "Brook"
+      ],
+      "summary": "#optcg #onepiecetcg"
+    },
+    {
+      "video_id": "Q3nfdo0q8z0",
+      "title": "One Piece TCG: Revisiting PY Robin in the OP18 Format - Things May Have Changed, but Banish Has Not",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-25T22:41:27+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Q3nfdo0q8z0",
+      "format": "OP18",
+      "identified_leaders": [
+        "Robin"
+      ],
+      "matchups_covered": [
+        "BY Spandam",
+        "PB Gunko",
+        "GY Robin",
+        "GP Franky",
+        "U Buggy"
+      ],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "QQYENThxS9k",
+      "title": "Digimon Alysion: Launch Day! Decks, Tips, & Tricks",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-25T22:30:20+00:00",
+      "video_url": "https://www.youtube.com/watch?v=QQYENThxS9k",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists:"
+    },
+    {
+      "video_id": "4C2ClOftTQE",
+      "title": "Holy Knights Sabo is SURPRISINGLY Strong!",
+      "channel_name": "real_joshua",
+      "published_at": "2026-11-25T20:15:44+00:00",
+      "video_url": "https://www.youtube.com/watch?v=4C2ClOftTQE",
+      "format": "",
+      "identified_leaders": [
+        "Sabo"
+      ],
+      "matchups_covered": [
+        "UP Luffy",
+        "RP Luffy",
+        "R Law",
+        "BP Gunko"
+      ],
+      "summary": "Thanks to TCGPlayer for sponsoring this video! Earn 10% Store Credit on all products for Cyber Weekend using my affiliate link: https://partner.tcgplayer.com/realjoshua"
+    },
+    {
+      "video_id": "H8GaiSqtifk",
+      "title": "Lim Gets INSANE Support in OP-18!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-25T17:00:35+00:00",
+      "video_url": "https://www.youtube.com/watch?v=H8GaiSqtifk",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "r5aKmo7sKwI",
+      "title": "TESTANDO A SAINT GUNKO OP-18 AO VIVO! Os Cavaleiros de Deus Chegaram | One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-25T16:11:47+00:00",
+      "video_url": "https://www.youtube.com/watch?v=r5aKmo7sKwI",
+      "format": "OP18",
+      "identified_leaders": [
+        "Saint Gunko"
+      ],
+      "matchups_covered": [],
+      "summary": "Os Cavaleiros de Deus chegaram! Bora testar ao vivo a Saint Gunko, líder roxa e preta da OP-18!"
+    },
+    {
+      "video_id": "zN3l-BtiQe4",
+      "title": "TESTANDO O LUFFY VERDE OP-18 AO VIVO! Ataca Duas Vezes Por Turno | One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-25T16:10:32+00:00",
+      "video_url": "https://www.youtube.com/watch?v=zN3l-BtiQe4",
+      "format": "OP18",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "Um líder que volta a ficar ativo e bate de novo! Bora testar ao vivo o Luffy verde da OP-18!"
+    },
+    {
+      "video_id": "8UIlNY-tDms",
+      "title": "SUPER!! Franky Verde e Roxo OP-18 Gameplay ao Vivo | One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-25T16:08:24+00:00",
+      "video_url": "https://www.youtube.com/watch?v=8UIlNY-tDms",
+      "format": "OP18",
+      "identified_leaders": [
+        "Franky"
+      ],
+      "matchups_covered": [],
+      "summary": "SUPER!! O Franky chegou na OP-18 transformando Palco em counter! Bora testar ao vivo esse líder verde e roxo!"
+    },
+    {
+      "video_id": "6aOio8klGJ8",
+      "title": "TESTANDO O KAROO OP-18 AO VIVO! O Pato Mais Rápido de Alabasta | One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-25T16:07:14+00:00",
+      "video_url": "https://www.youtube.com/watch?v=6aOio8klGJ8",
+      "format": "OP18",
+      "identified_leaders": [
+        "Karoo"
+      ],
+      "matchups_covered": [],
+      "summary": "O Karoo virou líder e deixa os bichos de Alabasta entrando com Rush! Bora testar ao vivo se esse pato aguenta o meta da OP-18!"
+    },
+    {
+      "video_id": "hsuSZr8LNUw",
+      "title": "NINGUÉM SAI SEM PRÊMIO! Torneio de Mytragor com 20 Jogadores ao Vivo | TCG Brasileiro",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-25T16:00:45+00:00",
+      "video_url": "https://www.youtube.com/watch?v=hsuSZr8LNUw",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "🏆 A arena está chamando, e ninguém sai sem prêmio! Hoje tem torneio online de Mytragor ao vivo, com narração e comentários do Mestre Arty!"
+    },
+    {
+      "video_id": "AwCFUxZCVYc",
+      "title": "⚫ Deck profile Teach campeão na OP18! One Piece Card Game",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-25T13:00:19+00:00",
+      "video_url": "https://www.youtube.com/watch?v=AwCFUxZCVYc",
+      "format": "OP18",
+      "identified_leaders": [
+        "Teach"
+      ],
+      "matchups_covered": [],
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
+    },
     {
       "video_id": "mpG79RcFRYQ",
       "title": "Testing viewers OP-18 decks!",
@@ -567,19 +798,6 @@
       ],
       "matchups_covered": [],
       "summary": "Analise de deck e gameplay."
-    },
-    {
-      "video_id": "HF4mqyYQArM",
-      "title": "One Piece Card Game: OP18 Franky Testing!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-24T19:03:45+00:00",
-      "video_url": "https://www.youtube.com/watch?v=HF4mqyYQArM",
-      "format": "OP18",
-      "identified_leaders": [
-        "Franky"
-      ],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://egmanevents.com"
     },
     {
       "video_id": "3mskvl1-bvY",
@@ -1405,21 +1623,6 @@
       "summary": "In this video, we go over the November 2026 ban and restricted list announcement and simulate what a meta without RG Luffy would be like"
     },
     {
-      "video_id": "sJCNfNF_cKM",
-      "title": "SAIU A BANLIST DE EMERGÊNCIA! Bonney Tomou Pair Ban no One Piece TCG!",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-17T12:50:24+00:00",
-      "video_url": "https://www.youtube.com/watch?v=sJCNfNF_cKM",
-      "format": "EB05",
-      "identified_leaders": [
-        "Bonney"
-      ],
-      "matchups_covered": [
-        "Pair Ban e o impacto come"
-      ],
-      "summary": "A Bandai acabou de soltar a banlist de emergência do One Piece TCG e a Jewelry Bonney (EB-05) entrou na mira com um Pair Ban ao lado de Luffy (OP-13) e Law! Mas será que essa medida realmente resol..."
-    },
-    {
       "video_id": "7WCbn98YlHI",
       "title": "OPTCG Banlist Reaction ft. Hrvoje Hedzet",
       "channel_name": "iKailaKai",
@@ -1451,17 +1654,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Support the stream: https://streamlabs.com/hashtagemb"
-    },
-    {
-      "video_id": "Q3lpHKLXWqw",
-      "title": "💖 UNBOXING DE EB05 - A COLEÇÃO QUE FAZ SUCESSO ENTRE AS GAROTAS DO OPTCG! | Parceria TCG BR!",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-17T03:18:27+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Q3lpHKLXWqw",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Bora abrir EB-05 ao vivo! A galera da TCG BR junto com a Titan mandou essa box braba pra gente rasgar os pacotes juntos aqui na live e ver quais hits e cartas novas da coleção vão pintar!"
     },
     {
       "video_id": "AyIyiqJM8ro",
@@ -1497,17 +1689,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Deck Lists: https://deckbuilder.egmanevents.com/optcg/tournaments?format=OP17"
-    },
-    {
-      "video_id": "4ZEq7-sViqc",
-      "title": "BANLIST DE EMERGÊNCIA NO ONE PIECE TCG E RIFTBOUND! E o Campeão do Regional!",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-16T15:00:26+00:00",
-      "video_url": "https://www.youtube.com/watch?v=4ZEq7-sViqc",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Uma banlist de emergência anunciada no One Piece TCG, a Riven banida no Riftbound e um campeão brasileiro consagrado no Regional! Confira tudo o que agitou o mundo dos card games nesta semana no gi..."
     },
     {
       "video_id": "sLNabXTf1Dk",
@@ -1606,17 +1787,6 @@
         "BY Spandam"
       ],
       "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
-      "video_id": "d3JSWeDO0kI",
-      "title": "FUI NO CONEXÃO BRASIL TCG! Testei Vários Card Games Nacionais",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-14T16:36:20+00:00",
-      "video_url": "https://www.youtube.com/watch?v=d3JSWeDO0kI",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "🧐Quer apoiar o canal e ainda rampar? Se liga então:"
     },
     {
       "video_id": "cags2ctJBDs",
@@ -1735,17 +1905,6 @@
       "summary": "Check out Ultimate Guard here:"
     },
     {
-      "video_id": "r3jPS4K9H3I",
-      "title": "CyberpunkTCG: Deck Building and Testing with Ash!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-13T14:14:41+00:00",
-      "video_url": "https://www.youtube.com/watch?v=r3jPS4K9H3I",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://egmanevents.com"
-    },
-    {
       "video_id": "Vafsh9MyGfI",
       "title": "🐉 EB05 trouxe o necessário para o Kaido? vs Xebec! One Piece POV",
       "channel_name": "Café Com One Piece",
@@ -1757,17 +1916,6 @@
       ],
       "matchups_covered": [],
       "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
-    },
-    {
-      "video_id": "iL_n8gqWs2o",
-      "title": "Praticando para o Regional!",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-13T08:16:18+00:00",
-      "video_url": "https://www.youtube.com/watch?v=iL_n8gqWs2o",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Parceiros do canal:"
     },
     {
       "video_id": "3D4f9b932zY",
@@ -1829,19 +1977,6 @@
       "summary": "In this video, we learn OP18 with Spandam!"
     },
     {
-      "video_id": "W34StfxJRTo",
-      "title": "O LAW MONO RED FICOU QUEBRADO! Decklist Atualizada (OP-14) na EB-05",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-12T18:00:00+00:00",
-      "video_url": "https://www.youtube.com/watch?v=W34StfxJRTo",
-      "format": "OP14",
-      "identified_leaders": [
-        "Law"
-      ],
-      "matchups_covered": [],
-      "summary": "Trocar o poder de um personagem de 2000 pelo de um monstro de 10.000 e bater duas vezes pesado no mesmo turno. O Trafalgar Law mono vermelho da OP-14 sempre teve uma das mecânicas mais divertidas d..."
-    },
-    {
       "video_id": "AXfkJf5eoa4",
       "title": "What If Gunko Always Draws Perfectly?",
       "channel_name": "Hashtag EMB",
@@ -1893,17 +2028,6 @@
       "summary": "In this video, we learn OP18 with Saint Gunko!"
     },
     {
-      "video_id": "_EbkV442uyg",
-      "title": "This Miss Sunday list won the first OP-18 Tournament!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-11-11T16:41:21+00:00",
-      "video_url": "https://www.youtube.com/watch?v=_EbkV442uyg",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
       "video_id": "vPtrFLGfsR4",
       "title": "Rocks enfrenta Luffy Miracle no regional de Sidney!! - PT-BR",
       "channel_name": "Onepiececardgamebr",
@@ -1917,19 +2041,6 @@
       "summary": "Trazendo a MD3 que tivemos no top32 de Rocks contra luffy miracle, os 2 melhores decks do meta se enfrentam!!"
     },
     {
-      "video_id": "GETEyg48wto",
-      "title": "🟡Enel consegue lidar com o Tier S Xebec? One Piece POV EB05",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-11-11T13:00:33+00:00",
-      "video_url": "https://www.youtube.com/watch?v=GETEyg48wto",
-      "format": "EB05",
-      "identified_leaders": [
-        "Enel"
-      ],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
-    },
-    {
       "video_id": "IX8r47GQL-I",
       "title": "Peak Mihawk vs. EB05 RG Miracle Luffy | Who Wins?",
       "channel_name": "minhooty",
@@ -1941,17 +2052,6 @@
       ],
       "matchups_covered": [],
       "summary": "Thanks Alex for playtesting! Original RG goat!"
-    },
-    {
-      "video_id": "vy4MK2LlDjE",
-      "title": "One Piece TCG: Hot Take Tuesday - \"There are Too Many Leaders that Come Out in Each New Main Set\"",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-11-10T21:09:02+00:00",
-      "video_url": "https://www.youtube.com/watch?v=vy4MK2LlDjE",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
     },
     {
       "video_id": "OatoQ7QYQgU",
@@ -2488,19 +2588,6 @@
       "summary": "Which package is best for the new Robin?? #optcg #onepiece"
     },
     {
-      "video_id": "1fF5oN3zt-8",
-      "title": "You VS Your Opponent on BY Nami One Piece",
-      "channel_name": "AkemiTCG",
-      "published_at": "2026-10-09T22:00:25+00:00",
-      "video_url": "https://www.youtube.com/watch?v=1fF5oN3zt-8",
-      "format": "",
-      "identified_leaders": [
-        "Nami"
-      ],
-      "matchups_covered": [],
-      "summary": "#onepiecetcg #optcg"
-    },
-    {
       "video_id": "Ou5NQ-aYazs",
       "title": "EB05 is Fully Revealed! Is It Any Good?",
       "channel_name": "real_joshua",
@@ -2802,17 +2889,6 @@
       "summary": "Today's One Piece TCG deck profile: OP17 Shanks , Green Shanks, G Shanks, OP17 Green Shanks. This leader originally released in OP17 and was created with OP17 in mind. The new OP17 leaders we're co..."
     },
     {
-      "video_id": "q-0HAEV7EbI",
-      "title": "A $25 meme deck just TOPPED a regional!! #optcg #anime",
-      "channel_name": "real_joshua",
-      "published_at": "2026-08-31T22:34:08+00:00",
-      "video_url": "https://www.youtube.com/watch?v=q-0HAEV7EbI",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Analise de deck e gameplay."
-    },
-    {
       "video_id": "-emdt5eOjJo",
       "title": "Green Shanks Deck Profile + How To Play Duel | One Piece TCG Tutorial",
       "channel_name": "Mabi TCG",
@@ -2824,28 +2900,6 @@
       ],
       "matchups_covered": [],
       "summary": "Today's One Piece TCG deck profile: OP17 Shanks , Green Shanks, G Shanks, OP17 Green Shanks. This leader originally released in OP17 and was created with OP17 in mind. The new OP17 leaders we're co..."
-    },
-    {
-      "video_id": "9N3htdnCRD4",
-      "title": "Blue Rocks D Xebec  Deck Profile + How To Play Duel | One Piece TCG Tutorial",
-      "channel_name": "Mabi TCG",
-      "published_at": "2026-08-27T21:15:10+00:00",
-      "video_url": "https://www.youtube.com/watch?v=9N3htdnCRD4",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Today's One Piece TCG deck profile: OP17 Rocks D Xebec, Blue Rocks Xebec, Blue Rocks D Xebec, OP17 U Rocks Xebec. This leader originally released in OP17 and was created with OP17 in mind. The new ..."
-    },
-    {
-      "video_id": "0_4prePtgJ8",
-      "title": "Blue Rocks D Xebec  Deck Profile + How To Play Duel | One Piece TCG Tutorial",
-      "channel_name": "Mabi TCG",
-      "published_at": "2026-08-27T20:05:16+00:00",
-      "video_url": "https://www.youtube.com/watch?v=0_4prePtgJ8",
-      "format": "OP17",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Today's One Piece TCG deck profile: OP17 Rocks D Xebec, Blue Rocks Xebec, Blue Rocks D Xebec, OP17 U Rocks Xebec. This leader originally released in OP17 and was created with OP17 in mind. The new ..."
     }
   ]
 }
