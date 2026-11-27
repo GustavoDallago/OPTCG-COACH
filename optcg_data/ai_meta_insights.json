@@ -1,9 +1,17 @@
 {
-  "last_updated": "2026-11-26T08:45:04-03:00",
+  "last_updated": "2026-11-27T08:37:12-03:00",
   "total_channels": 15,
   "total_insights": 191,
   "videos_by_leader": {
     "karoo": [
+      {
+        "title": "TESTANDO O KAROO OP-18 AO VIVO! O Pato Mais Rápido de Alabasta | One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-27T07:04:33+00:00",
+        "video_url": "https://www.youtube.com/watch?v=6aOio8klGJ8",
+        "format": "OP18",
+        "matchups_covered": []
+      },
       {
         "title": "BIRDS BEST DECK Karoo OP18 Deck + Gameplay One Piece TCG",
         "channel_name": "AkemiTCG",
@@ -16,14 +24,6 @@
           "Charlotte Linlin",
           "Brook"
         ]
-      },
-      {
-        "title": "TESTANDO O KAROO OP-18 AO VIVO! O Pato Mais Rápido de Alabasta | One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-11-25T16:07:14+00:00",
-        "video_url": "https://www.youtube.com/watch?v=6aOio8klGJ8",
-        "format": "OP18",
-        "matchups_covered": []
       },
       {
         "title": "Did They Even Finish Designing Karoo?",
@@ -70,10 +70,18 @@
     ],
     "luffy": [
       {
-        "title": "TESTANDO O LUFFY VERDE OP-18 AO VIVO! Ataca Duas Vezes Por Turno | One Piece TCG",
+        "title": "This Luffy Deck Runs 40x Blockers... And It's Actually BROKEN!",
+        "channel_name": "Hashtag EMB",
+        "published_at": "2026-11-26T17:15:06+00:00",
+        "video_url": "https://www.youtube.com/watch?v=bcZ9XjxhwAU",
+        "format": "",
+        "matchups_covered": []
+      },
+      {
+        "title": "LUFFY ST10 NA OP-18: Lista do Gear 5 com Turno Extra | One Piece TCG",
         "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-11-25T16:10:32+00:00",
-        "video_url": "https://www.youtube.com/watch?v=zN3l-BtiQe4",
+        "published_at": "2026-11-26T15:00:38+00:00",
+        "video_url": "https://www.youtube.com/watch?v=BAuV4JE7KXM",
         "format": "OP18",
         "matchups_covered": []
       },
@@ -103,14 +111,6 @@
         "published_at": "2026-11-23T13:00:29+00:00",
         "video_url": "https://www.youtube.com/watch?v=LLngouc4xfw",
         "format": "EB05",
-        "matchups_covered": []
-      },
-      {
-        "title": "Post-Ban RG Luffy is Still INCREDIBLY STRONG in OP-18!",
-        "channel_name": "Hashtag EMB",
-        "published_at": "2026-11-22T16:00:13+00:00",
-        "video_url": "https://www.youtube.com/watch?v=8FBsWG2lU-g",
-        "format": "OP18",
         "matchups_covered": []
       },
       {
@@ -220,6 +220,14 @@
       }
     ],
     "robin": [
+      {
+        "title": "(OP18) Let's Take Robin Onto Ranked!",
+        "channel_name": "Car D. Kaizoku",
+        "published_at": "2026-11-26T18:00:16+00:00",
+        "video_url": "https://www.youtube.com/watch?v=S6RCDUfVW3s",
+        "format": "OP18",
+        "matchups_covered": []
+      },
       {
         "title": "One Piece TCG: Revisiting PY Robin in the OP18 Format - Things May Have Changed, but Banish Has Not",
         "channel_name": "The Vv Theory",
@@ -360,6 +368,14 @@
       }
     ],
     "saint gunko": [
+      {
+        "title": "💭 Entenda tudo sobre o novo deck: Saint Gunko! One Piece Card Game OP18 Deck Profile",
+        "channel_name": "Café Com One Piece",
+        "published_at": "2026-11-26T13:00:13+00:00",
+        "video_url": "https://www.youtube.com/watch?v=A8cbrf7Nqos",
+        "format": "OP18",
+        "matchups_covered": []
+      },
       {
         "title": "TESTANDO A SAINT GUNKO OP-18 AO VIVO! Os Cavaleiros de Deus Chegaram | One Piece TCG",
         "channel_name": "Mestre Arty TCG",
@@ -571,6 +587,104 @@
   },
   "latest_videos": [
     {
+      "video_id": "lLDbbXe0Sts",
+      "title": "UNBOXING OP-18 AO VIVO! Abrindo The Dominance of God com a TCG BR e a Titan | One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-27T08:52:12+00:00",
+      "video_url": "https://www.youtube.com/watch?v=lLDbbXe0Sts",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Chegou a OP-18 aqui! Bora abrir ao vivo e ver se a sorte está do nosso lado!"
+    },
+    {
+      "video_id": "6aOio8klGJ8",
+      "title": "TESTANDO O KAROO OP-18 AO VIVO! O Pato Mais Rápido de Alabasta | One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-27T07:04:33+00:00",
+      "video_url": "https://www.youtube.com/watch?v=6aOio8klGJ8",
+      "format": "OP18",
+      "identified_leaders": [
+        "Karoo"
+      ],
+      "matchups_covered": [],
+      "summary": "O Karoo virou líder e deixa os bichos de Alabasta entrando com Rush! Bora testar ao vivo se esse pato aguenta o meta da OP-18!"
+    },
+    {
+      "video_id": "iWZXYjXH0kk",
+      "title": "DBSCG FUSION WORLD NEXT -REACH THE GOD- [FB12]",
+      "channel_name": "Official Bandai Card Games Channel",
+      "published_at": "2026-11-27T02:00:37+00:00",
+      "video_url": "https://www.youtube.com/watch?v=iWZXYjXH0kk",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "See the first-ever DBSCG FUSION WORLD NEXT hosted by Matthew Masaru Barron, Yutaro Tada, and Noa Sai!"
+    },
+    {
+      "video_id": "aOtoRcJhR1A",
+      "title": "One Piece TCG: Truck Talk Thursday - Discussing Proper Leader Balance, High Vs Low Impact Effects",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-26T22:19:23+00:00",
+      "video_url": "https://www.youtube.com/watch?v=aOtoRcJhR1A",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "S6RCDUfVW3s",
+      "title": "(OP18) Let's Take Robin Onto Ranked!",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-26T18:00:16+00:00",
+      "video_url": "https://www.youtube.com/watch?v=S6RCDUfVW3s",
+      "format": "OP18",
+      "identified_leaders": [
+        "Robin"
+      ],
+      "matchups_covered": [],
+      "summary": "Let's Take Robin Onto Ranked!"
+    },
+    {
+      "video_id": "bcZ9XjxhwAU",
+      "title": "This Luffy Deck Runs 40x Blockers... And It's Actually BROKEN!",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-26T17:15:06+00:00",
+      "video_url": "https://www.youtube.com/watch?v=bcZ9XjxhwAU",
+      "format": "",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "BAuV4JE7KXM",
+      "title": "LUFFY ST10 NA OP-18: Lista do Gear 5 com Turno Extra | One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-26T15:00:38+00:00",
+      "video_url": "https://www.youtube.com/watch?v=BAuV4JE7KXM",
+      "format": "OP18",
+      "identified_leaders": [
+        "Luffy"
+      ],
+      "matchups_covered": [],
+      "summary": "Levou três anos, mas o Luffy do ST10 finalmente encaixou com o Gear 5... e agora está em 3º lugar no meta!"
+    },
+    {
+      "video_id": "A8cbrf7Nqos",
+      "title": "💭 Entenda tudo sobre o novo deck: Saint Gunko! One Piece Card Game OP18 Deck Profile",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-26T13:00:13+00:00",
+      "video_url": "https://www.youtube.com/watch?v=A8cbrf7Nqos",
+      "format": "OP18",
+      "identified_leaders": [
+        "Saint Gunko"
+      ],
+      "matchups_covered": [],
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
+    },
+    {
       "video_id": "HF4mqyYQArM",
       "title": "Digimon Alysion: Surprise Drop!? Game Launch Livestream!",
       "channel_name": "TheEgman",
@@ -709,19 +823,6 @@
       ],
       "matchups_covered": [],
       "summary": "SUPER!! O Franky chegou na OP-18 transformando Palco em counter! Bora testar ao vivo esse líder verde e roxo!"
-    },
-    {
-      "video_id": "6aOio8klGJ8",
-      "title": "TESTANDO O KAROO OP-18 AO VIVO! O Pato Mais Rápido de Alabasta | One Piece TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-25T16:07:14+00:00",
-      "video_url": "https://www.youtube.com/watch?v=6aOio8klGJ8",
-      "format": "OP18",
-      "identified_leaders": [
-        "Karoo"
-      ],
-      "matchups_covered": [],
-      "summary": "O Karoo virou líder e deixa os bichos de Alabasta entrando com Rush! Bora testar ao vivo se esse pato aguenta o meta da OP-18!"
     },
     {
       "video_id": "hsuSZr8LNUw",
@@ -1309,17 +1410,6 @@
       "summary": "Deck Lists: https://egmanevents.com"
     },
     {
-      "video_id": "2UyabUuoj-s",
-      "title": "GUIA COMPLETO DO PRÉ-RELEASE DE OP-18! Melhores Cartas, Dicas e Como Montar seu Deck",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-19T20:15:06+00:00",
-      "video_url": "https://www.youtube.com/watch?v=2UyabUuoj-s",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Vai jogar o Pré-Release da OP-18 essa semana e quer chegar preparado para buscar aquela carta Winner? Preparei um guia completo do formato Selado com tudo o que você precisa saber antes de abrir se..."
-    },
-    {
       "video_id": "d5--Sl4w3wI",
       "title": "Green Luffy Is Here To SAVE US In OP18!!!!! | G Luffy Deck List and Gameplay",
       "channel_name": "WezaldoTCG",
@@ -1446,17 +1536,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Deck Lists: https://deckbuilder.egmanevents.com/gundam/tournaments?format=GD06"
-    },
-    {
-      "video_id": "9T07m_Ve1Rw",
-      "title": "COMO FOI O REGIONAL BR DE ONE PIECE TCG! Resenha, Meta e Banlist (ft. Borges e Nalu)",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-18T15:00:22+00:00",
-      "video_url": "https://www.youtube.com/watch?v=9T07m_Ve1Rw",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "O Regional BR de One Piece TCG pegou fogo em São Paulo e eu chamei dois finalistas lendários do cenário — Borges e Nalu — para passar o torneio a limpo! Conversamos sobre o meta acelerado da EB-05,..."
     },
     {
       "video_id": "H78YOaD4ONM",
@@ -1975,57 +2054,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "In this video, we learn OP18 with Spandam!"
-    },
-    {
-      "video_id": "AXfkJf5eoa4",
-      "title": "What If Gunko Always Draws Perfectly?",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-11-12T17:00:29+00:00",
-      "video_url": "https://www.youtube.com/watch?v=AXfkJf5eoa4",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
-      "video_id": "3PHm1mqDD-A",
-      "title": "🔵 Xebec domina na EB05? One Piece POV",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-11-12T13:00:11+00:00",
-      "video_url": "https://www.youtube.com/watch?v=3PHm1mqDD-A",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
-    },
-    {
-      "video_id": "7xbyLUNhWSk",
-      "title": "One Piece TCG: Initial Testing With an OP18, Midrange/Bruiser G Luffy Deck - Lock Down and Pressure",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-11-11T21:47:42+00:00",
-      "video_url": "https://www.youtube.com/watch?v=7xbyLUNhWSk",
-      "format": "OP18",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [
-        "PB Gunko 1",
-        "PB Gunko 2",
-        "BY Spandam",
-        "U Sunday"
-      ],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
-      "video_id": "zL7bm-yLVOM",
-      "title": "OP18 Reanimating With Gunko Is STRONG!",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-11-11T18:00:04+00:00",
-      "video_url": "https://www.youtube.com/watch?v=zL7bm-yLVOM",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we learn OP18 with Saint Gunko!"
     },
     {
       "video_id": "vPtrFLGfsR4",
@@ -2771,17 +2799,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "ONE PIECE CARD GAME Extra Booster: -ONE PIECE Heroines Edition vol. 2- [EB-05]"
-    },
-    {
-      "video_id": "v94ZinGnlcw",
-      "title": "Yuuki's Digimon News! | Sep. 24, 2026",
-      "channel_name": "Official Bandai Card Games Channel",
-      "published_at": "2026-09-24T12:00:10+00:00",
-      "video_url": "https://www.youtube.com/watch?v=v94ZinGnlcw",
-      "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "[Digimon Card Game Official Website]"
     },
     {
       "video_id": "BoXGq6uZz-M",
