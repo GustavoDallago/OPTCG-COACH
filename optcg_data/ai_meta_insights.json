@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-27T08:37:12-03:00",
+  "last_updated": "2026-11-28T08:09:10-03:00",
   "total_channels": 15,
   "total_insights": 191,
   "videos_by_leader": {
@@ -112,16 +112,6 @@
         "video_url": "https://www.youtube.com/watch?v=LLngouc4xfw",
         "format": "EB05",
         "matchups_covered": []
-      },
-      {
-        "title": "One Piece TCG: Truck Talk Thursday - Discussing RG Luffy Representation and Results in EB05 Tourneys",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-11-12T21:30:02+00:00",
-        "video_url": "https://www.youtube.com/watch?v=GmYWvzreA6w",
-        "format": "EB05",
-        "matchups_covered": [
-          "RG Luffy"
-        ]
       },
       {
         "title": "Rocks enfrenta Luffy Miracle no regional de Sidney!! - PT-BR",
@@ -335,12 +325,43 @@
         "matchups_covered": []
       }
     ],
+    "franky": [
+      {
+        "title": "SUPER!! Franky Verde e Roxo OP-18 Gameplay ao Vivo | One Piece TCG",
+        "channel_name": "Mestre Arty TCG",
+        "published_at": "2026-11-28T07:13:25+00:00",
+        "video_url": "https://www.youtube.com/watch?v=8UIlNY-tDms",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
+        "title": "One Piece Card Game: OP18 Franky Testing!",
+        "channel_name": "TheEgman",
+        "published_at": "2026-11-25T07:07:59+00:00",
+        "video_url": "https://www.youtube.com/watch?v=BCWSTht5EWw",
+        "format": "OP18",
+        "matchups_covered": []
+      },
+      {
+        "title": "One Piece TCG: Initial Testing With an OP-18, Technical GP Franky Deck - Don!! Tricks and Tempo",
+        "channel_name": "The Vv Theory",
+        "published_at": "2026-11-13T21:19:04+00:00",
+        "video_url": "https://www.youtube.com/watch?v=_ljiSwULhUc",
+        "format": "OP18",
+        "matchups_covered": [
+          "PB Gunko",
+          "RU Karoo",
+          "U Sunday",
+          "BY Spandam"
+        ]
+      }
+    ],
     "spandam": [
       {
-        "title": "O SPANDAM É BOM?! Testando o Líder Preto e Amarelo da OP-18 ao Vivo | One Piece TCG",
+        "title": "DECK SPANDAM OP-18: Decklist, Como Jogar e Gameplay | One Piece TCG",
         "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-11-26T06:05:22+00:00",
-        "video_url": "https://www.youtube.com/watch?v=omlYmDuXbbU",
+        "published_at": "2026-11-27T15:00:02+00:00",
+        "video_url": "https://www.youtube.com/watch?v=yhMYnTRiDgM",
         "format": "OP18",
         "matchups_covered": []
       },
@@ -397,38 +418,15 @@
         ]
       }
     ],
-    "franky": [
-      {
-        "title": "SUPER!! Franky Verde e Roxo OP-18 Gameplay ao Vivo | One Piece TCG",
-        "channel_name": "Mestre Arty TCG",
-        "published_at": "2026-11-25T16:08:24+00:00",
-        "video_url": "https://www.youtube.com/watch?v=8UIlNY-tDms",
-        "format": "OP18",
-        "matchups_covered": []
-      },
-      {
-        "title": "One Piece Card Game: OP18 Franky Testing!",
-        "channel_name": "TheEgman",
-        "published_at": "2026-11-25T07:07:59+00:00",
-        "video_url": "https://www.youtube.com/watch?v=BCWSTht5EWw",
-        "format": "OP18",
-        "matchups_covered": []
-      },
-      {
-        "title": "One Piece TCG: Initial Testing With an OP-18, Technical GP Franky Deck - Don!! Tricks and Tempo",
-        "channel_name": "The Vv Theory",
-        "published_at": "2026-11-13T21:19:04+00:00",
-        "video_url": "https://www.youtube.com/watch?v=_ljiSwULhUc",
-        "format": "OP18",
-        "matchups_covered": [
-          "PB Gunko",
-          "RU Karoo",
-          "U Sunday",
-          "BY Spandam"
-        ]
-      }
-    ],
     "ms. all sunday": [
+      {
+        "title": "Learn to Play Ms. All Sunday! | OP18 Miss All Sunday Guide ft. @vamptcg",
+        "channel_name": "real_joshua",
+        "published_at": "2026-11-28T00:00:53+00:00",
+        "video_url": "https://www.youtube.com/watch?v=mtudDC7M_R0",
+        "format": "OP18",
+        "matchups_covered": []
+      },
       {
         "title": "MS. ALL SUNDAY OP-18: Lista Completa de Baroque Works Azul | One Piece TCG",
         "channel_name": "Mestre Arty TCG",
@@ -451,11 +449,11 @@
     ],
     "enel": [
       {
-        "title": "🐉O poderoso Kaido consegue superar o Enel? One Piece POV EB05",
+        "title": "🔝 Imu e Enel de volta ao meta? One Piece OP18",
         "channel_name": "Café Com One Piece",
-        "published_at": "2026-11-15T13:00:26+00:00",
-        "video_url": "https://www.youtube.com/watch?v=yW-sQ-lqEn4",
-        "format": "EB05",
+        "published_at": "2026-11-27T15:00:15+00:00",
+        "video_url": "https://www.youtube.com/watch?v=78nNabF3G4c",
+        "format": "OP18",
         "matchups_covered": []
       },
       {
@@ -586,6 +584,117 @@
     ]
   },
   "latest_videos": [
+    {
+      "video_id": "Awr__iVvueI",
+      "title": "Digimon Alysion: Red Alysion Deck Building and Ranked Games!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-28T07:58:30+00:00",
+      "video_url": "https://www.youtube.com/watch?v=Awr__iVvueI",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://egmanevents.com"
+    },
+    {
+      "video_id": "8UIlNY-tDms",
+      "title": "SUPER!! Franky Verde e Roxo OP-18 Gameplay ao Vivo | One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-28T07:13:25+00:00",
+      "video_url": "https://www.youtube.com/watch?v=8UIlNY-tDms",
+      "format": "OP18",
+      "identified_leaders": [
+        "Franky"
+      ],
+      "matchups_covered": [],
+      "summary": "SUPER!! O Franky chegou na OP-18 transformando Palco em counter! Bora testar ao vivo esse líder verde e roxo!"
+    },
+    {
+      "video_id": "mtudDC7M_R0",
+      "title": "Learn to Play Ms. All Sunday! | OP18 Miss All Sunday Guide ft. @vamptcg",
+      "channel_name": "real_joshua",
+      "published_at": "2026-11-28T00:00:53+00:00",
+      "video_url": "https://www.youtube.com/watch?v=mtudDC7M_R0",
+      "format": "OP18",
+      "identified_leaders": [
+        "Ms. All Sunday"
+      ],
+      "matchups_covered": [],
+      "summary": "Thanks to TCGPlayer for sponsoring this video! Earn 10% Store Credit on all products for Cyber Weekend using my affiliate link: https://partner.tcgplayer.com/realjoshua"
+    },
+    {
+      "video_id": "AvK3ZwlTy1M",
+      "title": "One Piece TCG: Truck Talk and Yap Session - Trying to Build Rogue Decks in the OP-18 Format",
+      "channel_name": "The Vv Theory",
+      "published_at": "2026-11-27T22:09:53+00:00",
+      "video_url": "https://www.youtube.com/watch?v=AvK3ZwlTy1M",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
+    },
+    {
+      "video_id": "83gfn9yJPTI",
+      "title": "Is Crocodile the Answer to Gunkos Problem!?",
+      "channel_name": "Hashtag EMB",
+      "published_at": "2026-11-27T18:00:35+00:00",
+      "video_url": "https://www.youtube.com/watch?v=83gfn9yJPTI",
+      "format": "",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Check out Ultimate Guard here:"
+    },
+    {
+      "video_id": "R588_ZRYEbU",
+      "title": "[OP18] Ms All Sunday Deck Guide + Gameplay",
+      "channel_name": "Car D. Kaizoku",
+      "published_at": "2026-11-27T18:00:10+00:00",
+      "video_url": "https://www.youtube.com/watch?v=R588_ZRYEbU",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [
+        "U Rocks",
+        "PB Gunko",
+        "P Enel"
+      ],
+      "summary": "In this video, we go over our guide to Blue Ms All Sunday in OP18! We go over a decklist, explain the card choices, go over matchups and then we cap it off with sample gameplay footage!"
+    },
+    {
+      "video_id": "-LMpZu-sJzg",
+      "title": "One Piece Card Game: OP18 Format! Week 1 Stats and Deck Lists!",
+      "channel_name": "TheEgman",
+      "published_at": "2026-11-27T15:30:16+00:00",
+      "video_url": "https://www.youtube.com/watch?v=-LMpZu-sJzg",
+      "format": "OP18",
+      "identified_leaders": [],
+      "matchups_covered": [],
+      "summary": "Deck Lists: https://deckbuilder.egmanevents.com/optcg/tournaments?format=OP18&tab=ranked"
+    },
+    {
+      "video_id": "78nNabF3G4c",
+      "title": "🔝 Imu e Enel de volta ao meta? One Piece OP18",
+      "channel_name": "Café Com One Piece",
+      "published_at": "2026-11-27T15:00:15+00:00",
+      "video_url": "https://www.youtube.com/watch?v=78nNabF3G4c",
+      "format": "OP18",
+      "identified_leaders": [
+        "Enel"
+      ],
+      "matchups_covered": [],
+      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
+    },
+    {
+      "video_id": "yhMYnTRiDgM",
+      "title": "DECK SPANDAM OP-18: Decklist, Como Jogar e Gameplay | One Piece TCG",
+      "channel_name": "Mestre Arty TCG",
+      "published_at": "2026-11-27T15:00:02+00:00",
+      "video_url": "https://www.youtube.com/watch?v=yhMYnTRiDgM",
+      "format": "OP18",
+      "identified_leaders": [
+        "Spandam"
+      ],
+      "matchups_covered": [],
+      "summary": "O vilão mais covarde de One Piece manda o CP9 fazer o trabalho sujo... e ainda regenera vida todo turno!"
+    },
     {
       "video_id": "lLDbbXe0Sts",
       "title": "UNBOXING OP-18 AO VIVO! Abrindo The Dominance of God com a TCG BR e a Titan | One Piece TCG",
@@ -754,7 +863,7 @@
       "format": "",
       "identified_leaders": [],
       "matchups_covered": [],
-      "summary": "Deck Lists:"
+      "summary": "Egman Events has been updated for Digimon Alysion:"
     },
     {
       "video_id": "4C2ClOftTQE",
@@ -810,19 +919,6 @@
       ],
       "matchups_covered": [],
       "summary": "Um líder que volta a ficar ativo e bate de novo! Bora testar ao vivo o Luffy verde da OP-18!"
-    },
-    {
-      "video_id": "8UIlNY-tDms",
-      "title": "SUPER!! Franky Verde e Roxo OP-18 Gameplay ao Vivo | One Piece TCG",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-25T16:08:24+00:00",
-      "video_url": "https://www.youtube.com/watch?v=8UIlNY-tDms",
-      "format": "OP18",
-      "identified_leaders": [
-        "Franky"
-      ],
-      "matchups_covered": [],
-      "summary": "SUPER!! O Franky chegou na OP-18 transformando Palco em counter! Bora testar ao vivo esse líder verde e roxo!"
     },
     {
       "video_id": "hsuSZr8LNUw",
@@ -1306,19 +1402,6 @@
       "summary": "Is this an EGB terror or a balanced version of OP13 RG Luffy?"
     },
     {
-      "video_id": "sDKqtiHqAl8",
-      "title": "ENTREVISTA COM O CAMPEÃO DO REGIONAL BR! Henrique Vaz Conta Tudo Sobre o Título de RG Luffy",
-      "channel_name": "Mestre Arty TCG",
-      "published_at": "2026-11-20T15:30:01+00:00",
-      "video_url": "https://www.youtube.com/watch?v=sDKqtiHqAl8",
-      "format": "OP18",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [],
-      "summary": "Recebi no canal o grande campeão do Regional Brasileiro de One Piece Card Game (novembro de 2026), Henrique Vaz! Batemos um papo completo sobre a campanha invicta de 10-0 no suíço com RG Luffy, os ..."
-    },
-    {
       "video_id": "V-cZbxK7B8w",
       "title": "One Piece Card Game: OP18 Release! Double Box Opening!",
       "channel_name": "TheEgman",
@@ -1713,17 +1796,6 @@
       "summary": "Thank you for supporting me by supporting my sponsors."
     },
     {
-      "video_id": "vEyrvjm7Gx8",
-      "title": "One Piece Card Game: FIRST Gunko OP18 Testing Stream!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-17T09:58:25+00:00",
-      "video_url": "https://www.youtube.com/watch?v=vEyrvjm7Gx8",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://egmanevents.com"
-    },
-    {
       "video_id": "fEicmXhUIMk",
       "title": "First OP-18 Chinoize cup with Gunko!",
       "channel_name": "Hashtag EMB",
@@ -1757,17 +1829,6 @@
       ],
       "matchups_covered": [],
       "summary": "In this video, we learn OP18 with Green Luffy!"
-    },
-    {
-      "video_id": "hGQdlndyTbc",
-      "title": "One Piece Card Game: Restriction Prediction And Week 2 EB05 Format Tournament Results!",
-      "channel_name": "TheEgman",
-      "published_at": "2026-11-16T15:00:37+00:00",
-      "video_url": "https://www.youtube.com/watch?v=hGQdlndyTbc",
-      "format": "EB05",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Deck Lists: https://deckbuilder.egmanevents.com/optcg/tournaments?format=OP17"
     },
     {
       "video_id": "sLNabXTf1Dk",
@@ -1973,30 +2034,6 @@
       "summary": "In this video, we take a look at preliminary OP18 data and we take a look at what people are building! Interested in Gunko, Ms All Sunday, Karoo, Franky, Spandam, or Green Luffy? This is the video ..."
     },
     {
-      "video_id": "8_omMbacloA",
-      "title": "Is Newgate the Answer to the OP-18 Meta?!",
-      "channel_name": "Hashtag EMB",
-      "published_at": "2026-11-13T16:00:26+00:00",
-      "video_url": "https://www.youtube.com/watch?v=8_omMbacloA",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Check out Ultimate Guard here:"
-    },
-    {
-      "video_id": "Vafsh9MyGfI",
-      "title": "🐉 EB05 trouxe o necessário para o Kaido? vs Xebec! One Piece POV",
-      "channel_name": "Café Com One Piece",
-      "published_at": "2026-11-13T13:00:12+00:00",
-      "video_url": "https://www.youtube.com/watch?v=Vafsh9MyGfI",
-      "format": "EB05",
-      "identified_leaders": [
-        "Kaido"
-      ],
-      "matchups_covered": [],
-      "summary": "🎟️ Copa Café #10 https://loja.cafecomonepiece.com.br/products/copa-cafe-win-a-box-10"
-    },
-    {
       "video_id": "3D4f9b932zY",
       "title": "Every TCG Player on a Trip be Like",
       "channel_name": "AkemiTCG",
@@ -2019,21 +2056,6 @@
       "summary": "Analise de deck e gameplay."
     },
     {
-      "video_id": "GmYWvzreA6w",
-      "title": "One Piece TCG: Truck Talk Thursday - Discussing RG Luffy Representation and Results in EB05 Tourneys",
-      "channel_name": "The Vv Theory",
-      "published_at": "2026-11-12T21:30:02+00:00",
-      "video_url": "https://www.youtube.com/watch?v=GmYWvzreA6w",
-      "format": "EB05",
-      "identified_leaders": [
-        "Luffy"
-      ],
-      "matchups_covered": [
-        "RG Luffy"
-      ],
-      "summary": "Sup guys, Vv back with another video. Thanks for stopping by, please don't forget to Like and Subscribe."
-    },
-    {
       "video_id": "AMPawLNkPdI",
       "title": "Só 1 TCG pode SOBREVIVER. Qual ganhou? #Shorts #pokemon #onepiece",
       "channel_name": "tcgBR",
@@ -2043,17 +2065,6 @@
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Pokémon, Yu-Gi-Oh, One Piece, Lorcana… quem ganha fica. Repara no final 👀"
-    },
-    {
-      "video_id": "TZZJK8H0PLk",
-      "title": "BUSTIN' MAKES ME FEEL GOOD",
-      "channel_name": "Car D. Kaizoku",
-      "published_at": "2026-11-12T18:00:13+00:00",
-      "video_url": "https://www.youtube.com/watch?v=TZZJK8H0PLk",
-      "format": "OP18",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "In this video, we learn OP18 with Spandam!"
     },
     {
       "video_id": "vPtrFLGfsR4",
@@ -2877,17 +2888,6 @@
       "published_at": "2026-09-03T06:07:50+00:00",
       "video_url": "https://www.youtube.com/watch?v=vNxI4aQggx4",
       "format": "",
-      "identified_leaders": [],
-      "matchups_covered": [],
-      "summary": "Analise de deck e gameplay."
-    },
-    {
-      "video_id": "P-mf22LejUE",
-      "title": "3 leaders to BEAT Mihawk in OP17! #optcg #tcg",
-      "channel_name": "real_joshua",
-      "published_at": "2026-09-01T22:30:03+00:00",
-      "video_url": "https://www.youtube.com/watch?v=P-mf22LejUE",
-      "format": "OP17",
       "identified_leaders": [],
       "matchups_covered": [],
       "summary": "Analise de deck e gameplay."
